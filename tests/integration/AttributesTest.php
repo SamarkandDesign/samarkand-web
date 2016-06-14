@@ -11,6 +11,8 @@ class AttributesTest extends TestCase
     /** @test **/
     public function it_filters_products_by_an_attribute()
     {
+        $this->withoutEvents();
+        
         $attribute = factory(ProductAttribute::class)->create(['name' => 'Size', 'property' => 'Huge', 'property_slug' => 'huge']);
 
         $product_1 = factory(Product::class)->create();

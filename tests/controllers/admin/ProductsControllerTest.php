@@ -14,6 +14,7 @@ class ProductsControllerTest extends \TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->withoutEvents();
         $this->user = $this->logInAsAdmin();
     }
 

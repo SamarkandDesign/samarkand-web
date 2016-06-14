@@ -17,6 +17,7 @@ class SearchableProductUpdatesIndexTest extends TestCase
     /** @test */
     public function it_updates_the_search_index_when_product_updated()
     {
+        \SearchIndex::shouldReceive('upsertToIndex')->once();
         $product = factory(Product::class)->create();
 
         \SearchIndex::shouldReceive('upsertToIndex')->once();
@@ -26,6 +27,7 @@ class SearchableProductUpdatesIndexTest extends TestCase
     /** @test */
     public function it_removes_the_product_from_the_search_index_when_deleted()
     {
+        \SearchIndex::shouldReceive('upsertToIndex')->once();
         $product = factory(Product::class)->create();
 
         \SearchIndex::shouldReceive('removeFromIndex')->once();

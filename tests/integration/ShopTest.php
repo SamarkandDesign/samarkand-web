@@ -6,7 +6,7 @@ use TestCase;
 
 class ShopTest extends TestCase
 {
-    use \UsesCart;
+    use \UsesCart, \FlushesProductEvents;
 
     /** @test **/
     public function it_can_add_a_product_to_the_cart()

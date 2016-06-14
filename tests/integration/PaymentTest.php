@@ -7,7 +7,7 @@ use TestCase;
 
 class PaymentTest extends TestCase
 {
-    use \CreatesOrders, \UsesCart, \MailTracking;
+    use \CreatesOrders, \UsesCart, \MailTracking, \FlushesProductEvents;
 
     /** @test **/
     public function it_completes_an_order_upon_payment()

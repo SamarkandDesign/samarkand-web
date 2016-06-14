@@ -4,6 +4,12 @@ use App\Product;
 
 class RefreshSearchIndexTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->withoutEvents();
+    }
+
     /** @test */
     public function it_refreshes_products_in_the_index()
     {

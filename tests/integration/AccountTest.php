@@ -9,6 +9,12 @@ class AccountTest extends TestCase
 {
     use \CreatesOrders;
 
+    public function setUp()
+    {
+        parent::setUp();
+        $this->withoutEvents();
+    }
+
     /** @test **/
     public function it_can_see_the_account_page()
     {

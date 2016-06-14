@@ -3,11 +3,18 @@
 namespace Integration;
 
 use App\User;
+use App\Product;
 use TestCase;
 
 class OrderTest extends TestCase
 {
     use \UsesCart, \CreatesOrders;
+
+    public function setUp()
+    {
+        parent::setUp();
+        Product::flushEventListeners();
+    }
 
     /** @test **/
     public function it_redirects_to_login_if_email_is_recognised()

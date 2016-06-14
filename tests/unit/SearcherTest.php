@@ -5,6 +5,7 @@ class SearcherTest extends TestCase
     /** @test */
     public function it_searches_for_products()
     {
+        $this->withoutEvents();
         $searcher = new App\Search\ProductSearcher();
         $product = factory('App\Product')->create()->toArray();
 

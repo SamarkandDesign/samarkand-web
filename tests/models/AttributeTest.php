@@ -9,6 +9,8 @@ class AttributeTest extends TestCase
     /** @test **/
     public function it_gets_a_count_of_related_products()
     {
+        $this->withoutEvents();
+
         $attribute = factory(ProductAttribute::class)->create(['name' => 'Size']);
 
         $products = factory(Product::class, 3)->create();

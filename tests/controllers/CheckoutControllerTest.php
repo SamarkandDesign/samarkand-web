@@ -9,6 +9,7 @@ class CheckoutControllerTest extends \TestCase
     /** @test **/
     public function it_shows_the_checkout_page()
     {
+        $this->withoutEvents();
         $product = $this->putProductInCart();
         $this->visit('checkout')
              ->see($product->name);

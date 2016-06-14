@@ -6,6 +6,12 @@ use App\Product;
 
 class ProductsControllerTest extends \TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->withoutEvents();
+    }
+    
     /** @test **/
     public function it_can_view_the_shop_page()
     {

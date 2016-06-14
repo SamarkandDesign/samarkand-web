@@ -6,6 +6,8 @@ use TestCase;
 
 class UsersTest extends TestCase
 {
+    use \FlushesProductEvents;
+
     /** @test **/
     public function it_can_create_a_new_user()
     {

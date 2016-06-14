@@ -25,6 +25,7 @@ class UpsertModelToSearchIndex implements ShouldQueue
      */
     public function handle(Searchable $model)
     {
+        var_dump('handling upsertion!');
         \SearchIndex::upsertToIndex($model);
     }
 }

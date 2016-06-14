@@ -7,7 +7,7 @@ use TestCase;
 
 class OrdersTest extends TestCase
 {
-    use \CreatesOrders;
+    use \CreatesOrders, \FlushesProductEvents;
 
     /** @test */
     public function it_shows_a_list_of_orders_and_allows_order_completion()
