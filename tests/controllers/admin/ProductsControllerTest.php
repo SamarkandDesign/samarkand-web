@@ -9,12 +9,13 @@ use Illuminate\Http\UploadedFile;
 
 class ProductsControllerTest extends \TestCase
 {
+    use \FlushesProductEvents;
+
     private $user;
 
     public function setUp()
     {
         parent::setUp();
-        $this->withoutEvents();
         $this->user = $this->logInAsAdmin();
     }
 

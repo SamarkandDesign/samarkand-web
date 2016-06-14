@@ -6,13 +6,7 @@ use TestCase;
 
 class OrderTest extends TestCase
 {
-    use \UsesCart;
-
-    public function setUp()
-    {
-        parent::setUp();
-        Product::flushEventListeners();
-    }
+    use \UsesCart, \FlushesProductEvents;
 
     /** @test **/
     public function it_adds_a_product_to_an_order()

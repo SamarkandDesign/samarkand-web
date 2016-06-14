@@ -9,13 +9,7 @@ use TestCase;
 
 class ProductStockChangedEventTest extends TestCase
 {
-    use \MailTracking;
-
-    public function setUp()
-    {
-        parent::setUp();
-        Product::flushEventListeners();
-    }
+    use \MailTracking, \FlushesProductEvents;
 
     /** @test **/
     public function it_alerts_to_a_product_being_out_of_stock()
