@@ -1,0 +1,15 @@
+/bootstrap/compiled.php
+/vendor
+/bower_components
+/node_modules
+composer.phar
+.env
+.DS_Store
+Thumbs.db
+_ide_helper.php
+/.idea
+npm-debug.log
+npm-debug.log.*
+/public/uploads
+tags
+.tags_swap

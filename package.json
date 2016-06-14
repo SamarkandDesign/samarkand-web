@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "laravel-elixir": "^4.0.0",
+    "laravel-elixir-vueify": "^1.0.0",
+    "bootstrap-sass": "^3.0.0"
+  },
+  "browser": {
+    "bootstrap": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"
+  },
+  "dependencies": {
+    "dropzone": "^4.3.0",
+    "jquery": "^2.2.0",
+    "marked": "^0.3.5",
+    "select2": "^4.0.1",
+    "vue-resource": "^0.7.0"
+  }
+}
