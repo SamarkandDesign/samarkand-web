@@ -1,0 +1,45 @@
+$font-family-sans-serif: 'Muli', sans-serif;
+
+// Colours
+
+$or-melon:			desaturate(darken(#F55D2C, 15%), 18%); //dark orange
+$footer-blue: 		#33495e; //dark blue
+$light-blue: 		#ABDED6;
+$bg-white:			#CAC5AC; // Light Brown
+$an-white:			#989377; // Brown
+$trq: 				#4D8580; // greeny turquoise
+$gold:              #f0ad4e;
+
+$brand1: $or-melon;
+$brand2: $footer-blue;
+$brand3: $light-blue;
+$brand4: $bg-white;
+$brand5: $an-white;
+
+$brand-primary:         $or-melon; //#428bca;
+$brand-success:         #047d5e;   //#5cb85c;
+$brand-info:            $or-melon;
+$brand-warning:         $gold;
+$brand-danger: #a64b45;   //#d9534f;
+
+$gray-light:             lighten(#000, 46.7%);
+
+$alert-text-color: $gray-light;
+
+$state-success-text:             $alert-text-color;
+$state-info-text:                $alert-text-color;
+$state-warning-text:             $alert-text-color;
+$state-danger-text:              $alert-text-color;
+
+$state-success-border:               $brand-success;
+$state-info-border:                  $brand-primary;
+$state-warning-border:               $brand-warning;
+$state-danger-border:                $brand-danger;
+
+$state-success-text:               $brand-success;
+//$state-info-text:                  $brand-primary;
+//$state-warning-text:               $brand-warning;
+$state-danger-text:                $brand-danger;
+
+
+$border-radius-base: 2px;

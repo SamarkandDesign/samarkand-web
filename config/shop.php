@@ -3,7 +3,7 @@
 return [
 
     'name'              => env('SHOP_NAME', 'Samarkand Design'),
-    'logo'              => env('BRAND_LOGO', 'http://placehold.it/500'),
+    'logo'              => env('BRAND_LOGO', '/img/samarkand-logo-250.svg'),
 
     'currency'          => env('SHOP_CURRENCY', 'GBP'),
     'currency_symbol'   => env('SHOP_CURRENCY_SYMBOL', '&pound;'),

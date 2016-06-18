@@ -12,12 +12,13 @@ var adminltepath = 'vendor/almasaeed2010/adminlte/dist/';
 elixir(function(mix) {
 
     mix.sass('admin.scss', cssAdminPath + 'admin.css', {
-    	includePaths: [
-        'node_modules'
-        ]
-    	});
+    	includePaths: [ 'node_modules' ]
+    });
+    mix.sass('main.scss', null, {
+    	includePaths: [ 'node_modules' ]
+    });
 
-    mix.browserify('admin.js');
+    //mix.browserify('admin.js');
     mix.browserify('main.js');
 
 
@@ -31,6 +32,6 @@ elixir(function(mix) {
         ], 'public/css/admin.css');
 
     mix.version([
-        'css/admin.css', 'js/admin.js'
+        'css/admin.css', 'js/admin.js', 'css/main.css'
         ]);
 });
