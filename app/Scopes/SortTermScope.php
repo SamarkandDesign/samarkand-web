@@ -21,6 +21,6 @@ class SortTermScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->orderBy('order', 'ASC')->orderBy('term', 'ASC');
+        return $builder->orderBy('order', 'ASC')->orderBy('slug', 'ASC');
     }
 }
