@@ -4,22 +4,23 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\User;
+use App\Role;
 
-class CreateAdminUser extends Command
+class InitialiseApp extends Command
 {
     /**
     * The name and signature of the console command.
     *
     * @var string
     */
-    protected $signature = 'skd:create-admin {email : The email address of the admin} {password : The password for the admin}';
+    protected $signature = 'skd:init {email : The email address of the admin} {password : The password for the admin}';
 
     /**
     * The console command description.
     *
     * @var string
     */
-    protected $description = 'Create an admin user';
+    protected $description = 'Initialise the application with a new user';
 
     /**
     * Create a new command instance.
@@ -41,6 +42,8 @@ class CreateAdminUser extends Command
         $email = $this->argument('email');
         $password = $this->argument('password');
 
+        $this->makeRoles();
+
         $user = User::where('email', $email)->first();
         if (!$user) {
             $user = User::create([
@@ -48,11 +51,20 @@ class CreateAdminUser extends Command
                 'password' => $password,
                 'username' => str_slug($email)
             ]);
+            $user->assignRole('admin');
 
             $this->info("Created new admin user with email $email");
             return;
         }
 
         $this->info("User with email $email already exists. Done nothing.");
+    }
+
+    private function makeRoles()
+    {
+        $roles = collect(array_keys(User::$base_roles))->map(function($role) {
+            return Role::firstOrCreate(['name' => $role]);
+        });
+        $this->info('Created Roles: ' . $roles->pluck('display_name')->implode(', '));
     }
 }

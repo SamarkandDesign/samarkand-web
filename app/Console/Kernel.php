@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         // 'App\Console\Commands\Inspire',
         \App\Console\Commands\CancelAbandonedOrders::class,
         \App\Console\Commands\RefreshSearchIndex::class,
-        \App\Console\Commands\CreateAdminUser::class,
+        \App\Console\Commands\InitialiseApp::class,
     ];
 
     /**
