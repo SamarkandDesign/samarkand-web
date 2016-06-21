@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
+		"ext-gd": "*",
 		"laravel/framework": "5.2.*",
 		"laravelcollective/html": "5.*",
 		"league/flysystem-aws-s3-v3": "^1.0@dev",
