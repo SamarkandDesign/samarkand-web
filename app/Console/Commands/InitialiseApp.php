@@ -50,6 +50,7 @@ class InitialiseApp extends Command
                 'email'    => $email,
                 'password' => $password,
                 'username' => str_slug($email),
+                'name'     => 'admin',
             ]);
             $user->assignRole('admin');
 
@@ -63,8 +64,8 @@ class InitialiseApp extends Command
 
     private function makeRoles()
     {
-        $roles = collect(array_keys(User::$base_roles))->map(function ($role) {
-            return Role::firstOrCreate(['name' => $role]);
+        $roles = collect(User::$base_roles)->map(function($role, $slug) {
+            return Role::firstOrCreate(['name' => $slug, 'display_name' => $role]);
         });
         $this->info('Created Roles: '.$roles->pluck('display_name')->implode(', '));
     }

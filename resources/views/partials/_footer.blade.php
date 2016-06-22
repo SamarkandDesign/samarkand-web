@@ -55,7 +55,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank" rel="nofollow" href="http://pinterest.com"><i class="fa fa-pinterest"></i>
+                                <a target="_blank" rel="nofollow" href="http://houzz.com"><i class="fa fa-houzz"></i>
                                 </a>
                             </li>
                         </ul>

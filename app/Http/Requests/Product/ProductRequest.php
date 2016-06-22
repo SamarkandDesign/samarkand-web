@@ -23,7 +23,7 @@ class ProductRequest extends Request
      */
     public function defaultRules()
     {
-        $price = $this->get('price', 99999);
+        $price = $this->get('price', 9999999);
 
         return [
             'name'       => 'required|string',
@@ -31,9 +31,8 @@ class ProductRequest extends Request
             'sku'        => 'required|unique:products,sku',
             'price'      => 'numeric|min:0',
             'sale_price' => sprintf('numeric|min:0|max:%f', $price),
-            'stock_qty'  => 'numeric',
+            'stock_qty'  => 'integer',
             'user_id'    => 'required|integer',
-            'image_id'   => 'integer',
         ];
     }
 

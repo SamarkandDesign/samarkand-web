@@ -21,7 +21,6 @@ class CreatePagesTable extends Migration
             $table->string('path')->unique()->nullable();
 
             $table->integer('user_id')->unsigned();
-            $table->integer('image_id')->unsigned()->nullable();
 
             // Nested Set relations
             $table->integer('parent_id')->nullable();

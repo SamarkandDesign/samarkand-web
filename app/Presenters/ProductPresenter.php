@@ -87,6 +87,11 @@ class ProductPresenter extends ModelPresenter
      */
     public function stock()
     {
-        return $this->model->stock_qty > 0 ? sprintf('%s in stock', $this->model->stock_qty) : 'Out of stock';
+        $stock = $this->model->stock_qty;
+        if (is_null($stock)) {
+          // Stock is not set, don't display
+          return '';
+        }
+        return $stock > 0 ? sprintf('%s in stock', $stock) : 'Out of stock';
     }
 }

@@ -40,12 +40,12 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit')->with(compact('user', 'roles'));
+        return view('admin.users.edit')->with(compact('user'));
     }
 
     public function create(User $user)
     {
-        return view('admin.users.create', compact('user', 'roles'));
+        return view('admin.users.create', compact('user'));
     }
 
     public function store(CreateUserRequest $request, User $user)

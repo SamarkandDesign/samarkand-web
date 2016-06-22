@@ -1,16 +1,13 @@
-
-@if ($product->media->count() < 2)
-
-<img src="{{ $product->media->count() ? $product->media->first()->getUrl('wide') : 'http://placehold.it/1300x866' }}" alt="%s" style="width:100%;" class="img-responsive">
-
+@if ($product->media->count() === 1)
+  <img src="{{ $product->media->first()->getUrl('wide') }}" alt="{{ $product->media->first()->getCustomProperty('title') }}" style="width:100%;" class="img-responsive">
+@elseif ($product->media->count() === 0)
+  <img src="http://placehold.it/1300x866" alt="Placeholder image" style="width:100%;" class="img-responsive">
 @else
-
-<carousel>
+  <carousel>
     @foreach($product->media as $key => $media)
-    <slider>
-		<img src="{{ $media->getUrl('wide') }}">
-	</slider>
+      <slider>
+        <img src="{{ $media->getUrl('wide') }}" alt="{{ $media->getCustomProperty('title') }}">
+      </slider>
     @endforeach
-</carousel>
-
+  </carousel>
 @endif

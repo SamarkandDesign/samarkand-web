@@ -17,6 +17,11 @@
                 <span class="fa fa-chevron-right" aria-hidden="true"></span>
             </a>
         </div>
+
+        <!-- optional overlay -->
+        <div class="overlay-wrap">
+            <slot name="overlay"></slot>
+        </div>
     </div>
 </template>
 
@@ -146,7 +151,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .carousel-control {
     cursor: pointer;
     display: flex;
@@ -154,5 +159,22 @@ export default {
     align-items: center;
     background-image: none;
     font-size: 30px;
+    z-index: 6
+}
+.overlay-wrap{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+  left: 0;
+  right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  z-index: 4;
+  text-align: center;
+  color: #fff;
+  .overlay-content {
+    width: 100%;
+  }
 }
 </style>

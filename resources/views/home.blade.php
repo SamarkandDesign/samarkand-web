@@ -1,32 +1,33 @@
 @extends('layouts.full_width')
 
 @section('content')
-	{{--
-<div class="home-slider">
-	@include('partials._carousel', ['images' => [
-	'https://unsplash.it/1500/600/?image=' . mt_rand(1,1087),
-	'https://unsplash.it/1500/600/?image=' . mt_rand(1,1087)
-	]])
 
-</div> --}}
+	<carousel>
+		<slider>
+			<img src="https://samarkanddesign.com/wp-content/uploads/2016/03/hero-3.jpg">
+		</slider>
+		<slider>
+			<img src="https://samarkanddesign.com/wp-content/uploads/2016/03/hero-kanthas.jpg">
+		</slider>
+		<slider>
+			<img src="https://samarkanddesign.com/wp-content/uploads/2016/03/hero-2.jpg">
+		</slider>
 
-<carousel>
-	<slider>
-		<img src="https://unsplash.it/1500/600/?image={{mt_rand(1,1087)}}">
-	</slider>
-	<slider>
-		<img src="https://unsplash.it/1500/600/?image={{mt_rand(1,1087)}}">
-	</slider>
-	<slider>
-		<img src="https://unsplash.it/1500/600/?image={{mt_rand(1,1087)}}">
-	</slider>
-</carousel>
+		<div slot="overlay" style="width:100%;">
+			<img src="/img/samarkand-logo-250.svg" class="" alt="Samarkand Design Logo" style="width: 20%; height: auto;">
+			<div class="hidden-xs">
+			</div>
+		</div>
+	</carousel>
 
+	<div class="container top-buffer text-center">
+		<h1>Samarkand Design</h1>
+		<h2>Crossroads of Culture</h2>
+		<p>Once a major crossing point on the great trade routes of Central Asia, the historic town of Samarkand now lies in modern day Uzbekistan, a melting pot of global cultures.</p>
 
-<div class="container">
-	<p class="text-center">
-		You are at Crueset! This is the front-end of the site, which currently doesn't exist. You can <a href="{{ route('auth.login') }}">login</a> or <a href="{{ route('auth.register') }}">register</a> to get started.
-	</p>
-</div>
+		<p>At Samarkand we source vintage textiles from around the world to create unique and distinctive home accessories.  By reinterpreting time-honoured skills and design with modern flair, we create pieces with the perfect balance of tradition and contemporary style.</p>
+
+		<p>From silk lampshades, hand-crafted from vintage sarees, to framed embroideries and textiles, each piece is carefully selected as a beautiful, one-off accent for your home.</p>
+	</div>
 
 @endsection
