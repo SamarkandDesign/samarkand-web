@@ -25,12 +25,12 @@ class UsersTableSeeder extends Seeder
 
         // Make some auto-generated users for extra usage
         $users = array_map(function ($i) use ($roles) {
-                $user = factory('App\User')->create();
+            $user = factory('App\User')->create();
 
-                $role = $roles[array_rand($roles)];
+            $role = $roles[array_rand($roles)];
 
-                return $user->assignRole($role->name);
-            }, range(1, 8));
+            return $user->assignRole($role->name);
+        }, range(1, 8));
     }
 
     private function seedRoles()

@@ -7,7 +7,7 @@ use TestCase;
 class ProductTest extends TestCase
 {
     use \FlushesProductEvents;
-    
+
     /** @test */
     public function it_gets_the_searchable_body_of_a_product()
     {

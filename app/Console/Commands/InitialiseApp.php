@@ -2,41 +2,41 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\User;
 use App\Role;
+use App\User;
+use Illuminate\Console\Command;
 
 class InitialiseApp extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'skd:init {email : The email address of the admin} {password : The password for the admin}';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Initialise the application with a new user';
 
     /**
-    * Create a new command instance.
-    *
-    * @return void
-    */
+     * Create a new command instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         $email = $this->argument('email');
@@ -47,13 +47,14 @@ class InitialiseApp extends Command
         $user = User::where('email', $email)->first();
         if (!$user) {
             $user = User::create([
-                'email' => $email,
+                'email'    => $email,
                 'password' => $password,
-                'username' => str_slug($email)
+                'username' => str_slug($email),
             ]);
             $user->assignRole('admin');
 
             $this->info("Created new admin user with email $email");
+
             return;
         }
 
@@ -62,9 +63,9 @@ class InitialiseApp extends Command
 
     private function makeRoles()
     {
-        $roles = collect(array_keys(User::$base_roles))->map(function($role) {
+        $roles = collect(array_keys(User::$base_roles))->map(function ($role) {
             return Role::firstOrCreate(['name' => $role]);
         });
-        $this->info('Created Roles: ' . $roles->pluck('display_name')->implode(', '));
+        $this->info('Created Roles: '.$roles->pluck('display_name')->implode(', '));
     }
 }

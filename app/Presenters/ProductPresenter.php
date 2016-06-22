@@ -20,8 +20,8 @@ class ProductPresenter extends ModelPresenter
     public function categoryList($delimiter = ', ', $links = true)
     {
         $categoryNames = $links ? $this->model->product_categories->map(function ($category) {
-      return sprintf('<a href="%s" title="edit %s category">%s</a>', route('admin.categories.edit', $category), $category->term, $category->term);
-    }) : $this->model->product_categories->pluck('term');
+            return sprintf('<a href="%s" title="edit %s category">%s</a>', route('admin.categories.edit', $category), $category->term, $category->term);
+        }) : $this->model->product_categories->pluck('term');
 
         return new HtmlString($categoryNames->implode($delimiter));
     }

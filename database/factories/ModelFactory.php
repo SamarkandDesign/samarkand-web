@@ -2,7 +2,6 @@
 
 
 $factory->define('App\Post', function ($faker) {
-
     $creationDate = $faker->dateTimeThisMonth();
     $title = $faker->sentence;
 
@@ -18,7 +17,6 @@ $factory->define('App\Post', function ($faker) {
 });
 
 $factory->define('App\Page', function ($faker) {
-
     $creationDate = $faker->dateTimeThisMonth();
     $title = $faker->sentence;
 
@@ -50,7 +48,6 @@ $factory->define('App\Product', function ($faker) {
 });
 
 $factory->define('App\User', function ($faker) {
-
     $name = $faker->unique()->name;
 
     return [
@@ -73,7 +70,6 @@ $factory->define('App\Role', function ($faker) {
 });
 
 $factory->define('App\Term', function ($faker) {
-
     $term = $faker->unique()->word;
     if (strlen($term) < 4) {
         $term .= ' '.$faker->word;
@@ -87,7 +83,6 @@ $factory->define('App\Term', function ($faker) {
 });
 
 $factory->define('App\ProductAttribute', function ($faker) {
-
     $term = $faker->unique()->word;
     if (strlen($term) < 4) {
         $term .= ' '.$faker->word;
@@ -123,7 +118,6 @@ $factory->define('App\OrderItem', function ($faker) {
 });
 
 $factory->define('App\Order', function ($faker) {
-
     $user_id = factory('App\User')->create()->id;
     $address_id = factory('App\Address')->create(['addressable_id' => $user_id])->id;
     $shipping_address_id = mt_rand(0, 1) ? $address_id : factory('App\Address')->create(['addressable_id' => $user_id])->id;
@@ -137,7 +131,6 @@ $factory->define('App\Order', function ($faker) {
 });
 
 $factory->define('App\Address', function ($faker) {
-
     return [
     'addressable_id'       => factory('App\User')->create()->id,
     'addressable_type'     => 'App\User',
@@ -151,7 +144,6 @@ $factory->define('App\Address', function ($faker) {
 });
 
 $factory->define('App\ShippingMethod', function ($faker) {
-
     return [
         'description'   => $faker->sentence,
         'base_rate'     => $faker->numberBetween(100, 600) / 100,
