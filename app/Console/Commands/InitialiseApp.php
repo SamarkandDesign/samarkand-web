@@ -64,7 +64,7 @@ class InitialiseApp extends Command
 
     private function makeRoles()
     {
-        $roles = collect(User::$base_roles)->map(function($role, $slug) {
+        $roles = collect(User::$base_roles)->map(function ($role, $slug) {
             return Role::firstOrCreate(['name' => $slug, 'display_name' => $role]);
         });
         $this->info('Created Roles: '.$roles->pluck('display_name')->implode(', '));

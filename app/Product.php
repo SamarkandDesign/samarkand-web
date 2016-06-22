@@ -223,7 +223,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
     }
 
     /**
-     * Cast the stock qty to null if it's an empty string
+     * Cast the stock qty to null if it's an empty string.
      *
      * @param mixed $qty
      */
