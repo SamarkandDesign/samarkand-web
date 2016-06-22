@@ -16,7 +16,6 @@ class OrdersTableSeeder extends Seeder
         $users = User::with('addresses')->get();
 
         $order_ids = array_map(function ($index) use ($shipping_methods, $products, $users) {
-
             $user = $users->random();
 
             if (!$user->addresses->count()) {
@@ -34,7 +33,6 @@ class OrdersTableSeeder extends Seeder
             $order->setShipping($shipping_methods->random()->id);
 
             return $order->id;
-
         }, range(1, 15));
     }
 }

@@ -47,7 +47,6 @@ class CreateManyTermsRequest extends Request
         $taxonomy = snake_case($this->get('taxonomy'));
 
         $terms = array_map(function ($term) use ($taxonomy) {
-
             $term['taxonomy'] = $taxonomy;
             $term['slug'] = str_slug(array_get($term, 'term'));
 

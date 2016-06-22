@@ -120,7 +120,6 @@ class ProductsControllerTest extends \TestCase
         $this->assertTrue(Product::withTrashed()->find($product->id)->trashed());
     }
 
-
         /** @test **/
         public function it_can_upload_an_image_to_a_product()
         {
@@ -129,7 +128,7 @@ class ProductsControllerTest extends \TestCase
 
             // And we need a file
             $source_image = base_path('tests/resources/images/image-1.jpg');
-            $image = base_path(sprintf('tests/resources/images/image-%s-tmp.jpg', mt_rand(1,999)));
+            $image = base_path(sprintf('tests/resources/images/image-%s-tmp.jpg', mt_rand(1, 999)));
             copy($source_image, $image);
 
             $file = new UploadedFile($image, basename($image), null, null, null, true);

@@ -3,8 +3,8 @@
 namespace App\Repositories\Product;
 
 use App\Product;
-use App\Services\ProductAttributeFilter;
 use App\Repositories\DbRepository;
+use App\Services\ProductAttributeFilter;
 use App\Term;
 
 class DbProductRepository extends DbRepository implements ProductRepository

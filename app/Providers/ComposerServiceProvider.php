@@ -34,11 +34,9 @@ class ComposerServiceProvider extends ServiceProvider
     private function shareRoles()
     {
         $this->app->view->composer('admin.users.form', function ($view) {
-
             $roles = \App\Role::lists('display_name', 'id');
 
             $view->with(compact('roles'));
-
         });
     }
 

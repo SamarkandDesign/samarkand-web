@@ -5,7 +5,6 @@
  //        });
 
 Route::group(['middleware' => ['web']], function () {
-
     Route::get('/', 'HomeController@index');
 
     Route::controllers([
@@ -51,7 +50,6 @@ Route::group(['middleware' => ['web']], function () {
      * Account
      */
     Route::group(['prefix' => 'account'], function () {
-
         Route::get('/', ['uses' => 'AccountsController@show', 'as' => 'accounts.show']);
         Route::get('edit', ['uses' => 'AccountsController@edit', 'as' => 'accounts.edit']);
         Route::patch('{user}', ['uses' => 'AccountsController@update', 'as' => 'accounts.update']);
@@ -67,14 +65,12 @@ Route::group(['middleware' => ['web']], function () {
             Route::delete('{address}', ['uses' => 'AddressesController@destroy', 'as' => 'addresses.delete']);
         });
     });
-
 }); // /web middleware group
 
 /*
  * Admin Area
  */
 Route::group(['prefix' => 'admin', 'middleware' => ['web', 'admin'], 'namespace' => 'Admin'], function () {
-
     Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard']);
 
     // Orders
@@ -217,7 +213,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'Api'], f
         Route::delete('product_attributes/{product_attribute}', ['uses' => 'ProductAttributesController@destroy', 'as' => 'api.product_attributes.delete']);
         Route::patch('product_attributes/{product_attribute}', ['uses' => 'ProductAttributesController@update', 'as' => 'api.product_attributes.update']);
     });
-
 });
 
 /*

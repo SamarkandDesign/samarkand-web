@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ProductAttributeFilter;
 use App\Repositories\Product\ProductRepository;
 use App\Search\ProductSearcher;
+use App\Services\ProductAttributeFilter;
 use App\Term;
 use Illuminate\Http\Request;
 

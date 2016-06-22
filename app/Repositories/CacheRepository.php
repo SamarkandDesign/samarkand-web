@@ -38,7 +38,7 @@ abstract class CacheRepository
         $tags = array_merge([$this->tag], $with);
 
         return \Cache::tags($tags)->remember("{$this->tag}.{$id}", config('cache.time'), function () use ($id, $with) {
-           return $this->repository->fetch($id, $with);
+            return $this->repository->fetch($id, $with);
         });
     }
 
@@ -71,7 +71,7 @@ abstract class CacheRepository
         $tags = array_merge([$this->tag], $with);
 
         return \Cache::tags($tags)->remember("{$this->tag}.all{$this->modifier}", config('cache.time'), function () use ($with) {
-           return $this->repository->all($with);
+            return $this->repository->all($with);
         });
     }
 

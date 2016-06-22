@@ -70,8 +70,8 @@ class AttributeQueryBuilder
     }
 
     /**
-     * Get the resultant filters for the query string
-     * 
+     * Get the resultant filters for the query string.
+     *
      * @return array
      */
     public function getQueryFilters()
@@ -86,7 +86,7 @@ class AttributeQueryBuilder
     /**
      * Check if the filter passed already exists in the request.
      *
-     * @param  string $key
+     * @param string $key
      *
      * @return bool
      */

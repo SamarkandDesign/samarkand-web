@@ -6,7 +6,7 @@ if (getenv('DATABASE_URL')) {
     putenv("DB_HOST={$url['host']}");
     putenv("DB_USERNAME={$url['user']}");
     putenv("DB_PASSWORD={$url['pass']}");
-    $db = substr($url['path'],1);
+    $db = substr($url['path'], 1);
     putenv("DB_DATABASE={$db}");
 }
 
