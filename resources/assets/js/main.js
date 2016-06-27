@@ -10,6 +10,8 @@ import carousel from './components/carousel.vue'
 import addressForm from './components/address-form.vue'
 import customerForm from './components/customer-form.vue'
 import cardForm from './components/card-form.vue'
+import navbar from './components/navbar.vue'
+
 
 
 Vue.use(VueValidator)
@@ -19,5 +21,5 @@ let vm = new Vue({
     ready () {
         console.log('vue is working!')
     },
-    components: { dropdown, carousel, slider, addressForm, customerForm, cardForm }
+    components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar }
 })
