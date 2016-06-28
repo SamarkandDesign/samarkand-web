@@ -41,5 +41,15 @@ $state-success-text:               $brand-success;
 //$state-warning-text:               $brand-warning;
 $state-danger-text:                $brand-danger;
 
-
 $border-radius-base: 2px;
+
+// Buttons
+$btn-border-width: 3px;
+$btn-border: 3px solid transparent;
+
+$btn-default-border: lighten($gray-light, 35%);
+
+//Forms
+$input-border-focus: darken($btn-default-border, 10%);
+$input-border: $btn-default-border;
+$input-height-base: 38px;

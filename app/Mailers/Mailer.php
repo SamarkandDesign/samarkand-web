@@ -4,7 +4,7 @@ namespace App\Mailers;
 
 class Mailer
 {
-    private $mail;
+    protected $mail;
 
     /**
      * Create a new Mailer instance.

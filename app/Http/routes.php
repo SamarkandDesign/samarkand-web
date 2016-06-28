@@ -47,6 +47,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('order-completed', ['uses' => 'OrdersController@completed', 'as' => 'orders.completed']);
 
     /*
+     * Contact
+     */
+    Route::get('contact', ['uses' => 'ContactsController@create', 'as' => 'contacts.create']);
+    Route::post('contact', ['uses' => 'ContactsController@store', 'as' => 'contacts.store']);
+
+    /*
      * Account
      */
     Route::group(['prefix' => 'account'], function () {
