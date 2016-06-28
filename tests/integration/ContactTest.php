@@ -2,9 +2,9 @@
 
 namespace integration;
 
-use TestCase;
 use App\User;
 use MailThief\Facades\MailThief;
+use TestCase;
 
 class ContactTest extends TestCase
 {

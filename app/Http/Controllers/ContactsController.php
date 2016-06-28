@@ -3,8 +3,8 @@
 namespace app\Http\Controllers;
 
 use App\Contact;
-use Illuminate\Http\Request;
 use App\Mailers\ContactMailer;
+use Illuminate\Http\Request;
 
 class ContactsController extends Controller
 {
@@ -16,8 +16,8 @@ class ContactsController extends Controller
     public function store(Request $request, ContactMailer $mailer)
     {
         $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required|email',
+        'name'    => 'required',
+        'email'   => 'required|email',
         'subject' => 'required',
         'message' => 'required',
       ]);
