@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <validator name="cardValidator">
-            <form v-el:form action="{{ route }}" method="post" novalidate>
+            <form v-el:form action="{{ route }}" method="POST" novalidate>
                 <slot></slot>
                 <div class="form-group col-md-6 col-xs-12" v-bind:class="{ 'has-error': $cardValidator.cardnumber.touched && $cardValidator.cardnumber.invalid, 'has-success': $cardValidator.cardnumber.valid }">
                 <label for="cc-number" class="control-label">Card number</label>

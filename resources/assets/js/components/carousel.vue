@@ -152,6 +152,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.carousel {
+  margin: 0 auto;
+  max-width: 2000px;
+}
 .carousel-control {
     cursor: pointer;
     display: flex;
