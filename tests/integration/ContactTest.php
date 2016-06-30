@@ -8,32 +8,41 @@ use TestCase;
 
 class ContactTest extends TestCase
 {
-    /** @test */
+  /** @test */
   public function it_sends_an_email_from_the_contact_page()
   {
-      // Make an admin user to send email to
+    // Make an admin user to send email to
     factory(User::class)->create();
 
-      MailThief::hijack();
+    MailThief::hijack();
 
-      $this->visit('/contact')
-        ->type('Joe Bloggs', 'name')
-        ->type('joe@example.com', 'email')
-        ->type('This is an email', 'subject')
-        ->type('Lorem Ipsum', 'message')
-        ->press('send');
+    $this->visit('/contact')
+    ->type('Joe Bloggs', 'name')
+    ->type('joe@example.com', 'email')
+    ->type('This is an email', 'subject')
+    ->type('Lorem Ipsum', 'message')
+    ->press('send');
 
-      $admin_users = User::shopAdmins()->get();
+    $admin_users = User::shopAdmins()->get();
 
-      $this->assertTrue(MailThief::hasMessageFor($admin_users->first()->email));
+    $this->assertTrue(MailThief::hasMessageFor($admin_users->first()->email));
 
-      $message = MailThief::lastMessage();
-      $this->assertEquals('This is an email', $message->subject);
+    $message = MailThief::lastMessage();
+    $this->assertEquals('This is an email', $message->subject);
 
-      $this->assertEquals('Joe Bloggs', $message->from->first());
-      $this->assertEquals('joe@example.com', $message->from->keys()->first());
+    $this->assertEquals('Joe Bloggs', $message->from->first());
+    $this->assertEquals('joe@example.com', $message->from->keys()->first());
 
-      $this->seePageIs('/contact')
-         ->see('your message has been sent');
+    $this->seePageIs('/contact')
+    ->see('your message has been sent');
+  }
+
+  /** @test */
+  public function it_validates_the_contact_form()
+  {
+    $this->visit('/contact')
+    ->press('send')
+    ->seePageIs('/contact')
+    ->see('email field is required');
   }
 }
