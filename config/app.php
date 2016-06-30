@@ -158,6 +158,7 @@ return [
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Spatie\SearchIndex\SearchIndexServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
     ],
 
     /*

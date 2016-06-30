@@ -1,4 +1,4 @@
-<form class="form" action="{{ route('shop.search') }}" method="get">
+<form class="form" action="/shop/search" method="get">
 
     <div class="input-group">
       {!! Form::text('query', Request::get('query'), ['class' => 'form-control', 'placeholder' => 'Search Products']) !!}

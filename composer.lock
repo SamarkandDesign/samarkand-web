@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6628d38eb00fc367ee57e0912b7836d9",
-    "content-hash": "f183356dbf7bea000e4f1cc76149c729",
+    "hash": "7a23f269234b790035b9fb47b906c881",
+    "content-hash": "5493ff3f40a21b22e27a406638993c8e",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -150,16 +150,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.18.22",
+            "version": "3.18.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d1a990d3a7c1fec992abdb508b47271ba089586e"
+                "reference": "a2791b6f14b7aa6eeb4fb9f3f779cc291ab455db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d1a990d3a7c1fec992abdb508b47271ba089586e",
-                "reference": "d1a990d3a7c1fec992abdb508b47271ba089586e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a2791b6f14b7aa6eeb4fb9f3f779cc291ab455db",
+                "reference": "a2791b6f14b7aa6eeb4fb9f3f779cc291ab455db",
                 "shasum": ""
             },
             "require": {
@@ -226,7 +226,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-06-28 23:29:43"
+            "time": "2016-06-30 19:49:43"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -381,6 +381,57 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "fideloper/proxy",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fideloper/TrustedProxy.git",
+                "reference": "ec4dd30141e2515e307aea3539ff242e85c3f120"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/ec4dd30141e2515e307aea3539ff242e85c3f120",
+                "reference": "ec4dd30141e2515e307aea3539ff242e85c3f120",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/http": "~5.0",
+                "mockery/mockery": "~0.9.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fideloper\\Proxy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Fidao",
+                    "email": "fideloper@gmail.com"
+                }
+            ],
+            "description": "Set trusted proxies for Laravel",
+            "keywords": [
+                "load balancing",
+                "proxy",
+                "trusted proxy"
+            ],
+            "time": "2015-12-24 15:02:55"
         },
         {
             "name": "filp/whoops",

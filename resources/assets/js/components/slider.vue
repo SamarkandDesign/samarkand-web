@@ -34,3 +34,9 @@
     }
   }
 </script>
+
+<style>
+  .item img {
+    width: 100%;
+  }
+</style>

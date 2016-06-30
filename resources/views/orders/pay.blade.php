@@ -21,7 +21,7 @@
 
     <div class="well">
         <card-form
-        route="{{ route('payments.store') }}"
+        route="/payments"
         stripe-key="{{ config('services.stripe.publishable') }}"
         billing-name="{{ $order->billing_address->name }}"
         :billing-address="{

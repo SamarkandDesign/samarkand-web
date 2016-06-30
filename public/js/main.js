@@ -1722,7 +1722,8 @@ function restoreState (vm, state, isRoot) {
 }
 
 function format (id) {
-  return id.match(/[^\/]+\.vue$/)[0]
+  var match = id.match(/[^\/]+\.vue$/)
+  return match ? match[0] : id
 }
 
 },{}],64:[function(require,module,exports){
@@ -4330,7 +4331,7 @@ module.exports = plugin;
 },{"_process":62}],65:[function(require,module,exports){
 (function (process,global){
 /*!
- * Vue.js v1.0.25
+ * Vue.js v1.0.26
  * (c) 2016 Evan You
  * Released under the MIT License.
  */
@@ -7740,7 +7741,7 @@ function traverse(val, seen) {
   }
   var isA = isArray(val);
   var isO = isObject(val);
-  if (isA || isO) {
+  if ((isA || isO) && Object.isExtensible(val)) {
     if (val.__ob__) {
       var depId = val.__ob__.dep.id;
       if (seen.has(depId)) {
@@ -9226,13 +9227,13 @@ var select = {
     this.vm.$on('hook:attached', function () {
       nextTick(_this.forceUpdate);
     });
+    if (!inDoc(el)) {
+      nextTick(this.forceUpdate);
+    }
   },
 
   update: function update(value) {
     var el = this.el;
-    if (!inDoc(el)) {
-      return nextTick(this.forceUpdate);
-    }
     el.selectedIndex = -1;
     var multi = this.multiple && isArray(value);
     var options = el.options;
@@ -14180,7 +14181,13 @@ var filters = {
 
   pluralize: function pluralize(value) {
     var args = toArray(arguments, 1);
-    return args.length > 1 ? args[value % 10 - 1] || args[args.length - 1] : args[0] + (value === 1 ? '' : 's');
+    var length = args.length;
+    if (length > 1) {
+      var index = value % 10 - 1;
+      return index in args ? args[index] : args[length - 1];
+    } else {
+      return args[0] + (value === 1 ? '' : 's');
+    }
   },
 
   /**
@@ -14382,7 +14389,7 @@ function installGlobalAPI (Vue) {
 
 installGlobalAPI(Vue);
 
-Vue.version = '1.0.25';
+Vue.version = '1.0.26';
 
 // devtools global hook
 /* istanbul ignore next */
@@ -14563,7 +14570,7 @@ exports.default = {
     }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div class=\"row\" _v-f5fd7a7a=\"\">\n        <validator name=\"cardValidator\" _v-f5fd7a7a=\"\">\n            <form v-el:form=\"\" action=\"{{ route }}\" method=\"post\" novalidate=\"\" _v-f5fd7a7a=\"\">\n                <slot _v-f5fd7a7a=\"\"></slot>\n                <div class=\"form-group col-md-6 col-xs-12\" v-bind:class=\"{ 'has-error': $cardValidator.cardnumber.touched &amp;&amp; $cardValidator.cardnumber.invalid, 'has-success': $cardValidator.cardnumber.valid }\" _v-f5fd7a7a=\"\">\n                <label for=\"cc-number\" class=\"control-label\" _v-f5fd7a7a=\"\">Card number</label>\n                <div class=\"input-group\" _v-f5fd7a7a=\"\">\n                    <input id=\"cc-number\" type=\"tel\" class=\"form-control cc-number\" autocomplete=\"cc-number\" placeholder=\"•••• •••• •••• ••••\" v-validate:cardnumber=\"['required', 'card']\" v-model=\"card.number\" required=\"\" v-el:card=\"\" _v-f5fd7a7a=\"\">\n                    <span class=\"input-group-addon cc-icon-addon\" _v-f5fd7a7a=\"\"><i class=\"cc-icon {{ cardType }}\" title=\"{{ cardType }}\" _v-f5fd7a7a=\"\"></i></span>\n                </div>\n            </div>\n            <div class=\"form-group col-md-3 col-xs-6\" v-bind:class=\"{ 'has-error': $cardValidator.exp.touched &amp;&amp; $cardValidator.exp.invalid, 'has-success': $cardValidator.exp.valid }\" _v-f5fd7a7a=\"\">\n                <label for=\"cc-exp\" class=\"control-label\" _v-f5fd7a7a=\"\">Card expiry (MM/YY)</label>\n                <input id=\"cc-exp\" type=\"tel\" class=\"form-control cc-exp\" autocomplete=\"cc-exp\" placeholder=\"•• / ••\" v-validate:exp=\"['required', 'expiry']\" v-model=\"card.exp\" required=\"\" v-el:exp=\"\" _v-f5fd7a7a=\"\">\n            </div>\n\n            <div class=\"form-group col-md-3 col-xs-6\" v-bind:class=\"{'has-error': $cardValidator.cvc.touched &amp;&amp; $cardValidator.cvc.invalid, 'has-success': $cardValidator.cvc.valid }\" _v-f5fd7a7a=\"\">\n                <label for=\"cc-cvc\" class=\"control-label\" _v-f5fd7a7a=\"\">Security Code (CVV) <i class=\"fa fa-question-circle\" title=\"3 digits on back. 4 digits on front of American Express.\" _v-f5fd7a7a=\"\"></i></label>\n\n                <input id=\"cc-cvc\" type=\"tel\" class=\"form-control cc-cvc\" autocomplete=\"off\" placeholder=\"•••\" v-validate:cvc=\"['required', 'cvc']\" v-model=\"card.cvc\" required=\"\" v-el:cvc=\"\" _v-f5fd7a7a=\"\">\n            </div>\n\n            <p v-if=\"error_message\" class=\"text-danger col-md-12\" _v-f5fd7a7a=\"\">{{ error_message }}</p>\n\n            <div class=\"col-sm-4 col-md-2 col-sm-push-8 col-md-push-10\" _v-f5fd7a7a=\"\">\n                <button @click.prevent=\"getStripeToken\" class=\"btn btn-lg btn-success btn-block\" :disabled=\"isLoading\" _v-f5fd7a7a=\"\">Place Order</button>\n            </div>\n            <div class=\"col-sm-8 col-md-10  col-sm-pull-4 col-md-pull-2\" _v-f5fd7a7a=\"\">\n                <p class=\"top-buffer\" _v-f5fd7a7a=\"\"><i class=\"fa fa-lock\" _v-f5fd7a7a=\"\"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>\n            </div>\n\n        </form>\n    </validator>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div class=\"row\" _v-f5fd7a7a=\"\">\n        <validator name=\"cardValidator\" _v-f5fd7a7a=\"\">\n            <form v-el:form=\"\" action=\"{{ route }}\" method=\"POST\" novalidate=\"\" _v-f5fd7a7a=\"\">\n                <slot _v-f5fd7a7a=\"\"></slot>\n                <div class=\"form-group col-md-6 col-xs-12\" v-bind:class=\"{ 'has-error': $cardValidator.cardnumber.touched &amp;&amp; $cardValidator.cardnumber.invalid, 'has-success': $cardValidator.cardnumber.valid }\" _v-f5fd7a7a=\"\">\n                <label for=\"cc-number\" class=\"control-label\" _v-f5fd7a7a=\"\">Card number</label>\n                <div class=\"input-group\" _v-f5fd7a7a=\"\">\n                    <input id=\"cc-number\" type=\"tel\" class=\"form-control cc-number\" autocomplete=\"cc-number\" placeholder=\"•••• •••• •••• ••••\" v-validate:cardnumber=\"['required', 'card']\" v-model=\"card.number\" required=\"\" v-el:card=\"\" _v-f5fd7a7a=\"\">\n                    <span class=\"input-group-addon cc-icon-addon\" _v-f5fd7a7a=\"\"><i class=\"cc-icon {{ cardType }}\" title=\"{{ cardType }}\" _v-f5fd7a7a=\"\"></i></span>\n                </div>\n            </div>\n            <div class=\"form-group col-md-3 col-xs-6\" v-bind:class=\"{ 'has-error': $cardValidator.exp.touched &amp;&amp; $cardValidator.exp.invalid, 'has-success': $cardValidator.exp.valid }\" _v-f5fd7a7a=\"\">\n                <label for=\"cc-exp\" class=\"control-label\" _v-f5fd7a7a=\"\">Card expiry (MM/YY)</label>\n                <input id=\"cc-exp\" type=\"tel\" class=\"form-control cc-exp\" autocomplete=\"cc-exp\" placeholder=\"•• / ••\" v-validate:exp=\"['required', 'expiry']\" v-model=\"card.exp\" required=\"\" v-el:exp=\"\" _v-f5fd7a7a=\"\">\n            </div>\n\n            <div class=\"form-group col-md-3 col-xs-6\" v-bind:class=\"{'has-error': $cardValidator.cvc.touched &amp;&amp; $cardValidator.cvc.invalid, 'has-success': $cardValidator.cvc.valid }\" _v-f5fd7a7a=\"\">\n                <label for=\"cc-cvc\" class=\"control-label\" _v-f5fd7a7a=\"\">Security Code (CVV) <i class=\"fa fa-question-circle\" title=\"3 digits on back. 4 digits on front of American Express.\" _v-f5fd7a7a=\"\"></i></label>\n\n                <input id=\"cc-cvc\" type=\"tel\" class=\"form-control cc-cvc\" autocomplete=\"off\" placeholder=\"•••\" v-validate:cvc=\"['required', 'cvc']\" v-model=\"card.cvc\" required=\"\" v-el:cvc=\"\" _v-f5fd7a7a=\"\">\n            </div>\n\n            <p v-if=\"error_message\" class=\"text-danger col-md-12\" _v-f5fd7a7a=\"\">{{ error_message }}</p>\n\n            <div class=\"col-sm-4 col-md-2 col-sm-push-8 col-md-push-10\" _v-f5fd7a7a=\"\">\n                <button @click.prevent=\"getStripeToken\" class=\"btn btn-lg btn-success btn-block\" :disabled=\"isLoading\" _v-f5fd7a7a=\"\">Place Order</button>\n            </div>\n            <div class=\"col-sm-8 col-md-10  col-sm-pull-4 col-md-pull-2\" _v-f5fd7a7a=\"\">\n                <p class=\"top-buffer\" _v-f5fd7a7a=\"\"><i class=\"fa fa-lock\" _v-f5fd7a7a=\"\"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>\n            </div>\n\n        </form>\n    </validator>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -14580,7 +14587,7 @@ if (module.hot) {(function () {  module.hot.accept()
 })()}
 },{"babel-runtime/core-js/object/assign":2,"payform":61,"vue":65,"vue-hot-reload-api":63,"vueify/lib/insert-css":66}],69:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("/* line 2, stdin */\n.carousel-control[_v-0733c76e] {\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-image: none;\n  font-size: 30px;\n  z-index: 6; }\n\n/* line 11, stdin */\n.overlay-wrap[_v-0733c76e] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 4;\n  text-align: center;\n  color: #fff; }\n  /* line 23, stdin */\n  .overlay-wrap .overlay-content[_v-0733c76e] {\n    width: 100%; }\n")
+var __vueify_style__ = __vueify_insert__.insert("/* line 2, stdin */\n.carousel[_v-0733c76e] {\n  margin: 0 auto;\n  max-width: 2000px; }\n\n/* line 6, stdin */\n.carousel-control[_v-0733c76e] {\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-image: none;\n  font-size: 30px;\n  z-index: 6; }\n\n/* line 15, stdin */\n.overlay-wrap[_v-0733c76e] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 4;\n  text-align: center;\n  color: #fff; }\n  /* line 27, stdin */\n  .overlay-wrap .overlay-content[_v-0733c76e] {\n    width: 100%; }\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14733,7 +14740,7 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["/* line 2, stdin */\n.carousel-control[_v-0733c76e] {\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-image: none;\n  font-size: 30px;\n  z-index: 6; }\n\n/* line 11, stdin */\n.overlay-wrap[_v-0733c76e] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 4;\n  text-align: center;\n  color: #fff; }\n  /* line 23, stdin */\n  .overlay-wrap .overlay-content[_v-0733c76e] {\n    width: 100%; }\n"] = false
+    __vueify_insert__.cache["/* line 2, stdin */\n.carousel[_v-0733c76e] {\n  margin: 0 auto;\n  max-width: 2000px; }\n\n/* line 6, stdin */\n.carousel-control[_v-0733c76e] {\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-image: none;\n  font-size: 30px;\n  z-index: 6; }\n\n/* line 15, stdin */\n.overlay-wrap[_v-0733c76e] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  z-index: 4;\n  text-align: center;\n  color: #fff; }\n  /* line 27, stdin */\n  .overlay-wrap .overlay-content[_v-0733c76e] {\n    width: 100%; }\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -14844,6 +14851,8 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"vue":65,"vue-hot-reload-api":63}],73:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n.item img {\n  width: 100%;\n}\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14882,13 +14891,17 @@ if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n.item img {\n  width: 100%;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
   if (!module.hot.data) {
     hotAPI.createRecord("_v-09a6c822", module.exports)
   } else {
     hotAPI.update("_v-09a6c822", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":65,"vue-hot-reload-api":63}],74:[function(require,module,exports){
+},{"vue":65,"vue-hot-reload-api":63,"vueify/lib/insert-css":66}],74:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
