@@ -1096,7 +1096,6 @@ img {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   max-width: 100%;
@@ -2309,7 +2308,6 @@ output {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
   .form-control:focus {
     border-color: #66afe9;
@@ -2776,6 +2774,7 @@ select[multiple].input-lg,
   font-weight: normal;
   text-align: center;
   vertical-align: middle;
+  -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
   background-image: none;
@@ -3085,7 +3084,6 @@ input[type="button"].btn-block {
 
 .fade {
   opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear; }
   .fade.in {
     opacity: 1; }
@@ -3105,11 +3103,8 @@ tbody.collapse.in {
   position: relative;
   height: 0;
   overflow: hidden;
-  -webkit-transition-property: height, visibility;
   transition-property: height, visibility;
-  -webkit-transition-duration: 0.35s;
   transition-duration: 0.35s;
-  -webkit-transition-timing-function: ease;
   transition-timing-function: ease; }
 
 .caret {
@@ -4300,7 +4295,6 @@ a.badge:hover, a.badge:focus {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  -webkit-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out; }
   .thumbnail > img,
   .thumbnail a > img {
@@ -4380,12 +4374,6 @@ a.thumbnail.active {
   .alert-danger .alert-link {
     color: #843534; }
 
-@-webkit-keyframes progress-bar-stripes {
-  from {
-    background-position: 40px 0; }
-  to {
-    background-position: 0 0; } }
-
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0; }
@@ -4410,42 +4398,35 @@ a.thumbnail.active {
   text-align: center;
   background-color: #337ab7;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease; }
 
 .progress-striped .progress-bar,
 .progress-bar-striped {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px; }
 
 .progress.active .progress-bar,
 .progress-bar.active {
-  -webkit-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite; }
 
 .progress-bar-success {
   background-color: #5cb85c; }
   .progress-striped .progress-bar-success {
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-info {
   background-color: #5bc0de; }
   .progress-striped .progress-bar-info {
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-warning {
   background-color: #f0ad4e; }
   .progress-striped .progress-bar-warning {
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .progress-bar-danger {
   background-color: #d9534f; }
   .progress-striped .progress-bar-danger {
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
 .media {
@@ -5039,14 +5020,9 @@ button.close {
   -webkit-overflow-scrolling: touch;
   outline: 0; }
   .modal.fade .modal-dialog {
-    -webkit-transform: translate(0, -25%);
     transform: translate(0, -25%);
-    -webkit-transition: -webkit-transform 0.3s ease-out;
-    transition: -webkit-transform 0.3s ease-out;
-    transition: transform 0.3s ease-out;
-    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out; }
+    transition: transform 0.3s ease-out; }
   .modal.in .modal-dialog {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0); }
 
 .modal-open .modal {
@@ -5380,7 +5356,6 @@ button.close {
   .carousel-inner > .item {
     display: none;
     position: relative;
-    -webkit-transition: 0.6s ease-in-out left;
     transition: 0.6s ease-in-out left; }
     .carousel-inner > .item > img,
     .carousel-inner > .item > a > img {
@@ -5390,24 +5365,16 @@ button.close {
       line-height: 1; }
     @media all and (transform-3d), (-webkit-transform-3d) {
       .carousel-inner > .item {
-        -webkit-transition: -webkit-transform 0.6s ease-in-out;
-        transition: -webkit-transform 0.6s ease-in-out;
         transition: transform 0.6s ease-in-out;
-        transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
-        -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        -webkit-perspective: 1000px;
         perspective: 1000px; }
         .carousel-inner > .item.next, .carousel-inner > .item.active.right {
-          -webkit-transform: translate3d(100%, 0, 0);
           transform: translate3d(100%, 0, 0);
           left: 0; }
         .carousel-inner > .item.prev, .carousel-inner > .item.active.left {
-          -webkit-transform: translate3d(-100%, 0, 0);
           transform: translate3d(-100%, 0, 0);
           left: 0; }
         .carousel-inner > .item.next.left, .carousel-inner > .item.prev.right, .carousel-inner > .item.active {
-          -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
           left: 0; } }
   .carousel-inner > .active,
@@ -5447,14 +5414,12 @@ button.close {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   background-color: transparent; }
   .carousel-control.left {
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1); }
   .carousel-control.right {
     left: auto;
     right: 0;
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1); }
@@ -5787,74 +5752,32 @@ button.close {
  * The MIT License
  * Copyright (c) 2012 Matias Meno <m@tias.me>
  */
-@-webkit-keyframes passing-through {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(40px);
-    transform: translateY(40px); }
-  30%, 70% {
-    opacity: 1;
-    -webkit-transform: translateY(0px);
-    transform: translateY(0px); }
-  100% {
-    opacity: 0;
-    -webkit-transform: translateY(-40px);
-    transform: translateY(-40px); } }
 
 @keyframes passing-through {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(40px);
     transform: translateY(40px); }
   30%, 70% {
     opacity: 1;
-    -webkit-transform: translateY(0px);
     transform: translateY(0px); }
   100% {
     opacity: 0;
-    -webkit-transform: translateY(-40px);
     transform: translateY(-40px); } }
-
-@-webkit-keyframes slide-in {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(40px);
-    transform: translateY(40px); }
-  30% {
-    opacity: 1;
-    -webkit-transform: translateY(0px);
-    transform: translateY(0px); } }
 
 @keyframes slide-in {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(40px);
     transform: translateY(40px); }
   30% {
     opacity: 1;
-    -webkit-transform: translateY(0px);
     transform: translateY(0px); } }
-
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1);
-    transform: scale(1); }
-  10% {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1); }
-  20% {
-    -webkit-transform: scale(1);
-    transform: scale(1); } }
 
 @keyframes pulse {
   0% {
-    -webkit-transform: scale(1);
     transform: scale(1); }
   10% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1); }
   20% {
-    -webkit-transform: scale(1);
     transform: scale(1); } }
 
 .dropzone, .dropzone * {
@@ -5893,14 +5816,12 @@ button.close {
     .dropzone .dz-preview.dz-file-preview .dz-image {
       border-radius: 20px;
       background: #999;
-      background: -webkit-linear-gradient(top, #eee, #ddd);
       background: linear-gradient(to bottom, #eee, #ddd); }
     .dropzone .dz-preview.dz-file-preview .dz-details {
       opacity: 1; }
     .dropzone .dz-preview.dz-image-preview {
       background: white; }
       .dropzone .dz-preview.dz-image-preview .dz-details {
-        -webkit-transition: opacity 0.2s linear;
         transition: opacity 0.2s linear; }
     .dropzone .dz-preview .dz-remove {
       font-size: 14px;
@@ -5943,7 +5864,6 @@ button.close {
         padding: 0 0.4em;
         border-radius: 3px; }
     .dropzone .dz-preview:hover .dz-image img {
-      -webkit-transform: scale(1.05, 1.05);
       transform: scale(1.05, 1.05);
       -webkit-filter: blur(8px);
       filter: blur(8px); }
@@ -5958,11 +5878,9 @@ button.close {
       .dropzone .dz-preview .dz-image img {
         display: block; }
     .dropzone .dz-preview.dz-success .dz-success-mark {
-      -webkit-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
       animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1); }
     .dropzone .dz-preview.dz-error .dz-error-mark {
       opacity: 1;
-      -webkit-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
       animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1); }
     .dropzone .dz-preview .dz-success-mark, .dropzone .dz-preview .dz-error-mark {
       pointer-events: none;
@@ -5980,14 +5898,11 @@ button.close {
         height: 54px; }
     .dropzone .dz-preview.dz-processing .dz-progress {
       opacity: 1;
-      -webkit-transition: all 0.2s linear;
       transition: all 0.2s linear; }
     .dropzone .dz-preview.dz-complete .dz-progress {
       opacity: 0;
-      -webkit-transition: opacity 0.4s ease-in;
       transition: opacity 0.4s ease-in; }
     .dropzone .dz-preview:not(.dz-processing) .dz-progress {
-      -webkit-animation: pulse 6s ease infinite;
       animation: pulse 6s ease infinite; }
     .dropzone .dz-preview .dz-progress {
       opacity: 1;
@@ -6006,14 +5921,12 @@ button.close {
       overflow: hidden; }
       .dropzone .dz-preview .dz-progress .dz-upload {
         background: #333;
-        background: -webkit-linear-gradient(top, #666, #444);
         background: linear-gradient(to bottom, #666, #444);
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         width: 0;
-        -webkit-transition: width 300ms ease-in-out;
         transition: width 300ms ease-in-out; }
     .dropzone .dz-preview.dz-error .dz-error-message {
       display: block; }
@@ -6027,7 +5940,6 @@ button.close {
       display: block;
       display: none;
       opacity: 0;
-      -webkit-transition: opacity 0.3s ease;
       transition: opacity 0.3s ease;
       border-radius: 8px;
       font-size: 13px;
@@ -6035,7 +5947,6 @@ button.close {
       left: -10px;
       width: 140px;
       background: #be2626;
-      background: -webkit-linear-gradient(top, #be2626, #a92222);
       background: linear-gradient(to bottom, #be2626, #a92222);
       padding: 0.5em 1.2em;
       color: white; }
@@ -6359,7 +6270,6 @@ button.close {
   border: 1px solid #aaa;
   border-radius: 4px;
   outline: 0;
-  background-image: -webkit-linear-gradient(top, white 50%, #eeeeee 100%);
   background-image: linear-gradient(to bottom, white 50%, #eeeeee 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0); }
@@ -6386,7 +6296,6 @@ button.close {
     top: 1px;
     right: 1px;
     width: 20px;
-    background-image: -webkit-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
     background-image: linear-gradient(to bottom, #eeeeee 50%, #cccccc 100%);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFCCCCCC', GradientType=0); }
@@ -6427,7 +6336,6 @@ button.close {
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-image: -webkit-linear-gradient(top, white 0%, #eeeeee 50%);
   background-image: linear-gradient(to bottom, white 0%, #eeeeee 50%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0); }
@@ -6436,7 +6344,6 @@ button.close {
   border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  background-image: -webkit-linear-gradient(top, #eeeeee 50%, white 100%);
   background-image: linear-gradient(to bottom, #eeeeee 50%, white 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF', GradientType=0); }

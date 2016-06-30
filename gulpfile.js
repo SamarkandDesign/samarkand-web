@@ -18,7 +18,7 @@ elixir(function(mix) {
     	includePaths: [ 'node_modules' ]
     });
 
-    //mix.browserify('admin.js');
+    mix.browserify('admin.js');
     mix.browserify('main.js');
 
 
