@@ -6,7 +6,7 @@
 
 Route::get('/debug-request', function (Illuminate\Http\Request $request) {
     var_dump(route('auth.register'));
-    var_dump($request);
+    dd($request);
 });
 
 Route::group(['middleware' => ['web']], function () {
