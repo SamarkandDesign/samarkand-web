@@ -9,50 +9,50 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-  /**
-  * Bootstrap any application services.
-  *
-  * @return void
-  */
+    /**
+   * Bootstrap any application services.
+   *
+   * @return void
+   */
   public function boot()
   {
-    $this->app['request']->server->set('HTTPS', $this->app->environment() != 'local' and $this->app->environment() != 'testing');
+      $this->app['request']->server->set('HTTPS', $this->app->environment() != 'local' and $this->app->environment() != 'testing');
 
-    Page::moved(function ($page) {
-      if ($page) {
-        dispatch(new \App\Jobs\UpdatePagePath($page));
-      }
-    });
+      Page::moved(function ($page) {
+          if ($page) {
+              dispatch(new \App\Jobs\UpdatePagePath($page));
+          }
+      });
 
-    Page::created(function ($page) {
-      if ($page->isRoot()) {
-        dispatch(new \App\Jobs\UpdatePagePath($page));
-      }
-    });
+      Page::created(function ($page) {
+          if ($page->isRoot()) {
+              dispatch(new \App\Jobs\UpdatePagePath($page));
+          }
+      });
 
-    Page::updated(function ($page) {
-      if ($page->isDirty('slug') and $page->fresh()) {
-        dispatch(new \App\Jobs\UpdatePagePath($page->fresh()));
-      }
-    });
+      Page::updated(function ($page) {
+          if ($page->isDirty('slug') and $page->fresh()) {
+              dispatch(new \App\Jobs\UpdatePagePath($page->fresh()));
+          }
+      });
   }
 
   /**
-  * Register any application services.
-  *
-  * This service provider is a great spot to register your various container
-  * bindings with the application. As you can see, we are registering our
-  * "Registrar" implementation here. You can add your own bindings too!
-  *
-  * @return void
-  */
+   * Register any application services.
+   *
+   * This service provider is a great spot to register your various container
+   * bindings with the application. As you can see, we are registering our
+   * "Registrar" implementation here. You can add your own bindings too!
+   *
+   * @return void
+   */
   public function register()
   {
-    $this->app->bind(
+      $this->app->bind(
     'Illuminate\Contracts\Auth\Registrar',
     'App\Services\Registrar'
   );
 
-  $this->app->singleton(GatewayInterface::class, StripeGateway::class);
-}
+      $this->app->singleton(GatewayInterface::class, StripeGateway::class);
+  }
 }
