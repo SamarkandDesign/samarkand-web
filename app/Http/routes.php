@@ -3,8 +3,14 @@
  // DB::listen(function ($query) {
  //    var_dump($query->sql, $query->bindings, $query->time);
  //        });
+ 
+Route::get('/debug-request', function (Illuminate\Http\Request $request) {
+ var_dump(route('auth.register'));
+ var_dump($request);
+});
 
 Route::group(['middleware' => ['web']], function () {
+ 
     Route::get('/', 'HomeController@index');
 
     Route::controllers([
