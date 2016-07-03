@@ -3,7 +3,6 @@
 namespace App\Presenters;
 
 use Illuminate\Support\HtmlString;
-use Present;
 
 class ProductPresenter extends ModelPresenter
 {

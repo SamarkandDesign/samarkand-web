@@ -2,54 +2,56 @@
 
 namespace App\Values;
 
-class Price {
-
-  protected $value;
-  protected $symbol;
+class Price
+{
+    protected $value;
+    protected $symbol;
 
   /**
-   * Create a new Price instance
+   * Create a new Price instance.
+   *
    * @param int $value The lowest denomination value
    */
   public function __construct($value)
   {
-    // DEBT: shouldn't have to do this
+      // DEBT: shouldn't have to do this
     $value = intval($value);
 
     // DEBT: Null object needed here
     if (!$value) {
-      $value = 0;
+        $value = 0;
     }
 
-    if (!is_int($value)) {
-      throw new \InvalidArgumentException(sprintf('A price must be instantiated with an integer. %s given', gettype($value)));
-    }
+      if (!is_int($value)) {
+          throw new \InvalidArgumentException(sprintf('A price must be instantiated with an integer. %s given', gettype($value)));
+      }
 
-    $this->value = $value;
-    $this->symbol = config('shop.currency_symbol');
+      $this->value = $value;
+      $this->symbol = config('shop.currency_symbol');
   }
 
   /**
-   * Get the string representation of the price
+   * Get the string representation of the price.
+   *
    * @return string
    */
   public function __toString()
   {
-    return $this->symbol . money_format('%i', $this->asDecimal());
+      return $this->symbol.money_format('%i', $this->asDecimal());
   }
 
   /**
-   * Get the value of the price
+   * Get the value of the price.
    *
    * @return int
    */
   public function value()
   {
-    return $this->value;
+      return $this->value;
   }
 
-  public function asDecimal()
-  {
-    return $this->value / 100;
-  }
+    public function asDecimal()
+    {
+        return $this->value / 100;
+    }
 }
