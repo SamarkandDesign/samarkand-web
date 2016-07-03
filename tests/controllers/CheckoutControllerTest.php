@@ -11,6 +11,7 @@ class CheckoutControllerTest extends \TestCase
     {
         $this->withoutEvents();
         $product = $this->putProductInCart();
+
         $this->visit('checkout')
              ->see($product->name);
     }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Values\Price;
 
 class ShippingMethod extends Model
 {
@@ -50,7 +51,7 @@ class ShippingMethod extends Model
     /**
      * Get the cost of a shipping method.
      *
-     * @return float
+     * @return Price
      */
     public function getPrice()
     {
@@ -76,7 +77,7 @@ class ShippingMethod extends Model
      */
     public function getBaseRateAttribute($rate)
     {
-        return $rate / 100;
+        return new Price($rate);
     }
 
     /**

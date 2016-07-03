@@ -16,7 +16,7 @@
 				<label for="price">Price</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-{{ strtolower(config('shop.currency')) }}"></i></span>
-					<input type="number" step="0.01" class="form-control" name="price" value="{{ old('price', $product->price) }}">
+					<input type="number" step="0.01" class="form-control" name="price" value="{{ old('price', $product->price->asDecimal()) }}">
 				</div>
 			</div>
 
@@ -24,7 +24,7 @@
 				<label for="sale_price">Sale Price</label>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-{{ strtolower(config('shop.currency')) }}"></i></span>
-					<input type="number" step="0.01" class="form-control" name="sale_price" value="{{ old('sale_price', $product->sale_price) }}">
+					<input type="number" step="0.01" class="form-control" name="sale_price" value="{{ old('sale_price', $product->sale_price->asDecimal()) }}">
 				</div>
 			</div>
 

@@ -36,7 +36,7 @@ class CartController extends Controller
                   'id'    => $product->id,
                   'qty'   => $qty,
                   'name'  => $product->name,
-                  'price' => $product->getPrice(),
+                  'price' => $product->getPrice()->asDecimal(),
                   ]);
 
         return redirect()->back()->with([

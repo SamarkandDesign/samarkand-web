@@ -27,7 +27,7 @@
 <tr>
   <td>{{ $item->product->present()->thumbnail(45) }}</td>
   <td>{{ $item->name }} x{{ $item->qty }}</td>
-  <td>{{ Present::money($item->product->getPrice() * $item->qty) }}</td>
+  <td>{{ new App\Values\Price($item->product->getPrice()->value() * $item->qty) }}</td>
 </tr>
 @endforeach
 

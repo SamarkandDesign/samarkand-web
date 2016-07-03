@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Values\Price;
 
 class OrderItem extends Model
 {
@@ -41,6 +42,26 @@ class OrderItem extends Model
     }
 
     /**
+     * Set the price paid of an order item
+     *
+     * @param Price $price
+     */
+    public function setPricePaidAttribute(Price $price)
+    {
+      $this->attributes['price_paid'] = $price->value();
+    }
+
+    /**
+     * Get the price paid of an order item
+     *
+     * @return Price
+     */
+    public function getPricePaidAttribute($price)
+    {
+      return new Price($price);
+    }
+
+    /**
      * An OrderItem belongs to an order.
      *
      * @return Illuminate\Database\Eloquent\Relations\Relation
@@ -67,6 +88,6 @@ class OrderItem extends Model
      */
     public function getTotalPaidAttribute()
     {
-        return $this->quantity * $this->price_paid;
+        return new Price($this->quantity * $this->price_paid->value());
     }
 }

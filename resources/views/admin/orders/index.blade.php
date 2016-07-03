@@ -57,7 +57,7 @@
               <span class="text-muted">Via {{ $order->shipping_item->description }}</span>
           </td>
           <td>{{ $order->created_at }}</td>
-          <td>{{ Present::money($order->amount) }}</td>
+          <td>{{ $order->amount }}</td>
           <td>
             @if ($order->status == App\Order::PAID)
             @include('admin.orders.partials._complete_button', ['order' => $order])

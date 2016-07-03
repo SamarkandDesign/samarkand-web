@@ -30,7 +30,6 @@ class CheckoutController extends Controller
         if (!$request->session()->has('order')) {
             $request->session()->put('order', $order);
         }
-
         return view('shop.checkout', compact('order'));
     }
 

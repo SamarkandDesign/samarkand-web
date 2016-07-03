@@ -10,7 +10,7 @@
         {!! Form::label('base_rate', 'Base Rate', ['class' => 'sr-only']) !!}
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-{{ strtolower(config('shop.currency')) }}"></i></span>
-            {!! Form::number('base_rate', null, ['class' => 'form-control', 'min' => 0, 'step' => '0.01', 'placeholder' => 'Base Rate']) !!}
+            {!! Form::number('base_rate', $shipping_method->base_rate->asDecimal(), ['class' => 'form-control', 'min' => 0, 'step' => '0.01', 'placeholder' => 'Base Rate']) !!}
         </div>
         {!! $errors->has('base_rate') ? '<span class="help-block">'.$errors->first('base_rate').'</span>' : '' !!}
     </div>
@@ -19,7 +19,7 @@
 <div class="form-group">
     <?php $selected_countries = $shipping_method->shipping_countries->pluck('country_id')->toArray(); ?>
     {!! Form::label('shipping_countries[]', 'Allowed Countries') !!}
-    {!! Form::select('shipping_countries[]', app(App\Countries\CountryRepository::class)->group()->toArray(), $selected_countries, ['multiple' => true, 'class' => 'form-control select2 shipping-country-select']) !!} 
+    {!! Form::select('shipping_countries[]', app(App\Countries\CountryRepository::class)->group()->toArray(), $selected_countries, ['multiple' => true, 'class' => 'form-control select2 shipping-country-select']) !!}
 </div>
 
 

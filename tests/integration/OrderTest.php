@@ -62,7 +62,7 @@ class OrderTest extends TestCase
         ->press('Continue')
         ->seePageIs('checkout/pay');
 
-        $this->seeInDatabase('orders', ['amount' => $product->getPrice() + $shipping_method->getPrice(), 'status' => 'pending']);
+        $this->seeInDatabase('orders', ['amount' => $product->getPrice()->value() + $shipping_method->getPrice()->value(), 'status' => 'pending']);
         $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
         $this->seeInDatabase('addresses', ['city' => 'London']);
     }
@@ -83,7 +83,7 @@ class OrderTest extends TestCase
         ->press('Continue')
         ->seePageIs('checkout/pay');
 
-        $order_amount = $product->getPrice() + $shipping_method->getPrice();
+        $order_amount = $product->getPrice()->value() + $shipping_method->getPrice()->value();
 
         $order = \App\Order::where('user_id', $user->id)->first();
         $this->seeInDatabase('orders', ['amount' => $order_amount, 'status' => 'pending']);
@@ -100,8 +100,8 @@ class OrderTest extends TestCase
         $user = $this->loginWithUser([], 'customer');
         $product = $this->putProductInCart();
         $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
-        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 500]);
-        $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 600]);
+        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 550]);
+        $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 650]);
 
         $shipping_method->allowCountries(['GB']);
         $shipping_method_2->allowCountries(['GB']);
@@ -246,8 +246,9 @@ class OrderTest extends TestCase
 
         $this->be($this->customer);
         $order = $this->order;
+
         $this->visit("account/orders/{$order->id}")
-        ->see($order->amount);
+        ->see($order->amount->asDecimal());
     }
 
     /** @test **/

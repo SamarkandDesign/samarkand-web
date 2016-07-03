@@ -12,7 +12,7 @@ trait UsesCart
                   'id'    => $product->id,
                   'qty'   => 1,
                   'name'  => $product->name,
-                  'price' => $product->getPrice(),
+                  'price' => $product->getPrice()->asDecimal(),
         ]);
 
         return $product;

@@ -22,7 +22,7 @@
     <div class="radio">
       <label>
         {!! Form::radio('shipping_method_id', $shipping_method->id, $shipping_method->id == old('shipping_method_id'), ['id' =>"shipping_method_{$shipping_method->id}" ]) !!}
-        {{ $shipping_method->description }}: {{ Present::money($shipping_method->getPrice()) }}
+        {{ $shipping_method->description }}: {{ $shipping_method->getPrice() }}
       </label>
     </div>
     @endforeach

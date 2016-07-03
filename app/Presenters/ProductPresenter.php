@@ -33,14 +33,14 @@ class ProductPresenter extends ModelPresenter
      */
     public function price()
     {
-        if (!$this->model->sale_price) {
-            return new HtmlString(Present::money($this->model->price));
+        if (!$this->model->sale_price->value()) {
+            return new HtmlString($this->model->price);
         }
 
         return new HtmlString(sprintf(
       '<del>%s</del> <ins>%s</ins>',
-      Present::money($this->model->price),
-      Present::money($this->model->sale_price)
+      $this->model->price,
+      $this->model->sale_price
       ));
     }
 

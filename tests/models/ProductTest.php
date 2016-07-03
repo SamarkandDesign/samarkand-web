@@ -29,13 +29,13 @@ class ProductTest extends TestCase
                                                    'price'      => 20,
                                                    'sale_price' => 0,
                                                    ]);
-        $this->assertEquals(20, $product->getPrice());
+        $this->assertEquals(20, $product->getPrice()->asDecimal());
 
         $product = factory(Product::class)->make([
                                                    'price'      => 20,
                                                    'sale_price' => 15,
                                                    ]);
-        $this->assertEquals(15, $product->getPrice());
+        $this->assertEquals(15, $product->getPrice()->asDecimal());
     }
 
     /** @test **/

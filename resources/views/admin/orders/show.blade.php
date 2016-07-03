@@ -71,22 +71,22 @@ Order #{{ $order->id }} Details
 					<td style="width:36px">{{ $item->orderable->present()->thumbnail(20) }}</td>
 					<td><a href="{{ route('admin.products.edit', $item->orderable) }}">{{ $item->description }}</a></td>
 					<td>{{ $item->orderable->sku }}</td>
-					<td>{{ Present::money($item->price_paid) }}</td>
+					<td>{{ $item->price_paid }}</td>
 					<td>{{ $item->quantity }}</td>
-					<td>{{ Present::money($item->total_paid) }}</td>
+					<td>{{ $item->total_paid }}</td>
 				</tr>
 			@endforeach
 
 			<tr>
 				<td colspan="5"></td>
 			</tr>
-			
+
 			<tr>
 				<td><i class="fa fa-truck"></i></td>
 				<td>{{ $order->shipping_item->description}}</td>
 
 				<td colspan="3"></td>
-				<td>{{ Present::money($order->shipping_item->price_paid) }}</td>
+				<td>{{ $order->shipping_item->price_paid }}</td>
 			</tr>
 
 		</tbody>
@@ -94,7 +94,7 @@ Order #{{ $order->id }} Details
 			<tr>
 				<th colspan="4"></th>
 				<th>Grand Total:</th>
-				<th>{{ Present::money($order->amount) }}</th>
+				<th>{{ $order->amount }}</th>
 			</tr>
 		</tfoot>
 	</table>

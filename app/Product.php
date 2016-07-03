@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
+use App\Values\Price;
 
 class Product extends Model implements HasMediaConversions, Termable, \Spatie\SearchIndex\Searchable
 {
@@ -267,11 +268,11 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
      *
      * @param int $price
      *
-     * @return float
+     * @return Price
      */
     public function getPriceAttribute($price)
     {
-        return $price / 100;
+        return new Price($price);
     }
 
     /**
@@ -279,11 +280,11 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
      *
      * @param int $price
      *
-     * @return float
+     * @return Price
      */
     public function getSalePriceAttribute($price)
     {
-        return $price / 100;
+        return new Price($price);
     }
 
     /**
@@ -337,11 +338,13 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
     /**
      * Get the price of the product.
      *
-     * @return float
+     * @return Price
      */
     public function getPrice()
     {
-        return $this->sale_price > 0 ? $this->sale_price : $this->price;
+        $value = $this->sale_price->value() > 0 ? $this->sale_price->value() : $this->price->value();
+
+        return new Price($value);
     }
 
     /**

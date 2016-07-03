@@ -3,6 +3,7 @@
 namespace App;
 
 use TestCase;
+use App\Values\Price;
 
 class OrderTest extends TestCase
 {
@@ -57,8 +58,8 @@ class OrderTest extends TestCase
 
         $order->setShipping($shipping_method_2->id);
 
-        $this->seeInDatabase('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => 6]);
-        $this->notSeeInDatabase('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => 5]);
+        $this->seeInDatabase('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method_2->base_rate->value()]);
+        $this->notSeeInDatabase('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method->base_rate->value()]);
         $this->assertEquals($order->shipping_method->id, $shipping_method_2->id);
     }
 
@@ -71,7 +72,7 @@ class OrderTest extends TestCase
         OrderItem::create([
             'order_id'          => $order->id,
             'description'       => 'A product',
-            'price_paid'        => 89.20,
+            'price_paid'        => new Price(8920),
             'quantity'          => 2,
             'orderable_type'    => Product::class,
             'orderable_id'      => 1,
@@ -80,14 +81,14 @@ class OrderTest extends TestCase
         OrderItem::create([
             'order_id'          => $order->id,
             'description'       => 'A shipping method',
-            'price_paid'        => 5,
+            'price_paid'        => new Price(500),
             'quantity'          => 1,
             'orderable_type'    => ShippingMethod::class,
             'orderable_id'      => 1,
             ]);
 
         $order->refreshAmount();
-        $this->assertEquals(183.4, $order->amount);
+        $this->assertEquals(183.4, $order->amount->asDecimal());
     }
 
     /** @test **/

@@ -11,7 +11,7 @@ class ShippingMethodTest extends TestCase
     {
         $shipping_method = factory(ShippingMethod::class)->create(['base_rate' => 5.60]);
 
-        $this->assertEquals(5.6, $shipping_method->getPrice());
+        $this->assertEquals(560, $shipping_method->getPrice()->value());
     }
 
     /** @test **/

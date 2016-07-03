@@ -24,7 +24,7 @@ class ShopTest extends TestCase
 
         $cart_row = \Cart::content()->first();
         $this->assertEquals($product->name, $cart_row->name);
-        $this->assertEquals($product->getPrice(), \Cart::total());
+        $this->assertEquals($product->getPrice()->asDecimal(), \Cart::total());
     }
 
     /** @test **/

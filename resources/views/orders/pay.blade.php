@@ -16,7 +16,7 @@
     <h1>Pay</h1>
 
     <h2>Order Details</h2>
-    
+
     @include('orders._summary')
 
     <div class="well">
@@ -36,4 +36,6 @@
         <input type="hidden" name="order_id" value="{{ $order->id }}">
         </card-form>
     </div>
+    
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 @stop

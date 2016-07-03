@@ -22,7 +22,7 @@ class PaymentsController extends Controller
 
         try {
             $charge = $gateway->charge([
-                'amount'      => $order->amount * 100,
+                'amount'      => $order->amount->value(),
                 'card'        => $request->stripe_token,
                 'description' => sprintf('Order #%s', $order->id),
                 ], [

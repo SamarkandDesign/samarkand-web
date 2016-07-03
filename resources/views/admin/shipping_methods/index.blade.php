@@ -28,7 +28,7 @@ Shipping Methods
 				@foreach($shipping_methods as $method)
 				<tr>
 					<td>{{ $method->description }}</td>
-					<td>{{ Present::money($method->getPrice()) }}</td>
+					<td>{{ $method->getPrice() }}</td>
 					<td>{{ $method->shipping_countries->implode('country_id', ', ') }}</td>
 					<td>
 						<a href="{{ route('admin.shipping_methods.edit', $method) }}" class="btn btn-link">Edit</a>

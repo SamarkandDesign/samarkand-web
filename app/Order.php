@@ -5,6 +5,7 @@ namespace App;
 use App\Presenters\PresentableTrait;
 use Cart;
 use Illuminate\Database\Eloquent\Model;
+use App\Values\Price;
 
 class Order extends Model
 {
@@ -133,12 +134,17 @@ class Order extends Model
     public function refreshAmount()
     {
         $amount = $this->order_items->reduce(function ($carry, $item) {
-            return ($item->price_paid * $item->quantity) + $carry;
+            return ($item->price_paid->value() * $item->quantity) + $carry;
         });
 
         $this->update(['amount' => $amount]);
 
         return $this;
+    }
+
+    public function getAmountAttribute($amount)
+    {
+      return new Price($amount);
     }
 
     /**

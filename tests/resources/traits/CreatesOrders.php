@@ -20,7 +20,7 @@ trait CreatesOrders
         $this->order = factory('App\Order')->create($order_attributes);
         $order_item = factory('App\OrderItem')->create(['order_id' => $this->order->id]);
 
-        $this->order->amount = $order_item->price_paid;
+        $this->order->amount = $order_item->price_paid->value();
         $this->order->save();
 
         return $this->order;

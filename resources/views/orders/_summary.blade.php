@@ -11,7 +11,7 @@
             <td>
                 <a href="{{ $item->orderable->url }}">{{ $item->orderable->name }}</a> x{{ $item->quantity}}
             </td>
-            <td>{{ Present::money($item->total_paid) }}</td>
+            <td>{{ $item->total_paid }}</td>
         </tr>
         @endforeach
         <tr>
@@ -22,14 +22,14 @@
             <td>
                 {{ $item->description }}
             </td>
-            <td>{{ Present::money($item->total_paid) }}</td>
+            <td>{{ $item->total_paid }}</td>
         </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
             <th class="text-right">Total</th>
-            <th>{{ Present::money($order->amount) }}</th>
+            <th>{{ $order->amount }}</th>
         </tr>
     </tfoot>
 </table>

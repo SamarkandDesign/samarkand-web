@@ -36,7 +36,7 @@
                     <td><a href="{{ $item->product->url }}">{{ $item->name }}</a></td>
                     <td>{{ $item->product->present()->price() }}</td>
                     <td>{{ $item->qty }}</td>
-                    <td>{{ Present::money($item->product->getPrice() * $item->qty) }}</td>
+                    <td>{{ Present::money($item->product->getPrice()->asDecimal() * $item->qty) }}</td>
                 </tr>
                 @endforeach
             </tbody>
