@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Values\Price;
+use Illuminate\Database\Eloquent\Model;
 
 class ShippingMethod extends Model
 {

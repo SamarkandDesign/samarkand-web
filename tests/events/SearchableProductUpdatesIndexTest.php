@@ -13,14 +13,14 @@ class SearchableProductUpdatesIndexTest extends TestCase
         \SearchIndex::shouldReceive('upsertToIndex')->once();
 
         $product = Product::create([
-          'name' => 'Foo Product',
-          'slug' => 'foo-product',
+          'name'        => 'Foo Product',
+          'slug'        => 'foo-product',
           'description' => 'An example product',
-          'sku' => 'EP123',
-          'stock_qty' => 1,
-          'price' => 26.45,
-          'sale_price' => 12.67,
-          'user_id' => 1
+          'sku'         => 'EP123',
+          'stock_qty'   => 1,
+          'price'       => 26.45,
+          'sale_price'  => 12.67,
+          'user_id'     => 1,
         ]);
     }
 

@@ -4,21 +4,21 @@ use App\Values\Price;
 
 class PriceTest extends TestCase
 {
-  /** @test */
+    /** @test */
   public function it_creates_a_price_object()
   {
-    $price = new Price(220);
+      $price = new Price(220);
 
-    $this->assertEquals('&pound;2.20', (string) $price);
-    $this->assertEquals(220, $price->value());
+      $this->assertEquals('&pound;2.20', (string) $price);
+      $this->assertEquals(220, $price->value());
   }
 
   /** @test */
   public function it_gets_the_decimal_value_of_the_price()
   {
-    $price = new Price(220);
+      $price = new Price(220);
 
-    $this->assertEquals(2.20, $price->asDecimal());
+      $this->assertEquals(2.20, $price->asDecimal());
   }
 
   // /** @test */

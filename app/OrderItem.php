@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Values\Price;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
@@ -42,23 +42,23 @@ class OrderItem extends Model
     }
 
     /**
-     * Set the price paid of an order item
+     * Set the price paid of an order item.
      *
      * @param Price $price
      */
     public function setPricePaidAttribute(Price $price)
     {
-      $this->attributes['price_paid'] = $price->value();
+        $this->attributes['price_paid'] = $price->value();
     }
 
     /**
-     * Get the price paid of an order item
+     * Get the price paid of an order item.
      *
      * @return Price
      */
     public function getPricePaidAttribute($price)
     {
-      return new Price($price);
+        return new Price($price);
     }
 
     /**
