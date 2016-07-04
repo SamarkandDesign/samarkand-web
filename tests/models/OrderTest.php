@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Values\Price;
 use TestCase;
 
 class OrderTest extends TestCase

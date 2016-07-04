@@ -94,9 +94,9 @@ class OrdersController extends Controller
 
     public function pay(ViewOrderRequest $request, Order $order)
     {
-      $request->session()->put('order', $order);
+        $request->session()->put('order', $order);
 
-      return redirect()->route('checkout.shipping');
+        return redirect()->route('checkout.shipping');
     }
 
     /**
