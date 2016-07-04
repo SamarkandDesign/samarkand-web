@@ -3,9 +3,9 @@
 namespace App;
 
 use App\Presenters\PresentableTrait;
+use App\Values\Price;
 use Cart;
 use Illuminate\Database\Eloquent\Model;
-use App\Values\Price;
 
 class Order extends Model
 {
@@ -144,7 +144,7 @@ class Order extends Model
 
     public function getAmountAttribute($amount)
     {
-      return new Price($amount);
+        return new Price($amount);
     }
 
     /**

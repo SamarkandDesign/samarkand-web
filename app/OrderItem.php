@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Values\Price;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
@@ -42,13 +42,13 @@ class OrderItem extends Model
     }
 
     /**
-     * Get the price paid of an order item
+     * Get the price paid of an order item.
      *
      * @return Price
      */
     public function getPricePaidAttribute($price)
     {
-      return new Price($price);
+        return new Price($price);
     }
 
     /**

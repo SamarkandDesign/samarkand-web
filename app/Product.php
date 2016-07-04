@@ -7,12 +7,12 @@ use App\Presenters\PresentableTrait;
 use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
 use App\Traits\SearchableModel;
+use App\Values\Price;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
-use App\Values\Price;
 
 class Product extends Model implements HasMediaConversions, Termable, \Spatie\SearchIndex\Searchable
 {
