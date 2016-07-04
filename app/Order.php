@@ -107,7 +107,7 @@ class Order extends Model
         $shipping_item = new OrderItem([
             'quantity'    => 1,
             'description' => $shipping_method->description,
-            'price_paid'  => $shipping_method->getPrice(),
+            'price_paid'  => $shipping_method->getPrice()->value(),
             ]);
         $shipping_item->orderable()->associate($shipping_method);
         $this->order_items()->save($shipping_item);

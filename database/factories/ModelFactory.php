@@ -110,7 +110,7 @@ $factory->define('App\OrderItem', function ($faker) {
     return [
     'order_id'          => factory('App\Order')->create()->id,
     'description'       => $product->name,
-    'price_paid'        => $product->getPrice(),
+    'price_paid'        => $product->getPrice()->value(),
     'quantity'          => 1,
     'orderable_type'    => App\Product::class,
     'orderable_id'      => $product->id,

@@ -43,7 +43,6 @@ class CheckoutController extends Controller
     public function shipping(Request $request, ShippingMethodRepository $shipping_methods)
     {
         $order = $request->session()->get('order')->fresh();
-
         $shipping_methods = $shipping_methods->forCountry($order->shipping_address->country);
 
         if ($shipping_methods->isEmpty()) {

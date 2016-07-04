@@ -54,7 +54,10 @@
             <p v-if="error_message" class="text-danger col-md-12">{{ error_message }}</p>
 
             <div class="col-sm-4 col-md-2 col-sm-push-8 col-md-push-10">
-                <button @click.prevent="getStripeToken" class="btn btn-lg btn-success btn-block" :disabled="isLoading">Place Order</button>
+                <button @click.prevent="getStripeToken" class="btn btn-lg btn-success btn-block" :disabled="isLoading">
+                  <span v-show="isLoading"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading...</span>
+                  <span v-show="!isLoading">Place Order</span>
+                </button>
             </div>
             <div class="col-sm-8 col-md-10  col-sm-pull-4 col-md-pull-2">
                 <p class="top-buffer"><i class="fa fa-lock"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>

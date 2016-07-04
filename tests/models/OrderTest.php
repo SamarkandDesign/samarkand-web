@@ -72,7 +72,7 @@ class OrderTest extends TestCase
         OrderItem::create([
             'order_id'          => $order->id,
             'description'       => 'A product',
-            'price_paid'        => new Price(8920),
+            'price_paid'        => 8920,
             'quantity'          => 2,
             'orderable_type'    => Product::class,
             'orderable_id'      => 1,
@@ -81,7 +81,7 @@ class OrderTest extends TestCase
         OrderItem::create([
             'order_id'          => $order->id,
             'description'       => 'A shipping method',
-            'price_paid'        => new Price(500),
+            'price_paid'        => 500,
             'quantity'          => 1,
             'orderable_type'    => ShippingMethod::class,
             'orderable_id'      => 1,

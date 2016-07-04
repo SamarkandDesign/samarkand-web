@@ -16,7 +16,8 @@ class OrdersController extends Controller
     public function __construct()
     {
         $this->middleware('order.customer', ['only' => ['store']]);
-        $this->middleware('order.session', ['only' => ['shipping', 'pay']]);
+        $this->middleware('order.session', ['only' => ['shipping']]);
+        $this->middleware('auth', ['only' => ['show', 'pay']]);
     }
 
     /**
@@ -89,6 +90,13 @@ class OrdersController extends Controller
     public function show(ViewOrderRequest $request, Order $order)
     {
         return view('orders.show', compact('order'));
+    }
+
+    public function pay(ViewOrderRequest $request, Order $order)
+    {
+      $request->session()->put('order', $order);
+
+      return redirect()->route('checkout.shipping');
     }
 
     /**

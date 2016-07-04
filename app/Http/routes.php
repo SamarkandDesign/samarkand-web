@@ -41,6 +41,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('orders', ['uses' => 'OrdersController@store', 'as' => 'orders.store']);
     Route::post('orders/shipping', ['uses' => 'OrdersController@shipping', 'as' => 'orders.shipping']);
+    Route::get('orders/{order}/pay', ['uses' => 'OrdersController@pay', 'as' => 'orders.pay']);
 
     Route::post('payments', ['uses' => 'PaymentsController@store', 'as' => 'payments.store']);
 

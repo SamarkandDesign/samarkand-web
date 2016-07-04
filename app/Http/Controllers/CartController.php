@@ -10,65 +10,69 @@ use Illuminate\Support\HtmlString;
 
 class CartController extends Controller
 {
-    /**
-     * Show a list of the cart contents.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('shop.cart');
-    }
+  /**
+  * Show a list of the cart contents.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function index()
+  {
+    return view('shop.cart');
+  }
 
-    /**
-     * Put an item in the cart.
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(AddToCartRequest $request)
-    {
-        $product = Product::findOrFail($request->product_id);
-        $qty = (int) $request->quantity;
+  /**
+  * Put an item in the cart.
+  *
+  * @param Request $request
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function store(AddToCartRequest $request)
+  {
+    $product = Product::findOrFail($request->product_id);
+    $qty = (int) $request->quantity;
 
-        Cart::associate('Product', 'App')->add([
-                  'id'    => $product->id,
-                  'qty'   => $qty,
-                  'name'  => $product->name,
-                  'price' => $product->getPrice()->asDecimal(),
-                  ]);
+    Cart::associate('Product', 'App')->add([
+      'id'    => $product->id,
+      'qty'   => $qty,
+      'name'  => $product->name,
+      'price' => $product->getPrice()->asDecimal(),
+    ]);
 
-        return redirect()->back()->with([
-          'alert'       => new HtmlString(sprintf('%d %s added to cart. %s or %s.',
-            $qty,
-            str_plural($product->name, $qty),
-            '<strong><a href="/checkout">Checkout</a></strong>',
-            '<strong><a href="/shop">continue shopping</a></strong>'
-            )),
-          'alert-class' => 'success',
-          ]);
-    }
+    $request->session()->forget('order');
 
-    /**
-     * Remove an item from the cart.
-     *
-     * @param Request $request
-     * @param string  $rowid   The row id to remove
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function remove(Request $request, $rowid)
-    {
-        $product = Cart::get($rowid)->product;
+    return redirect()->back()->with([
+      'alert'       => new HtmlString(sprintf('%d %s added to cart. %s or %s.',
+      $qty,
+      str_plural($product->name, $qty),
+      '<strong><a href="/checkout">Checkout</a></strong>',
+      '<strong><a href="/shop">continue shopping</a></strong>'
+    )),
+    'alert-class' => 'success',
+  ]);
+}
 
-        Cart::remove($rowid);
+/**
+* Remove an item from the cart.
+*
+* @param Request $request
+* @param string  $rowid   The row id to remove
+*
+* @return \Illuminate\Http\Response
+*/
+public function remove(Request $request, $rowid)
+{
+  $product = Cart::get($rowid)->product;
 
-        $route = Cart::count() > 0 ? 'cart' : 'products.index';
+  Cart::remove($rowid);
 
-        return redirect()->route($route)->with([
-          'alert'       => "{$product->name} removed from cart",
-          'alert-class' => 'success',
-          ]);
-    }
+  $route = Cart::count() > 0 ? 'cart' : 'products.index';
+
+  $request->session()->forget('order');
+
+  return redirect()->route($route)->with([
+    'alert'       => "{$product->name} removed from cart",
+    'alert-class' => 'success',
+  ]);
+}
 }

@@ -32,18 +32,19 @@
                     <td>
                     <a href="{{ route('orders.show', $order) }}" class="btn btn-default">View</a>
                     @if($order->status === App\Order::PENDING)
-                        <a href="{{ route('checkout.pay') }}" class="btn btn-default">Pay</a>
+                        <a href="{{ route('orders.pay', $order) }}" class="btn btn-default">Pay</a>
                     @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    @if ($user->orders->count() > 5)
+    {{-- @if ($user->orders->count() > 5)
+    TODO: implement full order index
         <p>
             <a href="/account/orders">View all orders</a>
         </p>
-    @endif
+    @endif --}}
 
 @else
     <p>You haven't made any orders yet. Why not visit <a href="/shop">the shop</a></p>

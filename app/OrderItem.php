@@ -34,21 +34,11 @@ class OrderItem extends Model
         $item = new static([
                 'quantity'    => $quantity,
                 'description' => $product->name,
-                'price_paid'  => $product->getPrice(),
+                'price_paid'  => $product->getPrice()->value(),
             ]);
         $item->orderable()->associate($product);
 
         return $item;
-    }
-
-    /**
-     * Set the price paid of an order item
-     *
-     * @param Price $price
-     */
-    public function setPricePaidAttribute(Price $price)
-    {
-      $this->attributes['price_paid'] = $price->value();
     }
 
     /**
