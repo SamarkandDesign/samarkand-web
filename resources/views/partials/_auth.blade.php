@@ -3,17 +3,17 @@
         <img src="{{ Auth::user()->present()->avatar(20) }}" alt="">
         <strong>{{ Auth::user()->name }}</strong>
 
-        <ul slot="dropdown-menu" class="dropdown-menu">
+        <ul slot="dropdown-menu" class="dropdown-menu auth-dropdown">
             <li>
                 <div class="navbar-login">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 hidden-xs">
                             <p class="text-center">
                                 <img src="{{ Auth::user()->present()->avatar(87) }}" alt="">
                             </p>
                         </div>
                         <div class="col-lg-8">
-                            <p class="text-left"><strong>{{ Auth::user()->name }}</strong></p>
+                            <p class="text-left hidden-xs"><strong>{{ Auth::user()->name }}</strong></p>
                             <p class="text-left">
                                 <a href="/account" class="btn btn-primary btn-block btn-sm">My Account</a>
                                 @if (Auth::user()->hasRole('admin'))

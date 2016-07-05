@@ -32,11 +32,22 @@ body {
     background-color: #eee;
 }
 
+.auth-dropdown {
+  @media (max-width: $screen-xs-max) {
+  border-radius: 0;
+  border-style: none;
+  width: 100%;
+  }
+}
+
 .navbar-login
 {
     width: 305px;
     padding: 10px;
     padding-bottom: 0px;
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+    }
 }
 
 .navbar-login-session

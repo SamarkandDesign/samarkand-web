@@ -12,8 +12,8 @@
                             <li>
                                 <h6 class="footer-heading">{{ config('shop.name') }}</h6>
                             </li>
-                            <li><a href="#">Help</a></li>
-                            <li><a href="#">Terms &amp; Privacy</a></li>
+                            <li><a href="/faqs">Help</a></li>
+                            <li><a href="/terms-and-conditions">Terms &amp; Privacy</a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4">
@@ -21,10 +21,9 @@
                             <li>
                                 <h6 class="footer-heading">Company</h6>
                             </li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Press</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/press">Press</a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4">
@@ -38,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-sm-offset-1">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-1">
                 <div class="row">
                     <div class="col-sm-12">
                         <ul class="footer-social-buttons">
