@@ -28,6 +28,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-      $schedule->command('orders:cancel-abandoned')->everyThirtyMinutes();
+        $schedule->command('orders:cancel-abandoned')->everyThirtyMinutes();
     }
 }
