@@ -35,11 +35,11 @@ trait TrashesModels
     }
 
     /**
-     * Delete a model, either softly or hard depending on whether it's already been soft-deleted
+     * Delete a model, either softly or hard depending on whether it's already been soft-deleted.
      *
-     * @param  Model  $model
+     * @param Model $model
      *
-     * @return Boolean
+     * @return bool
      */
     protected function delete(Model $model)
     {
@@ -77,19 +77,19 @@ trait TrashesModels
      */
     protected function getIndexUrl($model)
     {
-      if (property_exists($this, 'index_url')) {
-        return $this->index_url;
-      }
+        if (property_exists($this, 'index_url')) {
+            return $this->index_url;
+        }
 
-      if (\Route::has("admin.{$model->table}.index")) {
-        return route("admin.{$model->table}.index");
-      }
+        if (\Route::has("admin.{$model->table}.index")) {
+            return route("admin.{$model->table}.index");
+        }
 
-      return route('admin.posts.index');
+        return route('admin.posts.index');
     }
 
     protected function getModelName($model)
     {
-      return ucwords(class_basename($model));
+        return ucwords(class_basename($model));
     }
 }
