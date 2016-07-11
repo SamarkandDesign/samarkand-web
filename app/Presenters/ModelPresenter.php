@@ -15,7 +15,7 @@ abstract class ModelPresenter extends Presenter
     {
         $route = $this->getModelRoute();
 
-        if ($this->model->trashed()) {
+        if ($this->model->trashed() and \Route::has("admin.{$route}.restore")) {
             $html = sprintf('<a href="%s" data-method="put">Restore</a> | ', route("admin.{$route}.restore", [$this->model->id])).
             sprintf('<a href="%s" data-method="delete" data-confirm="Are you sure?" class="text-danger" rel="nofollow">Delete Permanently</a>', route("admin.{$route}.delete", [$this->model->id]));
         } else {

@@ -128,10 +128,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'admin'], 'namespace'
         Route::get('/', ['uses' => 'ProductsController@index', 'as' => 'admin.products.index']);
         Route::get('/create', ['uses' => 'ProductsController@create', 'as' => 'admin.products.create']);
         Route::get('/{product}/edit', ['uses' => 'ProductsController@edit', 'as' => 'admin.products.edit']);
+        Route::get('/trash', ['uses' => 'ProductsController@trash', 'as' => 'admin.products.trash']);
+
         Route::post('/', ['uses' => 'ProductsController@store', 'as' => 'admin.products.store']);
         Route::patch('/{product}', ['uses' => 'ProductsController@update', 'as' => 'admin.products.update']);
+        Route::put('/{trashedProduct}/restore', ['uses' => 'ProductsController@restore', 'as' => 'admin.products.restore']);
 
-        Route::delete('/{product}', ['uses' => 'ProductsController@destroy', 'as' => 'admin.products.delete']);
+
+        Route::delete('/{trashedProduct}', ['uses' => 'ProductsController@destroy', 'as' => 'admin.products.delete']);
     });
 
     // Terms

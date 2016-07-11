@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Integration\Admin;
 
 use App\Media;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Http\UploadedFile;
 
-class PostsControllerTest extends \TestCase
+class PostsTest extends \TestCase
 {
     private $user;
 
@@ -115,7 +115,8 @@ class PostsControllerTest extends \TestCase
         $this->put("/admin/posts/{$post->id}/restore");
 
         $this->visit('/admin/posts')
-             ->see($post->title);
+             ->see($post->title)
+             ->see('Post restored');
     }
 
     /** @test **/

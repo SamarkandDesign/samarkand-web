@@ -10,6 +10,8 @@ use App\Repositories\Product\ProductRepository;
 
 class ProductsController extends Controller
 {
+    use \App\Traits\TrashesModels;
+
     /**
      * @var \App\Repositories\Product\ProductRepository
      */
@@ -106,18 +108,16 @@ class ProductsController extends Controller
     }
 
     /**
-     * Delete a Product.
-     *
-     * @param Product $product
+     * Show the trash page for products
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function trash()
     {
-        $product->delete();
+      $products = Product::onlyTrashed()->latest()->paginate(10);
+      $title = 'Trashed Products';
+      $productCount = $this->products->count();
 
-        return redirect()->route('admin.products.index')
-                         ->withAlert('Product Deleted')
-                         ->with('alert-class', 'success');
+      return view('admin.products.index')->with(compact('products', 'title', 'productCount'));
     }
 }

@@ -28,7 +28,7 @@ elixir(function(mix) {
     mix.styles([
         cssAdminPath + 'admin.css',
         '../../../' + adminltepath + 'css/AdminLTE.css',
-        '../../../' + adminltepath + 'css/skins/skin-blue.css',
+        '../../../' + adminltepath + 'css/skins/skin-red.css',
         ], 'public/css/admin.css');
 
     mix.version([

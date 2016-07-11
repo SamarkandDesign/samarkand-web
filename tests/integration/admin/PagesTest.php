@@ -158,6 +158,7 @@ class PagesTest extends \TestCase
         $this->put("/admin/pages/{$page->id}/restore");
 
         $this->visit('/admin/pages')
-             ->see($page->title);
+             ->see($page->title)
+             ->see('Page restored');
     }
 }

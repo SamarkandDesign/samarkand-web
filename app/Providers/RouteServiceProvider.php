@@ -56,6 +56,10 @@ class RouteServiceProvider extends ServiceProvider
             return Page::withTrashed()->find($id);
         });
 
+        $router->bind('trashedProduct', function ($id) {
+            return Product::withTrashed()->find($id);
+        });
+
         $router->bind('username', function ($username) {
             return \App\User::where('username', $username)->firstOrFail();
         });

@@ -1,13 +1,12 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-Products
+{{ $title or 'Products' }}
 @stop
 
 @section('heading')
 {{ $title or 'Products' }}
 @stop
-
 
 @section('admin.content')
 
@@ -15,7 +14,7 @@ Products
 	<a href="{{route('admin.products.create')}}" class="btn btn-success pull-right">New Product</a>
 </p>
 
-<p><a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a href="{{ route('admin.posts.trash') }}">Trash</a> ({{-- $trashedCount --}})</p>
+<p><a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a href="{{ route('admin.products.trash') }}">Trash</a> ({{-- $trashedCount --}})</p>
 
 	<div class="box box-primary">
 		<div class="box-body">

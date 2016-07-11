@@ -163,22 +163,4 @@ class PostsController extends Controller
     {
         return view('admin.posts.images')->with(compact('post'));
     }
-
-    /**
-     * Restore the post from soft-deletion.
-     *
-     * @param Post $post
-     *
-     * @throws \Exception
-     */
-    public function restore(Post $post)
-    {
-        $post->restore();
-
-        return redirect()->route('admin.posts.index')
-            ->with([
-                'alert'       => 'Post Restored',
-                'alert-class' => 'success',
-                ]);
-    }
 }
