@@ -96,11 +96,10 @@ $factory->define('App\ProductAttribute', function ($faker) {
 });
 
 $factory->define('App\AttributeProperty', function ($faker) {
+    $name = $faker->word;
 
-  $name = $faker->word;
-
-  return [
-    'name' => $name,
+    return [
+    'name'                 => $name,
     'product_attribute_id' => factory(App\ProductAttribute::class)->create()->id,
   ];
 });

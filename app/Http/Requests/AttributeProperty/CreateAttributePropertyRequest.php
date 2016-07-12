@@ -23,11 +23,11 @@ class CreateAttributePropertyRequest extends Request
      */
     public function rules()
     {
-      $product_attribute = $this->route('product_attribute');
+        $product_attribute = $this->route('product_attribute');
 
         return [
-            'name'      => 'required|unique:attribute_properties,name,NULL,id,product_attribute_id,' . $product_attribute->id, // name is only unique for a given attribute
-            'slug'      => 'alpha_dash|unique:attribute_properties,slug,NULL,id,product_attribute_id,' . $product_attribute->id,
+            'name'      => 'required|unique:attribute_properties,name,NULL,id,product_attribute_id,'.$product_attribute->id, // name is only unique for a given attribute
+            'slug'      => 'alpha_dash|unique:attribute_properties,slug,NULL,id,product_attribute_id,'.$product_attribute->id,
             'order'     => 'integer',
         ];
     }

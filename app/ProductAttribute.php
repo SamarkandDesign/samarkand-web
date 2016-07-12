@@ -39,6 +39,6 @@ class ProductAttribute extends Model
 
     public function attribute_properties()
     {
-      return $this->hasMany(AttributeProperty::class);
+        return $this->hasMany(AttributeProperty::class);
     }
 }

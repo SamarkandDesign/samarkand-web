@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\AttributeProperty;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductAttribute\CreateProductAttributeRequest;
 use App\Http\Requests\AttributeProperty\CreateAttributePropertyRequest;
 use App\Http\Requests\AttributeProperty\UpdateAttributePropertyRequest;
-use App\AttributeProperty;
 use App\ProductAttribute;
-use Illuminate\Http\Request;
 
 class AttributePropertiesController extends Controller
 {
@@ -30,21 +28,22 @@ class AttributePropertiesController extends Controller
 
     public function store(CreateAttributePropertyRequest $request, ProductAttribute $product_attribute)
     {
-      $attribute_property = new AttributeProperty($request->all());
+        $attribute_property = new AttributeProperty($request->all());
 
-      return $product_attribute->attribute_properties()->save($attribute_property);
+        return $product_attribute->attribute_properties()->save($attribute_property);
     }
 
     public function update(UpdateAttributePropertyRequest $request, AttributeProperty $attribute_property)
     {
-      $attribute_property->update($request->all());
+        $attribute_property->update($request->all());
 
-      return $attribute_property;
+        return $attribute_property;
     }
 
     public function destroy(AttributeProperty $attribute_property)
     {
-      $attribute_property->delete();
-      return 'success';
+        $attribute_property->delete();
+
+        return 'success';
     }
 }
