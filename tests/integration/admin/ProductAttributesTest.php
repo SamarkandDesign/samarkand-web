@@ -7,11 +7,11 @@ class ProductAttributesTest extends \TestCase
     /** @test **/
     public function it_can_view_a_list_of_custom_attributes()
     {
-        $attributes_1 = factory('App\ProductAttribute', 3)->create([
+        $property_1 = factory('App\ProductAttribute')->create([
             'name' => 'Lampshade Size',
             ]);
 
-        $attributes_2 = factory('App\ProductAttribute', 2)->create([
+        $property_2 = factory('App\ProductAttribute')->create([
             'name' => 'Lampshade Colour',
             ]);
 

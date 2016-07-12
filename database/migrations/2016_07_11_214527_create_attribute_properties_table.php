@@ -15,7 +15,7 @@ class CreateAttributePropertiesTable extends Migration
         Schema::create('attribute_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_attribute_id');
-            $table->string('slug');
+            $table->string('slug')->index();
             $table->string('name');
             $table->integer('order')->default(0);
             $table->unique(['slug', 'product_attribute_id']);

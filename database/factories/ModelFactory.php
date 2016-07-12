@@ -88,10 +88,8 @@ $factory->define('App\ProductAttribute', function ($faker) {
         $term .= ' '.$faker->word;
     }
 
-    $attributes = ['Size', 'Length', 'Colour', 'Top Speed'];
-
     return [
-    'name'     => $faker->randomElement($attributes),
+    'name' => $term,
     ];
 });
 
