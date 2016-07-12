@@ -154,8 +154,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web', 'admin'], 'namespace'
     Route::group(['prefix' => 'attributes'], function () {
         Route::get('/', ['uses' => 'AttributesController@index', 'as' => 'admin.attributes.index']);
         Route::get('/create', ['uses' => 'AttributesController@create', 'as' => 'admin.attributes.create']);
-        Route::get('/{attribute_slug}/edit', ['uses' => 'AttributesController@edit', 'as' => 'admin.attributes.edit']);
-        Route::delete('/{taxonomy}', ['uses' => 'AttributesController@destroy', 'as' => 'admin.attributes.delete']);
+        Route::post('/', ['uses' => 'AttributesController@store', 'as' => 'admin.attributes.store']);
+        Route::get('/{product_attribute}/edit', ['uses' => 'AttributesController@edit', 'as' => 'admin.attributes.edit']);
+        Route::delete('/{product_attribute}', ['uses' => 'AttributesController@destroy', 'as' => 'admin.attributes.delete']);
     });
 
     // Media
@@ -187,6 +188,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'Api'], f
 
     // Attributes
     Route::get('product_attributes/{slug?}', ['uses' => 'ProductAttributesController@index', 'as' => 'api.product_attributes.index']);
+    Route::post('product_attributes/{product_attribute}/attribute_properties', ['uses' => 'AttributePropertiesController@store', 'as' => 'api.product_attributes.attribute_properties.store']);
+
+    Route::get('attribute_properties/{product_attribute?}', ['uses' => 'AttributePropertiesController@index', 'as' => 'api.attribute_properties.index']);
+    Route::patch('attribute_properties/{attribute_property}', ['uses' => 'AttributePropertiesController@update', 'as' => 'api.attribute_properties.update']);
+    Route::delete('attribute_properties/{attribute_property}', ['uses' => 'AttributePropertiesController@destroy', 'as' => 'api.attribute_properties.delete']);
 
     Route::get('categories', ['uses' => 'TermsController@categories', 'as' => 'api.categories']);
     Route::post('categories', ['uses' => 'TermsController@storeCategory', 'as' => 'api.categories']);

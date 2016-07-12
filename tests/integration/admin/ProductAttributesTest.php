@@ -36,11 +36,11 @@ class ProductAttributesTest extends \TestCase
     {
         $this->logInAsAdmin();
 
-        $attributes = factory('App\ProductAttribute', 3)->create([
+        $property = factory('App\AttributeProperty')->create([
             'name' => 'Lampshade Size',
             ]);
 
-        $this->visit('admin/attributes/lampshade_size/edit')
+        $this->visit("admin/attributes/{$property->id}/edit")
              ->see('Edit Attribute');
     }
 
@@ -49,11 +49,11 @@ class ProductAttributesTest extends \TestCase
     {
         $this->logInAsAdmin();
 
-        $attributes = factory('App\ProductAttribute', 3)->create([
+        $property = factory('App\AttributeProperty')->create([
             'name' => 'Lampshade Size',
             ]);
 
-        $this->call('DELETE', 'admin/attributes/lampshade_size');
+        $this->call('DELETE', "admin/attributes/{$property->id}");
 
         $this->assertRedirectedTo('admin/attributes');
         $this->notSeeInDatabase('product_attributes', ['slug' => 'lampshade_size']);

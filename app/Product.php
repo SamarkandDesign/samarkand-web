@@ -8,6 +8,7 @@ use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
 use App\Traits\SearchableModel;
 use App\Values\Price;
+use App\AttributeProperty;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -95,9 +96,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
      *
      * @return \Illuminate\Database\Eloquent\Relations\Relation
      */
-    public function product_attributes()
+    public function attribute_properties()
     {
-        return $this->belongsToMany(ProductAttribute::class);
+        return $this->belongsToMany(AttributeProperty::class);
     }
 
     /**
@@ -105,9 +106,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
      *
      * @param Term $attribute
      */
-    public function addProperty(ProductAttribute $attribute)
+    public function addProperty(AttributeProperty $attribute)
     {
-        $this->product_attributes()->save($attribute);
+        $this->attribute_properties()->save($attribute);
 
         return $this;
     }
@@ -177,7 +178,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
             $attributes = $attributes->pluck('id')->toArray();
         }
 
-        $this->product_attributes()->sync($attributes);
+        $this->attribute_properties()->sync($attributes);
 
         return $this;
     }
@@ -373,9 +374,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
             'image_url'   => $this->present()->thumbnail_url,
             'description' => $this->description,
             'categories'  => $this->product_categories->pluck('term'),
-            'attributes'  => $this->product_attributes->groupBy('name')->map(function ($group) {
-                return $group->pluck('property');
-            }),
+            'properties'  => $this->attribute_properties->pluck('name'),
             'type'       => $this->getSearchableType(),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),

@@ -17,7 +17,7 @@
 
 <div class="box box-primary">
     <div class="box-body">
-        <cr-attribute-form product_attribute="{{ $attribute }}">
+        <cr-attribute-form :product-attribute="{{ $product_attribute->toJson() }}">
     </div>
 </div>
 

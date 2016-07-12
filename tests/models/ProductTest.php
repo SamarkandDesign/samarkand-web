@@ -3,6 +3,8 @@
 namespace App;
 
 use TestCase;
+use App\AttributeProperty;
+use App\ProductAttribute;
 
 class ProductTest extends TestCase
 {
@@ -12,14 +14,14 @@ class ProductTest extends TestCase
     public function it_gets_the_searchable_body_of_a_product()
     {
         $product = factory(Product::class)->create();
-        $attributes = collect([
-            factory(ProductAttribute::class)->create(['name' => 'Size']),
-            factory(ProductAttribute::class)->create(['name' => 'Size']),
-            factory(ProductAttribute::class)->create(['name' => 'Length']),
+        $attribute = factory(ProductAttribute::class)->create();
+        $properties = collect([
+            factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
+            factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
         ]);
-        $product->product_attributes()->saveMany($attributes);
+        $product->attribute_properties()->saveMany($properties);
 
-        $this->assertNotEmpty($product->getSearchableBody()['attributes']);
+        $this->assertNotEmpty($product->getSearchableBody()['properties']);
     }
 
     /** @test **/

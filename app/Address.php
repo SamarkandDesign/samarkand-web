@@ -41,6 +41,7 @@ class Address extends Model
         'city'      => 'required',
         'postcode'  => 'required',
         'country'   => 'required|alpha|size:2',
+        'phone'     => 'max:24',
     ];
 
     public function addressable()

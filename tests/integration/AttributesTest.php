@@ -3,8 +3,9 @@
 namespace Integration;
 
 use App\Product;
-use App\ProductAttribute;
 use TestCase;
+use App\ProductAttribute;
+use App\AttributeProperty;
 
 class AttributesTest extends TestCase
 {
@@ -13,12 +14,13 @@ class AttributesTest extends TestCase
     {
         $this->withoutEvents();
 
-        $attribute = factory(ProductAttribute::class)->create(['name' => 'Size', 'property' => 'Huge', 'property_slug' => 'huge']);
+        $attribute = factory(ProductAttribute::class)->create(['name' => 'Size', 'slug' => 'size']);
+        $property = factory(AttributeProperty::class)->create(['name' => 'Huge', 'slug' => 'huge', 'product_attribute_id' => $attribute->id]);
 
         $product_1 = factory(Product::class)->create();
         $product_2 = factory(Product::class)->create();
 
-        $product_1->addProperty($attribute);
+        $product_1->addProperty($property);
 
         $this->visit('/shop?filter[size]=huge')
              ->see($product_1->name)

@@ -47,7 +47,7 @@ class CreateProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function ($table) {
-            $table->dropForeign('posts_user_id_foreign');
+            $table->dropForeign('products_user_id_foreign');
             //$table->dropForeign('posts_image_id_foreign');
         });
 

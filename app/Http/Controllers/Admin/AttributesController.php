@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductAttribute\CreateProductAttributeRequest;
 use App\ProductAttribute;
 
 class AttributesController extends Controller
@@ -14,9 +15,8 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        $terms = ProductAttribute::all()->groupBy('slug');
-
-        return view('admin.attributes.index', compact('terms'));
+        $attributes = ProductAttribute::with('attribute_properties')->get();
+        return view('admin.attributes.index', compact('attributes'));
     }
 
     /**
@@ -26,7 +26,9 @@ class AttributesController extends Controller
      */
     public function create()
     {
-        return view('admin.attributes.create');
+        return view('admin.attributes.create', [
+          'product_attribute' => new ProductAttribute()
+        ]);
     }
 
     /**
@@ -36,9 +38,16 @@ class AttributesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($attribute)
+    public function edit(ProductAttribute $product_attribute)
     {
-        return view('admin.attributes.edit', compact('attribute'));
+        return view('admin.attributes.edit', compact('product_attribute'));
+    }
+
+    public function store(CreateProductAttributeRequest $request)
+    {
+      $product_attribute = ProductAttribute::create($request->all());
+
+      return redirect()->route('admin.attributes.edit', $product_attribute);
     }
 
     /**
@@ -48,12 +57,13 @@ class AttributesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(ProductAttribute $product_attribute)
     {
-        $terms = ProductAttribute::where('slug', $slug)->delete();
+        $name = $product_attribute->name;
+        $product_attribute->delete();
 
         return redirect()->route('admin.attributes.index')->with([
-            'alert'       => sprintf('Attribute "%s" deleted', \Present::labelText($slug)),
+            'alert'       => sprintf('Attribute "%s" deleted', $name),
             'alert-class' => 'success',
             ]);
     }
