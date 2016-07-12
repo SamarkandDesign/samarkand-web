@@ -16,6 +16,7 @@ class AttributesController extends Controller
     public function index()
     {
         $attributes = ProductAttribute::with('attribute_properties')->get();
+
         return view('admin.attributes.index', compact('attributes'));
     }
 
@@ -27,7 +28,7 @@ class AttributesController extends Controller
     public function create()
     {
         return view('admin.attributes.create', [
-          'product_attribute' => new ProductAttribute()
+          'product_attribute' => new ProductAttribute(),
         ]);
     }
 
@@ -45,9 +46,9 @@ class AttributesController extends Controller
 
     public function store(CreateProductAttributeRequest $request)
     {
-      $product_attribute = ProductAttribute::create($request->all());
+        $product_attribute = ProductAttribute::create($request->all());
 
-      return redirect()->route('admin.attributes.edit', $product_attribute);
+        return redirect()->route('admin.attributes.edit', $product_attribute);
     }
 
     /**

@@ -9,7 +9,7 @@ class ProductAttributesTableSeeder extends Seeder
     {
         $attributes = collect(['Size', 'Length', 'Colour', 'Top Speed'])->map(function ($attr) {
             return factory(ProductAttribute::class)->create([
-              'name' => $attr
+              'name' => $attr,
             ]);
         });
     }

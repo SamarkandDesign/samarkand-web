@@ -8,7 +8,6 @@ use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
 use App\Traits\SearchableModel;
 use App\Values\Price;
-use App\AttributeProperty;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -375,9 +374,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
             'description' => $this->description,
             'categories'  => $this->product_categories->pluck('term'),
             'properties'  => $this->attribute_properties->pluck('name'),
-            'type'       => $this->getSearchableType(),
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'type'        => $this->getSearchableType(),
+            'created_at'  => $this->created_at->toDateTimeString(),
+            'updated_at'  => $this->updated_at->toDateTimeString(),
         ];
     }
 
