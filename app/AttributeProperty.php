@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributeProperty extends Model
 {
-  /**
+    /**
    * The "booting" method of the model.
    *
    * @return void
@@ -36,7 +36,7 @@ class AttributeProperty extends Model
 
     public function product_attribute()
     {
-      return $this->belongsTo(ProductAttribute::class);
+        return $this->belongsTo(ProductAttribute::class);
     }
 
     public function products()

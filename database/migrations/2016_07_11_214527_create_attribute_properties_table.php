@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateAttributePropertiesTable extends Migration
 {
@@ -26,7 +26,7 @@ class CreateAttributePropertiesTable extends Migration
             $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
-        /**
+        /*
          * The join table to products
          */
         Schema::create('attribute_property_product', function (Blueprint $table) {

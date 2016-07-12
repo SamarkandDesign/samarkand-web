@@ -2,10 +2,10 @@
 
 namespace Integration;
 
-use App\Product;
-use TestCase;
-use App\ProductAttribute;
 use App\AttributeProperty;
+use App\Product;
+use App\ProductAttribute;
+use TestCase;
 
 class AttributesTest extends TestCase
 {

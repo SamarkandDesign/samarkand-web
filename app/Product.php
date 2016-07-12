@@ -8,7 +8,6 @@ use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
 use App\Traits\SearchableModel;
 use App\Values\Price;
-use App\AttributeProperty;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

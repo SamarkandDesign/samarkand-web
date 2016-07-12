@@ -31,7 +31,7 @@ class ProductAttributeFilter
             $this->builder->whereHas('attribute_properties', function ($query) use ($attribute, $property) {
                 $query->where('slug', $property)
                       ->whereHas('product_attribute', function ($query) use ($attribute) {
-                        $query->where('slug', $attribute);
+                          $query->where('slug', $attribute);
                       });
             });
         }

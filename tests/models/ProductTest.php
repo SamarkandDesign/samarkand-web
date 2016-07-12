@@ -3,8 +3,6 @@
 namespace App;
 
 use TestCase;
-use App\AttributeProperty;
-use App\ProductAttribute;
 
 class ProductTest extends TestCase
 {
