@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->unsigned()->default(1);
+            $table->integer('role_id')->unsigned()->nullable();
             $table->string('name')->nullable();
             $table->string('username')->unique();
             $table->string('email')->unique();
@@ -43,7 +43,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('roles_role_id_foreign');
+            $table->dropForeign('users_role_id_foreign');
         });
 
         Schema::drop('users');

@@ -88,12 +88,18 @@ $factory->define('App\ProductAttribute', function ($faker) {
         $term .= ' '.$faker->word;
     }
 
-    $attributes = ['Size', 'Length', 'Colour', 'Top Speed'];
+    return [
+    'name' => $term,
+    ];
+});
+
+$factory->define('App\AttributeProperty', function ($faker) {
+    $name = $faker->word;
 
     return [
-    'name'     => $faker->randomElement($attributes),
-    'property' => $term,
-    ];
+    'name'                 => $name,
+    'product_attribute_id' => factory(App\ProductAttribute::class)->create()->id,
+  ];
 });
 
 $factory->define('App\Termable', function ($faker) {

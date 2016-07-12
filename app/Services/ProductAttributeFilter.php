@@ -28,9 +28,11 @@ class ProductAttributeFilter
         $this->builder = $builder;
 
         foreach ($this->filters as $attribute => $property) {
-            $this->builder->whereHas('product_attributes', function ($query) use ($attribute, $property) {
-                $query->where('slug', $attribute)
-                      ->where('property_slug', $property);
+            $this->builder->whereHas('attribute_properties', function ($query) use ($attribute, $property) {
+                $query->where('slug', $property)
+                      ->whereHas('product_attribute', function ($query) use ($attribute) {
+                          $query->where('slug', $attribute);
+                      });
             });
         }
 

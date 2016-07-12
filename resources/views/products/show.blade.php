@@ -33,16 +33,6 @@
                   <header><h4>Description</h4></header>
                     {!! $product->getDescriptionHtml() !!}
                 </section>
-
-                <section>
-                  <header><h4>Properties</h4></header>
-
-                  <ul>
-                  @foreach($product->product_attributes->groupBy('slug') as $attribute => $properties)
-                    <li><strong>{{ $properties->first()->name }}:</strong> {{ $properties->implode('property', ', ') }}</li>
-                  @endforeach
-                  </ul>
-                </section>
             </div>
         </div>
         <div class="col-sm-4">

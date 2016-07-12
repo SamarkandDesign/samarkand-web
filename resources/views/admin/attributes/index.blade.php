@@ -28,19 +28,19 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($terms as $attribute => $properties)
+            @foreach ($attributes as $attribute)
                 <tr>
                     <td>
-                        <strong>{{ Present::labelText($attribute) }}</strong>
+                        <strong>{{ $attribute->name }}</strong>
                     </td>
-                    <td>{{ $properties->implode('property', ', ') }}</td>
+                    <td>{{ $attribute->attribute_properties->implode('name', ', ') }}</td>
                     <td style="width:80px;">
 
                         <a href="{{ route('admin.attributes.edit', $attribute) }}"><i class="fa fa-pencil"></i></a>
                         @include('partials._delete_link', [
-                        'url' => route('admin.attributes.delete', $attribute), 
+                        'url' => route('admin.attributes.delete', $attribute),
                         'link_text' => new Illuminate\Support\HtmlString('<i class="fa fa-fw fa-trash"></i>'),
-                        ])                        
+                        ])
                     </td>
                 </tr>
             @endforeach

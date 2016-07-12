@@ -47,7 +47,6 @@ class CreatePagesTable extends Migration
     {
         Schema::table('pages', function ($table) {
             $table->dropForeign('pages_user_id_foreign');
-            $table->dropForeign('pages_post_id_foreign');
         });
         Schema::drop('pages');
     }

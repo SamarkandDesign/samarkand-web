@@ -14,19 +14,9 @@ class CreateProductAttributesTable extends Migration
     {
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('property');
-            $table->string('property_slug')->index();
-            $table->integer('order')->default(0);
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->timestamps();
-
-            $table->unique(['slug', 'property_slug']);
-        });
-
-        Schema::create('product_product_attribute', function (Blueprint $table) {
-            $table->integer('product_id')->unsigned();
-            $table->integer('product_attribute_id')->unsigned();
         });
     }
 
@@ -38,6 +28,5 @@ class CreateProductAttributesTable extends Migration
     public function down()
     {
         Schema::drop('product_attributes');
-        Schema::drop('product_product_attribute');
     }
 }

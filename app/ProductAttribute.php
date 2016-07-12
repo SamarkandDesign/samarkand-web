@@ -16,18 +16,14 @@ class ProductAttribute extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new SortTermScope());
+        // static::addGlobalScope(new SortTermScope());
 
         /**
-         * Set a slug on the term if it's not passed in.
+         * Set a slug on the attribute if it's not passed in.
          */
         static::creating(function ($attribute) {
             if (!$attribute->slug) {
                 $attribute->slug = str_slug($attribute->name);
-            }
-
-            if (!$attribute->property_slug) {
-                $attribute->property_slug = str_slug($attribute->property);
             }
         });
     }
@@ -39,10 +35,10 @@ class ProductAttribute extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'property', 'property_slug', 'order'];
+    protected $fillable = ['name', 'slug'];
 
-    public function products()
+    public function attribute_properties()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(AttributeProperty::class);
     }
 }

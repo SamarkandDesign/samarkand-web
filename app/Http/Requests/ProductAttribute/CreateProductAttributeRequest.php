@@ -23,16 +23,11 @@ class CreateProductAttributeRequest extends Request
      */
     public function rules()
     {
-        $this->merge(['property_slug' => $this->get('property_slug', str_slug($this->get('property')))]);
-
-        // dd($this->all());
         $slug = $this->get('slug', str_slug($this->get('name')));
 
         return [
-            'property'      => 'required|unique:product_attributes,property,NULL,id,slug,'.$slug, // property is only unique for a given attribute
-            'property_slug' => 'required|unique:product_attributes,property_slug,NULL,id,slug,'.$slug, // property slug is only unique for a given attribute
-            'name'          => 'required',
-            'order'         => 'numeric',
+            'name'          => 'required|unique:product_attributes,name',
+            'slug'          => 'alpha_dash|unique:product_attributes,slug',
         ];
     }
 }

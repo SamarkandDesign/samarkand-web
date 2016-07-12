@@ -1,6 +1,3 @@
-
-
-
 <div class="col-md-4 col-md-push-8">
 	<div class="box box-primary" id="postContent">
 		<div class="box-body">
