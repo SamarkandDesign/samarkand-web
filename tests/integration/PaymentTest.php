@@ -39,6 +39,29 @@ class PaymentTest extends TestCase
         $this->seeEmailTo($admin_users->first()->email, $this->emails[1]);
     }
 
+    /** @test */
+    public function it_ensures_an_order_cannot_be_completed_more_than_once()
+    {
+      $shop_admin = factory(User::class)->create();
+      $this->createOrder(['status' => 'completed']);
+
+      \Session::put('order', $this->order);
+
+      $this->visit('checkout/pay');
+
+      $token = $this->getToken();
+
+      $response = $this->call('POST', route('payments.store'), [
+          'order_id'     => $this->order->id,
+          'stripe_token' => $token,
+          '_token'       => csrf_token(),
+          ]);
+
+      $this->assertRedirectedTo('shop');
+      $this->assertContains('order has either already been paid for', \Session::get('alert'));
+
+    }
+
     /** @test **/
     public function it_returns_to_the_pay_page_if_there_is_a_payment_error()
     {

@@ -1,6 +1,5 @@
 @if ( Session::has('alert') )
-<div class="top-buffer alert alert-dismissable alert-{{ Session::get('alert-class', 'info') }}"  role="alert">
-	 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<alert type="{{ Session::get('alert-class', 'info') }}">
 	{{ Session::get('alert') }}
-</div>
+</alert>
 @endif

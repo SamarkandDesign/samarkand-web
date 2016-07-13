@@ -7,8 +7,12 @@
 
     <ul>
     <li><strong>Order ID:</strong> #{{ $order->id }}</li>
-    <li><strong>Order Date:</strong> {{ $order->created_at }}</li>    
+    <li><strong>Order Date:</strong> {{ $order->created_at }}</li>
     </ul>
 
     @include('orders._summary')
+
+    @if (!$order->user->autoCreated())
+    <p>You can view the status of your orders on <a href="{{ url('/account') }}">your account page</a>.</p>
+    @endif
 @stop

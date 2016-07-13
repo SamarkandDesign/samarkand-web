@@ -1,5 +1,8 @@
 $font-family-sans-serif: 'Muli', sans-serif;
 
+$font-size-base: 14px;
+
+
 // Colours
 
 $or-melon:			desaturate(darken(#F55D2C, 15%), 18%); //dark orange
@@ -9,6 +12,7 @@ $bg-white:			#CAC5AC; // Light Brown
 $an-white:			#989377; // Brown
 $trq: 				#4D8580; // greeny turquoise
 $gold:              #f0ad4e;
+$light-gold: lighten($gold, 10%);
 
 $brand1: $or-melon;
 $brand2: $footer-blue;
@@ -24,7 +28,28 @@ $brand-danger: #a64b45;   //#d9534f;
 
 $gray-light:             lighten(#000, 46.7%);
 
+// Alerts
 $alert-text-color: $gray-light;
+
+$alert-success-text: #fff;
+$alert-success-bg: $brand-success;
+$alert-success-border: $brand-success;
+
+$alert-danger-text: #fff;
+$alert-danger-bg: $brand-danger;
+$alert-danger-border: $brand-danger;
+
+$alert-success-text: #fff;
+$alert-success-bg: $brand-success;
+$alert-success-border: $brand-success;
+
+$alert-warning-text: #fff;
+$alert-warning-bg: $brand-warning;
+$alert-warning-border: $brand-warning;
+
+$alert-info-text: #fff;
+$alert-info-bg: $brand2;
+$alert-info-border: $brand2;
 
 $state-success-text:             $alert-text-color;
 $state-info-text:                $alert-text-color;

@@ -11,6 +11,7 @@ import addressForm from './components/address-form.vue'
 import customerForm from './components/customer-form.vue'
 import cardForm from './components/card-form.vue'
 import navbar from './components/navbar.vue'
+import alert from './components/alert.vue'
 
 
 
@@ -21,5 +22,5 @@ let vm = new Vue({
     ready () {
         console.log('vue is working!')
     },
-    components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar }
+    components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar, alert }
 })

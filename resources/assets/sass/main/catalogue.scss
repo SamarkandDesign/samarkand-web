@@ -36,6 +36,11 @@
 .product-description {
     color: #fff;
     padding: 0 10px;
+    @media (max-width: $screen-xs-max) {
+    h3{
+      font-size: 18px;
+    }
+  }
 }
 .product-grid-price {
     margin-bottom: 0;

@@ -1,7 +1,7 @@
 @extends('emails.main')
 
 @section('content')
-Product stock low: {{ $product->sku }}
+<p>Product stock low: {{ $product->sku }}</p>
 
-{{ $product->description }}
+<div>{{ $product->description }}</div>
 @stop

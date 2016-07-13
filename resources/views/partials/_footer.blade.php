@@ -26,7 +26,7 @@
                             <li><a href="/press">Press</a></li>
                         </ul>
                     </div>
-                    <div class="col-xs-4">
+                    {{-- <div class="col-xs-4">
                         <ul class="footer-list">
                             <li>
                                 <h6 class="footer-heading">Discover</h6>
@@ -34,7 +34,7 @@
                             <li><a href="#">Blog</a></li>
                             <li><a href="#">Events</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-sm-offset-1">
@@ -42,19 +42,19 @@
                     <div class="col-sm-12">
                         <ul class="footer-social-buttons">
                             <li>
-                                <a target="_blank" rel="nofollow" href="https://twitter.com"><i class="fa fa-twitter"></i>
+                                <a target="_blank" rel="nofollow" href="https://twitter.com/samarkanddesign"><i class="fa fa-twitter"></i>
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank" rel="nofollow" href="http://www.facebook.com"><i class="fa fa-facebook"></i>
+                                <a target="_blank" rel="nofollow" href="https://www.facebook.com/samarkanddesign"><i class="fa fa-facebook"></i>
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank" rel="nofollow" href="https://www.instagram.com"><i class="fa fa-instagram"></i>
+                                <a target="_blank" rel="nofollow" href="https://www.instagram.com/samarkanddesign/"><i class="fa fa-instagram"></i>
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank" rel="nofollow" href="http://houzz.com"><i class="fa fa-houzz"></i>
+                                <a target="_blank" rel="nofollow" href="https://www.houzz.co.uk/user/hillygrumbar"><i class="fa fa-houzz"></i>
                                 </a>
                             </li>
                         </ul>

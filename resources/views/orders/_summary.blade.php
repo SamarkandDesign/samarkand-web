@@ -9,7 +9,7 @@
         @foreach ($order->product_items as $item)
         <tr>
             <td>
-                <a href="{{ $item->orderable->url }}">{{ $item->orderable->name }}</a> x{{ $item->quantity}}
+                <a href="{{ url($item->orderable->url) }}">{{ $item->orderable->name }}</a> x{{ $item->quantity}}
             </td>
             <td>{{ $item->total_paid }}</td>
         </tr>
