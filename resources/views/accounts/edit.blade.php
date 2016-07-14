@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+Account Settings
+@endsection
+
 @section('content')
 
 <ol class="breadcrumb">
@@ -16,12 +20,12 @@
                     <label for="name">Name</label>
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
-                
+
                 <div class="form-group">
                     <label for="username">Username</label>
                     {!! Form::text('username', null, ['class' => 'form-control']) !!}
                 </div>
-                
+
                 <div class="form-group">
                     <label for="email">Email</label>
                     {!! Form::email('email', null, ['class' => 'form-control']) !!}
@@ -35,7 +39,7 @@
                     @endif
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password_confirmation">Confirm Password</label>
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}

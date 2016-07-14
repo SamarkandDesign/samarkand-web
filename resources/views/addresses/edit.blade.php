@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+Edit Address
+@endsection
+
 @section('content')
 
 <ol class="breadcrumb">

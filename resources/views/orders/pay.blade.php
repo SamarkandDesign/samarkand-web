@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Payment
+@endsection
+
 @section('breadcrumb')
 
     <ol class="breadcrumb">
@@ -36,6 +40,6 @@
         <input type="hidden" name="order_id" value="{{ $order->id }}">
         </card-form>
     </div>
-    
+
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 @stop

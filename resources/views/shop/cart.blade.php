@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+Cart
+@endsection
+
 @section('content')
 
 <ol class="breadcrumb">

@@ -1,5 +1,9 @@
 @extends('layouts.single_product')
 
+@section('title')
+{{ $product->name }} | {{ $product->product_category->term }}
+@endsection
+
 @section('breadcrumb')
 <div class="sections">
     <ol class="breadcrumb">
@@ -17,11 +21,11 @@
 @include('partials.alerts._alert_block')
 
 <div itemscope itemtype="http://schema.org/Product">
-    <div class="" itemprop="image">
-        @include('products._product_image')
-    </div>
     <div class="row">
         <div class="col-sm-8">
+          <div class="" itemprop="image">
+            @include('products._product_image')
+          </div>
             <div class="sections">
 
                 <header>

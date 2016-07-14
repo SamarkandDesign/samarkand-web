@@ -1,5 +1,9 @@
 @extends('layouts.full_width')
 
+@section('title')
+Crossroads of Culture
+@endsection
+
 @section('content')
 
 	<carousel>

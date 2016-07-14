@@ -1,8 +1,12 @@
 @extends('layouts.main')
 
+@section('title')
+Reset Password
+@endsection
+
 @section('content')
 <h1 class="text-center">Reset Password</h1>
-	
+
 	@include('partials.errors')
 
 	<form class="form-horizontal" role="form" method="POST" action="/password/reset">

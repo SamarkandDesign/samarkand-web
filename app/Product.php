@@ -37,7 +37,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
     ->performOnCollections('images');
 
       $this->addMediaConversion('wide')
-    ->setManipulations(['w' => 1300, 'h' => 866, 'fit' => 'crop'])
+    ->setManipulations(['w' => 1300, 'h' => 900, 'fit' => 'crop'])
     ->performOnCollections('images');
   }
 

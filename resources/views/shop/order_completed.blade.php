@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+Order Completed
+@endsection
+
 @section('content')
 <h1>Order Completed</h1>
 

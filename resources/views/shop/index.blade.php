@@ -1,5 +1,12 @@
 @extends('layouts.main')
 
+@section('title')
+  @if ($product_category->id)
+    {{ $product_category->term }} | 
+  @endif
+Shop
+@endsection
+
 @section('content')
 
 

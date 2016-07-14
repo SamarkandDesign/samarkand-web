@@ -1,18 +1,22 @@
 @extends('layouts.main')
 
+@section('title')
+Add Address
+@endsection
+
 @section('breadcrumb')
 
 <ol class="breadcrumb">
   <li><a href="/account">My Account</a></li>
   <li><a href="/account/addresses">Addresses</a></li>
-  <li class="active">Create Address</li>
+  <li class="active">Add Address</li>
 </ol>
 
 @endsection
 
 @section('content')
 
-<h1>Create New Address</h1>
+<h1>Add New Address</h1>
 @include('partials.errors')
 
 <div class="col-md-offset-3 col-md-6">

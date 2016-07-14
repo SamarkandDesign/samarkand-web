@@ -1,5 +1,9 @@
 @inject('countries', 'App\Countries\CountryRepository')
 
+@section('title')
+Shipping
+@endsection
+
 @extends('layouts.main')
 
 @section('content')

@@ -2,6 +2,10 @@
 
 @extends('layouts.main')
 
+@section('title')
+Checkout
+@endsection
+
 @section('breadcrumb')
 
 <ol class="breadcrumb">

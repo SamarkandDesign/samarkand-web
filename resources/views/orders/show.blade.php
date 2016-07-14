@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Order #{{ $order->id }}
+@endsection
+
 @section('content')
 
 <ol class="breadcrumb">

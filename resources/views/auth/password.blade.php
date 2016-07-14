@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+Forgot Password
+@endsection
+
 @section('content')
 
 <h1 class="text-center">Reset Your Password</h1>
