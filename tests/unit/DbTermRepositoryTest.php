@@ -5,7 +5,6 @@ namespace Unit;
 use App\Post;
 use App\Repositories\Term\DbTermRepository;
 use App\Term;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use TestCase;
 
 class DbTermRepositoryTest extends TestCase
