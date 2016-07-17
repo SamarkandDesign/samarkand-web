@@ -36,10 +36,10 @@ class Address extends Model
      * @var array
      */
     public static $rules = [
-        'name'      => 'required',
-        'line_1'    => 'required',
-        'city'      => 'required',
-        'postcode'  => 'required',
+        'name'      => 'required|max:255',
+        'line_1'    => 'required|max:255',
+        'city'      => 'required|max:255',
+        'postcode'  => 'required|max:255',
         'country'   => 'required|alpha|size:2',
         'phone'     => 'max:24',
     ];

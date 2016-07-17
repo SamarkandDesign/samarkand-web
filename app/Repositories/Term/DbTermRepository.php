@@ -80,34 +80,6 @@ class DbTermRepository implements TermRepository
         return $this->getTags()->lists('term', 'id');
     }
 
-    public function createTag($term, $slug = null)
-    {
-        $taxonomy = 'tag';
-
-        return $this->create(compact('term', 'slug', 'taxonomy'));
-    }
-
-    public function createCategory($term, $slug = null)
-    {
-        $taxonomy = 'category';
-
-        return $this->create(compact('term', 'slug', 'taxonomy'));
-    }
-
-    /**
-     * Persist a new term to the database.
-     *
-     * @param string $term     The term
-     * @param string $taxonomy The term's taxonomy
-     * @param string $slug     The slug of the term. A slug will be automatically generated if nothing passed
-     *
-     * @return Term The newly created term object
-     */
-    public function create($attributes)
-    {
-        return Term::create($attributes);
-    }
-
     /**
      * Process an array of mixed string and numneric terms, create a new term for each string.
      *
@@ -124,7 +96,7 @@ class DbTermRepository implements TermRepository
 
         // Create a new tag for each string in the input and update the current tags array
         foreach ($newTerms as $newTerm) {
-            if ($term = $this->create(['term' => $newTerm, 'taxonomy' => $taxonomy])) {
+            if ($term = Term::create(['term' => $newTerm, 'taxonomy' => $taxonomy])) {
                 $currentTerms[] = $term->id;
             }
         }

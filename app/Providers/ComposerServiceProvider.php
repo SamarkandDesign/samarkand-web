@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Countries\CountryRepository;
 use App\Repositories\Order\OrderRepository;
+use App\Repositories\Term\TermRepository;
 use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -24,6 +25,16 @@ class ComposerServiceProvider extends ServiceProvider
         $this->shareOrderCountWithSidebar();
 
         $this->shareAttributes();
+
+        $this->shareProductCategories();
+    }
+
+    private function shareProductCategories()
+    {
+      $this->app->view->composer('shop._category_filter', function($view) {
+        $terms = $this->app->make(TermRepository::class);
+        $view->with(['product_categories' => $terms->getTerms('product_category')]);
+      });
     }
 
     /**

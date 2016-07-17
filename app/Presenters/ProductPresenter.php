@@ -76,7 +76,7 @@ class ProductPresenter extends ModelPresenter
     {
         $h = $h ?: $w;
 
-        return $this->model->media->count() ? $this->model->media->first()->thumbnail_url : "http://placehold.it/$w/$h";
+        return $this->model->media->count() ? $this->model->media->first()->thumbnail_url : '/img/placeholder-square.png';
     }
 
     /**

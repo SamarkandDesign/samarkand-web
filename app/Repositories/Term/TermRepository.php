@@ -44,35 +44,6 @@ interface TermRepository
     public function getTagList();
 
     /**
-     * Create a new Tag Term.
-     *
-     * @param string $term The tag name
-     * @param string $slug The slug of the tag
-     *
-     * @return \App\Term
-     */
-    public function createTag($term, $slug = null);
-
-    /**
-     * Create a new Category Term.
-     *
-     * @param string $term The category name
-     * @param string $slug The slug of the category
-     *
-     * @return \App\Term
-     */
-    public function createCategory($term, $slug = null);
-
-    /**
-     * Create new term.
-     *
-     * @param array $attributes
-     *
-     * @return \App\Term
-     */
-    public function create($attributes);
-
-    /**
      * Process an array of mixed string and numneric terms, create a new term for each string.
      *
      * @param array  $terms    The terms to process

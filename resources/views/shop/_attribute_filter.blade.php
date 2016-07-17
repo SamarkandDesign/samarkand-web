@@ -3,7 +3,8 @@
 <h3>Filter</h3>
 <div class="row">
     @foreach ($product_attributes as $attribute)
-    <div class="col-md-3">
+      @if($attribute->attribute_properties->count() > 0)
+    <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
                 <h4>{{ $attribute->name }}</h4>
@@ -23,5 +24,6 @@
             </div>
         </div>
     </div>
+  @endif
     @endforeach
 </div>

@@ -70,7 +70,7 @@ My Account
 </div>
 @endif
 <p>
-    <a href="{{ route('addresses.index') }}">Manage Addresses</a>
+    <a href="{{ route('addresses.index') }}" class="btn btn-default">Manage Addresses</a>
 </p>
 
 

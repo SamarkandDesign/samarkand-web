@@ -82,3 +82,16 @@ body {
 .btn {
   border-width: $btn-border-width;
 }
+
+.term-list {
+  list-style-type: none;
+  padding: 0;
+  font-size: 120%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  li {
+    display: inline-block;
+    margin-bottom: $padding-xs-horizontal;
+  }
+}
