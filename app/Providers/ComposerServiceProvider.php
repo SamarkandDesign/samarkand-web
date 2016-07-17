@@ -31,10 +31,10 @@ class ComposerServiceProvider extends ServiceProvider
 
     private function shareProductCategories()
     {
-      $this->app->view->composer('shop._category_filter', function($view) {
-        $terms = $this->app->make(TermRepository::class);
-        $view->with(['product_categories' => $terms->getTerms('product_category')]);
-      });
+        $this->app->view->composer('shop._category_filter', function ($view) {
+            $terms = $this->app->make(TermRepository::class);
+            $view->with(['product_categories' => $terms->getTerms('product_category')]);
+        });
     }
 
     /**

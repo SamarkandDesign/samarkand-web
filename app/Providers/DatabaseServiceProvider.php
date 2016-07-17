@@ -14,8 +14,8 @@ use App\Repositories\Product\ProductRepository;
 use App\Repositories\ShippingMethod\CacheShippingMethodRepository;
 use App\Repositories\ShippingMethod\DbShippingMethodRepository;
 use App\Repositories\ShippingMethod\ShippingMethodRepository;
-use App\Repositories\Term\DbTermRepository;
 use App\Repositories\Term\CacheTermRepository;
+use App\Repositories\Term\DbTermRepository;
 use App\Repositories\Term\TermRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -45,7 +45,7 @@ class DatabaseServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(TermRepository::class, function () {
-          return new CacheTermRepository(
+            return new CacheTermRepository(
             $this->app->make(DbTermRepository::class)
           );
         });

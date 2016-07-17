@@ -12,7 +12,7 @@ class CacheServiceProvider extends ServiceProvider
         \App\Product::class,
         \App\Order::class,
         \App\ShippingMethod::class,
-        \App\Term::class
+        \App\Term::class,
     ];
 
     public function boot()
