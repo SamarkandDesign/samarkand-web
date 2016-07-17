@@ -31,7 +31,7 @@ return
                 /*
                  * The name of the index elasticsearch will write to.
                  */
-                'defaultIndexName' => 'main',
+                'defaultIndexName' => env('DEFAULT_SEARCH_INDEX', 'main'),
             ],
 
         'algolia' => [
@@ -39,7 +39,7 @@ return
                  * This index will be used whenever you don't explicitly
                  * set one yourself.
                  */
-                'defaultIndexName' => 'main',
+                'defaultIndexName' => env('DEFAULT_SEARCH_INDEX', 'main'),
 
                 /*
                  * You'll find the right values on the Algolia credentials page.
