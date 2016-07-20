@@ -33,6 +33,6 @@ return [
     /*
      * Show out of stock products on the store pages
      */
-    'show_out_of_stock' => env('SHOW_OUT_OF_STOCK', false)
+    'show_out_of_stock' => env('SHOW_OUT_OF_STOCK', false),
 
 ];

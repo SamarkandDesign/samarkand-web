@@ -4,8 +4,8 @@ namespace App\Repositories\Product;
 
 use App\Product;
 use App\Repositories\CacheRepository;
-use App\Term;
 use App\Services\ProductAttributeFilter;
+use App\Term;
 use Illuminate\Http\Request;
 
 class CacheProductRepository extends CacheRepository implements ProductRepository
@@ -79,7 +79,7 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
     public function shopProducts(Term $productCategory)
     {
         $filterHash = app(ProductAttributeFilter::class)->getFilterHash();
-        $cacheString = "shopProducts.$filterHash" . (!$productCategory->slug ? '' : $productCategory->slug);
+        $cacheString = "shopProducts.$filterHash".(!$productCategory->slug ? '' : $productCategory->slug);
 
         return \Cache::tags($this->tag)->remember($cacheString, config('cache.time'), function () use ($productCategory) {
             return $this->repository->shopProducts($productCategory);

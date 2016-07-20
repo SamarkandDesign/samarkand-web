@@ -3,7 +3,6 @@
 namespace App\Repositories\Product;
 
 use App\Term;
-use App\Services\ProductAttributeFilter;
 
 interface ProductRepository
 {
