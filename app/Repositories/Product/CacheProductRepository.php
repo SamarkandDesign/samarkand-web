@@ -78,8 +78,7 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
 
     public function shopProducts(Term $productCategory)
     {
-        $filterHash = app(ProductAttributeFilter::class)->getFilterHash();
-        $cacheString = "shopProducts.$filterHash".(!$productCategory->slug ? '' : $productCategory->slug);
+        $cacheString = "shopProducts.{$this->modifier}".(!$productCategory->slug ? '' : $productCategory->slug);
 
         return \Cache::tags($this->tag)->remember($cacheString, config('cache.time'), function () use ($productCategory) {
             return $this->repository->shopProducts($productCategory);
