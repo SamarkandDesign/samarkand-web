@@ -17,7 +17,6 @@ class ShopTest extends TestCase
         $this->visit('/shop')
              ->see($productInStock->name)
              ->dontSee($productOutOfStock->name);
-
     }
 
     /** @test **/

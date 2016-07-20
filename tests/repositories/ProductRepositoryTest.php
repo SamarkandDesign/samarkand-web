@@ -3,10 +3,8 @@
 namespace App\Repositories\Product;
 
 use App\Product;
-use TestCase;
 use App\Term;
-use App\Repositories\Product\DbProductRepository;
-use App\Services\ProductAttributeFilter;
+use TestCase;
 
 class ProductRepositoryTest extends TestCase
 {

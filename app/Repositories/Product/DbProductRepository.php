@@ -89,5 +89,4 @@ class DbProductRepository extends DbRepository implements ProductRepository
 
         return $query->filter($this->filter)->paginate(config('shop.products_per_page'));
     }
-
 }

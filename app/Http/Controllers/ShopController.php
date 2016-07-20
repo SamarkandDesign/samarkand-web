@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Product\ProductRepository;
 use App\Search\ProductSearcher;
-use App\Services\ProductAttributeFilter;
-use App\Product;
 use App\Term;
 use Illuminate\Http\Request;
 
@@ -26,7 +24,7 @@ class ShopController extends Controller
     public function index(Term $product_category)
     {
         $products = $this->products->shopProducts($product_category);
-        
+
         return view('shop.index')->with(compact('product_category', 'products'));
     }
 

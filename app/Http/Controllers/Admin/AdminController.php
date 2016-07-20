@@ -16,6 +16,7 @@ class AdminController extends Controller
         $this->orders = $orders;
         $this->products = $products;
     }
+
     public function dashboard()
     {
         return view('admin.dashboard', [
