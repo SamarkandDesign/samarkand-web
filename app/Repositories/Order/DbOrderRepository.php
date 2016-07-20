@@ -20,4 +20,17 @@ class DbOrderRepository extends DbRepository implements OrderRepository
 
         return $this->model->where('status', $status)->count();
     }
+
+    /**
+     * Get a count of orders by their status.
+     *
+     * @return int
+     */
+    public function countByStatus()
+    {
+        return $this->model
+        ->select('status', \DB::raw('COUNT(*) as count'))
+        ->groupBy('status')
+        ->lists('count', 'status');
+    }
 }

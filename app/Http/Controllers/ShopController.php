@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Product\ProductRepository;
 use App\Search\ProductSearcher;
 use App\Services\ProductAttributeFilter;
+use App\Product;
 use App\Term;
 use Illuminate\Http\Request;
 
@@ -22,14 +23,10 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Term $product_category, ProductAttributeFilter $filter)
+    public function index(Term $product_category)
     {
-        if (!$product_category->slug) {
-            $products = $this->products->getPaginated(['media']);
-        } else {
-            $products = $product_category->products()->filter($filter)->with('media')->paginate();
-        }
-
+        $products = $this->products->shopProducts($product_category);
+        
         return view('shop.index')->with(compact('product_category', 'products'));
     }
 

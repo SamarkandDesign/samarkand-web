@@ -30,4 +30,16 @@ class CacheOrderRepository extends CacheRepository implements OrderRepository
             return $this->repository->count($status);
         });
     }
+
+    /**
+     * Get a count of orders by their status.
+     *
+     * @return int
+     */
+    public function countByStatus()
+    {
+        return \Cache::tags($this->tag)->remember('countByStatus', config('cache.time'), function () {
+            return $this->repository->countByStatus();
+        });
+    }
 }

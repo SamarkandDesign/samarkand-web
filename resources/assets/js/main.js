@@ -1,9 +1,9 @@
 // Browserify Entry Point
 
-//
 import Vue from 'vue'
 import VueValidator from 'vue-validator'
 
+// Components
 import dropdown from './components/dropdown.vue'
 import slider from './components/slider.vue'
 import carousel from './components/carousel.vue'
@@ -14,14 +14,9 @@ import navbar from './components/navbar.vue'
 import alert from './components/alert.vue'
 import productSearch from './components/product-search.vue'
 
-
-
 Vue.use(VueValidator)
 
 let vm = new Vue({
     el: '#app',
-    ready () {
-        console.log('vue is working!')
-    },
     components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar, alert, productSearch }
 })

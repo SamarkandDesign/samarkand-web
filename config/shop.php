@@ -30,4 +30,9 @@ return [
      */
     'low_stock_qty'     => 3,
 
+    /*
+     * Show out of stock products on the store pages
+     */
+    'show_out_of_stock' => env('SHOW_OUT_OF_STOCK', false)
+
 ];

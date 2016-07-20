@@ -7,6 +7,8 @@ use TestCase;
 
 class DbOrderRepositoryTest extends TestCase
 {
+    use \FlushesProductEvents;
+    
     private $orders;
 
     public function setUp()
