@@ -4,7 +4,6 @@ namespace App\Repositories\Product;
 
 use App\Product;
 use App\Repositories\CacheRepository;
-use App\Services\ProductAttributeFilter;
 use App\Term;
 use Illuminate\Http\Request;
 
