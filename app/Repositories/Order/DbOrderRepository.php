@@ -40,18 +40,18 @@ class DbOrderRepository extends DbRepository implements OrderRepository
         ->select('created_at', 'amount')
         ->orderBy('created_at')
         ->get()
-        ->groupBy(function($order) {
+        ->groupBy(function ($order) {
             return $order->created_at->endOfMonth()->toDateTimeString();
-        })->map(function($period) {
-            return $period->sum(function($order) {
+        })->map(function ($period) {
+            return $period->sum(function ($order) {
                 return  $order->amount->value() / 100;
             });
         });
         // return $results;
-        return $results->map(function($amount, $period) {
+        return $results->map(function ($amount, $period) {
             return [
                 'amount' => $amount,
-                'date'  => \Carbon\Carbon::parse($period)
+                'date'   => \Carbon\Carbon::parse($period),
             ];
         });
     }
