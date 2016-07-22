@@ -11,6 +11,7 @@ trait CreatesOrders
         $this->customer = factory(\App\User::class)->create();
         $this->address = factory(\App\Address::class)->create(['addressable_id' => $this->customer->id]);
 
+        App\Product::unguard();
         $order_attributes = array_merge([
             'user_id'             => $this->customer->id,
             'billing_address_id'  => $this->address->id,

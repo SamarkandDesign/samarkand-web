@@ -42,4 +42,11 @@ class CacheOrderRepository extends CacheRepository implements OrderRepository
             return $this->repository->countByStatus();
         });
     }
+
+    public function salesByMonth()
+    {
+        return \Cache::tags($this->tag)->remember('salesValueByMonth', config('cache.time'), function () {
+            return $this->repository->salesByMonth();
+        });
+    }
 }

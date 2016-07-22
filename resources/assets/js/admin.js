@@ -25,7 +25,8 @@ String.prototype.toProperCase = function () {
 // Larail allows sending POST/PUT/DELETE requests using an a tag
 var larail = require('./plugins/larail.js');
 
-Vue.config.debug = true;
+import graph from './components/graph.js'
+
 global.vm = new Vue({
 	el: '#admin',
 
@@ -36,6 +37,7 @@ global.vm = new Vue({
 		'cr-imageable-gallery': require('./components/cr-imageable-gallery.vue'),
 		'cr-image-chooser': require('./components/cr-image-chooser.vue'),
         'cr-attribute-form': require('./components/cr-attribute-form.vue'),
+        'graph': graph,
 	}
 })
 

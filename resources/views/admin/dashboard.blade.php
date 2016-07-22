@@ -75,5 +75,14 @@
 
           <!-- /.box -->
         </div>
+
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header">Sales</div>
+                <div class="box-body">
+                    <graph></graph>
+                </div>
+            </div>
+        </div>
     </div>
 @stop

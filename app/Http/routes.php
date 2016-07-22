@@ -229,6 +229,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'Api'], f
         Route::post('product_attributes', ['uses' => 'ProductAttributesController@store', 'as' => 'api.product_attributes.store']);
         Route::delete('product_attributes/{product_attribute}', ['uses' => 'ProductAttributesController@destroy', 'as' => 'api.product_attributes.delete']);
         Route::patch('product_attributes/{product_attribute}', ['uses' => 'ProductAttributesController@update', 'as' => 'api.product_attributes.update']);
+
+        Route::get('data/sales', ['uses' => 'DataController@sales']);
     });
 });
 

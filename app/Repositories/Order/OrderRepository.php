@@ -25,4 +25,10 @@ interface OrderRepository
      * @return int
      */
     public function countByStatus();
+
+    /**
+     * Get the total sales value by month
+     * @return Collection
+     */
+    public function salesByMonth();
 }
