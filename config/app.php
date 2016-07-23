@@ -159,6 +159,7 @@ return [
         Baum\Providers\BaumServiceProvider::class,
         Spatie\SearchIndex\SearchIndexServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
     ],
 
     /*
@@ -212,6 +213,7 @@ return [
         'Markdown'      => 'GrahamCampbell\Markdown\Facades\Markdown',
         'Present'       => 'App\Presenters\Presenter',
         'SearchIndex'   => Spatie\SearchIndex\SearchIndexFacade::class,
+        'Bugsnag'       => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
 
     ],
 
