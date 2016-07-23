@@ -1,8 +1,5 @@
 @import 'main/_variables';
-
-@import "bootstrap-sass/assets/stylesheets/_bootstrap";
-
-
+@import "main/_bootstrap";
 @import 'main/catalogue';
 @import 'main/footer';
 
@@ -29,10 +26,6 @@ body {
 }
 .alert-warning a {
   color: $brand5;
-}
-
-.btn {
-    border-radius: 2px;
 }
 
 .bg {
@@ -80,6 +73,11 @@ body {
   height: auto;
 }
 .btn {
+  border-radius: 2px;
+  border-width: $btn-border-width;
+}
+
+.input-group-addon {
   border-width: $btn-border-width;
 }
 

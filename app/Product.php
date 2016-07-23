@@ -105,9 +105,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    *
    * @param Term $attribute
    */
-  public function addProperty(AttributeProperty $attribute)
+  public function addProperty(AttributeProperty $property)
   {
-      $this->attribute_properties()->save($attribute);
+      $this->attribute_properties()->save($property);
 
       return $this;
   }
@@ -205,6 +205,43 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
   public function scopeOnSale($query)
   {
       return $query->where('sale_price', '>', 0);
+  }
+
+  /**
+   * Limit the query to only low stocked items. Excludes out-of-stock items.
+   *
+   * @param Builder $query
+   *
+   * @return Builder
+   */
+  public function scopeLowStock($query)
+  {
+      return $query->where('stock_qty', '>', 0)
+                   ->where('stock_qty', '<=', config('shop.low_stock_qty'));
+  }
+
+  /**
+   * Limit the query to only out-of-stock items.
+   *
+   * @param Builder $query
+   *
+   * @return Builder
+   */
+  public function scopeOutOfStock($query)
+  {
+      return $query->where('stock_qty', '<=', 0);
+  }
+
+  /**
+   * Limit the query to only in-stock items.
+   *
+   * @param Builder $query
+   *
+   * @return Builder
+   */
+  public function scopeInStock($query)
+  {
+      return $query->where('stock_qty', '>', 0);
   }
 
   /**

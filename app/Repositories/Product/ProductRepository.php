@@ -38,4 +38,20 @@ interface ProductRepository
      * @return int
      */
     public function count();
+
+    /**
+     * Get a count of all low in stock but not out.
+     *
+     * @return int
+     */
+    public function countLowStock();
+
+    /**
+     * Get a count of all out-of-stock products.
+     *
+     * @return int
+     */
+    public function countOutOfStock();
+
+    public function shopProducts(Term $productCategory);
 }

@@ -8,12 +8,21 @@ class ShopTest extends TestCase
 {
     use \UsesCart, \FlushesProductEvents;
 
+    /** @test */
+    public function it_shows_products_on_the_shop_page()
+    {
+        $productInStock = factory(Product::class)->create(['stock_qty' => 10]);
+        $productOutOfStock = factory(Product::class)->create(['stock_qty' => 0]);
+
+        $this->visit('/shop')
+             ->see($productInStock->name)
+             ->dontSee($productOutOfStock->name);
+    }
+
     /** @test **/
     public function it_can_add_a_product_to_the_cart()
     {
-        $product = factory(Product::class)->create([
-                                                   'stock_qty' => 10,
-                                                   ]);
+        $product = factory(Product::class)->create(['stock_qty' => 10]);
 
         $this->visit('/shop')
              ->see($product->name)

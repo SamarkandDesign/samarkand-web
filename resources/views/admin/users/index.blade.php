@@ -21,7 +21,7 @@ Users
 	<div class="box-body">
 
 		{{ $users->render() }}
-		
+
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -42,14 +42,14 @@ Users
 						<small class="text-muted">Last seen: {{ $user->last_seen_at ? $user->last_seen_at->diffForHumans() : "never" }}</small>
 
 						<div class="row-actions">
-							<a href="{{ route('admin.users.edit', $user->username) }}">Edit</a> | 
-							<a href="" data-method="delete" data-confirm="Are you sure?" class="text-danger" rel="nofollow">Delete</a>
+							<a href="{{ route('admin.users.edit', $user->username) }}">Edit</a>
+							{{-- <a href="" data-method="delete" data-confirm="Are you sure?" class="text-danger" rel="nofollow">Delete</a> --}}
 						</div>
 
 					</td>
 					<td>{{ $user->name }}</td>
 					<td>{{ $user->email }}</td>
-					<td>{{ $user->role->display_name }}</td>
+					<td>{{ $user->role ? $user->role->display_name : '(no role)' }}</td>
 				</tr>
 				@endforeach
 			</tbody>

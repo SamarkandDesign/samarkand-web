@@ -17,7 +17,6 @@ class DbProductRepository extends DbRepository implements ProductRepository
     public function __construct(Product $product, ProductAttributeFilter $filter)
     {
         $this->model = $product;
-
         $this->filter = $filter;
     }
 
@@ -54,5 +53,40 @@ class DbProductRepository extends DbRepository implements ProductRepository
         return $this->model->filter($this->filter)
                            ->with($with)
                            ->latest();
+    }
+
+    /**
+     * Get a count of all low in stock but not out.
+     *
+     * @return int
+     */
+    public function countLowStock()
+    {
+        return $this->model->lowStock()->count();
+    }
+
+    /**
+     * Get a count of all out-of-stock products.
+     *
+     * @return int
+     */
+    public function countOutOfStock()
+    {
+        return $this->model->outOfStock()->count();
+    }
+
+    public function shopProducts(Term $productCategory)
+    {
+        if (!$productCategory->slug) {
+            $query = $this->model->with('media');
+        } else {
+            $query = $productCategory->products()->with('media');
+        }
+
+        if (!config('shop.show_out_of_stock')) {
+            $query = $query->inStock();
+        }
+
+        return $query->filter($this->filter)->paginate(config('shop.products_per_page'));
     }
 }

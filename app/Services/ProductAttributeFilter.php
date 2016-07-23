@@ -16,6 +16,11 @@ class ProductAttributeFilter
         $this->filters = collect($request->get('filter', []));
     }
 
+    public function getFilterHash()
+    {
+        return md5($this->filters->toJson());
+    }
+
     /**
      * Apply the attribute filter to the builder.
      *

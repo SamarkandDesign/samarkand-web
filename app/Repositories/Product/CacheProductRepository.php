@@ -50,4 +50,37 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
             $this->modifier .= '.'.md5(json_encode($params));
         }
     }
+
+    /**
+     * Get a count of all low in stock but not out.
+     *
+     * @return int
+     */
+    public function countLowStock()
+    {
+        return \Cache::tags($this->tag)->remember('lowStockedProducts', config('cache.time'), function () {
+            return $this->repository->countLowStock();
+        });
+    }
+
+    /**
+     * Get a count of all out-of-stock products.
+     *
+     * @return int
+     */
+    public function countOutOfStock()
+    {
+        return \Cache::tags($this->tag)->remember('outOfStockProducts', config('cache.time'), function () {
+            return $this->repository->countOutOfStock();
+        });
+    }
+
+    public function shopProducts(Term $productCategory)
+    {
+        $cacheString = "shopProducts.{$this->modifier}".(!$productCategory->slug ? '' : $productCategory->slug);
+
+        return \Cache::tags($this->tag)->remember($cacheString, config('cache.time'), function () use ($productCategory) {
+            return $this->repository->shopProducts($productCategory);
+        });
+    }
 }
