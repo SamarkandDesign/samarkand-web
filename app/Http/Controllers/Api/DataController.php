@@ -20,7 +20,7 @@ class DataController extends Controller
 
         return [
             'labels' => $data->pluck('date')->map(function ($date) {
-                return $date->format('M-Y');
+                return $date->format('M Y');
             }),
             'datasets' => [
                 [

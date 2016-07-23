@@ -12,6 +12,7 @@ class ProductsControllerTest extends \TestCase
     public function it_can_view_the_shop_page()
     {
         $products = factory(Product::class, 4)->create();
+
         $this->visit('shop')
              ->see($products->first()->name);
     }

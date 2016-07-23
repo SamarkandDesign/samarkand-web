@@ -42,7 +42,7 @@ $factory->define('App\Product', function ($faker) {
     'description'   => $faker->paragraph(3),
     'price'         => $price / 100,
     'sale_price'    => $faker->randomElement([null, $faker->numberBetween(2, $price - 1) / 100]),
-    'stock_qty'     => $faker->numberBetween(0, 15),
+    'stock_qty'     => $faker->numberBetween(1, 15),
     'user_id'       => factory(App\User::class)->create()->id,
     ];
 });

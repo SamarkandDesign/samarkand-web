@@ -31,6 +31,7 @@ class DbOrderRepositoryTest extends TestCase
     /** @test **/
     public function it_gets_order_values_by_month()
     {
+        Order::unguard(); // so we can set the created_at time
         // make some orders
         $this->createOrder(['status' => Order::COMPLETED, 'created_at' => Carbon::now()]);
         $this->createOrder(['status' => Order::COMPLETED, 'created_at' => Carbon::now()->subWeeks(1)]);
@@ -38,7 +39,7 @@ class DbOrderRepositoryTest extends TestCase
         $this->createOrder(['status' => Order::COMPLETED, 'created_at' => Carbon::now()->subWeeks(5)]);
         $this->createOrder(['status' => Order::COMPLETED, 'created_at' => Carbon::now()->subWeeks(9)]);
         $this->createOrder(['status' => Order::COMPLETED, 'created_at' => Carbon::now()->subWeeks(15)]);
-
+        Order::reguard();
         $data = $this->orders->salesByMonth();
         $this->assertNotEmpty($data);
         // dd($data->toArray());
