@@ -7,14 +7,14 @@ use App\Role;
 trait RoleableTrait
 {
     /**
-     * Auto-assign a basic role to a newly created user
-     * 
+     * Auto-assign a basic role to a newly created user.
+     *
      * @return void
      */
     public static function bootRoleableTrait()
     {
-        static::created(function($model) {
-            if(!$model->role_id) {
+        static::created(function ($model) {
+            if (!$model->role_id) {
                 $model->enroll();
             }
         });
