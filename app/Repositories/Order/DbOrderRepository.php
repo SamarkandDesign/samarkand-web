@@ -3,8 +3,8 @@
 namespace App\Repositories\Order;
 
 use App\Order;
-use Carbon\Carbon;
 use App\Repositories\DbRepository;
+use Carbon\Carbon;
 
 class DbOrderRepository extends DbRepository implements OrderRepository
 {
