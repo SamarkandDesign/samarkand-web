@@ -10,9 +10,6 @@ class RoleTest extends TestCase
     public function it_enrolls_a_user()
     {
         $user = factory(User::class)->create();
-        $role = factory(Role::class)->create(['name' => 'subscriber']);
-
-        $user->enroll();
 
         $this->assertEquals('subscriber', $user->role->name);
         $this->assertTrue($user->hasRole('subscriber'));

@@ -1,7 +1,8 @@
-@import 'main/_variables';
-@import "main/_bootstrap";
+@import 'main/variables';
+@import "main/bootstrap";
 @import 'main/catalogue';
 @import 'main/footer';
+@import 'main/transitions';
 
 body {
     background-color: #191919;
@@ -17,7 +18,7 @@ body {
     border-radius: 0;
     margin:0;
 }
-.alert a {
+.alert a:not(.btn) {
   color: $brand4;
   font-weight: bold;
   &:hover {
@@ -92,4 +93,8 @@ body {
     display: inline-block;
     margin-bottom: $padding-xs-horizontal;
   }
+}
+
+.td-thumbnail {
+  min-width: 45px;
 }

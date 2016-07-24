@@ -6,14 +6,21 @@
         </div>
 
         <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
             <h3>Shipping Address</h3>
-            <div class="checkbox" style="position: absolute; top: 16px; right: 16px;">
+                
+            </div>
+            <div class="col-md-6">
+            <div class="checkbox different-shipping-checkbox">
                 <label>
-                    <input type="checkbox" name="different_shipping_address" v-model="differentshipping"> Different Shipping Address
+                    <input type="checkbox" name="different_shipping_address" v-model="differentshipping"> Use a different address
                 </label>
             </div>
+            </div>
+        </div>
             <i v-show="!differentshipping">Same as billing</i>
-            <div v-show="differentshipping">
+            <div v-show="differentshipping" transition="fade">
                 <slot name="shipping-address"></slot>
             </div>
         </div>
@@ -21,15 +28,21 @@
 </template>
 
 <script>
-import coerceBoolean from '../utils/coerceBoolean'
+    import coerceBoolean from '../utils/coerceBoolean'
 
-export default {
-    props: {
-        'differentshipping': {
-            type: Boolean,
-            default: false,
-            coerce: coerceBoolean
+    export default {
+        props: {
+            'differentshipping': {
+                type: Boolean,
+                default: false,
+                coerce: coerceBoolean
+            }
         }
     }
-}
 </script>
+
+<style>
+    .different-shipping-checkbox {
+        margin-top: 26px;
+    }
+</style>

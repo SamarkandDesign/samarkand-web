@@ -12,7 +12,7 @@ Media
 
     <div class="box box-primary">
         <div class="box-body">
-
+        {{-- <?php //dd($media); ?> --}}
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -34,9 +34,13 @@ Media
                     <a href="{{ route('admin.media.delete', $item->id) }}" id="delete-{{ $item->id }}" data-method="delete" class="text-danger" data-confirm="Are you sure?">Delete</a>
                     </td>
                     <td>
+                    @if ($item->model)
                     <a href="{{ $item->model->getEditUri() }}">
                     {{ $item->model->getName() }}
                     </a>
+                    @else
+                    none
+                    @endif
                     </td>
                     <td>{{ $item->created_at }}</td>
                 </tr>

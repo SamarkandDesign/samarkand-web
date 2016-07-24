@@ -36,7 +36,7 @@ Cart
                             <button type="submit" class="btn btn-link text-danger" name="remove"><i class="fa fa-times text-danger"></i></button>
                         </form>
                     </td>
-                    <td>{{ $item->product->present()->thumbnail(45) }}</td>
+                    <td class="td-thumbnail">{{ $item->product->present()->thumbnail(45) }}</td>
                     <td><a href="{{ $item->product->url }}">{{ $item->name }}</a></td>
                     <td>{{ $item->product->present()->price() }}</td>
                     <td>{{ $item->qty }}</td>

@@ -5,7 +5,7 @@
 			Attached Images
 		</div>
 
-		<div class="box-header" v-show="selectedImage > -1">
+		<div class="box-header" v-if="selectedImage > -1">
 
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true" @click="selectedImage = -1">&times;</span></button>
 
@@ -74,7 +74,7 @@
 	module.exports = {
 		props: ['imageableUrl'],
 
-		data: function () {
+		data () {
 			return {
 				images: [],
 				selectedImage: -1,
@@ -89,77 +89,70 @@
 		},
 
 		computed: {
-			hasImages: function()
+			hasImages ()
 			{
 				return this.images.length > 0;
 			}
 		},
 
-		ready: function()
+		ready ()
 		{
 			this.fetchImages();
 		},
 
 		methods: {
-			fetchImages: function()
-			{
+			fetchImages () {
 				this.imagesLoading = true;
 
-				this.$http.get(this.imageableUrl).success(function(response)
-				{
-					this.images = response;
+				this.$http.get(this.imageableUrl).then(response => {
+					this.images = response.data;
 					this.imagesLoading = false;
-
 				});
 
 			},
 
-			updateImage: function(e)
-			{
+			updateImage (e) {
                 var selectedImage = this.selectedImage;
 
 				this.imageUpdating = true;
                 this.images[selectedImage].custom_properties = this.customProperties;
-				this.$http.patch('/api/media/' + this.images[selectedImage].id, this.images[selectedImage]).success(function(response) {
-                    this.images[selectedImage] = response;
+				this.$http.patch('/api/media/' + this.images[selectedImage].id, this.images[selectedImage])
+				.then(response => {
+                    this.images[selectedImage] = response.data;
 					this.imageUpdating = false;
 					this.showMessage('Done');
 				});
 			},
 
-			deleteImage: function(e)
+			deleteImage (e)
 			{
 				if (confirm("Are you sure?")) {
                     var selectedImage = this.selectedImage;
 
-					this.$http.delete('/api/media/' + this.images[selectedImage].id).success(function(response) {
-						this.showMessage(response);
+					this.$http.delete('/api/media/' + this.images[selectedImage].id).then(response => {
+						this.showMessage(response.data);
 						this.fetchImages();
 						this.selectedImage = -1;
-					}.bind(this));
+					});
 				}
 			},
 
-			showMessage: function(message) {
+			showMessage (message) {
 				this.imageUpdatedMessage = message;
-				setTimeout(function(){ this.imageUpdatedMessage = false}.bind(this), 5000);
+				setTimeout(() => { this.imageUpdatedMessage = false }, 5000);
 			},
 
-			selectImage(index)
-			{
+			selectImage (index) {
 				this.selectedImage = index;
-                console.log(index);
                 this.customProperties.title = this.images[index].custom_properties.title || '';
                 this.customProperties.caption = this.images[index].custom_properties.caption || '';
 			},
 
-			isSelected: function(id)
-			{
+			isSelected (id) {
 				return this.selectedImage > -1 && this.images[this.selectedImage].id == id;
 			},
 
-			url: function(image, thumbnail)
-			{
+			url (image, thumbnail) {
 				thumbnail = thumbnail || false;
 
 				var url = '/images/' + image.id;
