@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use App\Billing\GatewayInterface;
 use App\User;
 use TestCase;
 
@@ -19,7 +20,7 @@ class PaymentTest extends TestCase
 
         $this->visit('checkout/pay');
 
-        $token = $this->getToken();
+        $token = $this->getFakeToken();
 
         $response = $this->call('POST', route('payments.store'), [
             'order_id'     => $this->order->id,
@@ -49,7 +50,7 @@ class PaymentTest extends TestCase
 
         $this->visit('checkout/pay');
 
-        $token = $this->getToken();
+        $token = $this->getFakeToken();
 
         $response = $this->call('POST', route('payments.store'), [
           'order_id'     => $this->order->id,
@@ -72,7 +73,7 @@ class PaymentTest extends TestCase
 
         $this->visit('checkout/pay');
 
-        $token = $this->getToken(true);
+        $token = $this->getFakeToken(true);
 
         $response = $this->call('POST', route('payments.store'), [
             'order_id'     => $this->order->id,
@@ -117,5 +118,15 @@ class PaymentTest extends TestCase
             ]);
 
         return $token->id;
+    }
+
+    /**
+     * Get a fake stripe token for performing a charge
+     * @param  boolean $card_failure should the token fail when attempted?
+     * @return string                The fake token
+     */
+    protected function getFakeToken($card_failure = false)
+    {
+        return $card_failure ? 'tok_cardfailuretoken' : 'tok_cardsuccesstoken';
     }
 }
