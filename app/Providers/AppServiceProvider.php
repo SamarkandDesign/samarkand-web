@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
+use App\Billing\FakeStripeGateway;
 use App\Billing\GatewayInterface;
 use App\Billing\StripeGateway;
-use App\Billing\FakeStripeGateway;
 use App\Page;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
@@ -60,11 +60,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('Illuminate\Contracts\Auth\Registrar', 'App\Services\Registrar');
 
         // bind a fake payment gateway if the environment is testing
-        $this->app->singleton(GatewayInterface::class, function() {
+        $this->app->singleton(GatewayInterface::class, function () {
             if ($this->app->environment('testing')) {
-                return new FakeStripeGateWay;
+                return new FakeStripeGateWay();
             }
-            return new StripeGateway;
+
+            return new StripeGateway();
         });
     }
 }

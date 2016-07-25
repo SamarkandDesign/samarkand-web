@@ -2,7 +2,6 @@
 
 namespace Integration;
 
-use App\Billing\GatewayInterface;
 use App\User;
 use TestCase;
 
@@ -121,9 +120,11 @@ class PaymentTest extends TestCase
     }
 
     /**
-     * Get a fake stripe token for performing a charge
-     * @param  boolean $card_failure should the token fail when attempted?
-     * @return string                The fake token
+     * Get a fake stripe token for performing a charge.
+     *
+     * @param bool $card_failure should the token fail when attempted?
+     *
+     * @return string The fake token
      */
     protected function getFakeToken($card_failure = false)
     {
