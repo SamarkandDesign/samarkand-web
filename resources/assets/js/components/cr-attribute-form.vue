@@ -99,7 +99,7 @@ module.exports = {
     }
   },
 
-  'methods': {
+  methods: {
 
     setAttribute: function ()
     {

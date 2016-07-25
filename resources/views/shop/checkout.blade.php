@@ -29,7 +29,7 @@ Checkout
 
 @foreach (Cart::content() as $item)
 <tr>
-  <td>{{ $item->product->present()->thumbnail(45) }}</td>
+  <td class="td-thumbnail">{{ $item->product->present()->thumbnail(45) }}</td>
   <td>{{ $item->name }} x{{ $item->qty }}</td>
   <td>{{ new App\Values\Price($item->product->getPrice()->value() * $item->qty) }}</td>
 </tr>
@@ -49,12 +49,12 @@ Checkout
 
 
     @if (Auth::guest())
-
-    <customer-form createNewAccount="{{ old('create_account') ? 'true' : 'false' }}">
+    <div class="row">
+    <customer-form createNewAccount="{{ old('create_account') ? 'true' : 'false' }}" class="col-md-6">
         <div slot="emailsection">
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
               <label class="control-label" for="email">Email</label>
-              <input type="email" name="email" value="{{ old('email', $order->email) }}" class="form-control">
+              <input type="email" name="email" value="{{ old('email', $order->email) }}" class="form-control" placeholder="you@example.com">
             </div>
         </div>
 
@@ -70,6 +70,7 @@ Checkout
             </div>
         </div>
     </customer-form>
+    </div>
 
     <p>Already registered? <a href="login">Login</a></p>
     @endif
@@ -121,7 +122,7 @@ Checkout
 
     @endif
 
-    <div class="row">
+    <div class="row top-buffer">
     <p class="col-sm-4 col-sm-offset-8 col-md-2 col-md-offset-10">
       <input type="submit" class="btn btn-success btn-lg btn-block" value="Continue">
     </p>

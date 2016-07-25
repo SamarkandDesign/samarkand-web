@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-5 col-xs-12">
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <ul class="footer-list">
                             <li>
                                 <h6 class="footer-heading">{{ config('shop.name') }}</h6>
@@ -16,7 +16,7 @@
                             <li><a href="/terms-and-conditions">Terms &amp; Privacy</a></li>
                         </ul>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <ul class="footer-list">
                             <li>
                                 <h6 class="footer-heading">Company</h6>

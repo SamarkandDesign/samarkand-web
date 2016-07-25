@@ -4,7 +4,7 @@
             <strong><slot></slot></strong>
             <span class="caret"></span>
         </a>
-        <div v-show="active">
+        <div v-show="active" transition="fade">
             <slot name="dropdown-menu"></slot>
         </div>
     </li>

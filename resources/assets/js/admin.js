@@ -1,4 +1,5 @@
 // Browserify Entry Point
+
 window.$ = window.jQuery = require('jquery');
 
 global.Vue = require('vue');
@@ -14,9 +15,6 @@ require('vue-resource');
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').prop('content');
 
-//var postContent = require('./vue-components/post-content.js');
-//var postMeta = require('./vue-components/post-meta.js');
-
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
@@ -26,6 +24,7 @@ String.prototype.toProperCase = function () {
 var larail = require('./plugins/larail.js');
 
 import graph from './components/graph.js'
+import alert from './components/alert.vue'
 
 global.vm = new Vue({
 	el: '#admin',
@@ -38,6 +37,7 @@ global.vm = new Vue({
 		'cr-image-chooser': require('./components/cr-image-chooser.vue'),
         'cr-attribute-form': require('./components/cr-attribute-form.vue'),
         'graph': graph,
+        'alert': alert
 	}
 })
 

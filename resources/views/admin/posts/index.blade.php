@@ -10,7 +10,7 @@ Posts
 
 @section('admin.content')
 
-<p><a href="{{route('admin.posts.create')}}" class="btn btn-success pull-right">New Post</a></p>
+<p class="clearfix"><a href="{{route('admin.posts.create')}}" class="btn btn-success pull-right">New Post</a></p>
 
 	<p><a href="{{ route('admin.posts.index') }}">All</a> ({{ $postCount }}) | <a href="{{ route('admin.posts.trash') }}">Trash</a> ({{ $trashedCount }})</p>
 

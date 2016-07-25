@@ -42,11 +42,10 @@ class CartController extends Controller
       $request->session()->forget('order');
 
       return redirect()->back()->with([
-      'alert'       => new HtmlString(sprintf('%d %s added to cart. %s or %s.',
+      'alert'       => new HtmlString(sprintf('%d %s added to cart. %s',
       $qty,
       str_plural($product->name, $qty),
-      '<strong><a href="/checkout">Checkout</a></strong>',
-      '<strong><a href="/shop">continue shopping</a></strong>'
+      '<a href="/checkout" class="btn btn-primary pull-right"><i class="fa fa-shopping-cart"></i> Checkout</a>'
     )),
     'alert-class' => 'success',
   ]);

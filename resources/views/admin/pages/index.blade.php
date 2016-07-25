@@ -10,7 +10,7 @@ Pages
 
 @section('admin.content')
 
-<p><a href="{{route('admin.pages.create')}}" class="btn btn-success pull-right">New Page</a></p>
+<p class="clearfix"><a href="{{route('admin.pages.create')}}" class="btn btn-success pull-right">New Page</a></p>
 
 <p><a href="{{ route('admin.pages.index') }}">All</a> | <a href="{{ route('admin.pages.trash') }}">Trash</a></p>
 	<div class="box box-primary clearfix">

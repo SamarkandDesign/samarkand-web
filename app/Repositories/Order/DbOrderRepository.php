@@ -4,6 +4,7 @@ namespace App\Repositories\Order;
 
 use App\Order;
 use App\Repositories\DbRepository;
+use Carbon\Carbon;
 
 class DbOrderRepository extends DbRepository implements OrderRepository
 {
@@ -38,6 +39,8 @@ class DbOrderRepository extends DbRepository implements OrderRepository
     {
         $results = $this->model
         ->select('created_at', 'amount')
+        ->where('created_at', '>', Carbon::now()->subYear())
+        ->whereIn('status', [Order::COMPLETED, Order::PAID])
         ->orderBy('created_at')
         ->get()
         ->groupBy(function ($order) {
@@ -51,7 +54,7 @@ class DbOrderRepository extends DbRepository implements OrderRepository
         return $results->map(function ($amount, $period) {
             return [
                 'amount' => $amount,
-                'date'   => \Carbon\Carbon::parse($period),
+                'date'   => Carbon::parse($period),
             ];
         });
     }

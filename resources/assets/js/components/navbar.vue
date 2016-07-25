@@ -14,7 +14,7 @@
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="navbar-collapse" v-bind:class="{'collapse': collapsed}">
+      <div class="navbar-collapse" v-bind:class="{'collapse': collapsed}" v-show="!collapsed">
         <slot></slot>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

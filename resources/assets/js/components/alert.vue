@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-  <div class="top-buffer alert alert-dismissable alert-{{ type }} {{ block ? 'alert-block' : '' }}" role="alert" v-if="!dismissed">
+  <div class="top-buffer alert alert-dismissable alert-{{ type }} {{ block ? 'alert-block' : '' }} clearfix" role="alert" v-if="!dismissed">
   	 <button type="button" class="close" aria-label="Close" @click="dismissed = true" v-if="dississable"><span aria-hidden="true">&times;</span></button>
   	<slot></slot>
   </div>

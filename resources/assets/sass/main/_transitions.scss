@@ -1,0 +1,10 @@
+/* always present */
+.fade-transition {
+  transition: opacity .3s ease;
+}
+
+/* .fade-enter defines the starting state for entering */
+/* .fade-leave defines the ending state for leaving */
+.fade-enter, .fade-leave {
+  opacity: 0;
+}
