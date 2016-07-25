@@ -9,49 +9,49 @@ use Illuminate\Http\Request;
 class PaymentsController extends Controller
 {
     /**
-   * Create a new payment for an order.
-   *
-   * @param Request $request
-   *
-   * @return Illuminate\Http\Response
-   */
-  public function store(Request $request, GatewayInterface $gateway)
-  {
-      $this->validate($request, ['order_id' => 'required|numeric', 'stripe_token' => 'required']);
-      $order = Order::find($request->order_id);
+     * Create a new payment for an order.
+     *
+     * @param Request $request
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function store(Request $request, GatewayInterface $gateway)
+    {
+        $this->validate($request, ['order_id' => 'required|numeric', 'stripe_token' => 'required']);
+        $order = Order::find($request->order_id);
 
     // Ensure the order being paid for is pending
-    if ($order->status !== Order::PENDING) {
-        return redirect()->route('products.index')->with([
-        'alert'       => 'Oops, This order has either already been paid for or has been cancelled. Please create a new order to proceed.',
-        'alert-class' => 'danger',
-      ]);
-    }
-
-      try {
-          $charge = $gateway->charge([
-        'amount'      => $order->amount->value(),
-        'card'        => $request->stripe_token,
-        'description' => sprintf('Order #%s', $order->id),
-      ], [
-        'email' => $order->email,
-      ]);
-      } catch (\App\Billing\CardException $e) {
-          return redirect()->back()->with([
-        'alert'       => $this->paymentErrorMessage($e->getMessage()),
-        'alert-class' => 'danger',
-      ]);
+      if ($order->status !== Order::PENDING) {
+          return redirect()->route('products.index')->with([
+          'alert'       => 'Oops, This order has either already been paid for or has been cancelled. Please create a new order to proceed.',
+          'alert-class' => 'danger',
+          ]);
       }
 
-      $request->session()->forget('order');
-      event(new \App\Events\OrderWasPaid($order, $charge->id));
+        try {
+            $charge = $gateway->charge([
+          'amount'      => $order->amount->value(),
+          'card'        => $request->stripe_token,
+          'description' => sprintf('Order #%s', $order->id),
+          ], [
+          'email' => $order->email,
+          ]);
+        } catch (\App\Billing\CardException $e) {
+            return redirect()->back()->with([
+          'alert'       => $this->paymentErrorMessage($e->getMessage()),
+          'alert-class' => 'danger',
+          ]);
+        }
 
-      \Cart::destroy();
+        $request->session()->forget('order');
+        event(new \App\Events\OrderWasPaid($order, $charge->id));
 
-      $request->session()->flash('order_id', $order->id);
+        \Cart::destroy();
 
-      return redirect()->route('orders.completed');
-  }
+        $request->session()->flash('order_id', $order->id);
+
+        return redirect()->route('orders.completed');
+    }
 
   /**
    * Derive the payment error message.
