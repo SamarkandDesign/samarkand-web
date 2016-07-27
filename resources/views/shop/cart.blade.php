@@ -4,12 +4,14 @@
 Cart
 @endsection
 
-@section('content')
-
+@section('breadcrumb')
 <ol class="breadcrumb">
   <li><a href="/shop">Shop</a></li>
   <li class="active">Cart</li>
 </ol>
+@endsection
+
+@section('content')
 
 <h1>Shopping Cart</h1>
 <div class="row">

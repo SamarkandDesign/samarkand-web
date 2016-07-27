@@ -10,6 +10,8 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:300,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ elixir('css/main.css') }}">
 
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
@@ -22,7 +24,6 @@
 </head>
 <body id="app">
     @include('partials._navbar')
-
     @yield('body')
 
     @include('partials._footer')

@@ -5,19 +5,68 @@
 }
 
 .pricing-bar {
-    background-color: #000;
+    background-color: $gray-dark;
     color: #fff;
     font-size: larger;
     .stock {
       color: $gold;
+  }
+}
+
+/* Product Category Header */
+  .section-header {
+    height: 250px;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center top;
+    background-size: 100%;
+  }
+  .section-header .container {
+    height: 100%;
+    position: relative;
+  }
+  .section-header .container  .category-header {
+      display: inline-block;
+    padding: 20px;
+    background: rgba($gray-dark,.95);
+    color: #fff;
+    text-transform: uppercase;
+    bottom: 20px;
+    position: absolute;
+  }
+
+
+
+
+/* Product Categories */
+.term-list {
+  list-style-type: none;
+  padding: 0;
+  font-size: 120%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 -$padding-small-vertical;
+  li {
+    display: inline-block;
+    margin-bottom: $padding-xs-horizontal;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: $padding-small-vertical;
+    a {
+        color: $gray-light;
+        &.active {
+            color: $gold;
+        }
     }
+}
 }
 
 /* Shop index */
 .product-grid-element {
     position: relative;
     display: block;
-    background-color: #000;
+    background-color: $gray-dark;
 }
 .product-flex {
     position: absolute;
@@ -37,9 +86,9 @@
     color: #fff;
     padding: 0 10px;
     @media (max-width: $screen-xs-max) {
-    h3{
-      font-size: 18px;
-    }
+        h3{
+          font-size: 18px;
+      }
   }
 }
 .product-grid-price {
@@ -52,7 +101,7 @@
 }
 .product-grid-price span {
     color: $gold;
-    background-color: #000;
+    background-color: $gray-dark;
     padding: 5px 10px;
     display: inline-block;
 }
@@ -63,4 +112,22 @@
 }
 .product-grid-element:hover .product-grid-image {
     opacity: 0.6;
+}
+
+
+/* Atttribute Filter */
+.attribute-panel {
+    background-color: $gray-dark;
+    color: #fff;
+    border: none;
+    h4 {
+        text-transform: uppercase;
+    }
+    a {
+        color: $gold;
+    }
+    .attribute-ul {
+        list-style-type: none;
+        padding: 0;
+    }
 }

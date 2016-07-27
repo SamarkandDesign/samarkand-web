@@ -6,12 +6,11 @@
 
 @section('breadcrumb')
 <div class="sections">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb" style="margin:0;">
         <li><a href="/shop">Shop</a></li>
         <li><a href="/shop/{{ $product->product_category->slug }}">{{ $product->product_category->term }}</a></li>
         <li class="active">{{ $product->name }}</li>
     </ol>
-
 </div>
 @endsection
 

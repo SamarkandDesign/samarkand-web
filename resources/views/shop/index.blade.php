@@ -9,17 +9,28 @@
   Shop
 @endsection
 
+@section('section-header')
+@if($product_category->id)
+<header class="section-header" style="background-image: url('/img/product-cat-bg.jpg')">
+<div class="container">
+<h1 class="category-header">{{ $product_category->term }}</h1>
+</div>
+</header>
+@endif
+@endsection
+
+@section('breadcrumb')
+    @if ($product_category->id or 'uncategorised' == $product_category->slug)
+  <ol class="breadcrumb">
+      <li><a href="/shop">Shop</a></li>
+      <li class="active">{{ $product_category->term }}</li>
+  </ol>
+    @endif
+@endsection
+
 @section('content')
 
 
-  <ol class="breadcrumb">
-    @if ($product_category->id or 'uncategorised' == $product_category->slug)
-      <li><a href="/shop">Shop</a></li>
-      <li class="active">{{ $product_category->term }}</li>
-    @else
-      <li class="active">Shop</li>
-    @endif
-  </ol>
   <section class="shop-filters row">
     <div class="col-md-6">
       @include('shop._category_filter')
@@ -62,6 +73,8 @@
       </div>
     @endforeach
   </section>
-  {!! $products->render() !!}
+  <div class="text-center">
+    {!! $products->render() !!}
+  </div>
 
 @stop
