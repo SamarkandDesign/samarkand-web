@@ -33,6 +33,21 @@ class AccountTest extends TestCase
     }
 
     /** @test **/
+    public function it_can_view_an_order_summary_with_a_deleted_product()
+    {
+        $order = $this->createOrder();
+
+        $product = $order->order_items->first()->orderable;
+
+        $product->delete();
+
+        $this->be($this->customer);
+
+        $this->visit("/account/orders/{$this->order->id}")
+        ->see("Order #{$this->order->id}");
+    }
+
+    /** @test **/
     public function it_can_update_a_user_account()
     {
         $user = $this->loginWithUser();

@@ -83,7 +83,7 @@ export default {
           console.error(err);
           return;
         }
-        this.hits = content.hits
+        this.hits = content.hits.slice(0, 10)
       });
     }
   },
@@ -101,7 +101,7 @@ export default {
 .hits {
   background: #fff;
   border-width: 3px;
-  border-color: $btn-default-border;
+  border-color: $gray-lighter;
   border-style: none solid;
   position: absolute;
   width: 100%;
@@ -115,7 +115,7 @@ export default {
   a {
     padding: 10px;
     clear: both;
-    border-bottom: 3px $btn-default-border solid;
+    border-bottom: 3px $gray-lighter solid;
     display: block;
   }
 

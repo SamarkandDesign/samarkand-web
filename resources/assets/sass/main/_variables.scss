@@ -1,6 +1,8 @@
+// @import "bootstrap-sass/assets/stylesheets/bootstrap/variables";
+
 $font-family-sans-serif: 'Muli', sans-serif;
 
-$font-size-base: 14px;
+$font-size-base: 15px;
 
 
 // Colours
@@ -12,7 +14,7 @@ $bg-white:			#CAC5AC; // Light Brown
 $an-white:			#989377; // Brown
 $trq: 				#4D8580; // greeny turquoise
 $gold:              #f0ad4e;
-$light-gold: lighten($gold, 10%);
+$light-gold: 		lighten($gold, 10%);
 
 $brand1: $or-melon;
 $brand2: $footer-blue;
@@ -27,6 +29,11 @@ $brand-warning:         $gold;
 $brand-danger: #a64b45;   //#d9534f;
 
 $gray-light:             lighten(#000, 46.7%);
+$gray-lighter: lighten($gray-light, 35%);
+$gray-dark: #222;
+
+$navbar-inverse-link-color: lighten($gray-light, 15%);
+$navbar-inverse-bg: $gray-dark;
 
 // Alerts
 $alert-text-color: $gray-light;
@@ -72,9 +79,27 @@ $border-radius-base: 2px;
 $btn-border-width: 3px;
 $btn-border: 3px solid transparent;
 
-$btn-default-border: lighten($gray-light, 35%);
+// Button colours
+// $btn-default-border: $btn-default-bg;
+$btn-primary-border: $brand-primary;
+$btn-success-border: $brand-success;
+$btn-danger-border: $brand-danger;
+
+// $btn-default-border: lighten($gray-light, 35%);
 
 //Forms
-$input-border-focus: darken($btn-default-border, 10%);
-$input-border: $btn-default-border;
+$input-border-focus: darken($gray-light, 10%);
+$input-border: $gray-lighter;
 $input-height-base: 38px;
+
+
+// Breadcrumbs
+
+//** Breadcrumb background color
+$breadcrumb-bg:                 $gray-dark;
+//** Breadcrumb text color
+$breadcrumb-color:              $navbar-inverse-link-color;
+//** Text color of current page in the breadcrumb
+$breadcrumb-active-color:       #fff;
+//** Textual separator for between breadcrumb elements
+$breadcrumb-separator:          "/" !default;

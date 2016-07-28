@@ -3,9 +3,10 @@
 @section('body')
 
 <div class="bg">
+	@yield('section-header')
+    @yield('breadcrumb')
     <div class="container top-buffer">
         
-        @yield('breadcrumb')
 
         @include('partials.alert')
         @yield('content')
