@@ -10,7 +10,6 @@ global.AdminLTEOptions = {
   };
 
 require('bootstrap');
-require('admin-lte')
 
 require('vue-resource');
 
@@ -49,3 +48,5 @@ jQuery(function(){
         tags: true
     });
 });
+
+require('admin-lte');
