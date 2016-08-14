@@ -11,25 +11,18 @@ var adminltepath = 'vendor/almasaeed2010/adminlte/dist/';
 
 elixir(function(mix) {
 
-    mix.sass('admin.scss', cssAdminPath + 'admin.css', {
-    	includePaths: [ 'node_modules' ]
+    mix.sass('admin.scss', null, {
+        includePaths: [ 'node_modules' ]
     });
     mix.sass('main.scss', null, {
-    	includePaths: [ 'node_modules' ]
+        includePaths: [ 'node_modules' ]
     });
 
     mix.browserify('admin.js');
     mix.browserify('main.js');
 
 
-    mix.copy(adminltepath + 'js/app.min.js', 'public/js/admin-lte.js');
-
-    // Combine admin styles
-    mix.styles([
-        cssAdminPath + 'admin.css',
-        '../../../' + adminltepath + 'css/AdminLTE.css',
-        '../../../' + adminltepath + 'css/skins/skin-red.css',
-        ], 'public/css/admin.css');
+    // mix.copy(adminltepath + 'js/app.min.js', 'public/js/admin-lte.js');
 
     mix.version([
         'css/admin.css', 'js/admin.js', 'css/main.css', 'js/main.js'

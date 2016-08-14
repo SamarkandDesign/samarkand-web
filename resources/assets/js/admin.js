@@ -9,7 +9,8 @@ global.AdminLTEOptions = {
   animationSpeed: 100,
   };
 
-var bootstrap = require('bootstrap');
+require('bootstrap');
+require('admin-lte')
 
 require('vue-resource');
 
@@ -18,7 +19,6 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').prop('conte
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
-
 
 // Larail allows sending POST/PUT/DELETE requests using an a tag
 var larail = require('./plugins/larail.js');

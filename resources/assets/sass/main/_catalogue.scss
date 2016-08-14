@@ -5,7 +5,7 @@
 }
 
 .pricing-bar {
-    background-color: $gray-dark;
+    background-color: $gray-accent;
     color: #fff;
     font-size: larger;
     .stock {
@@ -28,15 +28,12 @@
   .section-header .container  .category-header {
       display: inline-block;
     padding: 20px;
-    background: rgba($gray-dark,.95);
+    background: rgba($gray-accent,.95);
     color: #fff;
     text-transform: uppercase;
     bottom: 20px;
     position: absolute;
   }
-
-
-
 
 /* Product Categories */
 .term-list {
@@ -66,7 +63,8 @@
 .product-grid-element {
     position: relative;
     display: block;
-    background-color: $gray-dark;
+    background-color: $gray-accent;
+    overflow: hidden;
 }
 .product-flex {
     position: absolute;
@@ -101,7 +99,7 @@
 }
 .product-grid-price span {
     color: $gold;
-    background-color: $gray-dark;
+    background-color: $gray-accent;
     padding: 5px 10px;
     display: inline-block;
 }
@@ -117,7 +115,7 @@
 
 /* Atttribute Filter */
 .attribute-panel {
-    background-color: $gray-dark;
+    background-color: $gray-accent;
     color: #fff;
     border: none;
     h4 {

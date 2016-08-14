@@ -5,7 +5,7 @@
 @import 'main/transitions';
 
 body {
-    background-color: $gray-dark;
+    background-color: $gray-accent;
     margin-top: 50px;
     font-weight: 300;
 }
@@ -95,5 +95,16 @@ body {
   text-transform: uppercase;
   a {
     color: $gold;
+  }
+  &.content-breadcrumb {
+    margin: 0;
+    background-color: transparent;
+    padding: 0;
+    .active {
+      color: $gray-light;
+    }
+    a {
+      color: $link-color;
+    }
   }
 }

@@ -278,8 +278,8 @@ class OrderTest extends TestCase
       $this->be($order->user);
 
       $this->visit(route('orders.pay', $order))
-    ->seePageIs('checkout/pay')
-    ->see($order->order_items->first()->description);
+           ->seePageIs('checkout/pay')
+           ->see($order->order_items->first()->description);
   }
 
     protected function fillAddress($type = 'billing')

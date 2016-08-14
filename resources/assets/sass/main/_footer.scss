@@ -1,6 +1,10 @@
 .footer {
     padding: $padding-large-vertical 0;
-    color: $gray-light;
+    color: $gray-lighter;
+    .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }
 
 .footer a {

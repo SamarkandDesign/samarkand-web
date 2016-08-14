@@ -1,7 +1,7 @@
 <navbar class="navbar navbar-inverse navbar-fixed-top">
 
   <a slot="brand" class="navbar-brand" href="/" style="padding: 6px 15px;">
-    <img src="/img/leaf-orange.svg" alt="Samarkand Logo" width="auto" height="39" />
+    <img src="/img/leaf-white.svg" alt="Samarkand Logo" width="auto" height="39" />
   </a>
 
   <ul class="nav navbar-nav">

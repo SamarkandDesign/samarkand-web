@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="container top-buffer">
+    <div class="container">
 
         <div class="row">
             <div class="col-sm-2 hidden-xs">
