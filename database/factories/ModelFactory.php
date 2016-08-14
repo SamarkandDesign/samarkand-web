@@ -13,8 +13,8 @@ $factory->define('App\Post', function ($faker) {
     'created_at'      => $creationDate,
     'updated_at'      => $creationDate,
     'user_id'         => function () {
-                             return factory(App\User::class)->create()->id;
-                         },
+        return factory(App\User::class)->create()->id;
+    },
     ];
 });
 
@@ -30,8 +30,8 @@ $factory->define('App\Page', function ($faker) {
     'created_at'      => $creationDate,
     'updated_at'      => $creationDate,
     'user_id'         => function () {
-                           return factory(App\User::class)->create()->id;
-                         },
+        return factory(App\User::class)->create()->id;
+    },
     ];
 });
 
@@ -48,8 +48,8 @@ $factory->define('App\Product', function ($faker) {
     'sale_price'    => $faker->randomElement([null, $faker->numberBetween(2, $price - 1) / 100]),
     'stock_qty'     => $faker->numberBetween(1, 15),
     'user_id'       => function () {
-                         return factory(App\User::class)->create()->id;
-                       },
+        return factory(App\User::class)->create()->id;
+    },
     ];
 });
 
@@ -105,19 +105,19 @@ $factory->define('App\AttributeProperty', function ($faker) {
     return [
     'name'                 => $name,
     'product_attribute_id' => function () {
-                                return factory(App\ProductAttribute::class)->create()->id;
-                              },
+        return factory(App\ProductAttribute::class)->create()->id;
+    },
     ];
 });
 
 $factory->define('App\Termable', function ($faker) {
     return [
-    'term_id'       => function () { 
-                            return factory(App\Term::class)->create()->id;
-                          },
+    'term_id'       => function () {
+        return factory(App\Term::class)->create()->id;
+    },
     'termable_id'   => function () {
-                            return factory(App\Post::class)->create()->id;
-                          },
+        return factory(App\Post::class)->create()->id;
+    },
     'termable_type' => 'App\Post',
     ];
 });
@@ -127,8 +127,8 @@ $factory->define('App\OrderItem', function ($faker) {
 
     return [
     'order_id'          => function () {
-                             return factory('App\Order')->create()->id;
-                           },
+        return factory('App\Order')->create()->id;
+    },
     'description'       => $product->name,
     'price_paid'        => $product->getPrice()->value(),
     'quantity'          => 1,
@@ -153,8 +153,8 @@ $factory->define('App\Order', function ($faker) {
 $factory->define('App\Address', function ($faker) {
     return [
     'addressable_id'       => function () {
-                                return factory('App\User')->create()->id;
-                              },
+        return factory('App\User')->create()->id;
+    },
     'addressable_type'     => 'App\User',
     'name'                 => $faker->name,
     'phone'                => $faker->phoneNumber,
