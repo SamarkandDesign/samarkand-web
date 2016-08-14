@@ -48,5 +48,3 @@ jQuery(function(){
         tags: true
     });
 });
-
-require('admin-lte');

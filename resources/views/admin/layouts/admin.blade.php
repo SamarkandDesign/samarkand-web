@@ -59,7 +59,7 @@
 
     {{-- Browserify --}}
     {!! HTML::script(elixir('js/admin.js')) !!}
-    {{-- {!! HTML::script('js/admin-lte.js') !!} --}}
+    {!! HTML::script('js/admin-lte.js') !!}
 
     @yield('admin.scripts')
 </body>

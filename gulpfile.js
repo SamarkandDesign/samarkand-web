@@ -22,7 +22,7 @@ elixir(function(mix) {
     mix.browserify('main.js');
 
 
-    // mix.copy(adminltepath + 'js/app.min.js', 'public/js/admin-lte.js');
+    mix.copy('node_modules/admin-lte/dist/js/app.min.js', 'public/js/admin-lte.js');
 
     mix.version([
         'css/admin.css', 'js/admin.js', 'css/main.css', 'js/main.js'
