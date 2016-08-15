@@ -11,10 +11,10 @@ var adminltepath = 'vendor/almasaeed2010/adminlte/dist/';
 
 elixir(function(mix) {
 
-    mix.sass('admin.scss', null, {
+    mix.sass('admin.scss', null, null, {
         includePaths: [ 'node_modules' ]
     });
-    mix.sass('main.scss', null, {
+    mix.sass('main.scss', null, null, {
         includePaths: [ 'node_modules' ]
     });
 
