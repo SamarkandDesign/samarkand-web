@@ -15,6 +15,15 @@ require('vue-resource');
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').prop('content');
 
+// Custom interceptor to attach lower case content type headers to response
+Vue.http.interceptors.unshift(function(request, next) {
+    next(function(response) {
+        if(typeof response.headers['content-type'] != 'undefined') {
+            response.headers['Content-Type'] = response.headers['content-type'];
+        }
+    });
+});
+
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
