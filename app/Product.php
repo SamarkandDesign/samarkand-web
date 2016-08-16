@@ -4,7 +4,6 @@ namespace App;
 
 use App\Contracts\Termable;
 use App\Presenters\PresentableTrait;
-use App\Scopes\FeaturedScope;
 use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
 use App\Traits\SearchableModel;
@@ -78,7 +77,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
     'published_at',
     'listed',
     'location',
-    'featured'
+    'featured',
   ];
 
     /**
@@ -89,7 +88,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
     protected $casts = [
         'listed'    => 'boolean',
         'featured'  => 'boolean',
-        'stock_qty' => 'integer'
+        'stock_qty' => 'integer',
     ];
 
     protected $presenter = 'App\Presenters\ProductPresenter';
@@ -223,13 +222,15 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
   }
 
   /**
-   * Only get listed products
-   * @param  Builder $query 
+   * Only get listed products.
+   *
+   * @param  Builder $query
+   *
    * @return Builder
    */
   public function scopeListed($query)
   {
-    return $query->where('listed', true);
+      return $query->where('listed', true);
   }
 
   /**
