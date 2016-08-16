@@ -13,10 +13,12 @@ class ShopTest extends TestCase
     {
         $productInStock = factory(Product::class)->create(['stock_qty' => 10]);
         $productOutOfStock = factory(Product::class)->create(['stock_qty' => 0]);
+        $unlistedProduct = factory(Product::class)->create(['listed' => false]);
 
         $this->visit('/shop')
              ->see($productInStock->name)
-             ->dontSee($productOutOfStock->name);
+             ->dontSee($productOutOfStock->name)
+             ->dontSee($unlistedProduct->name);
     }
 
     /** @test **/

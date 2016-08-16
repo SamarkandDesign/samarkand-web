@@ -27,9 +27,11 @@
 					<th></th>
 					<th>Product</th>
 					<th>SKU</th>
+					<th>Location</th>
 					<th>Stock</th>
 					<th>Price</th>
 					<th>Categories</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -47,9 +49,16 @@
 						</div>
 					</td>
 					<td>{{ $product->sku }}</td>
+					<td>{{ $product->location }}</td>
 					<td>{{ $product->stock_qty }}</td>
 					<td>{{ $product->present()->price() }}</td>
 					<td>{{ $product->present()->categoryList() }}</td>
+					<td>
+					<i class="fa {{ $product->listed ? 'fa-eye' : 'fa-eye-slash text-muted' }}" title="{{ $product->listed ? 'Listed in online store' : 'Unlisted' }}"></i>
+					@if ($product->featured)
+					<i class="fa fa-star" title="Featured"></i>
+					@endif
+					</td>
 				</tr>
 			@endforeach
 			</tbody>

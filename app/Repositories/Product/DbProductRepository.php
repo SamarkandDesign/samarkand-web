@@ -87,6 +87,9 @@ class DbProductRepository extends DbRepository implements ProductRepository
             $query = $query->inStock();
         }
 
-        return $query->filter($this->filter)->paginate(config('shop.products_per_page'));
+        return $query->listed()
+                     ->filter($this->filter)
+                     ->orderBy('featured', 'DESC')
+                     ->paginate(config('shop.products_per_page'));
     }
 }

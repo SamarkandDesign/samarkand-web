@@ -4,6 +4,7 @@ namespace App;
 
 use App\Contracts\Termable;
 use App\Presenters\PresentableTrait;
+use App\Scopes\FeaturedScope;
 use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
 use App\Traits\SearchableModel;
@@ -75,7 +76,21 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
     'sku',
     'stock_qty',
     'published_at',
+    'listed',
+    'location',
+    'featured'
   ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'listed'    => 'boolean',
+        'featured'  => 'boolean',
+        'stock_qty' => 'integer'
+    ];
 
     protected $presenter = 'App\Presenters\ProductPresenter';
 
@@ -205,6 +220,16 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
   public function scopeOnSale($query)
   {
       return $query->where('sale_price', '>', 0);
+  }
+
+  /**
+   * Only get listed products
+   * @param  Builder $query 
+   * @return Builder
+   */
+  public function scopeListed($query)
+  {
+    return $query->where('listed', true);
   }
 
   /**

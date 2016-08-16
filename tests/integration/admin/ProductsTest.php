@@ -42,6 +42,9 @@ class ProductsTest extends \TestCase
       'price'        => 62.50,
       'sale_price'   => 30,
       'stock_qty'    => 5,
+      'listed'       => false,
+      'location'     => 'HQD',
+      'featured'     => true,
       'sku'          => 'LP345',
       'published_at' => Carbon::now()->format('Y-m-d h:i:s'),
       'user_id'      => $this->user->id,
@@ -57,6 +60,7 @@ class ProductsTest extends \TestCase
       'price'      => 6250,
       'sale_price' => 3000,
       'sku'        => 'LP345',
+      'featured'   => true
     ]);
 
       $product = Product::whereSlug('nice-product')->first();
@@ -88,7 +92,7 @@ class ProductsTest extends \TestCase
       $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
 
       $this->visit("admin/products/{$product->id}/edit")
-    ->see('Edit Product');
+           ->see('Edit Product');
 
       $this->patch("admin/products/{$product->id}", [
       'name'   => 'lorem ipsum',
@@ -96,15 +100,15 @@ class ProductsTest extends \TestCase
       '_token' => csrf_token(),
     ]);
 
-      $this->seeInDatabase('products', ['id' => $product->id, 'name' => 'lorem ipsum']);
-      $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
-      $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
+    $this->seeInDatabase('products', ['id' => $product->id, 'name' => 'lorem ipsum']);
+    $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
+    $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
 
     // Ensure the product has only 2 terms associated to it
     $this->assertCount(2, $product->terms);
 
-      $this->assertRedirectedToRoute('admin.products.edit', $product);
-      $this->visit('admin/products')->see('lorem ipsum');
+    $this->assertRedirectedToRoute('admin.products.edit', $product);
+    $this->visit('admin/products')->see('lorem ipsum');
   }
 
   /** @test **/
