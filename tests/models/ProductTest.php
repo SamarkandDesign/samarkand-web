@@ -91,9 +91,9 @@ class ProductTest extends TestCase
     // We haven't yet given the product a category; it should be uncategorised.
     $this->assertEquals('Uncategorised', $product->product_category->term);
 
-    $product = $product->syncTerms($product_categories);
+      $product = $product->syncTerms($product_categories);
 
-    $this->assertCount(3, $product->fresh()->product_categories);
+      $this->assertCount(3, $product->fresh()->product_categories);
   }
 
   /** @test **/

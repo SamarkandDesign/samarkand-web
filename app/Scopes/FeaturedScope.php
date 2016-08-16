@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
 /**
- * A scope to order items by if they're featured
+ * A scope to order items by if they're featured.
  */
 class FeaturedScope implements Scope
 {
