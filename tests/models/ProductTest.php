@@ -14,9 +14,9 @@ class ProductTest extends TestCase
       $product = factory(Product::class)->create();
       $attribute = factory(ProductAttribute::class)->create();
       $properties = collect([
-      factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
-      factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
-    ]);
+        factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
+        factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
+      ]);
       $product->attribute_properties()->saveMany($properties);
 
       $this->assertNotEmpty($product->getSearchableBody()['properties']);

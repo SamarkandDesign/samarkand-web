@@ -46,9 +46,14 @@ class ComposerServiceProvider extends ServiceProvider
                         config('searchindex.algolia.application-id'),
                         config('searchindex.algolia.api-key')
                         );
+                
+                $filters = 'listed:true';
+                if (!config('shop.show_out_of_stock')) {
+                    $filters .=  ' AND stock_qty>0';
+                }
 
                 return $alogia->generateSecuredApiKey(config('searchindex.algolia.search-only-api-key'), [
-                    'filters'    => 'listed:true',
+                    'filters'    => $filters,
                     'validUntil' => $expiry->timestamp,
                     ]);
             });
