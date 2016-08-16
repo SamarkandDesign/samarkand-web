@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Countries\CountryRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Term\TermRepository;
-use Illuminate\Support\ServiceProvider;
 use App\Search\TokenGenerator;
+use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
 {
