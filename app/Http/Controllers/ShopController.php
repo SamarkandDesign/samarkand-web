@@ -25,7 +25,7 @@ class ShopController extends Controller
     {
         $products = $this->products->shopProducts($product_category);
 
-        return view('shop.index')->with(compact('product_category', 'products'));
+        return view('shop.index')->with(compact('product_category', 'products', 'searchKey'));
     }
 
     /**

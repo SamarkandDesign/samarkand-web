@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Countries\CountryRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Term\TermRepository;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -27,6 +28,32 @@ class ComposerServiceProvider extends ServiceProvider
         $this->shareAttributes();
 
         $this->shareProductCategories();
+
+        $this->shareSearchKey();
+    }
+
+    /**
+     * Build up a special search key to be used just for search products on the front end
+     * @return void [description]
+     */
+    private function shareSearchKey()
+    {
+        $this->app->view->composer('shop._product_search', function ($view) {
+            $expiry = Carbon::now()->addWeek();
+            $searchKey = $this->app->cache->remember('shop_search_key', $expiry->subDay(), function () use ($expiry) {
+                    $alogia = new \AlgoliaSearch\Client(
+                        config('searchindex.algolia.application-id'), 
+                        config('searchindex.algolia.api-key')
+                        );
+                    
+                    return $alogia->generateSecuredApiKey(config('searchindex.algolia.search-only-api-key'), [
+                    'filters' => 'listed:true',
+                    'validUntil' => $expiry->timestamp
+                    ]);
+            });
+
+            $view->with(compact('searchKey'));
+        });
     }
 
     private function shareProductCategories()
