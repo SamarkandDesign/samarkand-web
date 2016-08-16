@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
 /**
- * A scope to restrict terms to only those that are attributes. I.e. exclude categories, tags etc.
+ * A scope to order items by if they're featured.
  */
-class AttributeScope implements Scope
+class FeaturedScope implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -21,6 +21,6 @@ class AttributeScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->whereNotIn('taxonomy', array_keys($model::$taxonomies));
+        return $builder->orderBy('featured', 'DESC');
     }
 }

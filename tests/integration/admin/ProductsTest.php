@@ -42,6 +42,9 @@ class ProductsTest extends \TestCase
       'price'        => 62.50,
       'sale_price'   => 30,
       'stock_qty'    => 5,
+      'listed'       => false,
+      'location'     => 'HQD',
+      'featured'     => true,
       'sku'          => 'LP345',
       'published_at' => Carbon::now()->format('Y-m-d h:i:s'),
       'user_id'      => $this->user->id,
@@ -57,6 +60,7 @@ class ProductsTest extends \TestCase
       'price'      => 6250,
       'sale_price' => 3000,
       'sku'        => 'LP345',
+      'featured'   => true,
     ]);
 
       $product = Product::whereSlug('nice-product')->first();
@@ -88,7 +92,7 @@ class ProductsTest extends \TestCase
       $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
 
       $this->visit("admin/products/{$product->id}/edit")
-    ->see('Edit Product');
+           ->see('Edit Product');
 
       $this->patch("admin/products/{$product->id}", [
       'name'   => 'lorem ipsum',

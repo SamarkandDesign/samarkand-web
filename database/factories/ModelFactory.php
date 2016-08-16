@@ -50,6 +50,8 @@ $factory->define('App\Product', function ($faker) {
     'user_id'       => function () {
         return factory(App\User::class)->create()->id;
     },
+    'location'      => $faker->randomElement(['HQD', 'The Shire']),
+    'listed'        => true,
     ];
 });
 
