@@ -46,7 +46,7 @@ class ComposerServiceProvider extends ServiceProvider
                         config('searchindex.algolia.application-id'),
                         config('searchindex.algolia.api-key')
                         );
-                
+
                 $filters = 'listed:true';
                 if (!config('shop.show_out_of_stock')) {
                     $filters .=  ' AND stock_qty>0';
