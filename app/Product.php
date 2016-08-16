@@ -16,7 +16,7 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 class Product extends Model implements HasMediaConversions, Termable, \Spatie\SearchIndex\Searchable
 {
-  use PresentableTrait, HasMediaTrait, SoftDeletes, Postable, SearchableModel;
+    use PresentableTrait, HasMediaTrait, SoftDeletes, Postable, SearchableModel;
 
   /**
    * The database table used by the model.
@@ -32,11 +32,11 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function registerMediaConversions()
   {
-    $this->addMediaConversion('thumb')
+      $this->addMediaConversion('thumb')
     ->setManipulations(['w' => 500, 'h' => 500, 'fit' => 'crop'])
     ->performOnCollections('images');
 
-    $this->addMediaConversion('wide')
+      $this->addMediaConversion('wide')
     ->setManipulations(['w' => 1300, 'h' => 900, 'fit' => 'crop'])
     ->performOnCollections('images');
   }
@@ -48,7 +48,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function media()
   {
-    return $this->morphMany(config('laravel-medialibrary.media_model'), 'model')->orderBy('order_column', 'ASC');
+      return $this->morphMany(config('laravel-medialibrary.media_model'), 'model')->orderBy('order_column', 'ASC');
   }
 
   /**
@@ -101,7 +101,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function terms()
   {
-    return $this->morphToMany(Term::class, 'termable');
+      return $this->morphToMany(Term::class, 'termable');
   }
 
   /**
@@ -111,7 +111,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function attribute_properties()
   {
-    return $this->belongsToMany(AttributeProperty::class);
+      return $this->belongsToMany(AttributeProperty::class);
   }
 
   /**
@@ -121,9 +121,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function addProperty(AttributeProperty $property)
   {
-    $this->attribute_properties()->save($property);
+      $this->attribute_properties()->save($property);
 
-    return $this;
+      return $this;
   }
 
   /**
@@ -133,7 +133,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function product_categories()
   {
-    return $this->morphToMany(Term::class, 'termable')
+      return $this->morphToMany(Term::class, 'termable')
     ->where('taxonomy', 'product_category');
   }
 
@@ -145,13 +145,13 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function makeUncategorised()
   {
-    $term = Term::firstOrCreate([
+      $term = Term::firstOrCreate([
       'taxonomy' => 'product_category',
       'slug'     => 'uncategorised',
       'term'     => 'Uncategorised',
       ]);
 
-    return $this->syncTerms([$term->id]);
+      return $this->syncTerms([$term->id]);
   }
 
   /**
@@ -163,14 +163,14 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function syncTerms($terms = [])
   {
-    if (!count($terms)) {
-      return $this->makeUncategorised();
-    }
+      if (!count($terms)) {
+          return $this->makeUncategorised();
+      }
 
-    if ($terms instanceof \Illuminate\Database\Eloquent\Collection) {
-      $terms = $terms->pluck('id')->toArray();
-    }
-    $this->product_categories()->sync($terms);
+      if ($terms instanceof \Illuminate\Database\Eloquent\Collection) {
+          $terms = $terms->pluck('id')->toArray();
+      }
+      $this->product_categories()->sync($terms);
 
     // $this->product_categories()->detach($this->product_categories->pluck('id'));
     // $this->product_categories()->attach($terms);
@@ -187,13 +187,13 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function syncAttributes($attributes = [])
   {
-    if ($attributes instanceof \Illuminate\Database\Eloquent\Collection) {
-      $attributes = $attributes->pluck('id')->toArray();
-    }
+      if ($attributes instanceof \Illuminate\Database\Eloquent\Collection) {
+          $attributes = $attributes->pluck('id')->toArray();
+      }
 
-    $this->attribute_properties()->sync($attributes);
+      $this->attribute_properties()->sync($attributes);
 
-    return $this;
+      return $this;
   }
 
   /**
@@ -206,7 +206,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function scopeFilter($query, ProductAttributeFilter $filter)
   {
-    return $filter->apply($query);
+      return $filter->apply($query);
   }
 
   /**
@@ -218,7 +218,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function scopeOnSale($query)
   {
-    return $query->where('sale_price', '>', 0);
+      return $query->where('sale_price', '>', 0);
   }
 
   /**
@@ -230,7 +230,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function scopeListed($query)
   {
-    return $query->where('listed', true);
+      return $query->where('listed', true);
   }
 
   /**
@@ -242,7 +242,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function scopeLowStock($query)
   {
-    return $query->where('stock_qty', '>', 0)
+      return $query->where('stock_qty', '>', 0)
     ->where('stock_qty', '<=', config('shop.low_stock_qty'));
   }
 
@@ -255,7 +255,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function scopeOutOfStock($query)
   {
-    return $query->where('stock_qty', '<=', 0);
+      return $query->where('stock_qty', '<=', 0);
   }
 
   /**
@@ -267,7 +267,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function scopeInStock($query)
   {
-    return $query->where('stock_qty', '>', 0);
+      return $query->where('stock_qty', '>', 0);
   }
 
   /**
@@ -281,9 +281,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function setPublishedAtAttribute($date)
   {
-    if (is_string($date)) {
-      $this->attributes['published_at'] = new Carbon($date);
-    }
+      if (is_string($date)) {
+          $this->attributes['published_at'] = new Carbon($date);
+      }
   }
 
   /**
@@ -293,7 +293,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function setStockQtyAttribute($qty)
   {
-    $this->attributes['stock_qty'] = $qty === '' ? null : $qty;
+      $this->attributes['stock_qty'] = $qty === '' ? null : $qty;
   }
 
   /**
@@ -303,7 +303,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getThumbnailAttribute()
   {
-    return $this->media->count() ? $this->media->first()->thumbnail_url : '';
+      return $this->media->count() ? $this->media->first()->thumbnail_url : '';
   }
 
   /**
@@ -313,7 +313,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function setPriceAttribute($price)
   {
-    $this->attributes['price'] = intval(100 * $price);
+      $this->attributes['price'] = intval(100 * $price);
   }
 
   /**
@@ -323,7 +323,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function setSalePriceAttribute($price)
   {
-    $this->attributes['sale_price'] = intval(100 * $price);
+      $this->attributes['sale_price'] = intval(100 * $price);
   }
 
   /**
@@ -335,7 +335,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getPriceAttribute($price)
   {
-    return new Price($price);
+      return new Price($price);
   }
 
   /**
@@ -347,7 +347,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getSalePriceAttribute($price)
   {
-    return new Price($price);
+      return new Price($price);
   }
 
   /**
@@ -357,7 +357,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getDescriptionHtml()
   {
-    return \Markdown::convertToHtml($this->description);
+      return \Markdown::convertToHtml($this->description);
   }
 
   /**
@@ -367,7 +367,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getUrlAttribute()
   {
-    return sprintf('/shop/%s/%s', $this->product_category->slug, $this->slug);
+      return sprintf('/shop/%s/%s', $this->product_category->slug, $this->slug);
   }
 
   /**
@@ -377,7 +377,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getName()
   {
-    return $this->name;
+      return $this->name;
   }
 
   /**
@@ -389,13 +389,13 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getProductCategoryAttribute()
   {
-    if ($this->product_categories->count() == 0) {
-      $this->makeUncategorised();
+      if ($this->product_categories->count() == 0) {
+          $this->makeUncategorised();
 
-      return $this->fresh()->product_categories->first();
-    }
+          return $this->fresh()->product_categories->first();
+      }
 
-    return $this->product_categories->first();
+      return $this->product_categories->first();
   }
 
   /**
@@ -405,9 +405,9 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getPrice()
   {
-    $value = $this->sale_price->value() > 0 ? $this->sale_price->value() : $this->price->value();
+      $value = $this->sale_price->value() > 0 ? $this->sale_price->value() : $this->price->value();
 
-    return new Price($value);
+      return new Price($value);
   }
 
   /**
@@ -417,7 +417,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function inStock()
   {
-    return $this->stock_qty > 0;
+      return $this->stock_qty > 0;
   }
 
   /** SEARCH **/
@@ -429,13 +429,13 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getSearchableBody()
   {
-    return array_merge($this->toArray(), [
+      return array_merge($this->toArray(), [
       'created_at'  => $this->created_at->toDateTimeString(),
       'updated_at'  => $this->updated_at->toDateTimeString(),
       'type'        => $this->getSearchableType(),
       'categories'  => $this->product_categories->pluck('term'),
       'properties'  => $this->attribute_properties->pluck('name'),
-      'image_url'   => $this->present()->thumbnail_url
+      'image_url'   => $this->present()->thumbnail_url,
       ]);
   }
 
@@ -446,7 +446,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getSearchableType()
   {
-    return 'product';
+      return 'product';
   }
 
   /**
@@ -456,6 +456,6 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getSearchableId()
   {
-    return $this->id;
+      return $this->id;
   }
 }
