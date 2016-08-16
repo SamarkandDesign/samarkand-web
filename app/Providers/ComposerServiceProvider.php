@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Countries\CountryRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Term\TermRepository;
-use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use App\Search\TokenGenerator;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -40,25 +40,9 @@ class ComposerServiceProvider extends ServiceProvider
     private function shareSearchKey()
     {
         $this->app->view->composer('shop._product_search', function ($view) {
-            $expiry = Carbon::now()->addWeek();
-            $searchKey = $this->app->cache->remember('shop_search_key', $expiry->subDay(), function () use ($expiry) {
-                $alogia = new \AlgoliaSearch\Client(
-                        config('searchindex.algolia.application-id'),
-                        config('searchindex.algolia.api-key')
-                        );
+            $tokenGenerator = $this->app->make(TokenGenerator::class);
 
-                $filters = 'listed:true';
-                if (!config('shop.show_out_of_stock')) {
-                    $filters .=  ' AND stock_qty>0';
-                }
-
-                return $alogia->generateSecuredApiKey(config('searchindex.algolia.search-only-api-key'), [
-                    'filters'    => $filters,
-                    'validUntil' => $expiry->timestamp,
-                    ]);
-            });
-
-            $view->with(compact('searchKey'));
+            $view->with(['searchKey' => $tokenGenerator->getToken()]);
         });
     }
 
