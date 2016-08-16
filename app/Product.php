@@ -442,7 +442,7 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
       'updated_at'  => $this->updated_at->toDateTimeString(),
       'listed'      => $this->listed,
       'featured'    => $this->featured,
-      'location'    => $this->location
+      'location'    => $this->location,
     ];
   }
 
