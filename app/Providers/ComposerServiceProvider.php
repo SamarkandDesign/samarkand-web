@@ -33,7 +33,8 @@ class ComposerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Build up a special search key to be used just for search products on the front end
+     * Build up a special search key to be used just for search products on the front end.
+     *
      * @return void [description]
      */
     private function shareSearchKey()
@@ -41,14 +42,14 @@ class ComposerServiceProvider extends ServiceProvider
         $this->app->view->composer('shop._product_search', function ($view) {
             $expiry = Carbon::now()->addWeek();
             $searchKey = $this->app->cache->remember('shop_search_key', $expiry->subDay(), function () use ($expiry) {
-                    $alogia = new \AlgoliaSearch\Client(
-                        config('searchindex.algolia.application-id'), 
+                $alogia = new \AlgoliaSearch\Client(
+                        config('searchindex.algolia.application-id'),
                         config('searchindex.algolia.api-key')
                         );
-                    
-                    return $alogia->generateSecuredApiKey(config('searchindex.algolia.search-only-api-key'), [
-                    'filters' => 'listed:true',
-                    'validUntil' => $expiry->timestamp
+
+                return $alogia->generateSecuredApiKey(config('searchindex.algolia.search-only-api-key'), [
+                    'filters'    => 'listed:true',
+                    'validUntil' => $expiry->timestamp,
                     ]);
             });
 
