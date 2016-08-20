@@ -1,0 +1,64 @@
+@import '../main/_variables';
+
+.product-search {
+  position: relative;
+
+.hits {
+  background: #fff;
+  border-width: 3px;
+  border-color: $gray-lighter;
+  border-style: none solid;
+  position: absolute;
+  width: 100%;
+  z-index: 9;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 1px 0 0 rgba(0,0,0,.2),0 2px 3px 0 rgba(0,0,0,.1);
+}
+
+.hit-summary {
+  padding: 10px;
+  border-bottom: 1px $gray-lighter solid;
+}
+
+.product-search-result {
+  a {
+    padding: 10px;
+    clear: both;
+    border-bottom: 3px $gray-lighter solid;
+    display: block;
+  }
+
+  a:hover {
+    text-decoration: none;
+    background: darken(rgba(255,255,255,.9), 8%);
+  }
+}
+.image-search-thumb {
+  float: left;
+  max-width:12%;
+  margin-right: 10px;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.clear-hits {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.alogia-logo {
+font-size: 9px;
+  position: absolute;
+    bottom: 10px;
+    right: 10px;
+  img {
+    width:50px;
+    height:auto;
+  }
+}
+}

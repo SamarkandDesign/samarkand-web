@@ -72,11 +72,9 @@ class ProductPresenter extends ModelPresenter
      *
      * @return string
      */
-    public function thumbnail_url($w = 300, $h = null)
+    public function thumbnail_url()
     {
-        $h = $h ?: $w;
-
-        return $this->model->media->count() ? $this->model->media->first()->thumbnail_url : '/img/placeholder-square.png';
+        return $this->model->thumnail ?: '/img/placeholder-square.png';
     }
 
     /**

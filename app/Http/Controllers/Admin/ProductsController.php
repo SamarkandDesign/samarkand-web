@@ -7,6 +7,7 @@ use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Product;
 use App\Repositories\Product\ProductRepository;
+use App\Search\TokenGenerator;
 
 class ProductsController extends Controller
 {
@@ -17,14 +18,17 @@ class ProductsController extends Controller
      */
     private $products;
 
+    private $tokenGenerator;
+
     /**
      * Create a new ProductsController instance.
      *
      * @param ProductRepository $products
      */
-    public function __construct(ProductRepository $products)
+    public function __construct(ProductRepository $products, TokenGenerator $tokenGenerator)
     {
         $this->products = $products;
+        $this->tokenGenerator = $tokenGenerator;
     }
 
     /**
@@ -38,8 +42,28 @@ class ProductsController extends Controller
 
         return view('admin.products.index', [
             'products'     => $products,
+            'searchKey'    => $this->tokenGenerator->getAdminProductToken(),
             'productCount' => $this->products->count(),
         ]);
+    }
+
+    /**
+     * Perform a search for products and display the results.
+     * Here we are just extracting the IDs of the result and querying the products from the DB.
+     * We will have a more snappy JS-powered search on the front end.
+     *
+     * @param Request         $request
+     * @param ProductSearcher $searcher
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function search(Request $request, ProductSearcher $searcher)
+    {
+
+        $results = $searcher->search($request->get('query'))->getResults();
+        $products = \App\Product::whereIn('id', $results->pluck('id'))->listed()->paginate();
+
+        return view('shop.index')->with(compact('products'));
     }
 
     /**

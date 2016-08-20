@@ -2,6 +2,8 @@
 
 namespace App\Search;
 
+use App\Product;
+
 class ProductSearcher extends Searcher implements SearcherContract
 {
     /**
@@ -13,5 +15,14 @@ class ProductSearcher extends Searcher implements SearcherContract
     protected function getSearchableType()
     {
         return 'product';
+    }
+
+
+    public function getResults()
+    {
+        return parent::getResults();
+        // ->map(function($attributes) {
+        //     return new Product($attributes);
+        // });
     }
 }

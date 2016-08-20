@@ -12,7 +12,7 @@ import customerForm from './components/customer-form.vue'
 import cardForm from './components/card-form.vue'
 import navbar from './components/navbar.vue'
 import alert from './components/alert.vue'
-import productSearch from './components/product-search.vue'
+import {ProductSearchVisitor as productSearch} from './components/product-search.js'
 
 Vue.use(VueValidator)
 

@@ -14,6 +14,6 @@ class TokenGeneratorTest extends TestCase {
 
     $generator = App::make(TokenGenerator::class);
 
-    $this->assertNotEmpty($generator->getToken());
+    $this->assertNotEmpty($generator->getProductSearchToken());
   }
 }

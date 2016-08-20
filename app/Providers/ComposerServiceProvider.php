@@ -42,7 +42,7 @@ class ComposerServiceProvider extends ServiceProvider
         $this->app->view->composer('shop._product_search', function ($view) {
             $tokenGenerator = $this->app->make(TokenGenerator::class);
 
-            $view->with(['searchKey' => $tokenGenerator->getToken()]);
+            $view->with(['searchKey' => $tokenGenerator->getProductSearchToken()]);
         });
     }
 

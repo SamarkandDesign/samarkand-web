@@ -9,8 +9,14 @@
 
 @import "select2/src/scss/core";
 
+@import "shared/product_search";
+
 .top-buffer {
   margin-top: 15px;
+}
+
+.bottom-buffer {
+    padding-bottom:15px;
 }
 
 .select2 {

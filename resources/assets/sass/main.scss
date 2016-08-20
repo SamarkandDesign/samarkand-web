@@ -3,6 +3,7 @@
 @import 'main/catalogue';
 @import 'main/footer';
 @import 'main/transitions';
+@import "shared/product_search";
 
 body {
     background-color: $gray-accent;

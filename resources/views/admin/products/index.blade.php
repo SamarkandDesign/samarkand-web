@@ -10,16 +10,28 @@
 
 @section('admin.content')
 
-<p class="clearfix">
-	<a href="{{route('admin.products.create')}}" class="btn btn-success pull-right">New Product</a>
-</p>
+
+<div class="row">
+	<div class="col-md-9 bottom-buffer">
+		<product-search
+		query="{{ Request::get('query') }}"
+		key="{{ $searchKey }}"
+		app-id="{{ config('searchindex.algolia.application-id') }}"
+		index-name="{{ config('searchindex.algolia.defaultIndexName') }}"
+		></product-search>
+	</div>
+
+	<div class="col-md-3 bottom-buffer">
+		<a href="{{route('admin.products.create')}}" class="btn btn-success pull-right">New Product</a>
+	</div>
+</div>
 <p>
 	<a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a href="{{ route('admin.products.trash') }}">Trash</a> ({{-- $trashedCount --}})
 	
 </p>
 
-	<div class="box box-primary">
-		<div class="box-body">
+<div class="box box-primary">
+	<div class="box-body">
 
 		<table class="table table-striped">
 			<thead>
@@ -35,11 +47,11 @@
 				</tr>
 			</thead>
 			<tbody>
-			@foreach ($products as $product)
+				@foreach ($products as $product)
 				<tr>
 					<td>
 						<a href="{{ route("admin.products.edit", $product) }}">
-						{{ $product->present()->thumbnail(40) }}
+							{{ $product->present()->thumbnail(40) }}
 						</a>
 					</td>
 					<td>
@@ -54,20 +66,20 @@
 					<td>{{ $product->present()->price() }}</td>
 					<td>{{ $product->present()->categoryList() }}</td>
 					<td>
-					<i class="fa {{ $product->listed ? 'fa-eye' : 'fa-eye-slash text-muted' }}" title="{{ $product->listed ? 'Listed in online store' : 'Unlisted' }}"></i>
-					@if ($product->featured)
-					<i class="fa fa-star" title="Featured"></i>
-					@endif
+						<i class="fa {{ $product->listed ? 'fa-eye' : 'fa-eye-slash text-muted' }}" title="{{ $product->listed ? 'Listed in online store' : 'Unlisted' }}"></i>
+						@if ($product->featured)
+						<i class="fa fa-star" title="Featured"></i>
+						@endif
 					</td>
 				</tr>
-			@endforeach
+				@endforeach
 			</tbody>
 		</table>
 
 		<!-- Pagination -->
 		{!! $products->render() !!}
-		</div>
 	</div>
+</div>
 
 
 @stop

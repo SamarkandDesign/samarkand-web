@@ -25,6 +25,31 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public $table = 'products';
 
+      /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        /**
+         * Trigger an update that will set the extra attributes
+         */ 
+        static::created(function ($product) {
+          $product->save();
+        });
+
+        /**
+         * Set extra attributes when the model is saved
+         */
+        static::updating(function ($product) {
+          $product->url = sprintf('/shop/%s/%s', $product->productCategory()->slug, $product->slug);
+          $product->thumbnail = $product->media->count() ? $product->media->first()->thumbnail_url : '';
+        });
+    }
+
   /**
    * Set the image sizes for product attachments.
    *
@@ -361,16 +386,6 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
   }
 
   /**
-   * Get the URL to a single product page.
-   *
-   * @return string
-   */
-  public function getUrlAttribute()
-  {
-      return sprintf('/shop/%s/%s', $this->product_category->slug, $this->slug);
-  }
-
-  /**
    * The field to use to display the parent name.
    *
    * @return string
@@ -382,14 +397,24 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
 
   /**
    * Get the product's product category.
-   * Gets the first if more than one set.
-   * Sets it to uncategorised if none set.
    *
    * @return \App\Term
    */
   public function getProductCategoryAttribute()
   {
-      if ($this->product_categories->count() == 0) {
+    return $this->productCategory();
+  }
+
+  /**
+   * Get the product's product category.
+   * Gets the first if more than one set.
+   * Sets it to uncategorised if none set.
+   *
+   * @return \App\Term
+   */
+  public function productCategory()
+  {
+      if ($this->product_categories->count() === 0) {
           $this->makeUncategorised();
 
           return $this->fresh()->product_categories->first();
@@ -429,13 +454,15 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getSearchableBody()
   {
-      return array_merge($this->toArray(), [
+      return array_merge($this->attributes, [
       'created_at'  => $this->created_at->toDateTimeString(),
       'updated_at'  => $this->updated_at->toDateTimeString(),
       'type'        => $this->getSearchableType(),
       'categories'  => $this->product_categories->pluck('term'),
       'properties'  => $this->attribute_properties->pluck('name'),
       'image_url'   => $this->present()->thumbnail_url,
+      'price'       => $this->price->asDecimal(),
+      'sale_price'  => $this->sale_price->asDecimal(),
       ]);
   }
 
