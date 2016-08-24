@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 Route::get('terms/{taxonomy}', ['uses' => 'TermsController@terms', 'as' => 'api.terms']);
 
@@ -24,7 +25,7 @@ Route::get('media/{collection?}', ['uses' => 'MediaController@index', 'as' => 'a
 
     // Protected API routes
 Route::group(['middleware' => 'can:access-admin'], function () {
-        // Attach media to models
+    // Attach media to models
     Route::post('pages/{page}/image', ['uses' => 'MediaController@store', 'as' => 'api.pages.media.store']);
     Route::post('products/{product}/image', ['uses' => 'MediaController@store', 'as' => 'api.products.media.store']);
     Route::post('posts/{post}/image', ['uses' => 'MediaController@store', 'as' => 'api.posts.media.store']);

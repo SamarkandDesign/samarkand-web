@@ -44,18 +44,17 @@ class ComposerServiceProvider extends ServiceProvider
     private function shareSearchKey()
     {
         $tokenGenerator = $this->app->make(TokenGenerator::class);
-        
-        $this->app->view->composer('shop._product_search', function ($view) use ($tokenGenerator) {
 
+        $this->app->view->composer('shop._product_search', function ($view) use ($tokenGenerator) {
             $view->with([
-                'searchKey' => $tokenGenerator->getProductSearchToken(),
+                'searchKey'   => $tokenGenerator->getProductSearchToken(),
                 'searchIndex' => (new Product())->searchableAs(),
                 ]);
         });
 
         $this->app->view->composer('admin.products.index', function ($view) use ($tokenGenerator) {
             $view->with([
-                'searchKey' => $tokenGenerator->getAdminProductToken(),
+                'searchKey'   => $tokenGenerator->getAdminProductToken(),
                 'searchIndex' => (new Product())->searchableAs(),
                 ]);
         });

@@ -8,9 +8,9 @@ use TestCase;
 
 class ContactTest extends TestCase
 {
-  use InteractsWithMail;
+    use InteractsWithMail;
 
-    /** @test */
+  /** @test */
   public function it_sends_an_email_from_the_contact_page()
   {
       // Make an admin user to send email to

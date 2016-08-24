@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Your login details were invalid',
+    'failed'   => 'Your login details were invalid',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

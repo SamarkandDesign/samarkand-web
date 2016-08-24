@@ -72,8 +72,10 @@ class UsersController extends Controller
     }
 
     /**
-     * Refresh a user's api token
-     * @param  User   $user 
+     * Refresh a user's api token.
+     *
+     * @param User $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function token(User $user)

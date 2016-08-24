@@ -67,9 +67,9 @@ class ProductsController extends Controller
 
 
         return view('admin.products.index')->with([
-            'products' => $products,
+            'products'     => $products,
             'productCount' => $products->count(),
-            'title'     => sprintf('Product search results for "%s"', $query)
+            'title'        => sprintf('Product search results for "%s"', $query),
             ]);
     }
 

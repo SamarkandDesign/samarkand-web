@@ -32,6 +32,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ProductStockChanged' => [
             'App\Listeners\EmailStockNotification',
-        ]
+        ],
     ];
 }

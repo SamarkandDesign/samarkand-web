@@ -95,7 +95,8 @@ class DbProductRepository extends DbRepository implements ProductRepository
     }
 
     /**
-     * Get all the current locations of products
+     * Get all the current locations of products.
+     *
      * @return Collection
      */
     public function getLocations()

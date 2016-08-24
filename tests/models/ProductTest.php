@@ -22,7 +22,6 @@ class ProductTest extends TestCase
       $this->assertNotEmpty($product->toSearchableArray()['properties']);
   }
 
-
   /** @test **/
   public function it_gets_the_usable_price_of_a_product()
   {

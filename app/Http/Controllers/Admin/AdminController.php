@@ -28,14 +28,16 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the login page for the admin area
-     * 
-     * @param  Request $request 
+     * Show the login page for the admin area.
+     *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
     {
         $request->session()->flash('url.intended', 'admin');
+
         return view('admin.login');
     }
 }

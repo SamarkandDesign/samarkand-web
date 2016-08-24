@@ -85,7 +85,8 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
     }
 
     /**
-     * Get all the current locations of products
+     * Get all the current locations of products.
+     *
      * @return Collection
      */
     public function getLocations()

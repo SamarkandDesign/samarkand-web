@@ -31,12 +31,12 @@ class ProductsTest extends \TestCase
   /** @test **/
   public function it_searches_for_a_product_in_the_admin()
   {
-    config(['scout.driver' => 'null']);
+      config(['scout.driver' => 'null']);
 
-    $product = factory(Product::class)->create();
-    $query = substr($product->description, 0, 4);
+      $product = factory(Product::class)->create();
+      $query = substr($product->description, 0, 4);
 
-    $this->visit("admin/products/search?query=$query");
+      $this->visit("admin/products/search?query=$query");
   }
 
   /** @test **/

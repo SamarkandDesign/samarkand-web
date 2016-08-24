@@ -6,9 +6,8 @@ use App\Page;
 use App\Post;
 use App\Product;
 use App\Term;
-use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Routing\Router;
+use Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -81,7 +80,6 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-
     /**
      * Define the routes for the application.
      *
@@ -99,7 +97,7 @@ class RouteServiceProvider extends ServiceProvider
          * If none of the above routes are matched we will see if a page has a matching path
          */
         Route::get('{path}', [
-            'uses' => "$this->namespace\PagesController@show", 
+            'uses'       => "$this->namespace\PagesController@show",
             'middleware' => ['web'],
             ])->where('path', '.+');
     }
@@ -108,19 +106,19 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => ['web', 'can:access-admin'],
-            'namespace' => "{$this->namespace}\Admin",
-            'prefix'    => 'admin'
+            'namespace'  => "{$this->namespace}\Admin",
+            'prefix'     => 'admin',
         ], function ($router) {
             require base_path('routes/admin.php');
         });
 
         Route::group([
             'middleware' => ['web', 'guest'],
-            'namespace' => "{$this->namespace}\Admin",
+            'namespace'  => "{$this->namespace}\Admin",
         ], function ($router) {
             $router->get('admin/login', [
                 'uses' => 'AdminController@login',
-                'as' => 'admin.login',
+                'as'   => 'admin.login',
                 ]);
         });
     }
@@ -136,7 +134,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'web',
-            'namespace' => $this->namespace,
+            'namespace'  => $this->namespace,
         ], function ($router) {
             require base_path('routes/web.php');
         });
@@ -153,8 +151,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'api',
-            'namespace' => "{$this->namespace}\Api",
-            'prefix' => 'api',
+            'namespace'  => "{$this->namespace}\Api",
+            'prefix'     => 'api',
         ], function ($router) {
             require base_path('routes/api.php');
         });
