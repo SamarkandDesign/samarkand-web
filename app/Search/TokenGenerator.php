@@ -14,7 +14,6 @@ class TokenGenerator
     protected $expiry;
     protected $algolia;
 
-
     public function __construct(Client $algolia, Config $config, Cache $cache)
     {
         $this->config = $config;
