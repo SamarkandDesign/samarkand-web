@@ -4,12 +4,9 @@ namespace App;
 
 use App\Presenters\PresentableTrait;
 use App\Traits\RoleableTrait;
-use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -20,10 +17,10 @@ class User extends Authenticatable
         parent::boot();
 
         /**
-         * Trigger an update that will set the extra attributes
-         */ 
+         * Trigger an update that will set the extra attributes.
+         */
         static::creating(function ($user) {
-          $user->api_token = str_random(60);
+            $user->api_token = str_random(60);
         });
     }
 

@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             'throttle:60,1',
-            'bindings'
+            'bindings',
         ],
     ];
 }

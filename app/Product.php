@@ -389,7 +389,7 @@ class Product extends Model implements HasMediaConversions, Termable
    */
   public function getProductCategoryAttribute()
   {
-    return $this->productCategory();
+      return $this->productCategory();
   }
 
   /**
@@ -443,7 +443,7 @@ class Product extends Model implements HasMediaConversions, Termable
   {
       $array = $this->toArray();
       if (array_key_exists('product_categories', $array)) {
-        unset($array['product_categories']);
+          unset($array['product_categories']);
       }
 
       return array_merge($array, [

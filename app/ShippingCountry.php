@@ -34,7 +34,6 @@ class ShippingCountry extends Model
         return $this->belongsTo(ShippingMethod::class);
     }
 
-
     /**
      * Ensure the country ID is stored in uppercase.
      *

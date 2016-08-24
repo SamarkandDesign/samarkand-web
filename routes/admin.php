@@ -1,4 +1,5 @@
 <?php
+
 Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard']);
 
     // Orders

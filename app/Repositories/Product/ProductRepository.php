@@ -56,7 +56,8 @@ interface ProductRepository
     public function shopProducts(Term $productCategory);
 
     /**
-     * Get all the current locations of products
+     * Get all the current locations of products.
+     *
      * @return Collection
      */
     public function getLocations();

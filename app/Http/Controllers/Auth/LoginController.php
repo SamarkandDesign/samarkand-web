@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -48,6 +48,7 @@ class LoginController extends Controller
         if ($request->session()->has('url.intended')) {
             $request->session()->flash('url.intended', $request->session()->get('url.intended'));
         }
+
         return view('auth.login');
     }
 }
