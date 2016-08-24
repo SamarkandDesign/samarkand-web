@@ -6,17 +6,17 @@ use App\Contracts\Termable;
 use App\Presenters\PresentableTrait;
 use App\Services\ProductAttributeFilter;
 use App\Traits\Postable;
-use App\Traits\SearchableModel;
 use App\Values\Price;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
-class Product extends Model implements HasMediaConversions, Termable, \Spatie\SearchIndex\Searchable
+class Product extends Model implements HasMediaConversions, Termable
 {
-    use PresentableTrait, HasMediaTrait, SoftDeletes, Postable, SearchableModel;
+    use PresentableTrait, HasMediaTrait, SoftDeletes, Postable, Searchable;
 
   /**
    * The database table used by the model.
@@ -24,6 +24,16 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    * @var string
    */
   public $table = 'products';
+
+  /**
+   * Get the URL to a single product page.
+   *
+   * @return string
+   */
+  public function getUrlAttribute()
+  {
+      return sprintf('/shop/%s/%s', $this->product_category->slug, $this->slug);
+  }
 
   /**
    * Set the image sizes for product attachments.
@@ -303,6 +313,8 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    */
   public function getThumbnailAttribute()
   {
+      // TODO: fix when medialibrary is updated
+      // return '/img/placeholder-square.png';
       return $this->media->count() ? $this->media->first()->thumbnail_url : '';
   }
 
@@ -361,16 +373,6 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
   }
 
   /**
-   * Get the URL to a single product page.
-   *
-   * @return string
-   */
-  public function getUrlAttribute()
-  {
-      return sprintf('/shop/%s/%s', $this->product_category->slug, $this->slug);
-  }
-
-  /**
    * The field to use to display the parent name.
    *
    * @return string
@@ -382,14 +384,24 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
 
   /**
    * Get the product's product category.
-   * Gets the first if more than one set.
-   * Sets it to uncategorised if none set.
    *
    * @return \App\Term
    */
   public function getProductCategoryAttribute()
   {
-      if ($this->product_categories->count() == 0) {
+      return $this->productCategory();
+  }
+
+  /**
+   * Get the product's product category.
+   * Gets the first if more than one set.
+   * Sets it to uncategorised if none set.
+   *
+   * @return \App\Term
+   */
+  public function productCategory()
+  {
+      if ($this->product_categories->count() === 0) {
           $this->makeUncategorised();
 
           return $this->fresh()->product_categories->first();
@@ -427,27 +439,32 @@ class Product extends Model implements HasMediaConversions, Termable, \Spatie\Se
    *
    * @return array
    */
-  public function getSearchableBody()
+  public function toSearchableArray()
   {
-      return array_merge($this->toArray(), [
-      'created_at'  => $this->created_at->toDateTimeString(),
-      'updated_at'  => $this->updated_at->toDateTimeString(),
-      'type'        => $this->getSearchableType(),
+      $array = $this->toArray();
+      if (array_key_exists('product_categories', $array)) {
+          unset($array['product_categories']);
+      }
+
+      return array_merge($array, [
       'categories'  => $this->product_categories->pluck('term'),
       'properties'  => $this->attribute_properties->pluck('name'),
-      'image_url'   => $this->present()->thumbnail_url,
+      'thumbnail'   => $this->present()->thumbnail_url,
+      'url'         => $this->url,
+      'price'       => $this->price->asDecimal(),
+      'sale_price'  => $this->sale_price->asDecimal(),
       ]);
   }
 
-  /**
-   * Return the type of the searchable subject.
-   *
-   * @return string
-   */
-  public function getSearchableType()
-  {
-      return 'product';
-  }
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return $this->getTable().'_'.\App::environment();
+    }
 
   /**
    * Return the id of the searchable subject.

@@ -65,4 +65,16 @@ class ProductRepositoryTest extends TestCase
         $q2 = $this->products->shopProducts($productCategory);
         $this->assertCount(1, $q2);
     }
+
+    /** @test **/
+    public function it_gets_the_locations_of_products()
+    {
+        $product1 = factory(Product::class, 2)->create(['location' => 'My House']);
+        $product2 = factory(Product::class)->create(['location' => 'Down Under']);
+
+        $locations = $this->products->getLocations();
+
+        $this->assertContains('My House', $locations);
+        $this->assertCount(2, $locations);
+    }
 }

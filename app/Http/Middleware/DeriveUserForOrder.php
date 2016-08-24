@@ -69,7 +69,7 @@ class DeriveUserForOrder
             $request->session()->flash('url.intended', 'checkout');
 
             return redirect()
-            ->route('auth.login', ['email' => $request->email])
+            ->route('login', ['email' => $request->email])
             ->with([
                    'alert'       => 'This email has an account here. Please login. If you do not know your password please reset it.',
                    'alert-class' => 'warning',

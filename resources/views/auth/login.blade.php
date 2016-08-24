@@ -10,7 +10,7 @@ Login
 	@include('partials.errors')
 	<h1 class="text-center">Login</h1>
 
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('auth.login') }}">
+	<form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 		<div class="form-group">
@@ -43,7 +43,7 @@ Login
 					Login
 				</button>
 
-				<a href="/password/email">Forgot Your Password?</a>
+				<a href="/password/reset">Forgot Your Password?</a>
 			</div>
 		</div>
 	</form>

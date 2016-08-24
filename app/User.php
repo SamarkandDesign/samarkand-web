@@ -4,17 +4,25 @@ namespace App;
 
 use App\Presenters\PresentableTrait;
 use App\Traits\RoleableTrait;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+class User extends Authenticatable
 {
-    use Authenticatable, Authorizable, CanResetPassword, PresentableTrait, RoleableTrait;
+    use PresentableTrait, RoleableTrait, Notifiable;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        /**
+         * Trigger an update that will set the extra attributes.
+         */
+        static::creating(function ($user) {
+            $user->api_token = str_random(60);
+        });
+    }
 
     /**
      * The roles that should always be available.
@@ -54,7 +62,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = ['username', 'name', 'email', 'password', 'role_id', 'last_seen_at'];
+    protected $fillable = ['username', 'name', 'email', 'password', 'role_id', 'last_seen_at', 'telegram_id', 'is_shop_manager'];
 
     /**
      * The attributes excluded from the model's JSON form.

@@ -19,7 +19,7 @@ class ProductTest extends TestCase
       ]);
       $product->attribute_properties()->saveMany($properties);
 
-      $this->assertNotEmpty($product->getSearchableBody()['properties']);
+      $this->assertNotEmpty($product->toSearchableArray()['properties']);
   }
 
   /** @test **/

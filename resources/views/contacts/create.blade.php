@@ -12,7 +12,7 @@ Contact Us
   <div class="row">
     <div class="col-sm-8">
       @include('partials.alerts._errors_block')
-      {{ Form::model(App\Contact::class, ['route' => 'contacts.store', 'method' => 'post', 'class' => 'top-buffer']) }}
+      {!! Form::model(App\Contact::class, ['route' => 'contacts.store', 'method' => 'post', 'class' => 'top-buffer']) !!}
 
       <div class="row">
 
@@ -38,7 +38,7 @@ Contact Us
 
       <button type="submit" class="btn btn-primary" id="send">Send Message</button>
 
-      {{ Form::close() }}
+      {!! Form::close() !!}
     </div>
 
     <div class="col-sm-4">

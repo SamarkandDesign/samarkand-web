@@ -88,8 +88,19 @@ class DbProductRepository extends DbRepository implements ProductRepository
         }
 
         return $query->listed()
+                     ->with('product_categories')
                      ->filter($this->filter)
                      ->orderBy('featured', 'DESC')
                      ->paginate(config('shop.products_per_page'));
+    }
+
+    /**
+     * Get all the current locations of products.
+     *
+     * @return Collection
+     */
+    public function getLocations()
+    {
+        return Product::groupBy('location')->pluck('location');
     }
 }

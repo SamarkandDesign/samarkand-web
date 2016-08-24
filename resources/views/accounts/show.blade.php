@@ -12,7 +12,7 @@ My Account
 
 <h1>My Account</h1>
 
-<p>Hello {{ $user->name }} (not {{ $user->name }}? <a href="{{ route('auth.logout') }}">Sign out</a>). From your account dashboard you can view your recent orders, <a href="{{ route('addresses.index') }}">manage your addresses</a> and <a href="{{ route('accounts.edit') }}">edit your account details</a>.</p>
+<p>Hello {{ $user->name }} (not {{ $user->name }}? <a href="/logout">Sign out</a>). From your account dashboard you can view your recent orders, <a href="{{ route('addresses.index') }}">manage your addresses</a> and <a href="{{ route('accounts.edit') }}">edit your account details</a>.</p>
 
 <h2>Recent Orders</h2>
 @if ($user->hasOrders())

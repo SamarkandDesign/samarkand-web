@@ -109,6 +109,21 @@ class UsersTest extends TestCase
              ->see($address->line_1);
     }
 
+    /** @test **/
+    public function it_regenerates_a_users_api_token()
+    {
+        $user = factory(\App\User::class)->create();
+        $token = $user->api_token;
+        $this->logInAsAdmin();
+
+        $this->visit("admin/users/{$user->username}")
+             ->see($token)
+             ->press('Regenerate')
+             ->seePageIs("admin/users/{$user->username}");
+
+        $this->assertNotEquals($token, $user->fresh()->api_token);
+    }
+
     private function updateProfile($overrides = [])
     {
         $newUserProfile = array_merge($this->newUserProfile(), $overrides);

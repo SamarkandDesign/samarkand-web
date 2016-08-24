@@ -22,14 +22,16 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'           => 'App\Http\Middleware\Authenticate',
+        'auth'           => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic'     => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest'          => 'App\Http\Middleware\RedirectIfAuthenticated',
         'admin'          => 'App\Http\Middleware\ForbidIfNotAdmin',
         'order.customer' => 'App\Http\Middleware\DeriveUserForOrder',
+        'bindings'       => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'order.session'  => \App\Http\Middleware\OrderMustBeInSession::class,
         'cart.empty'     => \App\Http\Middleware\RedirectIfCartIsEmpty::class,
+        'can'            => \Illuminate\Auth\Middleware\Authorize::class,
     ];
 
     /**
@@ -44,12 +46,14 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'api' => [
             \Illuminate\Cookie\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             'throttle:60,1',
+            'bindings',
         ],
     ];
 }

@@ -135,6 +135,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -157,9 +158,9 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
-        Spatie\SearchIndex\SearchIndexServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
     ],
 
     /*
@@ -212,7 +213,6 @@ return [
         'Cart'          => 'Gloudemans\Shoppingcart\Facades\Cart',
         'Markdown'      => 'GrahamCampbell\Markdown\Facades\Markdown',
         'Present'       => 'App\Presenters\Presenter',
-        'SearchIndex'   => Spatie\SearchIndex\SearchIndexFacade::class,
         'Bugsnag'       => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
 
     ],

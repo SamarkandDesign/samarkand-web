@@ -8,7 +8,7 @@
     <div>@include('admin.posts.form.meta')</div>
 
     <div>
-    	<cr-category-chooser :checkedcategories="{{ $post->categories->lists('id')->toJson(JSON_NUMERIC_CHECK) }}"></cr-category-chooser>
+    	<cr-category-chooser :checkedcategories="{{ $post->categories->pluck('id')->toJson(JSON_NUMERIC_CHECK) }}"></cr-category-chooser>
     </div>
     <div>@include('admin.posts.form.tags')</div>
 </div>

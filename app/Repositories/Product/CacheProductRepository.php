@@ -83,4 +83,16 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
             return $this->repository->shopProducts($productCategory);
         });
     }
+
+    /**
+     * Get all the current locations of products.
+     *
+     * @return Collection
+     */
+    public function getLocations()
+    {
+        return \Cache::tags($this->tag)->remember('productLocations', config('cache.time'), function () {
+            return $this->repository->getLocations();
+        });
+    }
 }

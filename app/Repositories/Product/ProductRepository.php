@@ -54,4 +54,11 @@ interface ProductRepository
     public function countOutOfStock();
 
     public function shopProducts(Term $productCategory);
+
+    /**
+     * Get all the current locations of products.
+     *
+     * @return Collection
+     */
+    public function getLocations();
 }

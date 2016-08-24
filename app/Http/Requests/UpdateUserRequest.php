@@ -27,11 +27,12 @@ class UpdateUserRequest extends UserRequest
 
         $user = $this->route('user');
 
-        return [
-            'username' => 'required|max:255|unique:users,username,'.$user->id,
-            'email'    => 'required|email|max:255|unique:users,email,'.$user->id,
-            'password' => 'confirmed|min:6',
-        ];
+        return array_merge($this->baseRules, [
+            'username'    => 'max:255|unique:users,username,'.$user->id,
+            'email'       => 'email|max:255|unique:users,email,'.$user->id,
+            'password'    => 'confirmed|min:6',
+            'telegram_id' => 'alpha_dash|max:255',
+        ]);
     }
 
     /**

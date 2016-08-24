@@ -29,9 +29,10 @@
                 <div class="navbar-login navbar-login-session">
                     <div class="row">
                         <div class="col-lg-12">
-                            <p>
-                                <a href="/logout" class="btn btn-danger btn-block">Logout</a>
-                            </p>
+              <form method="post" action="logout">
+                      {!! csrf_field() !!}
+                      <button type="submit" class="btn btn-default btn-block btn-danger">Sign out</button>
+                      </form>
                         </div>
                     </div>
                 </div>

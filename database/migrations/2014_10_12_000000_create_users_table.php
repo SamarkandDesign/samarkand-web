@@ -26,8 +26,11 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password', 60);
+            $table->boolean('is_shop_manager')->default(false);
             $table->string('billing_id')->nullable();
             $table->rememberToken();
+            $table->string('api_token', 60)->nullable()->unique();
+            $table->string('telegram_id')->nullable();
             $table->timestamp('last_seen_at')->nullable();
             $table->timestamps();
 

@@ -32,7 +32,7 @@
 
 <div class="form-group {{ $errors->has("country") ? 'has-error' : '' }}">
     <label for="country">Country</label>
-    {!! Form::select('country', $countries->lists(), null, ['class' => 'form-control', 'id' => 'country']) !!}
+    {!! Form::select('country', $countries->pluck(), null, ['class' => 'form-control', 'id' => 'country']) !!}
 </div>
 
 <div class="form-group {{ $errors->has("phone") ? 'has-error' : '' }}">

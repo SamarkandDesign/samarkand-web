@@ -11,7 +11,7 @@ class ProductsTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $userIds = User::lists('id')->toArray();
+        $userIds = User::pluck('id')->toArray();
 
         Product::flushEventListeners();
 

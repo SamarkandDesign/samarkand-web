@@ -25,7 +25,7 @@ class DbTermRepository implements TermRepository
      */
     public function getCategoryList(Termable $related_model = null)
     {
-        $categories = $this->getCategories()->lists('term', 'id')->toArray();
+        $categories = $this->getCategories()->pluck('term', 'id')->toArray();
 
         if (!is_null($related_model)) {
             $categories = $this->orderBySelected($categories, $related_model);
@@ -77,7 +77,7 @@ class DbTermRepository implements TermRepository
      */
     public function getTagList()
     {
-        return $this->getTags()->lists('term', 'id');
+        return $this->getTags()->pluck('term', 'id');
     }
 
     /**

@@ -33,6 +33,7 @@ var larail = require('./plugins/larail.js');
 
 import graph from './components/graph.js'
 import alert from './components/alert.vue'
+import {ProductSearchAdmin as productSearch} from './components/product-search.js'
 
 global.vm = new Vue({
 	el: '#admin',
@@ -44,6 +45,7 @@ global.vm = new Vue({
 		'cr-imageable-gallery': require('./components/cr-imageable-gallery.vue'),
 		'cr-image-chooser': require('./components/cr-image-chooser.vue'),
         'cr-attribute-form': require('./components/cr-attribute-form.vue'),
+        'product-search': productSearch,
         'graph': graph,
         'alert': alert
 	}

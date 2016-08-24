@@ -9,11 +9,6 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $users = User::with('role')->paginate();
@@ -72,6 +67,24 @@ class UsersController extends Controller
 
         return redirect()->back()->with([
             'alert'       => 'Profile updated',
+            'alert-class' => 'success',
+            ]);
+    }
+
+    /**
+     * Refresh a user's api token.
+     *
+     * @param User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function token(User $user)
+    {
+        $user->api_token = str_random(60);
+        $user->save();
+
+        return redirect()->back()->with([
+            'alert'       => 'Token Refreshed',
             'alert-class' => 'success',
             ]);
     }

@@ -10,7 +10,7 @@ class PostsTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $userIds = User::lists('id')->toArray();
+        $userIds = User::pluck('id')->toArray();
 
         foreach (range(1, 15) as $index) {
             factory('App\Post')->create([

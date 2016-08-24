@@ -18,7 +18,7 @@ trait CollectableCountries
      */
     public function getByCode($code)
     {
-        $countries = $this->lists();
+        $countries = $this->pluck();
 
         return $countries->get($code);
     }
@@ -28,7 +28,7 @@ trait CollectableCountries
      *
      * @return \Illuminate\Support\Collection
      */
-    public function lists($value = 'name', $key = 'alpha2Code')
+    public function pluck($value = 'name', $key = 'alpha2Code')
     {
         $list = $this->all()->pluck($value, $key);
 
