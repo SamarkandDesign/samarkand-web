@@ -11,7 +11,6 @@ class OrdersControllerTest extends \TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->expectsEvents('searchable.created');
         $this->logInAsAdmin();
     }
 

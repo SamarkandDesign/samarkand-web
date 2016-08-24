@@ -4,7 +4,7 @@
     </div>
     <div class="box-body">
         <div class="form-group">
-            {!! Form::select('terms[]', $tagList, isset($post) ? $post->tags->lists('id')->toArray() : null, ['multiple', 'class' => 'form-control hidden select2']) !!}
+            {!! Form::select('terms[]', $tagList, isset($post) ? $post->tags->pluck('id')->toArray() : null, ['multiple', 'class' => 'form-control hidden select2']) !!}
         </div>
     </div>
 </div>

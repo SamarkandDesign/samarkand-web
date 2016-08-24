@@ -8,6 +8,8 @@ use App\Http\Requests\Product\UpdateProductRequest;
 use App\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Search\TokenGenerator;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductsController extends Controller
 {
@@ -42,7 +44,6 @@ class ProductsController extends Controller
 
         return view('admin.products.index', [
             'products'     => $products,
-            'searchKey'    => $this->tokenGenerator->getAdminProductToken(),
             'productCount' => $this->products->count(),
         ]);
     }
@@ -57,13 +58,19 @@ class ProductsController extends Controller
      *
      * @return Illuminate\Http\Response
      */
-    public function search(Request $request, ProductSearcher $searcher)
+    public function search(Request $request)
     {
+        $query = $request->get('query');
 
-        $results = $searcher->search($request->get('query'))->getResults();
-        $products = \App\Product::whereIn('id', $results->pluck('id'))->listed()->paginate();
+        $results = Product::search($query)->get()->load('product_categories');
+        $products = new LengthAwarePaginator($results, $results->count(), config('shop.products_per_page'));
 
-        return view('shop.index')->with(compact('products'));
+
+        return view('admin.products.index')->with([
+            'products' => $products,
+            'productCount' => $products->count(),
+            'title'     => sprintf('Product search results for "%s"', $query)
+            ]);
     }
 
     /**
@@ -106,7 +113,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        $selected_product_categories = $product->product_categories->lists('id');
+        $selected_product_categories = $product->product_categories->pluck('id');
 
         return view('admin.products.edit')->with(compact('product', 'selected_product_categories', 'attributes'));
     }

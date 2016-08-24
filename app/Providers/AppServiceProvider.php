@@ -38,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
                 dispatch(new \App\Jobs\UpdatePagePath($page->fresh()));
             }
         });
+
+        // \DB::listen(function ($query) {
+        //     var_dump($query->sql, $query->bindings, $query->time);
+        // });
     }
 
     /**
@@ -66,6 +70,10 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return new StripeGateway();
+        });
+
+        $this->app->singleton(\AlgoliaSearch\Client::class, function () {
+            return new \AlgoliaSearch\Client(config('scout.algolia.id'), config('scout.algolia.secret'));
         });
     }
 }

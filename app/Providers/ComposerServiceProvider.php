@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Countries\CountryRepository;
+use App\Product;
 use App\Repositories\Order\OrderRepository;
+use App\Repositories\Product\ProductRepository;
 use App\Repositories\Term\TermRepository;
-use Illuminate\Support\ServiceProvider;
 use App\Search\TokenGenerator;
+use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,8 @@ class ComposerServiceProvider extends ServiceProvider
         $this->sharePostData();
 
         $this->shareProductIndexSettings();
+
+        $this->shareProductMeta();
 
         $this->shareOrderCountWithSidebar();
 
@@ -39,10 +43,29 @@ class ComposerServiceProvider extends ServiceProvider
      */
     private function shareSearchKey()
     {
-        $this->app->view->composer('shop._product_search', function ($view) {
-            $tokenGenerator = $this->app->make(TokenGenerator::class);
+        $tokenGenerator = $this->app->make(TokenGenerator::class);
+        
+        $this->app->view->composer('shop._product_search', function ($view) use ($tokenGenerator) {
 
-            $view->with(['searchKey' => $tokenGenerator->getProductSearchToken()]);
+            $view->with([
+                'searchKey' => $tokenGenerator->getProductSearchToken(),
+                'searchIndex' => (new Product())->searchableAs(),
+                ]);
+        });
+
+        $this->app->view->composer('admin.products.index', function ($view) use ($tokenGenerator) {
+            $view->with([
+                'searchKey' => $tokenGenerator->getAdminProductToken(),
+                'searchIndex' => (new Product())->searchableAs(),
+                ]);
+        });
+    }
+
+    private function shareProductMeta()
+    {
+        $this->app->view->composer('admin.products.form', function ($view) {
+            $products = $this->app->make(ProductRepository::class);
+            $view->with(['productLocations' => $products->getLocations()]);
         });
     }
 
@@ -62,7 +85,7 @@ class ComposerServiceProvider extends ServiceProvider
     private function shareRoles()
     {
         $this->app->view->composer('admin.users.form', function ($view) {
-            $roles = \App\Role::lists('display_name', 'id');
+            $roles = \App\Role::pluck('display_name', 'id');
 
             $view->with(compact('roles'));
         });
@@ -83,7 +106,7 @@ class ComposerServiceProvider extends ServiceProvider
         $this->app->view->composer(['shop.checkout', 'addresses.form'], function ($view) {
             $countries_repository = $this->app->make(CountryRepository::class);
 
-            $view->with('countries', $countries_repository->lists());
+            $view->with('countries', $countries_repository->pluck());
         });
     }
 

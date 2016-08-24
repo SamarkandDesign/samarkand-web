@@ -41,26 +41,31 @@
 
 			<div class="form-group">
 				{!! Form::label('location', 'Item Location') !!}
-				{!! Form::text('location', null, ['class' => 'form-control']) !!}
+				{!! Form::text('location', null, ['class' => 'form-control', 'list' => 'locations']) !!}
+				<datalist id="locations">
+					@foreach ($productLocations as $productLocation)
+					<option value="{{ $productLocation }}">
+					@endforeach
+				</datalist>
 			</div>
 
 			<div class="checkbox">
 				<input type="hidden" name="listed" value="false">
-                <label>
-                    {!! Form::checkbox('listed', 'true', !$product->exists() ? true : null) !!} Listed in the Online Store
-                </label>
-            </div>			
+				<label>
+					{!! Form::checkbox('listed', 'true', !$product->exists() ? true : null) !!} Listed in the Online Store
+				</label>
+			</div>			
 
-            <div class="checkbox">
+			<div class="checkbox">
 				<input type="hidden" name="featured" value="false">
-                <label>
-                    {!! Form::checkbox('featured', 'true') !!} Featured
-                </label>
-            </div>
-            
+				<label>
+					{!! Form::checkbox('featured', 'true') !!} Featured
+				</label>
+			</div>
+
 			<div class="form-group">
 				{!! Form::label('user_id', 'Author') !!}
-				{!! Form::select('user_id', App\User::lists('name', 'id'), null, ['class' => 'form-control']) !!}
+				{!! Form::select('user_id', App\User::pluck('name', 'id'), null, ['class' => 'form-control']) !!}
 			</div>
 
 			<div>

@@ -9,7 +9,7 @@ interface CountryRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function lists($value = 'name', $key = 'alpha2Code');
+    public function pluck($value = 'name', $key = 'alpha2Code');
 
     /**
      * Get a country name by its Alpha2 code.

@@ -19,3 +19,19 @@
       </ul>
     </div>
 </div>
+
+<div class="box box-primary ">
+    <div class="box-body box-profile">
+
+        <p>User API Token</p>
+        <div class="form-group">
+            
+        <textarea class="form-control" rows="3">{{ $user->api_token }}</textarea class="form-control" lines="3">
+        </div>
+        <form action="{{ route('admin.users.token', $user) }}" method="post">
+            {{ method_field('patch') }}
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-default btn-small">Regenerate</button>
+        </form>
+    </div>
+</div>

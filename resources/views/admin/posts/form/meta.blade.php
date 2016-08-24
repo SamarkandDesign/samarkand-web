@@ -15,7 +15,7 @@
         <div class="form-group">
 
             {!! Form::label('user_id', 'Author') !!}
-            {!! Form::select('user_id', App\User::lists('name', 'id'), null, ['class' => 'form-control']) !!}
+            {!! Form::select('user_id', App\User::pluck('name', 'id'), null, ['class' => 'form-control']) !!}
         </div>
     </div>
     <div class="box-footer">

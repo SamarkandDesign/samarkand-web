@@ -14,10 +14,9 @@
 <div class="row">
 	<div class="col-md-9 bottom-buffer">
 		<product-search
-		query="{{ Request::get('query') }}"
 		key="{{ $searchKey }}"
-		app-id="{{ config('searchindex.algolia.application-id') }}"
-		index-name="{{ config('searchindex.algolia.defaultIndexName') }}"
+		app-id="{{ config('scout.algolia.id') }}"
+		index-name="{{ $searchIndex }}"
 		></product-search>
 	</div>
 

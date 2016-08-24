@@ -7,22 +7,7 @@
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'HomeController@index');
 
-    Route::controllers([
-        'password' => 'Auth\PasswordController',
-    ]);
-
-    /*
-     * Registration
-     */
-    Route::get('register', ['uses' => 'Auth\AuthController@getRegister', 'as' => 'auth.register']);
-    Route::post('register', ['uses' => 'Auth\AuthController@postRegister', 'as' => 'auth.register']);
-
-    /*
-     * Authentication
-     */
-    Route::get('login', ['uses' => 'Auth\AuthController@getLogin', 'as' => 'auth.login']);
-    Route::post('login', ['uses' => 'Auth\AuthController@postLogin', 'as' => 'auth.login']);
-    Route::get('logout', ['uses' => 'Auth\AuthController@getLogout', 'as' => 'auth.logout']);
+    Auth::routes();
 
     /*
      * Shop

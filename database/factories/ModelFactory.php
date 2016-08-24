@@ -98,6 +98,7 @@ $factory->define('App\ProductAttribute', function ($faker) {
 
     return [
     'name' => $term,
+    'slug' => str_slug($term),
     ];
 });
 
@@ -106,6 +107,7 @@ $factory->define('App\AttributeProperty', function ($faker) {
 
     return [
     'name'                 => $name,
+    'slug'                 => str_slug($name),
     'product_attribute_id' => function () {
         return factory(App\ProductAttribute::class)->create()->id;
     },

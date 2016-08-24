@@ -13,7 +13,7 @@ class CountriesTest extends TestCase
     {
         $country_repository = new FileCountryRepository();
 
-        $countries = $country_repository->lists();
+        $countries = $country_repository->pluck();
         $this->assertContains('United Kingdom', $countries);
     }
 
@@ -28,7 +28,7 @@ class CountriesTest extends TestCase
 
         $country_repository = new RestCountriesCountryRepository($client);
 
-        $countries = $country_repository->lists();
+        $countries = $country_repository->pluck();
 
         $this->assertContains('United Kingdom', $countries);
     }
@@ -39,7 +39,7 @@ class CountriesTest extends TestCase
         $country_repository = new FileCountryRepository();
         $country_repository->first_countries = ['GB', 'US'];
 
-        $countries = $country_repository->lists();
+        $countries = $country_repository->pluck();
         $this->assertEquals('United Kingdom', $countries->first());
     }
 
@@ -50,7 +50,7 @@ class CountriesTest extends TestCase
         $country_repository->first_countries = ['GB', 'US', 'XX'];
 
         $this->setExpectedException('\InvalidArgumentException');
-        $countries = $country_repository->lists();
+        $countries = $country_repository->pluck();
     }
 
     /** @test **/
@@ -64,11 +64,11 @@ class CountriesTest extends TestCase
     /** @test **/
     public function it_gets_a_list_of_countries_from_the_cache()
     {
-        $mocked_country_repository = Mockery::mock(CountryRepository::class, ['lists' => [0 => 'United Kingdom']]);
+        $mocked_country_repository = Mockery::mock(CountryRepository::class, ['pluck' => [0 => 'United Kingdom']]);
 
         $cache_country_repository = new CacheCountryRepository($mocked_country_repository);
 
-        $countries = $cache_country_repository->lists();
+        $countries = $cache_country_repository->pluck();
         $this->assertContains('United Kingdom', $countries);
     }
 }

@@ -16,10 +16,10 @@ class CacheCountryRepository implements CountryRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function lists($value = 'name', $key = 'alpha2Code')
+    public function pluck($value = 'name', $key = 'alpha2Code')
     {
         return \Cache::remember("countries.list.$value.$key", config('cache.time'), function () use ($value, $key) {
-            return $this->country_repository->lists($value, $key);
+            return $this->country_repository->pluck($value, $key);
         });
     }
 

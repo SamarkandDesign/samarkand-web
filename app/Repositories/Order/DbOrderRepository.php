@@ -32,7 +32,7 @@ class DbOrderRepository extends DbRepository implements OrderRepository
         return $this->model
         ->select('status', \DB::raw('COUNT(*) as count'))
         ->groupBy('status')
-        ->lists('count', 'status');
+        ->pluck('count', 'status');
     }
 
     public function salesByMonth()

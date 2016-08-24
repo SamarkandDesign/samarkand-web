@@ -74,7 +74,7 @@ class ProductPresenter extends ModelPresenter
      */
     public function thumbnail_url()
     {
-        return $this->model->thumnail ?: '/img/placeholder-square.png';
+        return $this->model->thumbnail ?: '/img/placeholder-square.png';
     }
 
     /**

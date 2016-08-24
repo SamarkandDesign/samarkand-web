@@ -19,26 +19,9 @@ class ProductTest extends TestCase
       ]);
       $product->attribute_properties()->saveMany($properties);
 
-      $this->assertNotEmpty($product->getSearchableBody()['properties']);
+      $this->assertNotEmpty($product->toSearchableArray()['properties']);
   }
 
-  /** @test */
-  public function it_can_recreate_a_product_from_its_searchable_body()
-  {
-      $product = factory(Product::class)->create();
-      $attribute = factory(ProductAttribute::class)->create();
-      $properties = collect([
-        factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
-        factory(AttributeProperty::class)->create(['product_attribute_id' => $attribute->id]),
-      ]);
-      $product->attribute_properties()->saveMany($properties);
-
-      $attributes = $product->getSearchableBody();
-
-      $p = new Product($attributes);
-
-      dd($p->url);
-  }
 
   /** @test **/
   public function it_gets_the_usable_price_of_a_product()

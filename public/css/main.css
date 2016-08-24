@@ -4697,7 +4697,8 @@ button.close {
     z-index: 9;
     border-bottom-right-radius: 2px;
     border-bottom-left-radius: 2px;
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.1); }
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden; }
   .product-search .hit-summary {
     padding: 10px;
     border-bottom: 1px #d8d8d8 solid; }
@@ -4721,10 +4722,11 @@ button.close {
     top: 10px;
     right: 10px; }
   .product-search .alogia-logo {
+    opacity: .5;
     font-size: 9px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px; }
+    padding: 5px 10px;
+    text-align: right;
+    border-bottom: 3px #d8d8d8 solid; }
     .product-search .alogia-logo img {
       width: 50px;
       height: auto; }

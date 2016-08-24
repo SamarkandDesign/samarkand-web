@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 
 class AccountsController extends Controller
 {
-    private $user;
+    protected $auth;
 
     public function __construct(Guard $auth)
     {
         $this->middleware('auth');
 
-        $this->user = $auth->user();
+        $this->auth = $auth;
     }
 
     /**
@@ -27,7 +27,7 @@ class AccountsController extends Controller
      */
     public function show(Request $request)
     {
-        return view('accounts.show', ['user' => $this->user]);
+        return view('accounts.show', ['user' => $this->auth->user()]);
     }
 
     /**
@@ -37,7 +37,7 @@ class AccountsController extends Controller
      */
     public function edit()
     {
-        return view('accounts.edit', ['user' => $this->user]);
+        return view('accounts.edit', ['user' => $this->auth->user()]);
     }
 
     /**

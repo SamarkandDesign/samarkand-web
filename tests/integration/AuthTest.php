@@ -12,7 +12,7 @@ class AuthTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->visit('/password/email')
+        $this->visit('/password/reset')
              ->type($user->email, 'email')
              ->press('Send Password Reset Link')
              ->see('password reset link');
@@ -38,7 +38,7 @@ class AuthTest extends TestCase
     }
 
     /** @test **/
-    public function it_marks_a_user_as_not_auto_created_if_they_log_in_succesfully()
+    public function it_marks_a_user_as_not_auto_created_if_they_log_in_successfully()
     {
         $email = 'jb@email.com';
         $user = factory(User::class)->create([
@@ -65,7 +65,7 @@ class AuthTest extends TestCase
         ->type('wrongpw', 'password')
         ->press('Login')
         ->seePageIs('/login')
-        ->see('These credentials do not match our records');
+        ->see('Your login details were invalid');
 
         $this->assertTrue(\Auth::guest());
     }

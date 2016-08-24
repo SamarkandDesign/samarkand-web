@@ -30,17 +30,19 @@
       <div v-for="hit in hits" class="product-search-result" transition="fade">
         <a href="/admin/products/{{ hit.id }}/edit" class="media">
           <div class="media-left image-search-thumb">
-            <img :src="hit.image_url" clas="img-responsive" alt="" />
+            <img :src="hit.thumbnail" clas="img-responsive" alt="" />
           </div>
           
           <div class="media-body">
-            <h4 class="media-heading">{{ hit.name }}</h4>
+            <h4 class="media-heading">{{ hit.name }} <small v-html="displayPrice(hit)"></small></h4>
 
             <p class="text-muted">
-              {{ hit.categories.join(', ')}}
+              <i class="fa fa-fw fa-tags"></i> {{ hit.categories.join(', ')}}
             </p>
-            <div class="text-small">
-              <i class="fa fa-map-marker"></i> {{ hit.location }}
+            <div class="text-small text-muted">
+              <i class="fa fa-fw fa-map-marker"></i> {{ hit.location }} | 
+              <i class="fa fa-fw {{ hit.listed ? 'fa-eye' : 'fa-eye-slash' }}"></i> | 
+              Stock: {{ hit.stock_qty }}
             </div>
 
             <div class="clearfix"> </div>

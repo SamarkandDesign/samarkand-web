@@ -10,12 +10,13 @@ const ProductSearch = Vue.extend({
   },
   ready () {
     let client = algoliasearch(this.appId, this.key)
-    this.index = client.initIndex(this.indexName);
+    this.index = client.initIndex(this.indexName)
 
     // Empty the results if user click outside them
     window.addEventListener('click', e => {
       if (!this.$el.contains(e.target)) {
-        this.hits = [];
+        this.query = ''
+        this.hits = []
       }
     });
   },
@@ -40,12 +41,20 @@ const ProductSearch = Vue.extend({
       }, (err, content) => {
         this.searching = false
         if (err) {
-          console.error(err);
-          return;
+          console.error(err)
+          return
         }
         this.hits = content.hits
         this.numberOfHits = content.nbHits
-      });
+      })
+    },
+
+    displayPrice(product) {
+      if (!product.sale_price) {
+        return '£' + product.price
+      }
+
+      return `<del>£${product.price}</del> £${product.sale_price}`
     }
   }
 })

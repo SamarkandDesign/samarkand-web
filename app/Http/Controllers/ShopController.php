@@ -6,6 +6,7 @@ use App\Repositories\Product\ProductRepository;
 use App\Search\ProductSearcher;
 use App\Term;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ShopController extends Controller
 {
@@ -25,7 +26,7 @@ class ShopController extends Controller
     {
         $products = $this->products->shopProducts($product_category);
 
-        return view('shop.index')->with(compact('product_category', 'products', 'searchKey'));
+        return view('shop.index')->with(compact('product_category', 'products'));
     }
 
     /**
@@ -42,8 +43,19 @@ class ShopController extends Controller
     {
         $product_category = new Term();
 
-        $results = $searcher->search($request->get('query'))->getResults();
-        $products = \App\Product::whereIn('id', $results->pluck('id'))->listed()->paginate();
+        $results = \App\Product::search($request->get('query'))
+            ->where('listed', true)
+            ->get()
+            ->load('product_categories');
+
+        // filter out-of-stock products if needed
+        if (!config('shop.show_out_of_stock')) {
+            $results = $results->filter(function ($product) {
+                return $product->inStock();
+            });
+        }
+
+        $products = new LengthAwarePaginator($results, $results->count(), config('shop.products_per_page'));
 
         return view('shop.index')->with(compact('product_category', 'products'));
     }

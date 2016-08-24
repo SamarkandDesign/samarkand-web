@@ -117,7 +117,7 @@ class PostsController extends Controller
     {
         $post->load('categories', 'tags');
 
-        $selectedCategories = $post->categories->lists('id')->toArray();
+        $selectedCategories = $post->categories->pluck('id')->toArray();
 
         $categoryList = $terms->getCategoryList($post);
         $tagList = $terms->getTagList();

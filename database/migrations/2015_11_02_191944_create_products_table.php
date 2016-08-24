@@ -27,9 +27,6 @@ class CreateProductsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('product_id')->unsigned()->nullable();
 
-            $table->string('url')->nullable();
-            $table->string('thumbnail')->nullable();
-
             $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();

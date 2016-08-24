@@ -27,6 +27,14 @@ class ShippingCountry extends Model
      */
     public $fillable = ['country_id'];
 
+    protected $touches = ['shipping_method'];
+
+    public function shipping_method()
+    {
+        return $this->belongsTo(ShippingMethod::class);
+    }
+
+
     /**
      * Ensure the country ID is stored in uppercase.
      *

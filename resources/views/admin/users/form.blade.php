@@ -16,6 +16,14 @@
 					<label for="email">Email</label>
 					{!! Form::email('email', null, ['class' => 'form-control']) !!}
 				</div>
+				
+				<div class="form-group">
+					<label for="telegram_id">Telegram ID <span class="help-text small text-muted">(For notifications)</span></label>
+					<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-at"></i></span>
+					{!! Form::text('telegram_id', null, ['class' => 'form-control']) !!}
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-6">
@@ -33,14 +41,18 @@
 					{!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
 				</div>
 
-				@if (true or Auth::user()->can('edit_user'))
 				<div class="form-group ">
 					<label for="roles">Role</label>
 					{!! Form::select('role_id', $roles, $user->role_id, ['class' => 'form-control']) !!}
 				</div>
-				@endif
 
+				<div class="checkbox">
+					<input type="hidden" name="is_shop_manager" value="0">
+					<label>
+						{!! Form::checkbox('is_shop_manager', '1') !!} Shop Manager <span class="help-text small text-muted">(Notify for new orders, low stock)</span>
+					</label>
+				</div>
 			</div>
 		</div>
 
-		<button class="btn btn-primary">{{ $submit_text or 'Submit' }}</button>
+		<button class="btn btn-success">{{ $submit_text or 'Submit' }}</button>

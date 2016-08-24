@@ -67,7 +67,7 @@ class CacheTermRepository implements TermRepository
    */
   public function getTagList()
   {
-      return $this->getTags()->lists('term', 'id');
+      return $this->getTags()->pluck('term', 'id');
   }
 
   /**

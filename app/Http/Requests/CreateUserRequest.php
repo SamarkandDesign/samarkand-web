@@ -27,11 +27,11 @@ class CreateUserRequest extends UserRequest
 
         $user = $this->route('user');
 
-        return [
+        return array_merge($this->baseRules, [
             'username' => 'required|max:255|unique:users,username',
             'email'    => 'required|email|max:255|unique:users,email',
             'password' => 'required|confirmed|min:6',
-        ];
+        ]);
     }
 
     /**

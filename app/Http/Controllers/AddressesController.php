@@ -13,7 +13,7 @@ class AddressesController extends Controller
     /**
      * @var Guard
      */
-    private $user;
+    private $auth;
 
     /**
      * Create a new addresses controller instance.
@@ -24,7 +24,7 @@ class AddressesController extends Controller
     {
         $this->middleware('auth');
 
-        $this->user = $auth->user();
+        $this->auth = $auth;
     }
 
     /**
@@ -46,7 +46,7 @@ class AddressesController extends Controller
      */
     public function index()
     {
-        $addresses = $this->user->addresses;
+        $addresses = $this->auth->user()->addresses;
 
         return view('addresses.index')->with(compact('addresses'));
     }

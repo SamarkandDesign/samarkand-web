@@ -10,7 +10,7 @@ class AddressesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $userIds = User::lists('id')->toArray();
+        $userIds = User::pluck('id')->toArray();
 
         foreach (range(1, 15) as $i) {
             factory(Address::class)->create([

@@ -19,8 +19,8 @@ class TermablesTableSeeder extends Seeder
 
     private function seedPostTermables()
     {
-        $post_ids = Post::lists('id')->toArray();
-        $term_ids = Term::whereIn('taxonomy', ['tag', 'category'])->lists('id')->toArray();
+        $post_ids = Post::pluck('id')->toArray();
+        $term_ids = Term::whereIn('taxonomy', ['tag', 'category'])->pluck('id')->toArray();
 
         foreach (range(1, 30) as $index) {
             DB::table('termables')->insert([
@@ -33,8 +33,8 @@ class TermablesTableSeeder extends Seeder
 
     private function seedProductTermables()
     {
-        $product_ids = Product::lists('id')->toArray();
-        $term_ids = Term::whereIn('taxonomy', ['product_category'])->lists('id')->toArray();
+        $product_ids = Product::pluck('id')->toArray();
+        $term_ids = Term::whereIn('taxonomy', ['product_category'])->pluck('id')->toArray();
         foreach (range(1, 30) as $index) {
             DB::table('termables')->insert([
                 'term_id'          => $this->faker->randomElement($term_ids),

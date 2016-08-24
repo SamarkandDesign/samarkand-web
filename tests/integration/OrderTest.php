@@ -218,7 +218,7 @@ class OrderTest extends TestCase
     ->fillAddress()
     ->press('Continue');
 
-      $this->seePageIs(route('auth.login', ['email' => $user->email]))
+      $this->seePageIs(route('login', ['email' => $user->email]))
     ->see('This email has an account here')
     ->type($user->email, 'email')
     ->type('password', 'password')
