@@ -23,6 +23,7 @@
     <![endif]-->
 </head>
 <body id="app">
+    @include('partials._ga')
     @include('partials._navbar')
     @yield('body')
 

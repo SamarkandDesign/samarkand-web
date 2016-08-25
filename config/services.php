@@ -35,4 +35,8 @@ return [
         'secret'      => env('STRIPE_SECRET_KEY'),
     ],
 
+    'google' => [
+        'ga_tracking_id' => env('GA_TRACKING_ID'),
+    ],
+
 ];
