@@ -74,4 +74,24 @@ class AccountTest extends TestCase
 
         $this->notSeeInDatabase('users', ['id' => $other_user->id, 'email' => 'bad@email.com']);
     }
+
+
+    /** @test **/
+    public function it_does_not_allow_a_user_to_update_admin_fields()
+    {
+        $user = factory(User::class)->create();
+        $customer_role = factory(\App\Role::class)->create(['name' => 'customer', 'display_name' => 'Customer']);
+        $admin_role = factory(\App\Role::class)->create(['name' => 'admin', 'display_name' => 'Admin']);
+
+        $this->be($user);
+        $response = $this->patch(route('accounts.update', $user), [
+            'role_id' => $admin_role->id,
+            'is_shop_manager' => true,
+            'username' => 'foobar'
+            ]);
+
+        $this->assertFalse($user->fresh()->hasRole('admin'));
+        $this->notSeeInDatabase('users', ['id' => $user->id, 'is_shop_manager' => true]);
+        $this->seeInDatabase('users', ['id' => $user->id, 'username' => 'foobar']);
+    }
 }

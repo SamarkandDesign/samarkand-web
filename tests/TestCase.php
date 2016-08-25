@@ -22,6 +22,9 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
+        // set bcrypt rounds to a low number to speed up password hashing
+        Hash::setRounds(5);
+
         $this->baseUrl = \Config::get('app.url', 'http://homestead.app');
 
         $this->setUpDatabase();
