@@ -42,7 +42,7 @@
                       <a href="{{ route('admin.users.profile') }}" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
-                      <form method="post" action="logout">
+                      <form method="post" action="/logout">
                       {!! csrf_field() !!}
                       <button type="submit" class="btn btn-default btn-flat">Sign out</button>
                       </form>
