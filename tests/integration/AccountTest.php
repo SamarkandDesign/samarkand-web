@@ -75,7 +75,6 @@ class AccountTest extends TestCase
         $this->notSeeInDatabase('users', ['id' => $other_user->id, 'email' => 'bad@email.com']);
     }
 
-
     /** @test **/
     public function it_does_not_allow_a_user_to_update_admin_fields()
     {
@@ -85,9 +84,9 @@ class AccountTest extends TestCase
 
         $this->be($user);
         $response = $this->patch(route('accounts.update', $user), [
-            'role_id' => $admin_role->id,
+            'role_id'         => $admin_role->id,
             'is_shop_manager' => true,
-            'username' => 'foobar'
+            'username'        => 'foobar',
             ]);
 
         $this->assertFalse($user->fresh()->hasRole('admin'));
