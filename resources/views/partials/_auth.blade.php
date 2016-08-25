@@ -29,10 +29,10 @@
                 <div class="navbar-login navbar-login-session">
                     <div class="row">
                         <div class="col-lg-12">
-              <form method="post" action="logout">
-                      {!! csrf_field() !!}
-                      <button type="submit" class="btn btn-default btn-block btn-danger">Sign out</button>
-                      </form>
+                            <form method="post" action="/logout">
+                            {!! csrf_field() !!}
+                            <button type="submit" class="btn btn-default btn-block btn-danger">Sign out</button>
+                            </form>
                         </div>
                     </div>
                 </div>
