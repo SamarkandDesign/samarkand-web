@@ -65,8 +65,8 @@ class User extends Authenticatable
     protected $fillable = ['username', 'name', 'email', 'password', 'role_id', 'last_seen_at', 'telegram_id', 'is_shop_manager'];
 
     /**
-     * Fields that can only be assigned if acting as an admin
-     * 
+     * Fields that can only be assigned if acting as an admin.
+     *
      * @var array
      */
     public $adminFields = ['role_id', 'is_shop_manager'];
