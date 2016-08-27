@@ -24,9 +24,9 @@ Crossroads of Culture
 		</div>
 	</carousel>
 
-	<div class="container top-buffer text-center">
-		<h1>Samarkand Design</h1>
-		<h2>Crossroads of Culture</h2>
+	<div class="container top-buffer text-justify">
+		<h1 class="text-center">Samarkand Design</h1>
+		<h2 class="text-center">Crossroads of Culture</h2>
 		<p>Once a major crossing point on the great trade routes of Central Asia, the historic town of Samarkand now lies in modern day Uzbekistan, a melting pot of global cultures.</p>
 
 		<p>At Samarkand we source vintage textiles from around the world to create unique and distinctive home accessories.  By reinterpreting time-honoured skills and design with modern flair, we create pieces with the perfect balance of tradition and contemporary style.</p>

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fba8b8eeffff5ccea594b90e7ae5a323",
-    "content-hash": "f78a5e0267cd7e97c70dfeef2ac9a7f6",
+    "hash": "3dc20a61ae8f54e186c6c3b94938877e",
+    "content-hash": "de4ed83287e90e5fa6b9ea72c6203dc1",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1628,16 +1628,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.1",
+            "version": "v5.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1268b6249358a11d430f8b97ff820afdf099f103"
+                "reference": "7159ffbadc79558a42ece2cdd1ec2e7e13105b5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1268b6249358a11d430f8b97ff820afdf099f103",
-                "reference": "1268b6249358a11d430f8b97ff820afdf099f103",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7159ffbadc79558a42ece2cdd1ec2e7e13105b5d",
+                "reference": "7159ffbadc79558a42ece2cdd1ec2e7e13105b5d",
                 "shasum": ""
             },
             "require": {
@@ -1751,7 +1751,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-24 09:54:18"
+            "time": "2016-08-26 21:40:26"
         },
         {
             "name": "laravel/scout",
@@ -2849,16 +2849,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "4.8.2",
+            "version": "4.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "de4ca4448a2e00989f72a559e9064774f055f530"
+                "reference": "7fcb591ff0ef2d28b9b622f84f972c642ff3e8f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/de4ca4448a2e00989f72a559e9064774f055f530",
-                "reference": "de4ca4448a2e00989f72a559e9064774f055f530",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/7fcb591ff0ef2d28b9b622f84f972c642ff3e8f9",
+                "reference": "7fcb591ff0ef2d28b9b622f84f972c642ff3e8f9",
                 "shasum": ""
             },
             "require": {
@@ -2912,7 +2912,7 @@
                 "media",
                 "spatie"
             ],
-            "time": "2016-08-24 00:06:32"
+            "time": "2016-08-25 08:08:10"
         },
         {
             "name": "spatie/pdf-to-image",
@@ -3019,16 +3019,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v3.20.0",
+            "version": "v3.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "2ebcac34b287bfc017b13c6fecb6a7dbb96f1e7b"
+                "reference": "0f4f89094b6a1ba9c9c1b5c32358d8d0acc19682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/2ebcac34b287bfc017b13c6fecb6a7dbb96f1e7b",
-                "reference": "2ebcac34b287bfc017b13c6fecb6a7dbb96f1e7b",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/0f4f89094b6a1ba9c9c1b5c32358d8d0acc19682",
+                "reference": "0f4f89094b6a1ba9c9c1b5c32358d8d0acc19682",
                 "shasum": ""
             },
             "require": {
@@ -3070,7 +3070,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2016-08-08 19:50:55"
+            "time": "2016-08-25 22:58:28"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5283,12 +5283,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/mailthief.git",
-                "reference": "3a9e321ce6045766b256daef2c2ad9728f224206"
+                "reference": "0ffa0e89ea9760bb4269cffbc003734d55c08fd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/mailthief/zipball/3a9e321ce6045766b256daef2c2ad9728f224206",
-                "reference": "3a9e321ce6045766b256daef2c2ad9728f224206",
+                "url": "https://api.github.com/repos/tightenco/mailthief/zipball/0ffa0e89ea9760bb4269cffbc003734d55c08fd7",
+                "reference": "0ffa0e89ea9760bb4269cffbc003734d55c08fd7",
                 "shasum": ""
             },
             "require": {
@@ -5316,7 +5316,7 @@
                 }
             ],
             "description": "A fake Mailer for Laravel applications that takes the pain out of testing mail.",
-            "time": "2016-08-23 22:31:06"
+            "time": "2016-08-25 17:54:56"
         },
         {
             "name": "webmozart/assert",
@@ -5379,6 +5379,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
+        "ext-pcntl": "*",
         "ext-gd": "*",
         "ext-exif": "*"
     },

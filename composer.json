@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
+		"ext-pcntl": "*",
 		"ext-gd": "*",
 		"ext-exif": "*",
 		"laravel/framework": "^5.3",
