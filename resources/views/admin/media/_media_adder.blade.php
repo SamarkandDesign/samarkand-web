@@ -20,12 +20,13 @@
     paramName: 'image',
     maxFilesize: 5, //5MB limit
     acceptedFiles: '.jpeg, .jpg, .png, .bmp, .gif, .svg',
-    init: function()
-    {
-      this.on("complete", function(file)
-      {
-        this.removeFile(file);
-        vm.$refs.gallery.fetchImages();
+    init: function() {
+      this.on("complete", function(file) {
+        // wait until the image has processed before trying to request it.
+        setTimeout(function () {
+          this.removeFile(file);
+          vm.$refs.gallery.fetchImages();
+        }.bind(this), 3500);
 
       });
     }
