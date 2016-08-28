@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Term;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -14,8 +15,10 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Term $product_category, Product $product)
+    public function show(Term $product_category, Product $product, Request $request)
     {
-        return view('products.show', compact('product'));
+        $shareUrl = urlencode($request->url());
+
+        return view('products.show', compact('product', 'shareUrl'));
     }
 }

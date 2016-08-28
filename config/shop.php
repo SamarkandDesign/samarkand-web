@@ -28,7 +28,7 @@ return [
     /*
      * The stock quantity at which to alert shop admins
      */
-    'low_stock_qty'     => 3,
+    'low_stock_qty'     => env('LOW_STOCK_QTY', '1'),
 
     /*
      * Show out of stock products on the store pages

@@ -80,9 +80,9 @@
      <section>
         <p class="text-center">
             Share this product
-            <a href="#"><i class="fa fa-fw fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-fw fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-fw fa-pinterest"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+            <a href="https://twitter.com/intent/tweet/?text={{ urlencode($product->name) }}&url={{ $shareUrl }}&via=samarkanddesign" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+            <a href="https://www.pinterest.com/pin/create/button/?url={{ $shareUrl }}&media={{ urlencode($product->present()->thumbnail_url()) }}&description={{ $product->name }}" target="_blank"><i class="fa fa-fw fa-pinterest"></i></a>
         </p>
     </section>
 </div>

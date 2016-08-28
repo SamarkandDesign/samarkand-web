@@ -10,7 +10,10 @@ Edit Product
 
 @section('admin.content')
 
-<p class="top-buffer"><a href="{{ $product->url }}" class="btn btn-default">View Product</a></p>
+<p class="top-buffer">
+	<a href="{{ route('admin.products.index') }}" class="btn btn-link"><i class="fa fa-chevron-left"></i> All Products</a>
+	<a href="{{ $product->url }}" class="btn btn-default pull-right">View Product</a>
+</p>
 
 @include('partials.errors')
 
