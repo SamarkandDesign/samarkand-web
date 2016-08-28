@@ -38,7 +38,6 @@ class ProductAttributesTest extends \TestCase
              ->seePageIs("admin/attributes/{$property->id}/edit");
 
         $this->seeInDataBase('product_attributes', ['id' => $property->id, 'order' => 3]);
-
     }
 
     /** @test **/

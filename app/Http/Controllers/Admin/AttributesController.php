@@ -57,7 +57,7 @@ class AttributesController extends Controller
         $product_attribute->update($request->all());
 
         return redirect()->back()->with([
-            'alert' => 'Attribute Updated!',
+            'alert'       => 'Attribute Updated!',
             'alert-class' => 'success',
             ]);
     }
