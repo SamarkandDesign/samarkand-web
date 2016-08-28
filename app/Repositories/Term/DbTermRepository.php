@@ -41,7 +41,7 @@ class DbTermRepository implements TermRepository
      */
     public function getTerms($taxonomy)
     {
-        return Term::where('taxonomy', $taxonomy)->orderBy('term')->get();
+        return Term::where('taxonomy', $taxonomy)->get();
     }
 
     /**
