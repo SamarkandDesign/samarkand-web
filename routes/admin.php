@@ -78,6 +78,7 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
         Route::get('/', ['uses' => 'AttributesController@index', 'as' => 'admin.attributes.index']);
         Route::get('/create', ['uses' => 'AttributesController@create', 'as' => 'admin.attributes.create']);
         Route::post('/', ['uses' => 'AttributesController@store', 'as' => 'admin.attributes.store']);
+        Route::patch('{product_attribute}', ['uses' => 'AttributesController@update', 'as' => 'admin.attributes.update']);
         Route::get('/{product_attribute}/edit', ['uses' => 'AttributesController@edit', 'as' => 'admin.attributes.edit']);
         Route::delete('/{product_attribute}', ['uses' => 'AttributesController@destroy', 'as' => 'admin.attributes.delete']);
     });

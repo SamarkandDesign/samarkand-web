@@ -50,16 +50,16 @@
 			</div>
 
 			<div class="checkbox">
-				<input type="hidden" name="listed" value="false">
+				<input type="hidden" name="listed" value="0">
 				<label>
-					{!! Form::checkbox('listed', 'true', !$product->exists() ? true : null) !!} Listed in the Online Store
+					{!! Form::checkbox('listed', '1', !$product->exists() ? true : null) !!} Listed in the Online Store
 				</label>
 			</div>			
 
 			<div class="checkbox">
-				<input type="hidden" name="featured" value="false">
+				<input type="hidden" name="featured" value="0">
 				<label>
-					{!! Form::checkbox('featured', 'true') !!} Featured
+					{!! Form::checkbox('featured', '1') !!} Featured
 				</label>
 			</div>
 

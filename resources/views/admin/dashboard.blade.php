@@ -14,7 +14,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>{{ $orderCountByStatus->get(App\Order::PAID) }}</h3>
+                    <h3>{{ $orderCountByStatus->get(App\Order::PAID) ?: '0' }}</h3>
 
                     <p>New Orders</p>
                 </div>

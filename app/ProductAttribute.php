@@ -16,7 +16,7 @@ class ProductAttribute extends Model
     {
         parent::boot();
 
-        // static::addGlobalScope(new SortTermScope());
+        static::addGlobalScope(new SortTermScope());
 
         /**
          * Set a slug on the attribute if it's not passed in.
@@ -35,7 +35,7 @@ class ProductAttribute extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'order'];
 
     public function attribute_properties()
     {

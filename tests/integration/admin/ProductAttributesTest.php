@@ -23,16 +23,7 @@ class ProductAttributesTest extends \TestCase
     }
 
     /** @test **/
-    public function it_shows_the_page_for_creating_an_attribute()
-    {
-        $this->logInAsAdmin();
-
-        $this->visit('admin/attributes/create')
-             ->see('New Attribute');
-    }
-
-    /** @test **/
-    public function it_shows_the_page_for_editing_an_attribute()
+    public function it_updates_an_attribute()
     {
         $this->logInAsAdmin();
 
@@ -41,7 +32,13 @@ class ProductAttributesTest extends \TestCase
             ]);
 
         $this->visit("admin/attributes/{$property->id}/edit")
-             ->see('Edit Attribute');
+             ->see('Edit Attribute')
+             ->type(3, 'order')
+             ->press('Update')
+             ->seePageIs("admin/attributes/{$property->id}/edit");
+
+        $this->seeInDataBase('product_attributes', ['id' => $property->id, 'order' => 3]);
+
     }
 
     /** @test **/

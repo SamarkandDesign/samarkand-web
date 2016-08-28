@@ -9,6 +9,9 @@
 @stop
 
 @section('admin.content')
+<p>
+    <a href="{{ route('admin.attributes.index') }}" class="btn btn-link"><i class="fa fa-chevron-left"></i> All Attributes</a>
+</p>
 
 <div class="box box-primary">
     <div class="box-body">

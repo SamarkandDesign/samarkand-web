@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductAttribute\CreateProductAttributeRequest;
+use App\Http\Requests\ProductAttribute\UpdateProductAttributeRequest;
 use App\ProductAttribute;
 
 class AttributesController extends Controller
@@ -35,7 +36,7 @@ class AttributesController extends Controller
     /**
      * Show a form for updating attribute terms.
      *
-     * @param string $attribute_slug
+     * @param ProductAttribute $product_attribute
      *
      * @return \Illuminate\Http\Response
      */
@@ -49,6 +50,16 @@ class AttributesController extends Controller
         $product_attribute = ProductAttribute::create($request->all());
 
         return redirect()->route('admin.attributes.edit', $product_attribute);
+    }
+
+    public function update(ProductAttribute $product_attribute, UpdateProductAttributeRequest $request)
+    {
+        $product_attribute->update($request->all());
+
+        return redirect()->back()->with([
+            'alert' => 'Attribute Updated!',
+            'alert-class' => 'success',
+            ]);
     }
 
     /**

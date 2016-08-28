@@ -28,6 +28,7 @@ class CreateProductAttributeRequest extends Request
         return [
             'name'          => 'required|unique:product_attributes,name',
             'slug'          => 'alpha_dash|unique:product_attributes,slug',
+            'order'         => 'integer'
         ];
     }
 }

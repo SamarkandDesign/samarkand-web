@@ -23,6 +23,8 @@
             <thead>
                 <tr>
                     <th>Attribute</th>
+                    <th>Slug</th>
+                    <th>Order</th>
                     <th>Properties</th>
                     <th></th>
                 </tr>
@@ -33,6 +35,8 @@
                     <td>
                         <strong>{{ $attribute->name }}</strong>
                     </td>
+                    <td>{{ $attribute->slug }}</td>
+                    <td>{{ $attribute->order }}</td>
                     <td>{{ $attribute->attribute_properties->implode('name', ', ') }}</td>
                     <td style="width:80px;">
 
