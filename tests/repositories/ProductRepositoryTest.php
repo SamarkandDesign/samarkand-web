@@ -30,7 +30,7 @@ class ProductRepositoryTest extends TestCase
     public function it_counts_the_products_low_in_stock()
     {
         config(['shop.low_stock_qty' => 3]);
-        
+
         factory(Product::class, 2)->create(['stock_qty' => 10]);
         factory(Product::class, 2)->create(['stock_qty' => 2]);
         factory(Product::class, 3)->create(['stock_qty' => 0]);
