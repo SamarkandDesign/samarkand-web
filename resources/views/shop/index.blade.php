@@ -74,7 +74,7 @@
     @endforeach
   </section>
   <div class="text-center">
-    {!! $products->render() !!}
+    {!! $products->appends(Request::query())->links() !!}
   </div>
 
 @stop

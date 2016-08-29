@@ -17,20 +17,26 @@ Edit {{ $term->getTaxonomy() }}
         {!! Form::hidden('taxonomy') !!}
 
         <div class="row">
-        <div class="form-group col-sm-6 {{ $errors->has('term') ? 'has-error' : '' }}">
-            {!! Form::label('term', 'Term') !!}
-            {!! Form::text('term', null, ['class' => 'form-control']) !!}
-            {!! $errors->has('term') ? '<span class="help-block">'.$errors->first('term').'</span>' : '' !!}
-        </div>
+            <div class="form-group col-sm-4 {{ $errors->has('term') ? 'has-error' : '' }}">
+                {!! Form::label('term', 'Term') !!}
+                {!! Form::text('term', null, ['class' => 'form-control']) !!}
+                {!! $errors->has('term') ? '<span class="help-block">'.$errors->first('term').'</span>' : '' !!}
+            </div>
 
-        <div class="form-group col-sm-6 {{ $errors->has('slug') ? 'has-error' : '' }}">
-            {!! Form::label('slug', 'Slug') !!}
-            {!! Form::text('slug', null, ['class' => 'form-control']) !!}
-            {!! $errors->has('slug') ? '<span class="help-block">'.$errors->first('slug').'</span>' : '' !!}
-        </div>
+            <div class="form-group col-sm-4 {{ $errors->has('slug') ? 'has-error' : '' }}">
+                {!! Form::label('slug', 'Slug') !!}
+                {!! Form::text('slug', null, ['class' => 'form-control']) !!}
+                {!! $errors->has('slug') ? '<span class="help-block">'.$errors->first('slug').'</span>' : '' !!}
+            </div>            
+
+            <div class="form-group col-sm-4 {{ $errors->has('slug') ? 'has-error' : '' }}">
+                {!! Form::label('order', 'Order') !!}
+                {!! Form::number('order', null, ['class' => 'form-control']) !!}
+                {!! $errors->has('order') ? '<span class="help-block">'.$errors->first('order').'</span>' : '' !!}
+            </div>
         </div>
         
-        <button type="submit" name="submit" class="btn btn-primary">Update {{ $term->getTaxonomy() }}</button>
+        <button type="submit" name="submit" class="btn btn-success">Update {{ $term->getTaxonomy() }}</button>
         {!! Form::close() !!}
     </div>
 </div>

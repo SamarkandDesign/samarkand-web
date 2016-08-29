@@ -16,6 +16,9 @@ Crossroads of Culture
 	<slider>
 		<img src="/img/home/hero-2.jpg">
 	</slider>
+	<slider>
+		<img src="/img/home/hero-4.jpg">
+	</slider>
 
 	<div slot="overlay" style="width:100%;">
 		<img src="/img/samarkand-logo-250.svg" class="" alt="Samarkand Design Logo" style="width: 20%; height: auto;">
@@ -36,7 +39,7 @@ Crossroads of Culture
 	<div class="container">
 		<div class="row">
 
-			<div class="col-md-4 top-buffer">
+			<div class="col-sm-4 top-buffer">
 				<a class="product-grid-element" href="/shop/home-furnishings">
 					<img src="/img/home/tile1.jpg" alt="Samarkand Home Furnishings" class="product-grid-image img-responsive">
 					<div class="product-flex">
@@ -47,7 +50,7 @@ Crossroads of Culture
 				</a>		
 			</div>
 
-			<div class="col-md-4 top-buffer">
+			<div class="col-sm-4 top-buffer">
 				<a class="product-grid-element" href="/shop/lighting">
 					<img src="/img/home/Shibori_2.jpg" alt="Samarkand Lighting" class="product-grid-image img-responsive">
 					<div class="product-flex">
@@ -58,7 +61,7 @@ Crossroads of Culture
 				</a>		
 			</div>
 
-			<div class="col-md-4 top-buffer">
+			<div class="col-sm-4 top-buffer">
 				<a class="product-grid-element" href="/shop/accessories">
 					<img src="/img/home/tile3.jpg" alt="Samarkand Accessories" class="product-grid-image img-responsive">
 					<div class="product-flex">

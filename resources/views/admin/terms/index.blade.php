@@ -18,6 +18,7 @@
             <tr>
                 <th>Name</th>
                 <th>Slug</th>
+                <th>Order</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,7 @@
                     </div>
                 </td>
                 <td>{{ $term->slug }}</td>
+                <td>{{ $term->order }}</td>
             </tr>
         @endforeach
         </tbody>

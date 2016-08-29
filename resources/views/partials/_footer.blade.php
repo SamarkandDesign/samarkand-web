@@ -56,6 +56,10 @@
                             <li>
                                 <a target="_blank" rel="nofollow" href="https://www.houzz.co.uk/user/hillygrumbar"><i class="fa fa-houzz"></i>
                                 </a>
+                            </li>                          
+                            <li>
+                                <a target="_blank" rel="nofollow" href="https://www.pinterest.com/samarkanddesign/"><i class="fa fa-pinterest"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
