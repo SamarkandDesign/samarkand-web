@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Product\ProductRepository;
-use App\Search\ProductSearcher;
 use App\Term;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -35,11 +34,10 @@ class ShopController extends Controller
      * We will have a more snappy JS-powered search on the front end.
      *
      * @param Request         $request
-     * @param ProductSearcher $searcher
      *
      * @return Illuminate\Http\Response
      */
-    public function search(Request $request, ProductSearcher $searcher)
+    public function search(Request $request)
     {
         $product_category = new Term();
 
