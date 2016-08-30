@@ -33,7 +33,7 @@ class ShopController extends Controller
      * Here we are just extracting the IDs of the result and querying the products from the DB.
      * We will have a more snappy JS-powered search on the front end.
      *
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Illuminate\Http\Response
      */
