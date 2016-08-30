@@ -41,10 +41,12 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::with(['media', 'product_categories'])->orderBy('updated_at', 'desc')->paginate();
+        $trashedCount = Product::onlyTrashed()->count();
 
         return view('admin.products.index', [
             'products'     => $products,
             'productCount' => $this->products->count(),
+            'trashedCount' => $trashedCount,
         ]);
     }
 
@@ -145,10 +147,11 @@ class ProductsController extends Controller
      */
     public function trash()
     {
-        $products = Product::onlyTrashed()->latest()->paginate(10);
         $title = 'Trashed Products';
+        $products = Product::onlyTrashed()->latest()->paginate(10);
         $productCount = $this->products->count();
+        $trashedCount = Product::onlyTrashed()->count();
 
-        return view('admin.products.index')->with(compact('products', 'title', 'productCount'));
+        return view('admin.products.index')->with(compact('products', 'title', 'productCount', 'trashedCount'));
     }
 }

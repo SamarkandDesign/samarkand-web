@@ -25,7 +25,7 @@
 	</div>
 </div>
 <p>
-	<a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a href="{{ route('admin.products.trash') }}">Trash</a> ({{-- $trashedCount --}})
+	<a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a href="{{ route('admin.products.trash') }}">Trash</a> ({{ $trashedCount }})
 	
 </p>
 

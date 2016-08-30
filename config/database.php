@@ -1,5 +1,6 @@
 <?php
 
+$dbOptions = [];
 // Heroku specific env setup
 if (getenv('DATABASE_URL')) {
     $url = parse_url(getenv('DATABASE_URL'));
@@ -8,6 +9,10 @@ if (getenv('DATABASE_URL')) {
     putenv("DB_PASSWORD={$url['pass']}");
     $db = substr($url['path'], 1);
     putenv("DB_DATABASE={$db}");
+}
+
+if (env('DB_SSL_CA')) {
+    $dbOptions[PDO::MYSQL_ATTR_SSL_CA] = base_path(env('DB_SSL_CA'));
 }
 
 if (getenv('REDIS_URL')) {
@@ -85,6 +90,7 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
+            'options'   => $dbOptions,
         ],
 
         'pgsql' => [
