@@ -119,6 +119,10 @@ class ComposerServiceProvider extends ServiceProvider
         $this->app->view->composer('shop.index', function ($view) {
             $view->with('products_per_row', config('shop.products_per_row'));
         });
+
+        $this->app->view->composer('admin.products.index', function ($view) {
+            $view->with('trashedCount', Product::onlyTrashed()->count());
+        });
     }
 
     private function shareOrderCountWithSidebar()
