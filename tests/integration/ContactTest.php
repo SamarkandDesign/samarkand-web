@@ -14,7 +14,7 @@ class ContactTest extends TestCase
   public function it_sends_an_email_from_the_contact_page()
   {
       // Make an admin user to send email to
-    factory(User::class)->create();
+      $user = factory(User::class)->create(['is_shop_manager' => true]);
 
       $this->visit('/contact')
           ->type('Joe Bloggs', 'name')

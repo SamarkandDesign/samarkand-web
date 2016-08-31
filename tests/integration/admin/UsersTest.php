@@ -42,7 +42,7 @@ class UsersTest extends TestCase
 
         $this->updateProfile($newUserProfile);
 
-        $this->seePageIs('/admin/profile')
+        $this->seePageIs("/admin/users/{$newUserProfile['username']}")
              ->see('Profile updated');
 
         $this->seeInDatabase('users', [

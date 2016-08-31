@@ -1,3 +1,7 @@
+@section('title')
+Login
+@endsection
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -19,4 +19,14 @@ class AuthTest extends TestCase
              ->press('Sign In')
              ->seePageIs('admin');
     }
+
+    /** @test **/
+    public function it_shows_the_admin_login_page_if_unauthenticated()
+    {
+        $this->visit('admin')
+             ->seePageIs('admin/login');
+
+        $this->visit('admin/products')
+             ->seePageIs('admin/login');
+    }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
-        <ol class="carousel-indicators" v-show="indicators">
+        <ol class="carousel-indicators hidden-xs" v-show="indicators">
             <indicator :indicator.sync="indicator" :active-index.sync="activeIndex" :is-animating.sync="isAnimating"></indicator>
         </ol>
         <!-- Wrapper for slides -->

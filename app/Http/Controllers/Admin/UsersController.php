@@ -65,7 +65,7 @@ class UsersController extends Controller
     {
         $user->update($request->all());
 
-        return redirect()->back()->with([
+        return redirect()->route('admin.users.edit', $user->username)->with([
             'alert'       => 'Profile updated',
             'alert-class' => 'success',
             ]);

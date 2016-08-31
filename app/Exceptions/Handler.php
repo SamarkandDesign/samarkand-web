@@ -56,6 +56,14 @@ class Handler extends ExceptionHandler
             );
         }
 
+        if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+            return redirect()->back()->with([
+                                'alert' => 'Your session has expired, please try again',
+                                'alert-class' => 'warning',
+                                ]);
+        }
+
+
         return parent::convertExceptionToResponse($e);
     }
 
@@ -71,6 +79,10 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+        
+        if($request->segment(1) === 'admin') {
+            return redirect()->guest('admin/login');
         }
 
         return redirect()->guest('login');

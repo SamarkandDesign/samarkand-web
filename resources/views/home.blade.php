@@ -21,9 +21,7 @@ Crossroads of Culture
 	</slider>
 
 	<div slot="overlay" style="width:100%;">
-		<img src="/img/samarkand-logo-250.svg" class="" alt="Samarkand Design Logo" style="width: 20%; height: auto;">
-		<div class="hidden-xs">
-		</div>
+		<img src="/img/samarkand-logo-250.svg" class="home-page-logo" alt="Samarkand Design Logo">
 	</div>
 </carousel>
 
@@ -74,4 +72,18 @@ Crossroads of Culture
 		</div>
 	</div>
 
+	@endsection
+
+	@section('scripts')
+		<style type="text/css">
+			.home-page-logo {
+				width: 20%; 
+				height: auto;
+			}
+		    @media (max-width: 767px) {
+		    	.home-page-logo {
+		      		width: 34%;	
+		    	}
+		    }
+		</style>
 	@endsection

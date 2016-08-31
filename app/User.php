@@ -159,19 +159,6 @@ class User extends Authenticatable
      */
     public function scopeShopAdmins($query)
     {
-        $admins = collect(explode(',', config('shop.admins')));
-
-        $admin_ids = $admins->filter(function ($identifier) {
-            return is_numeric($identifier);
-        });
-
-        $admin_emails = $admins->filter(function ($identifier) {
-            return filter_var($identifier, FILTER_VALIDATE_EMAIL);
-        });
-
-        $query->where(function ($q) use ($admin_ids, $admin_emails) {
-            $q->whereIn('id', $admin_ids)
-              ->orWhereIn('email', $admin_emails);
-        });
+        $query->where('is_shop_manager', true);
     }
 }

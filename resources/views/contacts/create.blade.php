@@ -8,6 +8,10 @@ Contact Us
 
   <h1>Contact Us</h1>
 
+  <p>Our products are available to view at our headquarters in Devon.</p>
+
+  <p>Feel free to get in touch using the contact form below, or directly via email or social media.</p>
+
 
   <div class="row">
     <div class="col-sm-8">

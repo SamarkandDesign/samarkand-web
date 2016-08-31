@@ -3,16 +3,17 @@
 namespace Integration;
 
 use App\User;
+use MailThief\Testing\InteractsWithMail;
 use TestCase;
 
 class PaymentTest extends TestCase
 {
-    use \CreatesOrders, \UsesCart, \MailTracking, \FlushesProductEvents;
+    use \CreatesOrders, \UsesCart, InteractsWithMail, \FlushesProductEvents;
 
     /** @test **/
     public function it_completes_an_order_upon_payment()
     {
-        $shop_admin = factory(User::class)->create();
+        $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
         $this->createOrder(['status' => 'pending']);
 
         \Session::put('order', $this->order);
@@ -33,10 +34,10 @@ class PaymentTest extends TestCase
         $this->assertEquals(0, \Cart::total());
         $this->assertContains('ch_', $this->order->fresh()->payment_id);
 
-        $this->seeEmailTo($this->customer->email, $this->emails[0]);
+        $this->seeMessageFor($this->customer->email);
 
         $admin_users = User::shopAdmins()->get();
-        $this->seeEmailTo($admin_users->first()->email, $this->emails[1]);
+        $this->seeMessageFor($admin_users->first()->email);
     }
 
     /** @test */

@@ -21,15 +21,12 @@ class UserTest extends TestCase
     }
 
     /** @test **/
-    public function it_gets_admin_users_based_on_the_config_value()
+    public function it_gets_admin_users()
     {
-        $admin_user1 = factory(User::class)->create();
-        $admin_user2 = factory(User::class)->create();
+        $admin_user1 = factory(User::class)->create(['is_shop_manager' => true]);
+        $admin_user2 = factory(User::class)->create(['is_shop_manager' => true]);
 
-        $normal_user = factory(User::class)->create();
-
-        // Set the dummy config value
-        config(['shop.admins' => sprintf('%s,%s', $admin_user1->id, $admin_user2->email)]);
+        $normal_user = factory(User::class)->create(['is_shop_manager' => false]);
 
         $admins = User::shopAdmins()->get();
 
