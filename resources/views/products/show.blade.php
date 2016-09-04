@@ -37,6 +37,13 @@
               <header><h4>Description</h4></header>
               {!! $product->getDescriptionHtml() !!}
           </section>
+          <hr>
+          <section>
+            <strong>Categories:</strong> 
+            @foreach ($product->product_categories as $index => $category)
+              <a href="/shop/{{$category->slug}}">{{ $category->term }}</a>@if ($index+1 !== $product->product_categories->count() ), @endif
+            @endforeach
+          </section>
       </div>
   </div>
   <div class="col-sm-4">
@@ -77,7 +84,7 @@
 
      <hr>
 
-     <section>
+     <section class="share-links">
         <p class="text-center">
             Share this product
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>

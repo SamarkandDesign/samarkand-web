@@ -91,6 +91,7 @@
 					<tr>
 						<td style="{{ $style['email-masthead'] }}">
 							<a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
+                      			<img src="{{ url('img/samarkand-logo-250.png') }}" alt="Samarkand Design Logo" width="150" height="150"><br>
 								{{ config('app.name') }}
 							</a>
 						</td>

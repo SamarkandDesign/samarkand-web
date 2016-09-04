@@ -1,0 +1,20 @@
+.share-links a {	
+	.fa-twitter{
+		color: $tw-blue;
+		&:hover {
+			color: lighten($tw-blue, 14%);
+		}
+	}
+	.fa-facebook{
+		color: $fb-blue;
+		&:hover {
+			color: lighten($fb-blue, 14%);
+		}
+	}
+	.fa-pinterest{
+		color: $pi-red;
+		&:hover {
+			color: lighten($pi-red, 14%);
+		}
+	}
+}

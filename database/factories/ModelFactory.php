@@ -79,7 +79,7 @@ $factory->define('App\Role', function ($faker) {
 
 $factory->define('App\Term', function ($faker) {
     $term = $faker->unique()->word;
-    if (strlen($term) < 4) {
+    if (strlen($term) <= 4) {
         $term .= ' '.$faker->word;
     }
 
@@ -92,7 +92,7 @@ $factory->define('App\Term', function ($faker) {
 
 $factory->define('App\ProductAttribute', function ($faker) {
     $term = $faker->unique()->word;
-    if (strlen($term) < 4) {
+    if (strlen($term) <= 4) {
         $term .= ' '.$faker->word;
     }
 
@@ -104,6 +104,9 @@ $factory->define('App\ProductAttribute', function ($faker) {
 
 $factory->define('App\AttributeProperty', function ($faker) {
     $name = $faker->word;
+    if (strlen($name) <= 4) {
+        $name .= ' '.$faker->word;
+    }
 
     return [
     'name'                 => $name,
