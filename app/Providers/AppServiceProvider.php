@@ -75,5 +75,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(\AlgoliaSearch\Client::class, function () {
             return new \AlgoliaSearch\Client(config('scout.algolia.id'), config('scout.algolia.secret'));
         });
+
+        $this->app->singleton(\App\Services\Geocoder\Geocoder::class, \App\Services\Geocoder\GoogleGeocoder::class);
     }
 }
