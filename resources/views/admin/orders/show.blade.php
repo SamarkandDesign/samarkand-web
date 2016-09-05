@@ -68,9 +68,15 @@ Order #{{ $order->id }} Details
 		<tbody>
 			@foreach ($order->product_items as $item)
 				<tr>
+					@if ($item->orderable)
 					<td style="width:36px">{{ $item->orderable->present()->thumbnail(20) }}</td>
 					<td><a href="{{ route('admin.products.edit', $item->orderable) }}">{{ $item->description }}</a></td>
 					<td>{{ $item->orderable->sku }}</td>
+					@else
+					<td></td>
+					<td>{{ $item->description }} (Deleted)</td>
+					<td>N/A</td>
+					@endif
 					<td>{{ $item->price_paid }}</td>
 					<td>{{ $item->quantity }}</td>
 					<td>{{ $item->total_paid }}</td>

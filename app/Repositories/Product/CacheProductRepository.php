@@ -23,16 +23,6 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
         $this->setModifier();
     }
 
-    /**
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function create($attributes)
-    {
-        return $this->repository->create($attributes);
-    }
-
     public function inCategory(Term $product_category)
     {
         $tags = array_merge([$this->tag], ['terms']);

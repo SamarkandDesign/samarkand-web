@@ -37,4 +37,20 @@ class OrdersTest extends TestCase
              ->seePageIs("admin/orders/{$order->id}")
              ->see(Order::$statuses['completed']);
     }
+
+    /** @test **/
+    public function it_shows_an_order_summary_for_a_deleted_product()
+    {
+        $this->logInAsAdmin();
+
+        $order = $this->createOrder(['status' => 'processing']);
+
+        $item = $order->order_items->first();
+
+        $item->orderable->delete();
+
+        $this->visit("admin/orders/{$order->id}")
+             ->see("#{$order->id}")
+             ->see($item->description);
+    }
 }

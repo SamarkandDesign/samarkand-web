@@ -9,7 +9,7 @@ Auth::routes();
  */
 Route::get('shop/search', ['uses' => 'ShopController@search', 'as' => 'shop.search']);
 Route::get('shop/{product_category?}', ['uses' => 'ShopController@index', 'as' => 'products.index']);
-Route::get('shop/{product_category}/{product_slug}', ['uses' => 'ProductsController@show', 'as' => 'products.show']);
+Route::get('shop/{product_category}/{listed_product_slug}', ['uses' => 'ProductsController@show', 'as' => 'products.show']);
 
 Route::get('cart', ['uses' => 'CartController@index', 'as' => 'cart', 'middleware' => 'cart.empty']);
 Route::post('cart', ['uses' => 'CartController@store', 'as' => 'cart.store']);

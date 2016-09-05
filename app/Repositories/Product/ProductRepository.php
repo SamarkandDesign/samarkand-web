@@ -23,13 +23,6 @@ interface ProductRepository
      */
     public function getPaginated($with = []);
 
-    /**
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function create($attributes);
-
     public function inCategory(Term $product_category);
 
     /**

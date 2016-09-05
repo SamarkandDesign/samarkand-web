@@ -107,6 +107,15 @@ class ShopTest extends TestCase
     }
 
     /** @test **/
+    public function it_does_not_show_an_unlisted_product()
+    {
+        $product = factory(Product::class)->create(['listed' => false]);
+
+        $response = $this->call('GET', $product->url);
+        $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    /** @test **/
     public function it_shows_the_cart_page()
     {
         $products = collect([
