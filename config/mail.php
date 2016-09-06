@@ -56,6 +56,20 @@ return [
 
     'from' => ['address' => env('MAIL_FROM', 'mail@example.com'), 'name' => env('MAIL_NAME', 'Example Site')],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Recipient Email addresses
+    |--------------------------------------------------------------------------
+    |
+    | The addresses to send standard site emails to. E.g. Contact form
+    |
+    */
+
+    'recipients' => [
+        'contact' => env('CONTACT_EMAIL'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

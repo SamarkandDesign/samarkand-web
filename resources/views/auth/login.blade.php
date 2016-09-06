@@ -5,8 +5,6 @@ Login
 @endsection
 
 @section('content')
-
-	@include('partials.alert')
 	@include('partials.errors')
 	<h1 class="text-center">Login</h1>
 

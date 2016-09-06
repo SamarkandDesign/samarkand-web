@@ -13,6 +13,8 @@ class ContactTest extends TestCase
   /** @test */
   public function it_sends_an_email_from_the_contact_page()
   {
+      config(['mail.recipients.contact' => 'foo@example.com']);
+
       // Make an admin user to send email to
       $user = factory(User::class)->create(['is_shop_manager' => true]);
 
@@ -23,10 +25,7 @@ class ContactTest extends TestCase
           ->type('Lorem Ipsum', 'message')
           ->press('send');
 
-      $admin_users = User::shopAdmins()->get();
-
-      $this->seeMessageFor($admin_users->first()->email);
-
+      $this->seeMessageFor('foo@example.com');
 
       $this->seeMessageWithSubject('This is an email');
       $this->seeMessageFrom('Joe Bloggs');
