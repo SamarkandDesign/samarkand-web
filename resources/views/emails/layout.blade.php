@@ -106,11 +106,6 @@
 
 										@yield('content')
 
-										<!-- Salutation -->
-										<p style="clear:both; {{ $style['paragraph'] }}">
-											Regards,<br>{{ config('app.name') }}
-										</p>
-
 									</td>
 								</tr>
 							</table>
@@ -125,8 +120,7 @@
 									<td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
 										<p style="{{ $style['paragraph-sub'] }}">
 											&copy; {{ date('Y') }}
-											<a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
-											All rights reserved.
+											<a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>
 										</p>
 									</td>
 								</tr>

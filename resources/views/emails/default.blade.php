@@ -1,4 +1,4 @@
-@extends('emails.main')
+@extends('emails.layout')
 
 @section('content')
 {{ $body }}

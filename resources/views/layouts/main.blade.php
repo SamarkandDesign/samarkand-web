@@ -6,8 +6,6 @@
 	@yield('section-header')
     @yield('breadcrumb')
     <div class="container top-buffer">
-        
-
         @include('partials.alert')
         @yield('content')
     </div>
