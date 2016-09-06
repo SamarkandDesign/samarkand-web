@@ -55,6 +55,7 @@ Contact Us
           Devon EX16 8EA
         </li>
         <li><i class="fa-li fa fa-envelope"></i>info@sam<span class="hidden">lpd</span>arkanddesign.com</li>
+        <li><i class="fa-li fa fa-phone"></i>+44 7973 922943</li>
         <li><i class="fa-li fa fa-twitter"></i><a title="Samarkand Design Twitter" href="http://twitter.com/samarkanddesign" target="_blank">@SamarkandDesign</a></li>
         <li><i class="fa-li fa fa-facebook-official"></i><a title="Samarkand Design Facebook" href="https://www.facebook.com/samarkanddesign" target="_blank">Samarkand Design</a></li>
       </ul>
