@@ -3,7 +3,6 @@
 namespace App\Mailers;
 
 use App\Contact;
-use App\User;
 
 class ContactMailer extends Mailer
 {

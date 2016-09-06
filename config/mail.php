@@ -65,7 +65,7 @@ return [
     | The addresses to send standard site emails to. E.g. Contact form
     |
     */
-   
+
     'recipients' => [
         'contact' => env('CONTACT_EMAIL'),
     ],
