@@ -21,7 +21,7 @@ class Page extends \Baum\Node implements HasMediaConversions
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'content', 'user_id', 'post_id', 'type', 'status', 'published_at'];
+    protected $fillable = ['title', 'slug', 'content', 'meta_description', 'user_id', 'post_id', 'type', 'status', 'published_at'];
 
     /**
      * The attributes that should be mutated to dates.

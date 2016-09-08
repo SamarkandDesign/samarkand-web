@@ -4,6 +4,10 @@
 Crossroads of Culture
 @endsection
 
+@section('head')
+<meta name="description" content="Unique and distinctive lampshades, lighting and home accessories sourced from vintage textiles from around the world">
+@endsection
+
 @section('content')
 
 <carousel>

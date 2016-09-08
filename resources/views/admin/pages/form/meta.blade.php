@@ -23,9 +23,14 @@
             {!! Form::label('parent_id', 'Parent') !!}
             {!! Form::select('parent_id', [null => 'none'] + App\Page::getNestedList('title', 'id', '- '), null, ['class' => 'form-control']) !!}
         </div>
+
+        <div class="form-group {{ $errors->has('meta_description') ? 'has-error' : '' }}">
+            {!! Form::label('meta_description', 'Meta Description') !!}
+            {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'rows' => 3]) !!}
+        </div>
     </div>
     <div class="box-footer">
-        @if (isset($post))
+        @if ($page->exists())
         {!! HTML::linkRoute('admin.posts.delete', 'Trash', [$page->id],[
             'class' => 'btn text-danger pull-left',
             'data-method' => 'delete',

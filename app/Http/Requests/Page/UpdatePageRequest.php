@@ -25,7 +25,9 @@ class UpdatePageRequest extends PageRequest
 
         // Need to ensure we don't move the page into a child page of itself
         return [
-            'slug'            => 'alpha_dash|unique:pages,slug,'.$page_id,
+            'title'           => 'max:255',
+            'slug'            => 'alpha_dash|max:255|unique:pages,slug,'.$page_id,
+            'meta_description' => 'max:255',
             'published_at'    => 'date',
             'status'          => 'alpha_dash',
             'parent_id'       => 'numeric|exists:pages,id|not_in:'.$child_pages->implode(','),

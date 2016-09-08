@@ -14,9 +14,11 @@ class PagesTest extends TestCase
     {
         $page = factory('App\Page')->create([
             'slug' => 'my-very-nice-page',
+            'meta_description' => 'The quick brown fox is hairy'
             ]);
 
         $this->visit('/my-very-nice-page')
+             ->see('content="The quick brown fox')
              ->see($page->content);
     }
 

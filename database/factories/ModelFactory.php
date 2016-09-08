@@ -25,6 +25,7 @@ $factory->define('App\Page', function ($faker) {
     return [
     'title'           => $title,
     'content'         => $faker->paragraph,
+    'meta_description'=> $faker->sentence,
     'slug'            => str_slug($title),
     'published_at'    => $creationDate,
     'created_at'      => $creationDate,
