@@ -23,14 +23,14 @@ $factory->define('App\Page', function ($faker) {
     $title = $faker->sentence;
 
     return [
-    'title'           => $title,
-    'content'         => $faker->paragraph,
-    'meta_description'=> $faker->sentence,
-    'slug'            => str_slug($title),
-    'published_at'    => $creationDate,
-    'created_at'      => $creationDate,
-    'updated_at'      => $creationDate,
-    'user_id'         => function () {
+    'title'            => $title,
+    'content'          => $faker->paragraph,
+    'meta_description' => $faker->sentence,
+    'slug'             => str_slug($title),
+    'published_at'     => $creationDate,
+    'created_at'       => $creationDate,
+    'updated_at'       => $creationDate,
+    'user_id'          => function () {
         return factory(App\User::class)->create()->id;
     },
     ];
