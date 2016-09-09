@@ -12,12 +12,12 @@ class CreatePageRequest extends PageRequest
     public function rules()
     {
         return [
-            'title'         => 'required|max:255',
-            'slug'          => 'required|max:255|unique:pages,slug',
+            'title'            => 'required|max:255',
+            'slug'             => 'required|max:255|unique:pages,slug',
             'meta_description' => 'max:255',
-            'published_at'  => 'required|date',
-            'user_id'       => 'required|integer',
-            'parent_id'     => 'numeric|exists:pages,id',
+            'published_at'     => 'required|date',
+            'user_id'          => 'required|integer',
+            'parent_id'        => 'numeric|exists:pages,id',
         ];
     }
 }
