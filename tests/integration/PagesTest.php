@@ -13,8 +13,8 @@ class PagesTest extends TestCase
     public function it_loads_a_page_by_slug()
     {
         $page = factory('App\Page')->create([
-            'slug' => 'my-very-nice-page',
-            'meta_description' => 'The quick brown fox is hairy'
+            'slug'             => 'my-very-nice-page',
+            'meta_description' => 'The quick brown fox is hairy',
             ]);
 
         $this->visit('/my-very-nice-page')
