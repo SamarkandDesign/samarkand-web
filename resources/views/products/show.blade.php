@@ -4,6 +4,10 @@
 {{ $product->name }} | {{ $product->product_category->term }}
 @endsection
 
+@section('head')
+    <meta name="description" content="Name: {{ $product->name }}, Category: {{ $product->product_category->term }}, Price: {{ $product->present()->price() }}">
+@endsection
+
 @section('breadcrumb')
 <div class="sections">
     <ol class="breadcrumb content-breadcrumb">

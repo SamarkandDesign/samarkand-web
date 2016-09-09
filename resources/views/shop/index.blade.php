@@ -9,6 +9,14 @@
   Shop
 @endsection
 
+@section('head')
+  @if ($product_category->id)
+    <meta name="description" content="Shop {{ $product_category->term }} sourced from around the world">
+  @else
+    <meta name="description" content="Shop vintage lighting, lampshades and home accessories">
+  @endif
+@endsection
+
 @section('section-header')
 @if($product_category->id)
 <header class="section-header" style="background-image: url('/img/product-cat-bg.jpg')">
