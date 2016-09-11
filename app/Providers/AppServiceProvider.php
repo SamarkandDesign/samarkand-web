@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        \App\Address::saved(function($address) {
+        \App\Address::saved(function ($address) {
             // $location = $this->app->make(Geocoder::class)->getCoordinates($address);
 
             // $address->lat = $location->lat;
@@ -87,8 +87,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(Geocoder::class, function () {
             if ($this->app->environment('testing')) {
-                return new \App\Services\Geocoder\FakeGeocoder;
+                return new \App\Services\Geocoder\FakeGeocoder();
             }
+
             return $this->app->make(\App\Services\Geocoder\GoogleGeocoder::class);
         });
     }
