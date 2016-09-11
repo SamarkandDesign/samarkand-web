@@ -21,7 +21,7 @@ class Address extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'phone', 'line_1', 'line_2', 'line_3', 'city', 'country', 'postcode'];
+    protected $fillable = ['name', 'phone', 'line_1', 'line_2', 'line_3', 'city', 'country', 'postcode', 'lat', 'lng'];
 
     /**
      * Mutate these dates to Carbon instances.

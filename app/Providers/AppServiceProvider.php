@@ -6,6 +6,7 @@ use App\Billing\FakeStripeGateway;
 use App\Billing\GatewayInterface;
 use App\Billing\StripeGateway;
 use App\Page;
+use App\Services\Geocoder\Geocoder;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
@@ -37,6 +38,14 @@ class AppServiceProvider extends ServiceProvider
             if ($page->isDirty('slug') and $page->fresh()) {
                 dispatch(new \App\Jobs\UpdatePagePath($page->fresh()));
             }
+        });
+
+        \App\Address::saved(function($address) {
+            // $location = $this->app->make(Geocoder::class)->getCoordinates($address);
+
+            // $address->lat = $location->lat;
+            // $address->lng = $location->lng;
+            dispatch(new \App\Jobs\GeocodeAddress($address));
         });
 
         // \DB::listen(function ($query) {
@@ -76,6 +85,11 @@ class AppServiceProvider extends ServiceProvider
             return new \AlgoliaSearch\Client(config('scout.algolia.id'), config('scout.algolia.secret'));
         });
 
-        $this->app->singleton(\App\Services\Geocoder\Geocoder::class, \App\Services\Geocoder\GoogleGeocoder::class);
+        $this->app->singleton(Geocoder::class, function () {
+            if ($this->app->environment('testing')) {
+                return new \App\Services\Geocoder\FakeGeocoder;
+            }
+            return $this->app->make(\App\Services\Geocoder\GoogleGeocoder::class);
+        });
     }
 }

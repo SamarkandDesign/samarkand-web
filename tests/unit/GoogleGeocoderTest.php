@@ -46,24 +46,17 @@ class GoogleGeocoderTest extends TestCase
       $this->assertNull($coordinates->lat);
   }
 
-  /** @test **/
-  public function it_gets_a_google_geocoder_when_required()
+
+  private function getFakeClient($results = true)
   {
-      $geocoder = App::make(App\Services\Geocoder\Geocoder::class);
+      $response = Mockery::mock([
+    'getBody' => Mockery::mock([
+      'getContents' => $results ? $this->json : '{ "results" : [], "status" : "ZERO_RESULTS" }',
+      ]),
+    ]);
 
-      $this->assertInstanceOf(GoogleGeocoder::class, $geocoder);
+      return Mockery::mock(Client::class, [
+    'request' => $response,
+    ]);
   }
-
-    private function getFakeClient($results = true)
-    {
-        $response = Mockery::mock([
-      'getBody' => Mockery::mock([
-        'getContents' => $results ? $this->json : '{ "results" : [], "status" : "ZERO_RESULTS" }',
-        ]),
-      ]);
-
-        return Mockery::mock(Client::class, [
-      'request' => $response,
-      ]);
-    }
 }
