@@ -46,17 +46,16 @@ class GoogleGeocoderTest extends TestCase
       $this->assertNull($coordinates->lat);
   }
 
-
-  private function getFakeClient($results = true)
-  {
-      $response = Mockery::mock([
+    private function getFakeClient($results = true)
+    {
+        $response = Mockery::mock([
     'getBody' => Mockery::mock([
       'getContents' => $results ? $this->json : '{ "results" : [], "status" : "ZERO_RESULTS" }',
       ]),
     ]);
 
-      return Mockery::mock(Client::class, [
+        return Mockery::mock(Client::class, [
     'request' => $response,
     ]);
-  }
+    }
 }

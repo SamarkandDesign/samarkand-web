@@ -87,10 +87,8 @@ class AddressTest extends TestCase
         $addressToUpdate = Address::find($address->id);
 
         $addressToUpdate->update([
-            'lat' => 1.342
+            'lat' => 1.342,
             ]);
         $this->assertEquals(51.501364, $addressToUpdate->fresh()->lat);
-
-        
     }
 }
