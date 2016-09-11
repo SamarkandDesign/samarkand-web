@@ -37,6 +37,7 @@ return [
 
     'google' => [
         'ga_tracking_id' => env('GA_TRACKING_ID'),
+        'key'            => env('GOOGLE_API_KEY'),
     ],
 
 ];

@@ -77,4 +77,18 @@ class AddressTest extends TestCase
         $this->call('GET', "account/addresses/{$address->id}/edit");
         $this->assertResponseStatus(403);
     }
+
+    /** @test **/
+    public function it_geocodes_an_address_upon_creation_and_update()
+    {
+        $address = factory(Address::class)->create();
+        $this->assertEquals(51.501364, $address->fresh()->lat);
+
+        $addressToUpdate = Address::find($address->id);
+
+        $addressToUpdate->update([
+            'lat' => 1.342,
+            ]);
+        $this->assertEquals(51.501364, $addressToUpdate->fresh()->lat);
+    }
 }
