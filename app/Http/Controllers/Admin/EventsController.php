@@ -5,23 +5,23 @@ namespace App\Http\Controllers\Admin;
 use App\Address;
 use App\Event;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Http\Requests\Event\CreateEventRequest;
 use App\Http\Requests\Event\UpdateEventRequest;
 use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
-	public function index(Request $request)
-	{
-		$events = $request->has('all') ? Event::orderBy('start_date', 'ASC')->paginate() : Event::upcoming()->paginate();
-		return view('admin.events.index', compact('events'));
-	}
+    public function index(Request $request)
+    {
+        $events = $request->has('all') ? Event::orderBy('start_date', 'ASC')->paginate() : Event::upcoming()->paginate();
+
+        return view('admin.events.index', compact('events'));
+    }
 
     public function create(Event $event)
     {
         // dd(\App\Address::pluck('line_1', 'id'));
-    	return view('admin.events.create', compact('event'));
+        return view('admin.events.create', compact('event'));
     }
 
     public function store(CreateEventRequest $request)
@@ -34,7 +34,7 @@ class EventsController extends Controller
         $event = Event::create($request->all());
 
         return redirect()->route('admin.events.index')->with([
-          'alert' => 'Event Created!',
+          'alert'       => 'Event Created!',
           'alert-class' => 'success',
           ]);
     }
@@ -54,14 +54,14 @@ class EventsController extends Controller
         $event->update($request->all());
 
         return redirect()->back()->with([
-            'alert' => 'Event Updated!',
+            'alert'       => 'Event Updated!',
             'alert-class' => 'success',
             ]);
     }
 
     protected function createVenue($request) : Address
     {
-        $rules = collect(Address::$rules)->map(function($rule, $key) {
+        $rules = collect(Address::$rules)->map(function ($rule, $key) {
             return ['field' => 'address.'.$key, 'rule' => $rule];
         })->pluck('rule', 'field')->toArray();
 
@@ -71,6 +71,7 @@ class EventsController extends Controller
         $address->addressable_id = 0;
         $address->addressable_type = 'App\Event';
         $address->save();
+
         return $address;
     }
 }

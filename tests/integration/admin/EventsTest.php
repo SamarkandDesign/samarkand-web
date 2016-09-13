@@ -59,7 +59,7 @@ class EventsTest extends TestCase
         ->press('Submit');
 
         $this->seeInDataBase('events', [
-            'title' => 'Foo Event'
+            'title' => 'Foo Event',
             ]);
     }
 
@@ -83,7 +83,7 @@ class EventsTest extends TestCase
         $this->assertTrue($venue->exists());
 
         $this->seeInDataBase('events', [
-            'title' => 'Foo Event',
+            'title'      => 'Foo Event',
             'address_id' => $venue->id,
             ]);
     }
@@ -100,7 +100,7 @@ class EventsTest extends TestCase
         ->press('Submit');
 
         $this->seeInDataBase('events', [
-            'title' => 'Foo Event'
+            'title' => 'Foo Event',
             ]);
     }
 
@@ -124,7 +124,7 @@ class EventsTest extends TestCase
         $this->assertTrue($venue->exists());
 
         $this->seeInDataBase('events', [
-            'title' => 'Foo2 Event',
+            'title'      => 'Foo2 Event',
             'address_id' => $venue->id,
             ]);
     }

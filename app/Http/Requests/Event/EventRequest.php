@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Event;
 
 use App\Http\Requests\Request;
-use Carbon\Carbon;
 
 class EventRequest extends Request
 {
@@ -27,13 +26,13 @@ class EventRequest extends Request
     public function defaultRules()
     {
         return [
-        'title'            => 'required|max:255',
-        'website'           => 'url|max:255',
-        'all_day'           => 'boolean',
-        'start_date'     => 'required|date',
-        'end_date'     => 'required|date',
+        'title'               => 'required|max:255',
+        'website'             => 'url|max:255',
+        'all_day'             => 'boolean',
+        'start_date'          => 'required|date',
+        'end_date'            => 'required|date',
         'address_id'          => 'integer',
-        'create_new_venue' => 'boolean',
+        'create_new_venue'    => 'boolean',
         ];
     }
 }

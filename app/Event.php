@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes;
 
-	/**
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -37,11 +37,11 @@ class Event extends Model
      * @var array
      */
     protected $dates = [
-    	'start_date',
-    	'end_date',
+        'start_date',
+        'end_date',
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
     public function setStartDateAttribute($date)
@@ -56,12 +56,11 @@ class Event extends Model
 
     public function venue()
     {
-    	return $this->belongsTo(Address::class, 'address_id');
+        return $this->belongsTo(Address::class, 'address_id');
     }
 
     public function scopeUpcoming($query)
     {
-    	$query->where('start_date', '>=', Carbon::now())->orderBy('start_date', 'ASC');
+        $query->where('start_date', '>=', Carbon::now())->orderBy('start_date', 'ASC');
     }
-
 }
