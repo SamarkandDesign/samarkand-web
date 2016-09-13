@@ -36,7 +36,7 @@ class Address extends Model
      * @var array
      */
     public static $rules = [
-        'name'      => 'required|max:255',
+        'name'      => 'max:255',
         'line_1'    => 'required|max:255',
         'city'      => 'required|max:255',
         'postcode'  => 'required|max:255',

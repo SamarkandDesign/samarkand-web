@@ -61,6 +61,15 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
         Route::delete('/{trashedProduct}', ['uses' => 'ProductsController@destroy', 'as' => 'admin.products.delete']);
     });
 
+    // Events
+    Route::group(['prefix' => 'events'], function () {
+        Route::get('/', ['uses' => 'EventsController@index', 'as' => 'admin.events.index']);
+        Route::get('/create', ['uses' => 'EventsController@create', 'as' => 'admin.events.create']);
+        Route::post('/', ['uses' => 'EventsController@store', 'as' => 'admin.events.store']);
+        Route::get('/{event}/edit', ['uses' => 'EventsController@edit', 'as' => 'admin.events.edit']);
+        Route::patch('/{event}', ['uses' => 'EventsController@update', 'as' => 'admin.events.update']);
+    });
+
     // Terms
     Route::get('terms/{taxonomy}', ['uses' => 'TermsController@index', 'as' => 'admin.terms.index']);
     Route::get('terms/{term}/edit', ['uses' => 'TermsController@edit', 'as' => 'admin.terms.edit']);
