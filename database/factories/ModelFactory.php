@@ -2,7 +2,6 @@
 
 use Carbon\Carbon;
 
-
 $factory->define('App\Post', function ($faker) {
     $creationDate = $faker->dateTimeThisMonth();
     $title = $faker->sentence;
@@ -179,18 +178,18 @@ $factory->define('App\Event', function ($faker) {
     $title = $faker->sentence;
 
     return [
-        'title' => $title,
-        'slug' => str_slug($title),
+        'title'       => $title,
+        'slug'        => str_slug($title),
         'description' => $faker->paragraph,
-        'start_date' => Carbon::now()->addDays($faker->numberBetween(2,20)),
-        'end_date' => Carbon::now()->addDays($faker->numberBetween(21,30)),
-        'all_day' => $faker->boolean,
-        'address_id' => function () {
+        'start_date'  => Carbon::now()->addDays($faker->numberBetween(2, 20)),
+        'end_date'    => Carbon::now()->addDays($faker->numberBetween(21, 30)),
+        'all_day'     => $faker->boolean,
+        'address_id'  => function () {
             return factory('App\Address')->create([
-                'addressable_type' => 'App\Event',
+                'addressable_type'  => 'App\Event',
                 'addressable_id'    => 1,
                 ])->id;
-        }
+        },
     ];
 });
 
