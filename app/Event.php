@@ -30,7 +30,7 @@ class Event extends Model
         });
 
         /**
-         * Load the event venues and order by start date
+         * Load the event venues and order by start date.
          */
         static::addGlobalScope('orderByStart', function (Builder $query) {
             $query->with('venue')->orderBy('start_date', 'ASC');
