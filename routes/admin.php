@@ -68,6 +68,7 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
         Route::post('/', ['uses' => 'EventsController@store', 'as' => 'admin.events.store']);
         Route::get('/{event}/edit', ['uses' => 'EventsController@edit', 'as' => 'admin.events.edit']);
         Route::patch('/{event}', ['uses' => 'EventsController@update', 'as' => 'admin.events.update']);
+        Route::delete('/{event}', ['uses' => 'EventsController@destroy', 'as' => 'admin.events.delete']);
     });
 
     // Terms

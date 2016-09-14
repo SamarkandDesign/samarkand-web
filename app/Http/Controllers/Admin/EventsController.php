@@ -59,6 +59,15 @@ class EventsController extends Controller
             ]);
     }
 
+    public function destroy(Event $event)
+    {
+        $event->delete();
+        return redirect()->route('admin.events.index')->with([
+            'alert' => 'Event Deleted',
+            'alert-class' => 'success',
+            ]);
+    }
+
     protected function createVenue($request) : Address
     {
         $rules = collect(Address::$rules)->map(function ($rule, $key) {

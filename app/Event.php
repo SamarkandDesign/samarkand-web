@@ -23,10 +23,11 @@ class Event extends Model
         /**
          * Set a slug on the event if it's not passed in.
          */
-        static::creating(function ($event) {
+        static::saving(function ($event) {
             if (!$event->slug) {
                 $event->slug = str_slug($event->title);
             }
+            $event->adjustDates();
         });
 
         /**
@@ -35,6 +36,12 @@ class Event extends Model
         static::addGlobalScope('orderByStart', function (Builder $query) {
             $query->with('venue')->orderBy('start_date', 'ASC');
         });
+    }
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->adjustDates();
     }
 
     protected $fillable = ['title', 'slug', 'description', 'website', 'start_date', 'end_date', 'all_day', 'address_id'];
@@ -67,8 +74,54 @@ class Event extends Model
         return $this->belongsTo(Address::class, 'address_id');
     }
 
+    protected function adjustDates()
+    {
+        if ($this->all_day) {
+            $this->start_date = $this->start_date->startOfDay();
+            $this->end_date = $this->end_date->endOfDay();
+        }
+    }
+
     public function scopeUpcoming($query)
     {
         $query->where('start_date', '>=', Carbon::now());
+    }
+
+    public function eventStatus()
+    {
+        $now = new Carbon();
+
+        if ($this->isUnderway()) {
+            return 'Underway';
+        }
+
+        if ($this->hasEnded()) {
+            return 'Ended ' . $this->end_date->diffForHumans();
+        }
+
+        if ($this->isUpcoming()) {
+            return 'Starts ' . $this->start_date->diffForHumans();
+        }
+    }
+
+    public function isUnderway()
+    {
+        return (new Carbon())->between($this->start_date, $this->end_date);
+    }
+
+    public function hasEnded()
+    {
+        return $this->end_date->isPast();
+    }
+
+    public function isUpcoming()
+    {
+        return $this->start_date->isFuture();
+    }
+
+    public function duration()
+    {
+        $days = $this->start_date->diffInDays($this->end_date) + 1;
+        return  sprintf('%s %s', $days, str_plural('day', $days));
     }
 }

@@ -128,4 +128,16 @@ class EventsTest extends TestCase
             'address_id' => $venue->id,
             ]);
     }
+
+    /** @test **/
+    public function it_deletes_an_event()
+    {
+        $event = factory(Event::class)->create();
+        $this->visit('/admin/events');
+
+        $this->delete("/admin/events/{$event->id}");
+
+        $this->assertRedirectedTo('/admin/events');
+        $this->visit('/admin/events')->dontSee($event->title);
+    }
 }

@@ -38,9 +38,11 @@ Events
 				@foreach ($events as $event)
 				<tr>
 					<td>
-						{{ $event->title }}
+						{{ $event->title }}<br>
+						<small>{{ $event->eventStatus() }}</small>
 						<div class="row-actions">
-							<a href="{{ route('admin.events.edit', $event) }}">Edit</a>
+								<a href="{{ route('admin.events.edit', $event) }}">Edit</a> | 
+								<a href="{{ route('admin.events.delete', $event) }}" data-method="delete" data-confirm="Are you sure?" class="text-danger" rel="nofollow">Trash</a>
 						</div>
 					</td>
 					<td>
@@ -52,6 +54,8 @@ Events
 						Start: {{ $event->start_date->format('Y-m-d H:i') }}<br>
 						End: {{ $event->end_date->format('Y-m-d H:i') }}
 						@endif
+
+						<p>({{ $event->duration() }})</p>
 					</td>
 					<td>@include('partials.address', ['address' => $event->venue])</td>
 				</tr>

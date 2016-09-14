@@ -4,11 +4,11 @@
 	<div class="panel panel-default" id="postContent">
 		<div class="panel-body">
 			<input type="text" class="hidden" name="title" value="{{ old('title') }}">
-			<cr-title-slugger value="{{ $event->title }}" slug="{{ $event->slug }}" name="title"></cr-title-slugger>
+			<cr-title-slugger value="{{ old('title', $event->title) }}" slug="{{ old('slug', $event->slug) }}" name="title"></cr-title-slugger>
 
 			<div class="form-group top-buffer" id="postContent">
 				<input type="text" name="description" class="hidden">
-				<cr-markarea value="{{ $event->description }}" name="description" title="Content"></cr-markarea>
+				<cr-markarea value="{{ old('description', $event->description) }}" name="description" title="Content"></cr-markarea>
 
 			</div>
 		</div>
