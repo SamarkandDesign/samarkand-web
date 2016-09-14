@@ -13,7 +13,7 @@ class EventsController extends Controller
 {
     public function index(Request $request)
     {
-        $events = $request->has('all') ? Event::orderBy('start_date', 'ASC')->paginate() : Event::upcoming()->paginate();
+        $events = $request->has('all') ? Event::paginate() : Event::upcoming()->paginate();
 
         return view('admin.events.index', compact('events'));
     }

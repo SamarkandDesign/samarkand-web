@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -26,6 +27,13 @@ class Event extends Model
             if (!$event->slug) {
                 $event->slug = str_slug($event->title);
             }
+        });
+
+        /**
+         * Load the event venues and order by start date
+         */
+        static::addGlobalScope('orderByStart', function (Builder $query) {
+            $query->with('venue')->orderBy('start_date', 'ASC');
         });
     }
 
@@ -61,6 +69,6 @@ class Event extends Model
 
     public function scopeUpcoming($query)
     {
-        $query->where('start_date', '>=', Carbon::now())->orderBy('start_date', 'ASC');
+        $query->where('start_date', '>=', Carbon::now());
     }
 }
