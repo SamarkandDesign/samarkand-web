@@ -96,11 +96,11 @@ class Event extends Model
         }
 
         if ($this->hasEnded()) {
-            return 'Ended ' . $this->end_date->diffForHumans();
+            return 'Ended '.$this->end_date->diffForHumans();
         }
 
         if ($this->isUpcoming()) {
-            return 'Starts ' . $this->start_date->diffForHumans();
+            return 'Starts '.$this->start_date->diffForHumans();
         }
     }
 
@@ -122,6 +122,7 @@ class Event extends Model
     public function duration()
     {
         $days = $this->start_date->diffInDays($this->end_date) + 1;
+
         return  sprintf('%s %s', $days, str_plural('day', $days));
     }
 }
