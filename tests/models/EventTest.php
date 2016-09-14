@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Event;
 use Carbon\Carbon;
 use TestCase;
 
@@ -12,15 +11,15 @@ class EventTest extends TestCase
     public function it_sets_the_dates_appropriately_for_all_day_events()
     {
         $allDayEvent = factory(Event::class)->make([
-            'all_day' => true,
+            'all_day'    => true,
             'start_date' => Carbon::create(2016, 11, 16, 5, 0, 0),
-            'end_date' => Carbon::create(2016, 11, 17, 15, 0, 0),
+            'end_date'   => Carbon::create(2016, 11, 17, 15, 0, 0),
             ]);
 
         $timedEvent = factory(Event::class)->make([
-            'all_day' => false,
+            'all_day'    => false,
             'start_date' => Carbon::create(2016, 11, 16, 5, 0, 0),
-            'end_date' => Carbon::create(2016, 11, 17, 15, 0, 0),
+            'end_date'   => Carbon::create(2016, 11, 17, 15, 0, 0),
             ]);
 
         $this->assertEquals(0, $allDayEvent->start_date->hour);
@@ -34,9 +33,9 @@ class EventTest extends TestCase
     public function it_checks_the_event_status_for_an_underway_event()
     {
         $event = factory(Event::class)->make([
-            'all_day' => true,
+            'all_day'    => true,
             'start_date' => Carbon::now()->addHour(),
-            'end_date' => Carbon::now()->addDay(),
+            'end_date'   => Carbon::now()->addDay(),
             ]);
 
         $this->assertTrue($event->isUnderway());
@@ -48,9 +47,9 @@ class EventTest extends TestCase
     public function it_gets_the_duration_of_an_all_day_event()
     {
         $event = factory(Event::class)->make([
-            'all_day' => true,
+            'all_day'    => true,
             'start_date' => Carbon::create(2016, 11, 16, 5, 0, 0),
-            'end_date' => Carbon::create(2016, 11, 17, 15, 0, 0),
+            'end_date'   => Carbon::create(2016, 11, 17, 15, 0, 0),
             ]);
 
         $this->assertEquals('2 days', $event->duration());
