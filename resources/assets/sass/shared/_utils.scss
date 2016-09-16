@@ -1,0 +1,12 @@
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+.no-outer-gutter > [class*='col-'] {
+	&:first-child {
+    	padding-left:0;
+	}
+	&:last-child {
+    	padding-right:0;
+	}
+}

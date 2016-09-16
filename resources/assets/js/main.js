@@ -13,10 +13,17 @@ import cardForm from './components/card-form.vue'
 import navbar from './components/navbar.vue'
 import alert from './components/alert.vue'
 import {ProductSearchVisitor as productSearch} from './components/product-search.js'
+import googleMap from './components/google-map.vue'
 
 Vue.use(VueValidator)
 
-let vm = new Vue({
+global.vm = new Vue({
     el: '#app',
-    components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar, alert, productSearch }
+    components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar, alert, productSearch, googleMap },
+    methods: {
+    	initMaps () {
+    		console.log('Maps loading for the VM')
+    		this.$broadcast('MapsApiLoaded')
+    	}
+    }
 })

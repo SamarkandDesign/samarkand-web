@@ -33,6 +33,8 @@ Route::get('order-completed', ['uses' => 'OrdersController@completed', 'as' => '
 Route::get('contact', ['uses' => 'ContactsController@create', 'as' => 'contacts.create']);
 Route::post('contact', ['uses' => 'ContactsController@store', 'as' => 'contacts.store']);
 
+Route::get('event/{event_slug}', ['uses' => 'EventsController@show', 'as' => 'events.show']);
+
 /*
  * Account
  */

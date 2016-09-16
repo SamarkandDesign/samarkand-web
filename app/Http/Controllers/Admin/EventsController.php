@@ -20,7 +20,7 @@ class EventsController extends Controller
 
     public function create(Event $event)
     {
-        // dd(\App\Address::pluck('line_1', 'id'));
+        $event->all_day = true;
         return view('admin.events.create', compact('event'));
     }
 

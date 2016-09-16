@@ -1,0 +1,38 @@
+  .event-header {
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    .header-bg {
+      background: url('https://unsplash.it/800/600?random');
+      -webkit-filter: blur(18px);
+      background-size: cover;
+      background-attachment: fixed;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+      left: 0px;
+      transform: scale(1.1);
+    }
+
+    .header-content {
+      background: rgba(255,255,255, .9);
+      position: relative;
+      @media (min-width: $screen-xs-max) {
+        margin-top: 50px;
+      }
+
+    }
+    .event-image {
+      overflow: hidden;
+      max-height: 250px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .event-title {
+      padding: 0 15px!important;
+    }
+  }

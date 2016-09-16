@@ -74,6 +74,7 @@ Crossroads of Culture
 				</a>		
 			</div>
 		</div>
+		<div class="top-buffer"></div>
 	</div>
 
 	@endsection

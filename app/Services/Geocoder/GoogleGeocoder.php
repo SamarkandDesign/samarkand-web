@@ -15,7 +15,7 @@ class GoogleGeocoder implements Geocoder
     public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->key = config('services.google.key');
+        $this->key = config('services.google.server_key');
     }
 
     public function getCoordinates(Address $address)

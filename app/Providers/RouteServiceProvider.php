@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Event;
 use App\Page;
 use App\Post;
 use App\Product;
@@ -66,6 +67,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('product_slug', function ($slug) {
             return Product::where('slug', $slug)->firstOrFail();
+        });
+
+        Route::bind('event_slug', function ($slug) {
+            return Event::where('slug', $slug)->firstOrFail();
         });
 
         Route::bind('listed_product_slug', function ($slug) {
