@@ -40,7 +40,7 @@ class Event extends Model implements HasMediaConversions
          */
         static::addGlobalScope('orderByStart', function (Builder $query) {
             $query->orderBy('start_date', 'ASC');
-        });        
+        });
 
         static::addGlobalScope('attachRelations', function (Builder $query) {
             $query->with(['venue', 'media']);
@@ -54,7 +54,8 @@ class Event extends Model implements HasMediaConversions
     }
 
     /**
-     * Mass-assignable fields
+     * Mass-assignable fields.
+     *
      * @var array
      */
     protected $fillable = ['title', 'slug', 'description', 'website', 'start_date', 'end_date', 'all_day', 'address_id', 'organiser'];
@@ -79,18 +80,18 @@ class Event extends Model implements HasMediaConversions
     */
    public function registerMediaConversions()
    {
-    $this->addMediaConversion('thumb')
+       $this->addMediaConversion('thumb')
     ->setManipulations(['w' => 500, 'h' => 500, 'fit' => 'crop'])
     ->performOnCollections('images');
 
-    $this->addMediaConversion('banner')
+       $this->addMediaConversion('banner')
     ->setManipulations(['w' => 1300, 'h' => 1300])
     ->performOnCollections('images');
-}
+   }
 
     /**
-     * Ensure the start date is parsed to a Carbon instance when being set
-     * 
+     * Ensure the start date is parsed to a Carbon instance when being set.
+     *
      * @param string|\DateTime $date
      */
     public function setStartDateAttribute($date)
@@ -99,8 +100,8 @@ class Event extends Model implements HasMediaConversions
     }
 
     /**
-     * Ensure the end date is parsed to a Carbon instance when being set
-     * 
+     * Ensure the end date is parsed to a Carbon instance when being set.
+     *
      * @param string|\DateTime $date
      */
     public function setEndDateAttribute($date)
@@ -109,8 +110,8 @@ class Event extends Model implements HasMediaConversions
     }
 
     /**
-     * An event belongs to a venue (address)
-     * 
+     * An event belongs to a venue (address).
+     *
      * @return Illuminate\Database\Eloquent\Relations\Relation]
      */
     public function venue()
@@ -120,7 +121,8 @@ class Event extends Model implements HasMediaConversions
 
     /**
      * If the event in question is all-day set the start and end times to
-     * the beginning and end of the day respectively
+     * the beginning and end of the day respectively.
+     *
      * @return Event
      */
     protected function adjustDates()
@@ -129,23 +131,28 @@ class Event extends Model implements HasMediaConversions
             $this->start_date = $this->start_date->startOfDay();
             $this->end_date = $this->end_date->endOfDay();
         }
+
         return $this;
     }
 
     /**
-     * Only include upcoming or in-progress events
-     * @param  Builder $query 
+     * Only include upcoming or in-progress events.
+     *
+     * @param Builder $query
+     *
      * @return void
      */
     public function scopeUpcoming(Builder $query)
     {
         $query->where('end_date', '>=', Carbon::now());
-    }    
+    }
 
     /**
-     * Limit to event that have started before the given date, or now
-     * @param  Builder     $query 
-     * @param  Carbon|null $date  
+     * Limit to event that have started before the given date, or now.
+     *
+     * @param Builder     $query
+     * @param Carbon|null $date
+     *
      * @return void
      */
     public function scopeBefore(Builder $query, Carbon $date = null)
@@ -161,12 +168,12 @@ class Event extends Model implements HasMediaConversions
      */
     public function getDescriptionHtml()
     {
-      return \Markdown::convertToHtml($this->description);
+        return \Markdown::convertToHtml($this->description);
     }
 
     public function isUnderway()
     {
-      return (new Carbon())->between($this->start_date, $this->end_date);
+        return (new Carbon())->between($this->start_date, $this->end_date);
     }
 
     public function hasEnded()

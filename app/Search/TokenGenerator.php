@@ -27,7 +27,7 @@ class TokenGenerator
     {
         $filters = 'listed:true';
         if (!$this->config->get('shop.show_out_of_stock')) {
-            $filters .=  ' AND stock_qty>0';
+            $filters .= ' AND stock_qty>0';
         }
 
         return $filters;

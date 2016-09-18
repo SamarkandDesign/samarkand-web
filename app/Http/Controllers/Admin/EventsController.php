@@ -21,6 +21,7 @@ class EventsController extends Controller
     public function create(Event $event)
     {
         $event->all_day = true;
+
         return view('admin.events.create', compact('event'));
     }
 
