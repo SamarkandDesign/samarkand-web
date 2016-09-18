@@ -41,12 +41,14 @@ Events
 						{{ $event->title }}<br>
 						<small>{{ $event->present()->status() }}</small>
 						<div class="row-actions">
+								<a href="{{ route('events.show', $event->slug) }}">View</a> | 
 								<a href="{{ route('admin.events.edit', $event) }}">Edit</a> | 
 								<a href="{{ route('admin.events.delete', $event) }}" data-method="delete" data-confirm="Are you sure?" class="text-danger" rel="nofollow">Trash</a>
 						</div>
 					</td>
 					<td>
-						{{ $event->present()->dates() }}
+						<p><strong>Start: </strong>{{ $event->present()->startDate() }}</p>
+						<p><strong>End: </strong>{{ $event->present()->endDate() }}</p>
 
 						<p>({{ $event->present()->duration() }})</p>
 					</td>

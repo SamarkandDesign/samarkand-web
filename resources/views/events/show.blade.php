@@ -1,7 +1,7 @@
 @extends('layouts.full_width')
 
 @section('title')
-{{ $event->title }}
+{{ $event->title }} | Events
 @endsection
 
 @section('content')
