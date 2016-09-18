@@ -1,10 +1,12 @@
 @import 'main/variables';
+@import 'shared/utils';
 @import "main/bootstrap";
 @import 'main/catalogue';
 @import 'main/footer';
 @import 'main/transitions';
 @import "shared/product_search";
 @import "main/social";
+@import "main/event";
 
 body {
     background-color: $gray-accent;
@@ -29,6 +31,11 @@ body {
 }
 .alert-warning a {
   color: $brand5;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  text-transform: uppercase;
 }
 
 .bg {

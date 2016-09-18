@@ -7,6 +7,7 @@
   <ul class="nav navbar-nav">
     <li class=""><a href="/">Home</a></li>
     <li><a href="/shop">Shop</a></li>
+    <li><a href="/events">Events</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
 

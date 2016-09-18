@@ -46,6 +46,15 @@
     </li>
 
     <li class="treeview">
+        <a href="#"><i class="fa fa-fw fa-calendar"></i> <span>Events</span></a>
+        <ul class="treeview-menu">
+            <li><a href="{{ route('admin.events.index') }}"><i class="fa fa-circle-o"></i> All Events</a></li>
+            <li><a href="{{ route('admin.events.create') }}"><i class="fa fa-circle-o"></i> New Event</a></li>
+            <li><a href="{{ route('admin.addresses.index') }}"><i class="fa fa-circle-o"></i> Venues</a></li>
+        </ul>
+    </li>
+
+    <li class="treeview">
         <a href="{{ route('admin.media.index') }}"><i class="fa fa-fw fa-image"></i> <span>Media</span></a>
         <ul class="treeview-menu">
             <li><a href="{{ route('admin.media.index') }}"><i class="fa fa-circle-o"></i> All Images</a></li>

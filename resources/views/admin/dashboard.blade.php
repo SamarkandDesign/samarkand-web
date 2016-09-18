@@ -54,6 +54,22 @@
                 <a href="/admin/products" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
+
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ $upcomingEvents }}</h3>
+
+                    <p>Upcoming {{ str_plural('event', $upcomingEvents) }}</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <a href="/admin/events" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
 
     <div class="row">

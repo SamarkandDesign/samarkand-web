@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Event;
 use App\Http\Controllers\Controller;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductRepository;
@@ -24,6 +25,7 @@ class AdminController extends Controller
             'orderCountByStatus' => $this->orders->countByStatus(),
             'lowStockedProducts' => $this->products->countLowStock(),
             'outOfStockProducts' => $this->products->countOutOfStock(),
+            'upcomingEvents'     => Event::upcoming()->count(),
         ]);
     }
 
@@ -36,7 +38,9 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
-        $request->session()->flash('url.intended', 'admin');
+        if (!$request->session()->has('url.intended')) {
+            $request->session()->flash('url.intended', 'admin');
+        }
 
         return view('admin.login');
     }

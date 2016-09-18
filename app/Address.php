@@ -36,7 +36,7 @@ class Address extends Model
      * @var array
      */
     public static $rules = [
-        'name'      => 'required|max:255',
+        'name'      => 'max:255',
         'line_1'    => 'required|max:255',
         'city'      => 'required|max:255',
         'postcode'  => 'required|max:255',
@@ -86,5 +86,18 @@ class Address extends Model
     public function getCountryCodeAttribute()
     {
         return $this['attributes']['country'];
+    }
+
+    public function toOneLineString()
+    {
+        $str = $this->line_1;
+        if ($this->line_2) {
+            $str .= ", {$this->line_2}";
+        }
+        if ($this->line_3) {
+            $str .= ", {$this->line_3}";
+        }
+
+        return $str.", {$this->city}, {$this->postcode}, {$this->country}";
     }
 }

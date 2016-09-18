@@ -75,9 +75,9 @@ $alert-warning-text: darken($brand-warning, 35%);
 $alert-warning-bg: $brand-warning;
 $alert-warning-border: $brand-warning;
 
-$alert-info-text: darken($brand2, 35%);
-$alert-info-bg: $brand2;
-$alert-info-border: $brand2;
+$alert-info-text: #fff;
+$alert-info-bg: $gray-accent;
+$alert-info-border: $gray-accent;
 
 $state-success-text:             $alert-text-color;
 $state-info-text:                $alert-text-color;
@@ -127,3 +127,12 @@ $breadcrumb-color:              $navbar-inverse-link-color;
 $breadcrumb-active-color:       #fff;
 //** Textual separator for between breadcrumb elements
 $breadcrumb-separator:          "/" !default;
+
+$heading-scaling: 0.77;
+
+$font-size-h1:            floor(($font-size-base * $heading-scaling * 2.6));
+$font-size-h2:            floor(($font-size-base * $heading-scaling * 2.15));
+$font-size-h3:            ceil(($font-size-base * $heading-scaling * 1.7));
+$font-size-h4:            ceil(($font-size-base * $heading-scaling * 1.25));
+$font-size-h5:            $font-size-base * $heading-scaling;
+$font-size-h6:            ceil(($font-size-base * 0.85));

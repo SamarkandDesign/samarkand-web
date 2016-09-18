@@ -33,6 +33,9 @@ Route::get('order-completed', ['uses' => 'OrdersController@completed', 'as' => '
 Route::get('contact', ['uses' => 'ContactsController@create', 'as' => 'contacts.create']);
 Route::post('contact', ['uses' => 'ContactsController@store', 'as' => 'contacts.store']);
 
+Route::get('events', ['uses' => 'EventsController@index', 'as' => 'events.index']);
+Route::get('event/{event_slug}', ['uses' => 'EventsController@show', 'as' => 'events.show']);
+
 /*
  * Account
  */
@@ -48,7 +51,7 @@ Route::group(['prefix' => 'account'], function () {
         Route::get('new', ['uses' => 'AddressesController@create', 'as' => 'addresses.create']);
         Route::get('{address}/edit', ['uses' => 'AddressesController@edit', 'as' => 'addresses.edit']);
         Route::post('/', ['uses' => 'AddressesController@store', 'as' => 'addresses.store']);
-        Route::put('{address}', ['uses' => 'AddressesController@update', 'as' => 'addresses.update']);
+        Route::patch('{address}', ['uses' => 'AddressesController@update', 'as' => 'addresses.update']);
         Route::delete('{address}', ['uses' => 'AddressesController@destroy', 'as' => 'addresses.delete']);
     });
 });

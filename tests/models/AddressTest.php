@@ -25,4 +25,14 @@ class AddressTest extends TestCase
 
         $this->assertEquals('GB', $address->country);
     }
+
+    /** @test **/
+    public function it_builds_a_one_line_string_from_the_address()
+    {
+        $address = factory(Address::class)->make();
+
+        $str = $address->toOneLineString();
+
+        $this->assertContains(', '.$address->city, $str);
+    }
 }
