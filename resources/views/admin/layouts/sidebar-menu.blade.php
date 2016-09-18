@@ -50,6 +50,7 @@
         <ul class="treeview-menu">
             <li><a href="{{ route('admin.events.index') }}"><i class="fa fa-circle-o"></i> All Events</a></li>
             <li><a href="{{ route('admin.events.create') }}"><i class="fa fa-circle-o"></i> New Event</a></li>
+            <li><a href="{{ route('admin.addresses.index') }}"><i class="fa fa-circle-o"></i> Venues</a></li>
         </ul>
     </li>
 

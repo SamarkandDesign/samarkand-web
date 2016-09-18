@@ -13,7 +13,7 @@
     <div class="container header-content">
       <div class="row no-gutter">
         <div class="col-md-8 event-image">
-          <img src="https://unsplash.it/800/600?random" alt="">
+          <img src="{{ $event->featured_image }}" alt="">
         </div>
         <div class="col-md-4 event-title">
           <h1 itemprop="name">{{ $event->title }}</h1>
@@ -21,53 +21,62 @@
         <div class="clearfix"></div>
       </div>
     </div>
-
-
   </header>
 
   <section class="container">
 
 
-
     <div class="row">
       <article class="description col-sm-8" itemprop="description">
+        @if($event->hasEnded())
+        <alert style="margin-top:20px;">This event has ended</alert>
+        @endif
         <h3>Description</h3>
-        {{ $event->description }}
+        {!! $event->getDescriptionHtml() !!}
       </article>
 
       <aside class="col-sm-4">
         <section>
 
           <h3>Details</h3>
-          <p>
-            <strong>Start:</strong>
-            <time itemprop="startDate" content="{{ $event->start_date->toIso8601String() }}">{{  $event->start_date->format($event->all_day ? 'j M Y' : 'j M Y, H:i') }}
-            </time>
-          </p>
-
-          <p>
-            <strong>End:</strong>
-            <time itemprop="endDate" content="{{ $event->end_date->toIso8601String() }}">{{  $event->end_date->format($event->all_day ? 'j M Y' : 'j M Y, H:i') }}
-            </time>
-          </p>
-
+          <p><strong>Start: </strong>{{ $event->present()->startDate() }}</p>
+          <p><strong>End: </strong>{{ $event->present()->endDate() }}</p>
 
           @if($event->website)
           <p>
-            <strong> Website: </strong>
+            <strong>Website: </strong>
             <a href="{{ $event->website }}" target="_blank">{{ $event->website }}</a>
           </p>
           @endif
-        </section>
 
+          @if($event->organiser)
+          <p>
+            <strong>Organiser: </strong>
+              {{ $event->organiser }}
+          </p>
+          @endif
+        </section>
 
         <section itemprop="location" itemscope itemtype="http://schema.org/Place">
           <h3>Venue</h3>
           @include('partials.address', ['address' => $event->venue])
         </section>
 
+        <section>
+          <h3>Add to Calendar</h3>
+          <p>
+            <a href="{{ $event->present()->googleCalendarLink() }}" title="Add to Google Calendar" target="_blank" class="btn btn-primary btn-xs">
+              <i class="fa fa-google"></i>
+            </a>
+
+{{--             <a href="#" title="iCal" target="_blank" class="btn btn-primary btn-xs">
+              <i class="fa fa-calendar"></i>
+            </a> --}}
+          </p>
+        </section>
+
         <section class="share-links">
-          {{-- <h3>Share this event</h3> --}}
+          <h3>Share</h3>
           <p class="">
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ '$shareUrl' }}" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
             <a href="https://twitter.com/intent/tweet/?text={{ urlencode($event->title) }}&url={{ '$shareUrl' }}&via=samarkanddesign" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
@@ -78,13 +87,20 @@
 
     </div>
   </section>
-
+  @if($event->venue->lat)
   <div>
     <div itemprop="map" itemtype="https://schema.org/Map">
       <google-map :lat="{{ $event->venue->lat }}" :lng="{{ $event->venue->lng }}"></google-map>
     </div>
   </div>
+  @endif
 </div>
+
+<style>
+  .header-bg {
+    background-image: url('{{ $event->featured_image }}');
+  }
+</style>
 
 @endsection
 

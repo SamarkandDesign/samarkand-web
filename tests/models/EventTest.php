@@ -44,14 +44,36 @@ class EventTest extends TestCase
     }
 
     /** @test **/
-    public function it_gets_the_duration_of_an_all_day_event()
+    public function it_gets_previous_events()
     {
-        $event = factory(Event::class)->make([
-            'all_day'    => true,
-            'start_date' => Carbon::create(2016, 11, 16, 5, 0, 0),
-            'end_date'   => Carbon::create(2016, 11, 17, 15, 0, 0),
+        $futureEvent = factory(Event::class)->create([
+            'address_id' => 1,
+            'start_date' => Carbon::now()->addDay(),
+            'end_date'   => Carbon::now()->addDays(2),
+            ]);        
+
+        $recentEvent = factory(Event::class)->create([
+            'title' => 'recent event',
+            'address_id' => 1,
+            'start_date' => Carbon::now()->subDays(3),
+            'end_date'   => Carbon::now()->subDays(2),
+            ]);        
+
+        $farEvent = factory(Event::class)->create([
+            'title' => 'far event',
+            'address_id' => 1,
+            'start_date' => Carbon::now()->subDays(32),
+            'end_date'   => Carbon::now()->subDays(31),
             ]);
 
-        $this->assertEquals('2 days', $event->duration());
+        $pastEvents = Event::before()->get();
+
+        $this->assertEquals($recentEvent->id, $pastEvents->first()->id);
+        $this->assertCount(2, $pastEvents);
+
+        $olderEvents = Event::before($recentEvent->start_date)->get();
+
+        $this->assertEquals($farEvent->id, $olderEvents->first()->id);
+        $this->assertCount(1, $olderEvents);
     }
 }

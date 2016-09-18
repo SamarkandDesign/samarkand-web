@@ -71,6 +71,12 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
         Route::delete('/{event}', ['uses' => 'EventsController@destroy', 'as' => 'admin.events.delete']);
     });
 
+    // Addresses
+    Route::group(['prefix' => 'addresses'], function () {
+        Route::get('/', ['uses' => 'AddressesController@index', 'as' => 'admin.addresses.index']);
+        Route::get('{address}/edit', ['uses' => 'AddressesController@edit', 'as' => 'admin.addresses.edit']);
+    });
+
     // Terms
     Route::get('terms/{taxonomy}', ['uses' => 'TermsController@index', 'as' => 'admin.terms.index']);
     Route::get('terms/{term}/edit', ['uses' => 'TermsController@edit', 'as' => 'admin.terms.edit']);

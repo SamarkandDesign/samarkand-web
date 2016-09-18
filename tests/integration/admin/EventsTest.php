@@ -19,10 +19,10 @@ class EventsTest extends TestCase
     }
 
     /** @test **/
-    public function it_shows_upcoming_events()
+    public function it_shows_upcoming_events_in_the_admin_area()
     {
         $upcomingEvent = factory(Event::class)->create(['start_date' => Carbon::now()->addWeek()]);
-        $pastEvent = factory(Event::class)->create(['start_date' => Carbon::now()->subWeek()]);
+        $pastEvent = factory(Event::class)->create(['end_date' => Carbon::now()->subWeek()]);
 
         $this->visit('/admin/events')
         ->seePageIs('/admin/events')
@@ -31,10 +31,10 @@ class EventsTest extends TestCase
     }
 
     /** @test **/
-    public function it_shows_all_events()
+    public function it_shows_all_events_in_the_admin_area()
     {
         $upcomingEvent = factory(Event::class)->create(['start_date' => Carbon::now()->addWeek()]);
-        $pastEvent = factory(Event::class)->create(['start_date' => Carbon::now()->subWeek()]);
+        $pastEvent = factory(Event::class)->create(['end_date' => Carbon::now()->subWeek()]);
 
         $this->visit('/admin/events?all=1')
         ->see($upcomingEvent->title)

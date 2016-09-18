@@ -108,6 +108,11 @@
 				{!! Form::text('website', null, ['class' => 'form-control']) !!}
 			</div>
 
+			<div class="form-group">
+				{!! Form::label('organiser') !!}
+				{!! Form::text('organiser', null, ['class' => 'form-control']) !!}
+			</div>
+
 			{!! Form::submit('Submit', ['class' => 'btn btn-success btn-block']) !!}
 
 		</div>

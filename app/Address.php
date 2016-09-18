@@ -87,4 +87,12 @@ class Address extends Model
     {
         return $this['attributes']['country'];
     }
+
+    public function toOneLineString()
+    {
+        $str = $this->line_1;
+        if ($this->line_2) $str .= ", {$this->line_2}";
+        if ($this->line_3) $str .= ", {$this->line_3}";
+        return $str . ", {$this->city}, {$this->postcode}, {$this->country}";
+    }
 }

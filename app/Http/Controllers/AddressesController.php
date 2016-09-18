@@ -91,7 +91,7 @@ class AddressesController extends Controller
     {
         $address->update($request->all());
 
-        return redirect()->route('addresses.index')
+        return redirect()->back()
         ->with(['alert' => 'Address Updated', 'alert-class' => 'success']);
     }
 

@@ -17,7 +17,7 @@ Edit Address
 @include('partials.errors')
 
 <div class="col-md-offset-3 col-md-6">
-{!! Form::model($address, ['route' => ['addresses.update', $address->id], 'method' => 'PUT']) !!}
+{!! Form::model($address, ['route' => ['addresses.update', $address->id], 'method' => 'PATCH']) !!}
     @include('addresses.form')
     <input type="submit" class="btn btn-success" value="Update Address">
 {!! Form::close() !!}

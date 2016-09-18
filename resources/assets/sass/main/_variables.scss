@@ -75,9 +75,9 @@ $alert-warning-text: darken($brand-warning, 35%);
 $alert-warning-bg: $brand-warning;
 $alert-warning-border: $brand-warning;
 
-$alert-info-text: darken($brand2, 35%);
-$alert-info-bg: $brand2;
-$alert-info-border: $brand2;
+$alert-info-text: #fff;
+$alert-info-bg: $gray-accent;
+$alert-info-border: $gray-accent;
 
 $state-success-text:             $alert-text-color;
 $state-info-text:                $alert-text-color;

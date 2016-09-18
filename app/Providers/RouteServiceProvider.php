@@ -35,6 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('term', 'App\Term');
         Route::model('user', 'App\User');
         Route::model('post', 'App\Post');
+        Route::model('event', 'App\Event');
         Route::model('media', 'App\Media');
         Route::model('address', 'App\Address');
         Route::model('page', 'App\Page');

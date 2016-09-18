@@ -28,6 +28,7 @@ class EventRequest extends Request
         return [
         'title'               => 'required|max:255',
         'website'             => 'url|max:255',
+        'organiser'           => 'max:255',
         'all_day'             => 'boolean',
         'start_date'          => 'required|date',
         'end_date'            => 'required|date',

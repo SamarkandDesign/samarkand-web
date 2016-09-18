@@ -16,7 +16,7 @@ Route::post('categories', ['uses' => 'TermsController@storeCategory', 'as' => 'a
 
 Route::get('posts/{post}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.posts.images']);
 Route::get('products/{product}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.products.images']);
-
+Route::get('events/{event}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.events.images']);
 Route::get('pages/{page}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.pages.images']);
 
 Route::get('media/{media}', ['uses' => 'MediaController@show', 'as' => 'api.media.show'])->where('id', '[0-9]+');
@@ -29,6 +29,7 @@ Route::group(['middleware' => 'can:access-admin'], function () {
     Route::post('pages/{page}/image', ['uses' => 'MediaController@store', 'as' => 'api.pages.media.store']);
     Route::post('products/{product}/image', ['uses' => 'MediaController@store', 'as' => 'api.products.media.store']);
     Route::post('posts/{post}/image', ['uses' => 'MediaController@store', 'as' => 'api.posts.media.store']);
+    Route::post('events/{event}/image', ['uses' => 'MediaController@store', 'as' => 'api.events.media.store']);
 
         // Terms
     Route::post('terms', ['uses' => 'TermsController@store', 'as' => 'api.terms.store']);
