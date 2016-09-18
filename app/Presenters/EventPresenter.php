@@ -6,7 +6,6 @@ use Illuminate\Support\HtmlString;
 
 class EventPresenter extends ModelPresenter
 {
-
     public function duration()
     {
         $days = $this->model->start_date->diffInDays($this->model->end_date) + 1;
@@ -14,8 +13,9 @@ class EventPresenter extends ModelPresenter
         return  sprintf('%s %s', $days, str_plural('day', $days));
     }
 
-    /** 
-     * Get the event status
+    /**
+     * Get the event status.
+     *
      * @return string
      */
     public function status()
@@ -31,11 +31,13 @@ class EventPresenter extends ModelPresenter
         if ($this->model->isUpcoming()) {
             return 'Starts '.$this->model->start_date->diffForHumans();
         }
+
         return 'Unknown';
     }
 
     /**
-     * Preset the event's start and end date
+     * Preset the event's start and end date.
+     *
      * @return HtmlString
      */
     public function dates()
@@ -64,10 +66,10 @@ class EventPresenter extends ModelPresenter
         $dateFormat = $this->model->all_day ? 'Ymd' : 'Ymd\TH:i:';
 
         $query = [
-            'action' => 'TEMPLATE',
-            'text'   => str_replace('.', '', $this->model->title),
-            'dates'  => sprintf('%s/%s', $this->model->start_date->format($dateFormat), $this->model->end_date->format($dateFormat)),
-            'location' => $this->model->venue->toOneLineString(), 
+            'action'   => 'TEMPLATE',
+            'text'     => str_replace('.', '', $this->model->title),
+            'dates'    => sprintf('%s/%s', $this->model->start_date->format($dateFormat), $this->model->end_date->format($dateFormat)),
+            'location' => $this->model->venue->toOneLineString(),
         ];
 
         return sprintf('http://www.google.com/calendar/event?%s', http_build_query($query));

@@ -16,7 +16,7 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 class Product extends Model implements HasMediaConversions, Termable
 {
-  use PresentableTrait, HasMediaTrait, SoftDeletes, Postable, Searchable;
+    use PresentableTrait, HasMediaTrait, SoftDeletes, Postable, Searchable;
 
   /**
    * The database table used by the model.

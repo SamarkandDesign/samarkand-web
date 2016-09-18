@@ -15,6 +15,7 @@ class UpdateAddressRequest extends Request
     public function authorize()
     {
         $user = $this->user();
+
         return $user->owns($this->address) or $user->hasRole('admin');
     }
 

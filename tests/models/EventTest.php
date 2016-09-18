@@ -50,17 +50,17 @@ class EventTest extends TestCase
             'address_id' => 1,
             'start_date' => Carbon::now()->addDay(),
             'end_date'   => Carbon::now()->addDays(2),
-            ]);        
+            ]);
 
         $recentEvent = factory(Event::class)->create([
-            'title' => 'recent event',
+            'title'      => 'recent event',
             'address_id' => 1,
             'start_date' => Carbon::now()->subDays(3),
             'end_date'   => Carbon::now()->subDays(2),
-            ]);        
+            ]);
 
         $farEvent = factory(Event::class)->create([
-            'title' => 'far event',
+            'title'      => 'far event',
             'address_id' => 1,
             'start_date' => Carbon::now()->subDays(32),
             'end_date'   => Carbon::now()->subDays(31),
