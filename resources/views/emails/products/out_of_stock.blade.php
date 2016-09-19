@@ -3,5 +3,5 @@
 @section('content')
 <p>Product out of stock: {{ $product->sku }}</p>
 
-<div>{{ $product->description }}</div>
+<p><a href="{{ url($product->url) }}">{{ $product->name }}</a></p>
 @stop

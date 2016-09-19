@@ -173,7 +173,7 @@ class Event extends Model implements HasMediaConversions
 
     public function isUnderway()
     {
-        return (new Carbon())->between($this->start_date, $this->end_date);
+        return Carbon::now()->between($this->start_date, $this->end_date);
     }
 
     public function hasEnded()

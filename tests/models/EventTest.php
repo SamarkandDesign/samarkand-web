@@ -34,7 +34,7 @@ class EventTest extends TestCase
     {
         $event = factory(Event::class)->make([
             'all_day'    => true,
-            'start_date' => Carbon::now()->addHour(),
+            'start_date' => Carbon::now(),
             'end_date'   => Carbon::now()->addDay(),
             ]);
 
