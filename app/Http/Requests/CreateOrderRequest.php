@@ -25,7 +25,7 @@ class CreateOrderRequest extends Request
     public function rules()
     {
         $rules = new Collection([
-            'delivery_note' => 'max:800'
+            'delivery_note' => 'max:800',
             ]);
 
         if (!$this->user() or !$this->user()->addresses()->count()) {
