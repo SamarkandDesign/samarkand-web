@@ -6,23 +6,24 @@
         </div>
 
         <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-            <h3>Shipping Address</h3>
-                
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Shipping Address</h3>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="checkbox different-shipping-checkbox">
+                        <label>
+                            <input type="checkbox" name="different_shipping_address" v-model="differentshipping"> Use a different address
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-            <div class="checkbox different-shipping-checkbox">
-                <label>
-                    <input type="checkbox" name="different_shipping_address" v-model="differentshipping"> Use a different address
-                </label>
-            </div>
-            </div>
-        </div>
-            <i v-show="!differentshipping">Same as billing</i>
+            <p v-show="!differentshipping">Same as billing</p>
             <div v-show="differentshipping" transition="fade">
                 <slot name="shipping-address"></slot>
             </div>
+            <slot name="delivery-note"></slot>
         </div>
     </div>
 </template>
@@ -44,5 +45,6 @@
 <style>
     .different-shipping-checkbox {
         margin-top: 26px;
+        margin-bottom: 0;
     }
 </style>

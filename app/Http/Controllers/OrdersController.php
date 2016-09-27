@@ -38,6 +38,7 @@ class OrdersController extends Controller
         $order->billing_address_id = $addresses['billing_address_id'];
         $order->shipping_address_id = $addresses['shipping_address_id'];
         $order->user_id = $customer->id;
+        $order->delivery_note = $request->get('delivery_note');
         $order->save();
 
         $order->syncWithCart();

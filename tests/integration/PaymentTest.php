@@ -15,7 +15,7 @@ class PaymentTest extends TestCase
     public function it_completes_an_order_upon_payment()
     {
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
-        $this->createOrder(['status' => 'pending']);
+        $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
 
         \Session::put('order', $this->order);
 
@@ -51,6 +51,7 @@ class PaymentTest extends TestCase
 
         $admin_users = User::shopAdmins()->get();
         $this->seeMessageFor($admin_users->first()->email);
+        $this->assertContains('leave in the linhay', $this->lastMessage()->getBody());
     }
 
     /** @test */

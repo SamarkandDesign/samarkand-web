@@ -11,4 +11,9 @@
     </ul>
 
     @include('orders._summary')
+	
+	@if ($order->delivery_note)
+	    <p><strong>Delivery Note:</strong></p>
+		<p>{{ $order->delivery_note }}</p>
+    @endif
 @stop

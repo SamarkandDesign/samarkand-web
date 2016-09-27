@@ -101,6 +101,11 @@ Checkout
           </label>
         </div>
         @endforeach
+
+        <div class="form-group">
+          <label for="delivery_note">Delivery Notes</label>
+          <textarea name="delivery_note" id="del" class="form-control"></textarea>
+        </div>
       </div>
 
     </div>
@@ -117,6 +122,14 @@ Checkout
         </div>
         <div slot="shipping-address">
             @include('partials.address_form', ['type' => 'shipping'])
+
+        </div>
+
+        <div slot="delivery-note">
+          <div class="form-group">
+            <label for="delivery_note">Delivery Notes</label>
+            <textarea name="delivery_note" id="del" class="form-control"></textarea>
+          </div>
         </div>
     </address-form>
 
