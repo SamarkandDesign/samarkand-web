@@ -2,19 +2,9 @@
 
 namespace App;
 
-class Contact
+use Illuminate\Database\Eloquent\Model;
+
+class Contact extends Model
 {
-    private $attributes;
-
-    public function __construct($attributes)
-    {
-        $this->attributes = $attributes;
-    }
-
-    public function __get($key)
-    {
-        if (array_key_exists($key, $this->attributes)) {
-            return $this->attributes[$key];
-        }
-    }
+    protected $fillable = ['name', 'email', 'subject', 'message'];
 }
