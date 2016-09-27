@@ -16,13 +16,14 @@ class ContactsController extends Controller
     public function store(Request $request, ContactMailer $mailer)
     {
         $this->validate($request, [
-        'name'    => 'required',
-        'email'   => 'required|email',
-        'subject' => 'required',
-        'message' => 'required',
-      ]);
+            'name'    => 'required',
+            'email'   => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
 
-        $mailer->sendContactEmail(new Contact($request->all()));
+        $contact = Contact::create($request->all());
+        $mailer->sendContactEmail($contact);
 
         return redirect()->back()->with(['alert' => 'Thanks, your message has been sent', 'alert-class' => 'success']);
     }

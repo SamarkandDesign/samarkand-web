@@ -11,7 +11,7 @@ class ContactTest extends TestCase
     use InteractsWithMail;
 
   /** @test */
-  public function it_sends_an_email_from_the_contact_page()
+  public function it_sends_an_email_from_the_contact_page_and_stores_the_message()
   {
       config(['mail.recipients.contact' => 'foo@example.com']);
 
@@ -32,6 +32,8 @@ class ContactTest extends TestCase
 
       $this->seePageIs('/contact')
            ->see('your message has been sent');
+
+      $this->seeInDatabase('contacts', ['message' => 'Lorem Ipsum', 'subject' => 'This is an email']);
   }
 
   /** @test */
