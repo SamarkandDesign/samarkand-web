@@ -34,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\EmailStockNotification',
         ],
         'App\Events\OrderStatusChanged' => [
-            'App\Listeners\LogOrderStatusNote'
+            'App\Listeners\LogOrderStatusNote',
         ],
     ];
 

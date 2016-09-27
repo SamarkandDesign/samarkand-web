@@ -6,9 +6,9 @@ use TestCase;
 
 class AttributeTest extends TestCase
 {
-  use \FlushesProductEvents;
+    use \FlushesProductEvents;
 
-    /** @test **/
+  /** @test **/
   public function it_gets_a_count_of_related_products()
   {
       $this->withoutEvents();

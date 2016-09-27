@@ -9,11 +9,12 @@ class PaymentEventSubscriber
     /**
      * Handle user login events.
      */
-    public function onPaymentFailed($event) {
+    public function onPaymentFailed($event)
+    {
         OrderNote::create([
             'order_id' => $event->order->id,
-            'key' => 'payment_failed',
-            'body'  => sprintf('Payment failed with message "%s"', $event->message),
+            'key'      => 'payment_failed',
+            'body'     => sprintf('Payment failed with message "%s"', $event->message),
             ]);
     }
 
@@ -21,16 +22,15 @@ class PaymentEventSubscriber
     {
         OrderNote::create([
             'order_id' => $event->order->id,
-            'key' => 'payment_completed',
-            'body'  => sprintf('Payment completed with id "%s"', $event->payment_id),
+            'key'      => 'payment_completed',
+            'body'     => sprintf('Payment completed with id "%s"', $event->payment_id),
             ]);
     }
-
 
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Illuminate\Events\Dispatcher  $events
+     * @param Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {

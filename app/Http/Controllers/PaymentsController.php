@@ -36,9 +36,8 @@ class PaymentsController extends Controller
           'email' => $order->email,
           ]);
         } catch (\App\Billing\CardException $e) {
-
             event(new \App\Events\PaymentFailed($order, $e->getMessage()));
-            
+
             return redirect()->back()->with([
             'alert'       => $this->paymentErrorMessage($e->getMessage()),
             'alert-class' => 'danger',

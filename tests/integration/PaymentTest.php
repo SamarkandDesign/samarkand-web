@@ -39,9 +39,9 @@ class PaymentTest extends TestCase
 
         $note = OrderNote::where([
             'order_id' => $this->order->id,
-            'key' => 'payment_completed'
+            'key'      => 'payment_completed',
             ])->first();
-        
+
         $this->assertContains('Payment completed', $note->body);
 
         $this->assertEquals(0, \Cart::total());

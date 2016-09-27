@@ -166,14 +166,14 @@ class OrderTest extends TestCase
     /** @test **/
     public function it_fires_an_event_when_the_order_status_changes()
     {
-         $order = factory(Order::class)->create([
-            'status'     => Order::PENDING
+        $order = factory(Order::class)->create([
+            'status'     => Order::PENDING,
             ]);
 
-         $this->expectsEvents(\App\Events\OrderStatusChanged::class);
+        $this->expectsEvents(\App\Events\OrderStatusChanged::class);
 
-         $order->update([
-            'status' => ORDER::PAID
+        $order->update([
+            'status' => ORDER::PAID,
             ]);
     }
 }

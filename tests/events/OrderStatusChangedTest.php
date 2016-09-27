@@ -6,7 +6,7 @@ use App\Events\OrderStatusChanged;
 use App\Order;
 use TestCase;
 
-class OrderStatusChangedEventTest extends TestCase
+class OrderStatusChangedTest extends TestCase
 {
     /** @test **/
     public function it_logs_an_order_note_when_an_order_status_changes()
@@ -15,7 +15,7 @@ class OrderStatusChangedEventTest extends TestCase
 
         $this->seeInDatabase('order_notes', [
             'order_id' => 22,
-            'key' => 'status_changed',
+            'key'      => 'status_changed',
             ]);
     }
 }
