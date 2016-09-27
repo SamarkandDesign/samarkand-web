@@ -44,7 +44,16 @@ class Order extends Model
      *
      * @var array
      */
-    public $fillable = ['amount', 'status', 'user_id', 'payment_id', 'billing_address_id', 'shipping_address_id'];
+    public $fillable = ['amount', 'status', 'user_id', 'payment_id', 'billing_address_id', 'shipping_address_id', 'delivery_note'];
+
+    public static function boot()
+    {
+        static::updating(function ($order) {
+            if ($order->isDirty('status')) {
+                event(new \App\Events\OrderStatusChanged($order->id, $order->getOriginal('status'), $order->status));
+            }
+        });
+    }
 
     /**
      * Sync the order with the current contents of the cart in

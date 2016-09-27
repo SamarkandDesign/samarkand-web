@@ -33,5 +33,17 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ProductStockChanged' => [
             'App\Listeners\EmailStockNotification',
         ],
+        'App\Events\OrderStatusChanged' => [
+            'App\Listeners\LogOrderStatusNote',
+        ],
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        \App\Listeners\PaymentEventSubscriber::class,
     ];
 }

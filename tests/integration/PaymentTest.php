@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use App\OrderNote;
 use App\User;
 use MailThief\Testing\InteractsWithMail;
 use TestCase;
@@ -14,7 +15,7 @@ class PaymentTest extends TestCase
     public function it_completes_an_order_upon_payment()
     {
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
-        $this->createOrder(['status' => 'pending']);
+        $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
 
         \Session::put('order', $this->order);
 
@@ -30,7 +31,19 @@ class PaymentTest extends TestCase
 
         $this->assertRedirectedTo('order-completed');
 
+        $this->followRedirects();
+
+        $this->see(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
+
         $this->seeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
+
+        $note = OrderNote::where([
+            'order_id' => $this->order->id,
+            'key'      => 'payment_completed',
+            ])->first();
+
+        $this->assertContains('Payment completed', $note->body);
+
         $this->assertEquals(0, \Cart::total());
         $this->assertContains('ch_', $this->order->fresh()->payment_id);
 
@@ -38,6 +51,7 @@ class PaymentTest extends TestCase
 
         $admin_users = User::shopAdmins()->get();
         $this->seeMessageFor($admin_users->first()->email);
+        $this->assertContains('leave in the linhay', $this->lastMessage()->getBody());
     }
 
     /** @test */
@@ -85,6 +99,9 @@ class PaymentTest extends TestCase
         $this->assertContains('declined', \Session::get('alert'));
 
         $this->dontSeeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
+
+        // ensure an order note was logged
+        $this->seeInDatabase('order_notes', ['order_id' => $this->order->id]);
     }
 
     /**

@@ -60,10 +60,11 @@ class OrderTest extends TestCase
       $this->visit('checkout')
     ->type('booboo@tempuser.com', 'email')
     ->fillAddress()
+    ->type('Leave in the barn', 'delivery_note')
     ->press('Continue')
     ->seePageIs('checkout/pay');
 
-      $this->seeInDatabase('orders', ['amount' => $product->getPrice()->value() + $shipping_method->getPrice()->value(), 'status' => 'pending']);
+      $this->seeInDatabase('orders', ['amount' => $product->getPrice()->value() + $shipping_method->getPrice()->value(), 'status' => 'pending', 'delivery_note' => 'Leave in the barn']);
       $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
       $this->seeInDatabase('addresses', ['city' => 'London']);
   }
@@ -79,6 +80,7 @@ class OrderTest extends TestCase
     //$current_stock = $product->stock_qty;
 
     $this->visit('checkout')
+    ->type('Leave in the linhay', 'delivery_note')
     ->select($address->id, 'billing_address_id')
     ->select($address->id, 'shipping_address_id')
     ->press('Continue')
@@ -87,7 +89,7 @@ class OrderTest extends TestCase
       $order_amount = $product->getPrice()->value() + $shipping_method->getPrice()->value();
 
       $order = \App\Order::where('user_id', $user->id)->first();
-      $this->seeInDatabase('orders', ['amount' => $order_amount, 'status' => 'pending']);
+      $this->seeInDatabase('orders', ['amount' => $order_amount, 'status' => 'pending', 'delivery_note' => 'Leave in the linhay']);
 
       $this->assertEquals($address->id, $order->billing_address_id);
       $this->assertEquals($address->id, $order->shipping_address_id);
