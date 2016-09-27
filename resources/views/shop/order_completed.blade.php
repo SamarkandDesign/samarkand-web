@@ -19,3 +19,7 @@ Order Completed
 @include('orders._summary')
 
 @stop
+
+@section('scripts')
+	@include('orders._ga_ecommerce')
+@stop

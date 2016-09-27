@@ -31,6 +31,10 @@ class PaymentTest extends TestCase
 
         $this->assertRedirectedTo('order-completed');
 
+        $this->followRedirects();
+
+        $this->see(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
+
         $this->seeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
 
         $note = OrderNote::where([
