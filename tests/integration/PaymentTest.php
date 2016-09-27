@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use App\OrderNote;
 use App\User;
 use MailThief\Testing\InteractsWithMail;
 use TestCase;
@@ -31,6 +32,14 @@ class PaymentTest extends TestCase
         $this->assertRedirectedTo('order-completed');
 
         $this->seeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
+
+        $note = OrderNote::where([
+            'order_id' => $this->order->id,
+            'key' => 'payment_completed'
+            ])->first();
+        
+        $this->assertContains('Payment completed', $note->body);
+
         $this->assertEquals(0, \Cart::total());
         $this->assertContains('ch_', $this->order->fresh()->payment_id);
 
@@ -85,6 +94,9 @@ class PaymentTest extends TestCase
         $this->assertContains('declined', \Session::get('alert'));
 
         $this->dontSeeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
+
+        // ensure an order note was logged
+        $this->seeInDatabase('order_notes', ['order_id' => $this->order->id]);
     }
 
     /**

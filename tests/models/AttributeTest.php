@@ -6,6 +6,8 @@ use TestCase;
 
 class AttributeTest extends TestCase
 {
+  use \FlushesProductEvents;
+
     /** @test **/
   public function it_gets_a_count_of_related_products()
   {

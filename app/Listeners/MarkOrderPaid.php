@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\OrderWasPaid;
+use App\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class MarkOrderPaid implements ShouldQueue
@@ -18,7 +19,7 @@ class MarkOrderPaid implements ShouldQueue
     {
         $event->order->update([
             'payment_id' => $event->payment_id,
-            'status'     => \App\Order::PAID,
+            'status'     => Order::PAID,
             ]);
     }
 }

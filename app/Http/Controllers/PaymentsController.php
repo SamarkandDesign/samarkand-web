@@ -20,13 +20,12 @@ class PaymentsController extends Controller
         $this->validate($request, ['order_id' => 'required|numeric', 'stripe_token' => 'required']);
         $order = Order::find($request->order_id);
 
-    // Ensure the order being paid for is pending
-      if ($order->status !== Order::PENDING) {
-          return redirect()->route('products.index')->with([
-          'alert'       => 'Oops, This order has either already been paid for or has been cancelled. Please create a new order to proceed.',
-          'alert-class' => 'danger',
-          ]);
-      }
+        if ($order->status !== Order::PENDING) {
+            return redirect()->route('products.index')->with([
+            'alert'       => 'Oops, This order has either already been paid for or has been cancelled. Please create a new order to proceed.',
+            'alert-class' => 'danger',
+            ]);
+        }
 
         try {
             $charge = $gateway->charge([
@@ -37,10 +36,13 @@ class PaymentsController extends Controller
           'email' => $order->email,
           ]);
         } catch (\App\Billing\CardException $e) {
+
+            event(new \App\Events\PaymentFailed($order, $e->getMessage()));
+            
             return redirect()->back()->with([
-          'alert'       => $this->paymentErrorMessage($e->getMessage()),
-          'alert-class' => 'danger',
-          ]);
+            'alert'       => $this->paymentErrorMessage($e->getMessage()),
+            'alert-class' => 'danger',
+            ]);
         }
 
         $request->session()->forget('order');
