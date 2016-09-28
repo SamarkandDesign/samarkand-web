@@ -33,8 +33,8 @@ class OrderNote extends Model
     {
         $icons = [
             'payment_completed' => 'credit-card',
-            'payment_failed' => 'times',
-            'status_changed' => 'flag',
+            'payment_failed'    => 'times',
+            'status_changed'    => 'flag',
         ];
 
         return array_get($icons, $this->key, 'envelope');

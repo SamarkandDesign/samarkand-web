@@ -11,8 +11,8 @@ class OrderNoteTest extends TestCase
     {
         $note = new OrderNote([
             'order_id' => 1,
-            'key' => 'payment_completed',
-            'body' => 'foo',
+            'key'      => 'payment_completed',
+            'body'     => 'foo',
             ]);
         $this->assertEquals('credit-card', $note->icon);
         $note->key = 'some_unknown_key';
