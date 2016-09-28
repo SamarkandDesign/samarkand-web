@@ -28,4 +28,15 @@ class OrderNote extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getIconAttribute()
+    {
+        $icons = [
+            'payment_completed' => 'credit-card',
+            'payment_failed'    => 'times',
+            'status_changed'    => 'flag',
+        ];
+
+        return array_get($icons, $this->key, 'envelope');
+    }
 }

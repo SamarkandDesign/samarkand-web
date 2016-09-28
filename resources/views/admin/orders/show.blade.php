@@ -46,6 +46,12 @@ Order #{{ $order->id }} Details
 						@include('partials.address', ['address' => $order->shipping_address])
 					</td>
 				</tr>
+				@if ($order->delivery_note)
+				<tr>
+					<th>Delivery Note</th>
+					<td>{{ $order->delivery_note }}</td>
+				</tr>
+				@endif
 			</tbody>
 		</table>
 
@@ -106,6 +112,32 @@ Order #{{ $order->id }} Details
 	</table>
 </div>
 
+<div class="row">
+	<div class="col-md-12">
+	<h3>Order Updates</h3>
+		<ul class="timeline">
 
+@foreach ($order->order_notes as $note)
+    <!-- timeline item -->
+    <li>
+        <!-- timeline icon -->
+        <i class="fa fa-{{ $note->icon }} bg-blue"></i>
+        <div class="timeline-item">
+            <time class="time"><i class="fa fa-clock-o"></i> {{ $note->created_at }}</time>
+
+            <h3 class="timeline-header">{{ $order->user_id ? $order->user->name : ''}}</h3>
+
+            <div class="timeline-body">
+                {{ $note->body }}
+            </div>
+
+        </div>
+    </li>
+    <!-- END timeline item -->
+@endforeach
+<li> <i class="fa fa-clock-o bg-gray"></i> </li>
+</ul>
+	</div>
+</div>
 
 @stop

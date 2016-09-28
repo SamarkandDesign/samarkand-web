@@ -9,6 +9,8 @@ use TestCase;
 
 class AttributesTest extends TestCase
 {
+    use \FlushesProductEvents;
+
     /** @test **/
     public function it_filters_products_by_an_attribute()
     {
