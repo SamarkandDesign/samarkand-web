@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 class CheckoutControllerTest extends \TestCase
 {
-    use \UsesCart;
+    use \UsesCart, \FlushesProductEvents;
 
     /** @test **/
     public function it_shows_the_checkout_page()

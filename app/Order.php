@@ -262,6 +262,15 @@ class Order extends Model
     }
 
     /**
+     * An order has several notes
+     * @return Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function order_notes()
+    {
+        return $this->hasMany(OrderNote::class)->with('user')->orderBy('created_at');
+    }
+
+    /**
      * Is the shipping address the same as the billing.
      *
      * @return bool

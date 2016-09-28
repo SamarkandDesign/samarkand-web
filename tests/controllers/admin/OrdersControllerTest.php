@@ -6,7 +6,7 @@ use App\Order;
 
 class OrdersControllerTest extends \TestCase
 {
-    use \CreatesOrders;
+    use \CreatesOrders, \FlushesProductEvents;
 
     public function setUp()
     {
