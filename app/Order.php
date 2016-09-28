@@ -262,7 +262,8 @@ class Order extends Model
     }
 
     /**
-     * An order has several notes
+     * An order has several notes.
+     *
      * @return Illuminate\Database\Eloquent\Relations\Relation
      */
     public function order_notes()
