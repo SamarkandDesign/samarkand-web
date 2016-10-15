@@ -41,11 +41,11 @@
 
   <section class="shop-filters row">
     <div class="col-md-6">
-      @include('shop._category_filter')
       @include('shop._product_search')
     </div>
 
     <div class="col-md-6">
+      @include('shop._category_filter')
       @include('shop._attribute_filter')
     </div>
 
