@@ -1,4 +1,5 @@
-<h3>Categories</h3>
+<collapser>
+<span slot="title">Categories</span>
 
 <ul class="term-list">
 @foreach($product_categories as $category)
@@ -9,3 +10,4 @@
 </li>
 @endforeach
 </ul>
+</collapser>

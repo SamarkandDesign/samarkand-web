@@ -1,6 +1,8 @@
 @inject('queryFilter', 'App\Services\AttributeQueryBuilder')
 
-<h3>Filter</h3>
+<collapser>
+<span slot="title">Filter</span>
+
 <div class="row">
     @foreach ($product_attributes as $attribute)
       @if($attribute->attribute_properties->count() > 0)
@@ -30,3 +32,4 @@
   @endif
     @endforeach
 </div>
+</collapser>
