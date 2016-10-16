@@ -1,9 +1,10 @@
 <template>
-    <validator name="cardValidator">
-        <form v-el:form action="{{ route }}" method="POST" novalidate>
+<div>
+    <!-- <validator name="cardValidator"> -->
+        <form ref="form" v-bind:action="route" method="POST" novalidate>
             <slot></slot>
             <div class="row">
-                <div class="form-group col-md-6 col-xs-12" v-bind:class="{ 'has-error': $cardValidator.cardnumber.touched && $cardValidator.cardnumber.invalid, 'has-success': $cardValidator.cardnumber.valid }">
+                <div class="form-group col-md-6 col-xs-12" v-bind:class="cardValidationClasses">
                     <label for="cc-number" class="control-label">Card number</label>
                     <div class="input-group">
                         <input
@@ -12,15 +13,15 @@
                         class="form-control cc-number"
                         autocomplete="cc-number"
                         placeholder="•••• •••• •••• ••••"
-                        v-validate:cardNumber="['required', 'card']"
+                        validate:card-number="['required', 'card']"
                         v-model="card.number"
                         required
-                        v-el:card
+                        ref="card"
                         >
-                        <span class="input-group-addon cc-icon-addon"><i class="cc-icon {{ cardType }}" title="{{ cardType }}"></i></span>
+                        <span class="input-group-addon cc-icon-addon"><i class="cc-icon" v-bind:class="cardType" v-bind:title="cardType"></i></span>
                     </div>
                 </div>
-                <div class="form-group col-md-3 col-xs-6" v-bind:class="{ 'has-error': $cardValidator.exp.touched && $cardValidator.exp.invalid, 'has-success': $cardValidator.exp.valid }">
+                <div class="form-group col-md-3 col-xs-6" v-bind:class="expValidationClasses">
                     <label for="cc-exp" class="control-label">Card expiry (MM/YY)</label>
                     <input
                     id="cc-exp"
@@ -28,19 +29,18 @@
                     class="form-control cc-exp"
                     autocomplete="cc-exp"
                     placeholder="•• / ••"
-                    v-validate:exp="['required', 'expiry']"
+                    validate:exp="['required', 'expiry']"
                     v-model="card.exp"
                     required
-                    v-el:exp
+                    ref="exp"
                     >
                 </div>
 
-                <div class="form-group col-md-3 col-xs-6" v-bind:class="{'has-error': $cardValidator.cvc.touched && $cardValidator.cvc.invalid, 'has-success': $cardValidator.cvc.valid }">
+                <div class="form-group col-md-3 col-xs-6" v-bind:class="cvcValidationClasses">
                     <label for="cc-cvc" class="control-label">
                         Security Code (CVV)
                         <tooltip message="3 digits on back. 4 digits on front of American Express."></tooltip>
                     </label>
-
 
                     <input
                     id="cc-cvc"
@@ -48,16 +48,18 @@
                     class="form-control cc-cvc"
                     autocomplete="off"
                     placeholder="•••"
-                    v-validate:cvc="['required', 'cvc']"
+                    validate:cvc="['required', 'cvc']"
                     v-model="card.cvc"
                     required
-                    v-el:cvc
+                    ref="cvc"
                     >
                 </div>
 
             </div><!-- /row -->
             
-            <p v-show="error_message" transition="fade" class="text-danger">{{ error_message }}</p>
+            <transition name="fade">
+                <p v-show="error_message" class="text-danger">{{ error_message }}</p>
+            </transition>
 
             <div class="row">
                 <div class="col-sm-4 col-md-2 col-sm-push-8 col-md-push-10">
@@ -70,10 +72,9 @@
                 <p class="top-buffer"><i class="fa fa-lock"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>
             </div>
         </div>
-
-
     </form>
-</validator>
+<!-- </validator> -->
+</div>
 </template>
 
 <script>
@@ -98,10 +99,12 @@
                 isLoading: false,
             }
         },
-        ready () {
-            payform.cardNumberInput(this.$els.card)
-            payform.expiryInput(this.$els.exp)
-            payform.cvcInput(this.$els.cvc)
+        mounted () {
+            this.$nextTick(() => {
+                payform.cardNumberInput(this.$refs.card)
+                payform.expiryInput(this.$refs.exp)
+                payform.cvcInput(this.$refs.cvc)
+            })
 
             window.Stripe.setPublishableKey(this.stripeKey);
         },
@@ -130,7 +133,7 @@
 
                 } else {
                 // response contains id and card, which contains additional card details
-                let form = this.$els.form;
+                let form = this.$refs.form;
 
                 let input = document.createElement('input');
                 input.type = 'hidden';
@@ -148,6 +151,10 @@
                 return;
             }
             this.error_message = "Something was wrong with your input";
+        },
+
+        getValidationClasses (field, validator) {
+            return { 'has-error': validator[field].touched && validator[field].invalid, 'has-success': validator[field].valid }
         }
     },
     computed: {
@@ -156,7 +163,20 @@
         },
         cardType () {
             return payform.parseCardType(this.card.number) || 'none'
-        }
+        },
+        
+        cardValidationClasses () {
+            return ''
+            return this.getValidationClasses('cardNumber', this.$cardValidator)
+        },
+        cvcValidationClasses () {
+            return ''
+            return this.getValidationClasses('cvc', this.$cardValidator)
+        },
+        expValidationClasses () {
+            return ''
+            return this.getValidationClasses('exp', this.$cardValidator)
+        },
     },
     validators: {
         card (number) {

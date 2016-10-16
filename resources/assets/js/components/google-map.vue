@@ -1,16 +1,22 @@
 <template>
 	<div>
-		<div v-el:map class="googlemap"></div>
+		<div ref="map" class="googlemap"></div>
 	</div>
 </template>
 
 <script>
+import eventHub from '../eventHub'
+
 	export default {
 		props: ['lat', 'lng'],
 		data () {
 			return {
 				map: null
 			}
+		},
+
+		created () {
+			eventHub.$on('maps-api-loaded', this.createMap.bind(this))
 		},
 
 		methods: {
@@ -20,7 +26,7 @@
 						lng: this.lng
 					}
 
-				this.map = new google.maps.Map(this.$els.map, {
+				this.map = new google.maps.Map(this.$refs.map, {
 					zoom: 14,
 					center: location,
 					scrollwheel: false
@@ -31,13 +37,6 @@
 					position: location
 
 				})
-			}
-		},
-
-		events: {
-			MapsApiLoaded () {
-				console.log('maps loaded for component')
-				this.createMap()
 			}
 		}
 	}

@@ -8,7 +8,7 @@
 
 <div class="event-wrapper" itemscope itemtype="http://schema.org/Event">
 
-  <header class="event-header">
+  <header class="event-header" v-pre>
     <div class="header-bg"></div>
     <div class="container header-content">
       <div class="row no-gutter">
@@ -23,7 +23,7 @@
     </div>
   </header>
 
-  <section class="container">
+  <section class="container" v-pre>
 
 
     <div class="row">
@@ -87,6 +87,7 @@
 
     </div>
   </section>
+
   @if($event->venue->lat)
   <div>
     <div itemprop="map" itemtype="https://schema.org/Map">
@@ -96,14 +97,14 @@
   @endif
 </div>
 
+@endsection
+
+@section('scripts')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.browser_key') }}&callback=vm.initMaps" async defer></script>
+
 <style>
   .header-bg {
     background-image: url('{{ $event->featured_image }}');
   }
 </style>
-
-@endsection
-
-@section('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.browser_key') }}&callback=vm.initMaps" async defer></script>
 @endsection

@@ -1,35 +1,41 @@
 import algoliasearch from 'algoliasearch'
 import Vue from 'vue'
+import _ from 'lodash'
 
 const ProductSearch = Vue.extend({
   props: {
-    query: {type: String, default: ''},
+    initialQuery: {type: String, default: ''},
     appId: {type: String, required: true},
-    key: {type: String, required: true},
+    apiKey: {type: String, required: true},
     indexName: {type: String, default: 'main'}
   },
-  ready () {
-    let client = algoliasearch(this.appId, this.key)
+
+  mounted () {
+    this.query = this.initialQuery
+    let client = algoliasearch(this.appId, this.apiKey)
     this.index = client.initIndex(this.indexName)
 
     // Empty the results if user click outside them
-    window.addEventListener('click', e => {
-      if (!this.$el.contains(e.target)) {
-        this.query = ''
-        this.hits = []
-      }
-    });
+    this.$nextTick(() => {
+      window.addEventListener('click', e => {
+        if (!this.$el.contains(e.target)) {
+          this.query = ''
+          this.hits = []
+        }
+      })
+    })
   },
-  data: function () {
+  data () {
     return {
       hits: [],
       numberOfHits: 0,
       index: null,
-      searching: false
+      searching: false,
+      query: ''
     }
   },
   methods: {
-    searchProducts () {
+    searchProducts: _.debounce(function() {
       if (this.query === '') {
         this.hits = []
         return
@@ -47,9 +53,9 @@ const ProductSearch = Vue.extend({
         this.hits = content.hits
         this.numberOfHits = content.nbHits
       })
-    },
+    }, 500),
 
-    displayPrice(product) {
+    displayPrice (product) {
       if (!product.sale_price) {
         return '£' + product.price
       }

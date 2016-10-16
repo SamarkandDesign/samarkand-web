@@ -116,7 +116,7 @@ Checkout
 
     @else
 
-    <address-form differentshipping="{{ old('different_shipping_address') ? 'true' : 'false' }}">
+    <address-form :differentshipping="{{ old('different_shipping_address') ? 'true' : 'false' }}">
         <div slot="billing-address">
             @include('partials.address_form', ['type' => 'billing'])
         </div>

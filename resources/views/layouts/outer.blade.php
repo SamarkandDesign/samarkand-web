@@ -22,13 +22,14 @@
     <![endif]-->
     @include('partials._ga')
 </head>
-<body id="app">
-    @include('partials._navbar')
-    @yield('body')
+<body>
+    <div id="app">
+        @include('partials._navbar')
+        @yield('body')
 
-    @include('partials._footer')
+        @include('partials._footer')
+    </div>
     @include('partials._scripts')
-
     @yield('scripts')
 </body>
 </html>

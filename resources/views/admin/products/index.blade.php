@@ -14,7 +14,7 @@
 <div class="row">
 	<div class="col-md-9 bottom-buffer">
 		<product-search
-		key="{{ $searchKey }}"
+		api-key="{{ $searchKey }}"
 		app-id="{{ config('scout.algolia.id') }}"
 		index-name="{{ $searchIndex }}"
 		></product-search>

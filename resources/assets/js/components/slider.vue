@@ -6,22 +6,20 @@
 
 <script>
   export default {
-    data() {
+    data () {
       return {
         index: 0,
         show: false,
       }
     },
     computed: {
-      show() {
+      show () {
         return this.$parent.activeIndex === this.index
       }
     },
-    ready() {
-      for (var c in this.$parent.$children)
-      {
-        if (this.$parent.$children[c].$el == this.$el)
-        {
+    mounted () {
+      for (var c in this.$parent.$children) {
+        if (this.$parent.$children[c].$el == this.$el) {
             this.index = parseInt(c,10);
             break;
         }

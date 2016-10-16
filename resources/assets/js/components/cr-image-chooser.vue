@@ -9,7 +9,7 @@
 			<img
 				v-if="selectedImage"
 				v-bind:src="selectedImage.thumbnail_url"
-				alt="{{ selectedImage.name }}"
+				v-bind:alt="selectedImage.name"
 				class="img-responsive thumbnail"
 				style="width:100%;"
 			>
@@ -33,7 +33,7 @@
 			<input
 				type="hidden"
 				name="media_id"
-				value="{{ selectedImage ? selectedImage.id : null }}"
+				v-bind:value="selectedImage ? selectedImage.id : null"
 			>
 		</div>
 	</div>
@@ -60,7 +60,7 @@
 							<img
 								class="img-responsive img-thumbnail selectable"
 								v-bind:src="image.thumbnail_url"
-								alt="{{ image.title }}"
+								v-bind:alt="image.title"
 							>
 							</a>
 
@@ -80,58 +80,56 @@
 </template>
 
 <script>
-	module.exports = {
+	export default {
 		props: ['image'],
 
-		ready: function(){
-			this.fetchChosenImage();
+		mounted (){
+			this.fetchChosenImage()
 		},
 
-		data: function() {
+		data () {
 			return {
 				selectedImage: null,
 				chosenImage: null,
 				page: 1,
 				lastPage: null,
 				images: null,
-			};
+			}
 		},
 
 		methods: {
-			fetchImages: function() {
+			fetchImages () {
 				this.images = null;
-				this.$http.get('/api/media', {page: this.page})
-				.success(function(response) {
+				this.$http.get('/api/media', {page: this.page}).success(response => {
 					this.images = response.data
 					this.lastPage = response.last_page;
-				}.bind(this));
+				})
 			},
 			
-			fetchChosenImage: function() {
+			fetchChosenImage () {
 				if (this.image) {
-				this.$http.get('/api/media/' + this.image)
-					.success(function(response) {
+					this.$http.get('/api/media/' + this.image).success(response => {
 						this.selectedImage = response;
-					}.bind(this));
+					})
 				}
 			},
 
-			selectImage: function(image, e) {
+			selectImage (image, e) {
 				if (e) e.preventDefault();
 				this.selectedImage = image;
 			},
 
-			isSelected: function(image) {
+			isSelected (image) {
 				return this.selectedImage ? this.selectedImage.id == image.id : false;
 			},
 
-			nextPage: function() {
+			nextPage () {
 				if (this.page < this.lastPage) {
 					this.page++;
 					this.fetchImages();
 				}
 			},
-			prevPage: function() {
+			prevPage () {
 				if(this.page > 1) {
 					this.page--;
 					this.fetchImages();

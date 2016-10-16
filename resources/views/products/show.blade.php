@@ -28,7 +28,7 @@
     @include('products._product_image')
   </div>
 
-<div class="row">
+<div class="row" v-pre>
     <div class="col-sm-8">
         <div class="sections">
 

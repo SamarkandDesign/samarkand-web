@@ -1,28 +1,34 @@
 <template>
 	<div>
 		<div>
-			<label for="{{ name }}" class="sr-only">Content</label>
-			<textarea class="form-control" name="{{ name }}" placeholder="Content (Markdown/HTML)" v-model="value" cols="50" rows="10">
+			<label v-bind:for="name" class="sr-only">Content</label>
+			<textarea class="form-control" v-bind:name="name" placeholder="Content (Markdown/HTML)" v-model="value" cols="50" rows="10">
 			</textarea>
 		</div>
 
 		<div class="panel panel-default top-buffer">                    
-			<div class="panel-body" v-html="value | marked"></div>
+			<div class="panel-body" v-html="parsedContent"></div>
 		</div>
 	</div>
 </template>
 
 <script>
-	module.exports = {
-		props: ['name', 'title', 'value'],
-
-		data: function() {
+	import marked from 'marked'
+	
+	export default {
+		props: ['name', 'title', 'initial'],
+		data () {
 			return {
-				
-			};
+				value: ''
+			}
 		},
-		filters: {
-			marked: require('marked'),
+		mounted () {
+			this.value = this.initial || ''
 		},
+		computed: {
+			parsedContent () {
+				return marked(this.value)
+			}
+		}
 	}
 </script>

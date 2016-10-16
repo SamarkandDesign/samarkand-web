@@ -15,13 +15,10 @@
 </template>
 
 <script>
-import coerceBoolean from '../utils/coerceBoolean'
-
 export default {
     props: {
         createNewAccount: {
             type: Boolean,
-            coerce: coerceBoolean,
             default: false
         }
     }

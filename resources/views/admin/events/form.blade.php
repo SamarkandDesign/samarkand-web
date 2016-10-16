@@ -3,18 +3,23 @@
 <div class="col-md-8">
 	<div class="panel panel-default" id="postContent">
 		<div class="panel-body">
-			<input type="text" class="hidden" name="title" value="{{ old('title') }}">
-			<cr-title-slugger value="{{ old('title', $event->title) }}" slug="{{ old('slug', $event->slug) }}" name="title"></cr-title-slugger>
+{{-- 			<cr-title-slugger value="{{ old('title', $event->title) }}" slug="{{ old('slug', $event->slug) }}" name="title"></cr-title-slugger>
 
 			<div class="form-group top-buffer" id="postContent">
 				<input type="text" name="description" class="hidden">
 				<cr-markarea value="{{ old('description', $event->description) }}" name="description" title="Content"></cr-markarea>
 
-			</div>
+			</div> --}}
+
+			<input type="text" class="hidden" name="title" value="{{ old('title') }}">
+			<cr-title-slugger name="title" initial-value="{{ old('title', $event->title) }}" initial-slug="{{ old('slug', $event->slug) }}"></cr-title-slugger>
+
+			<input type="text" name="description" class="hidden">
+			<cr-markarea initial="{{ old('description', $event->description) }}" name="description" title="Content"></cr-markarea>
 		</div>
 	</div>
 
-	<div class="panel panel-default">
+	<div class="panel panel-default" v-pre>
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-6">
@@ -77,7 +82,7 @@
 	</div>
 </div>
 
-<div class="col-md-4"  id="postMeta">
+<div class="col-md-4" id="postMeta" v-pre>
 	<div class="box box-primary">
 
 		<div class="box-body">

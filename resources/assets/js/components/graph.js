@@ -2,9 +2,7 @@ import Vue from 'vue'
 import Chart from 'chart.js';
 
 export default Vue.extend({
-    template: `<div>
-    <canvas v-el:chart></canvas>
-    </div>`,
+    template: `<div><canvas ref="chart"></canvas></div>`,
     data () {
         return {
             colors: {
@@ -29,7 +27,7 @@ export default Vue.extend({
     },
     methods: {
         render (data) {
-            const chart = new Chart(this.$els.chart, {data:data, type:'bar'})
+            const chart = new Chart(this.$refs.chart, {data: data, type: 'bar'})
         },
         getData () {
             return this.$http.get('/api/data/sales')
@@ -48,7 +46,7 @@ export default Vue.extend({
             return data
         }
     },
-    ready () {
+    mounted () {
         this.getData()
             .then(data => this.processData(data.data) )
             .then(this.render)

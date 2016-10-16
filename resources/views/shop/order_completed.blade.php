@@ -10,9 +10,9 @@ Order Completed
 <p>Your order details are below</p>
 
 <ul>
-<li>Order ID: {{ $order->id }}</li>
-    <li>Date: {{ $order->created_at }}</li>
-    <li>Total: {{ $order->amount }}</li>
+  <li>Order ID: {{ $order->id }}</li>
+  <li>Date: {{ $order->created_at }}</li>
+  <li>Total: {{ $order->amount }}</li>
 </ul>
 
 <h2>Order Summary</h2>
@@ -21,5 +21,7 @@ Order Completed
 @stop
 
 @section('scripts')
-	@include('orders._ga_ecommerce')
+  @if (App::environment(['production', 'testing']))
+	 @include('orders._ga_ecommerce')
+  @endif
 @stop
