@@ -39,6 +39,17 @@ class ShopTest extends TestCase
     }
 
     /** @test **/
+    public function it_validates_the_quantity_when_adding_products_to_the_cart()
+    {
+        $product = factory(Product::class)->create(['stock_qty' => 10]);
+
+        $this->visit($product->url)
+             ->type('', 'quantity')
+             ->press('Add To Cart')
+             ->see('required');
+    }
+
+    /** @test **/
     public function it_cannot_add_a_quantity_of_products_greater_than_whats_in_stock()
     {
         $product = factory(Product::class)->create([
