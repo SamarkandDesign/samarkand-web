@@ -67,38 +67,34 @@
         </section>
     </div>
     <div class="sections">
-
-        @if ($product->inStock())
-        <section>
-            <form action="/cart" method="POST" class="form-">
-                {{ csrf_field() }}
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                     <label for="quantity" class="col-xs-f6 control-label">Quantity</label>
-
-                     <input type="number" name="quantity" value="1" min="1" step="1" max="{{ $product->stock_qty }}" class="form-control">
-
+      @if ($product->inStock())
+      <section>
+          <form action="/cart" method="POST" class="form-">
+              {{ csrf_field() }}
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
+              <div class="row">
+                  <div class="form-group col-sm-6">
+                   <label for="quantity" class="col-xs-f6 control-label">Quantity</label>
+                   <input type="number" name="quantity" value="1" min="1" step="1" max="{{ $product->stock_qty }}" class="form-control" required>
                  </div>
-             </div>
-             <input type="submit" class="btn btn-success btn-block" value="Add To Cart">
-         </form>
-     </section>
-     @endif
+              </div>
+              <input type="submit" class="btn btn-success btn-block" value="Add To Cart">
+          </form>
+      </section>
+      @endif
 
-     <hr>
+      <hr>
 
-     <section class="share-links">
-        <p class="text-center">
-            Share this product
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
-            <a href="https://twitter.com/intent/tweet/?text={{ urlencode($product->name) }}&url={{ $shareUrl }}&via=samarkanddesign" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
-            <a href="https://www.pinterest.com/pin/create/button/?url={{ $shareUrl }}&media={{ urlencode($product->present()->thumbnail_url()) }}&description={{ $product->name }}" target="_blank"><i class="fa fa-fw fa-pinterest"></i></a>
-        </p>
-    </section>
-</div>
-
-</div>
+      <section class="share-links">
+          <p class="text-center">
+              Share this product
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+              <a href="https://twitter.com/intent/tweet/?text={{ urlencode($product->name) }}&url={{ $shareUrl }}&via=samarkanddesign" target="_blank"><i class="fa fa-fw fa-twitter"></i></a>
+              <a href="https://www.pinterest.com/pin/create/button/?url={{ $shareUrl }}&media={{ urlencode($product->present()->thumbnail_url()) }}&description={{ $product->name }}" target="_blank"><i class="fa fa-fw fa-pinterest"></i></a>
+          </p>
+      </section>
+    </div>
+  </div>
 </div>
 <meta itemprop="url" content="{{ Request::url() }}">
 </div>

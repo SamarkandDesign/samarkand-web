@@ -37,7 +37,7 @@ class AddToCartRequest extends Request
         $this->available_quantity = $this->getAvailableQuantity();
 
         return [
-        'quantity' => "integer|between:1,{$this->available_quantity}",
+        'quantity' => "required|integer|between:1,{$this->available_quantity}",
         ];
     }
 
