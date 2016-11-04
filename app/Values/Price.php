@@ -14,7 +14,7 @@ class Price
    */
   public function __construct($value)
   {
-      // DEBT: shouldn't have to do this
+    // DEBT: shouldn't have to do this
     $value = intval($value);
 
     // DEBT: Null object needed here
@@ -22,12 +22,12 @@ class Price
         $value = 0;
     }
 
-      if (!is_int($value)) {
-          throw new \InvalidArgumentException(sprintf('A price must be instantiated with an integer. %s given', gettype($value)));
-      }
+    if (!is_int($value)) {
+        throw new \InvalidArgumentException(sprintf('A price must be instantiated with an integer. %s given', gettype($value)));
+    }
 
-      $this->value = $value;
-      $this->symbol = config('shop.currency_symbol');
+    $this->value = $value;
+    $this->symbol = config('shop.currency_symbol');
   }
 
   /**
@@ -50,8 +50,8 @@ class Price
       return $this->value;
   }
 
-    public function asDecimal()
-    {
-        return $this->value / 100;
-    }
+  public function asDecimal()
+  {
+      return $this->value / 100;
+  }
 }

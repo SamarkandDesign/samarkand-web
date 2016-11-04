@@ -33,7 +33,12 @@
     <tfoot>
         <tr>
             <th class="text-right">Total</th>
-            <th>{{ $order->amount }}</th>
+            <th>
+            {{ $order->amount }}
+            @if(config('shop.vat_rate'))
+                <small>(Includes {{ $order->vatAmount }} VAT)</small>
+            @endif
+            </th>
         </tr>
     </tfoot>
 </table>

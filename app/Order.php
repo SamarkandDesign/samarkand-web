@@ -156,6 +156,11 @@ class Order extends Model
         return new Price($amount);
     }
 
+    public function getVatAmountAttribute()
+    {
+        return new Price($this->amount->value() * (config('shop.vat_rate') / 100));
+    }
+
     /**
      * Get the Order Item that holds the shipping method for an order.
      *

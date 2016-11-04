@@ -35,7 +35,7 @@ class ProductMailer extends Mailer
      */
     public function sendLowStockNotificationFor(Product $product)
     {
-        $subject = 'Product stock low_stock: '.$product->sku;
+        $subject = 'Product Stock Low: '.$product->sku;
         $view = 'emails.products.low_stock';
 
         $admins = User::shopAdmins()->get();

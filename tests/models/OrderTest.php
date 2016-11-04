@@ -93,14 +93,21 @@ class OrderTest extends TestCase
     /** @test **/
     public function it_creates_an_order_with_items()
     {
-        $order_items = factory(OrderItem::class, 3)->create();
-
         $order = factory(Order::class)->create();
-
-        $order->order_items()->saveMany($order_items);
+        $order_items = factory(OrderItem::class, 3)->create(['order_id' => $order->id]);
 
         $this->assertCount(3, $order->order_items);
         $this->assertInstanceOf(User::class, $order->customer);
+    }
+
+    /** @test **/
+    public function it_gets_the_vat_amount_of_an_order()
+    {
+        $order = factory(Order::class)->create();
+        $item = factory(OrderItem::class)->create(['order_id' => $order->id]);
+        $order = $order->refreshAmount();
+
+        $this->assertEquals($order->vatAmount->value(),  intval($order->amount->value() * (config('shop.vat_rate') / 100)));
     }
 
     /** @test **/
