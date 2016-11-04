@@ -107,7 +107,7 @@ class OrderTest extends TestCase
         $item = factory(OrderItem::class)->create(['order_id' => $order->id]);
         $order = $order->refreshAmount();
 
-        $this->assertEquals($order->vatAmount->value(),  intval($order->amount->value() * (config('shop.vat_rate') / 100)));
+        $this->assertEquals($order->vatAmount->value(), intval($order->amount->value() * (config('shop.vat_rate') / 100)));
     }
 
     /** @test **/

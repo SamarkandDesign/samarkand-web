@@ -57,9 +57,9 @@ class DatabaseSeeder extends Seeder
   protected function cleanDatabase()
   {
       $this->disableForeignKeyCheck();
-    foreach ($this->tables as $table) {
-      DB::table($table)->truncate();
-    }
+      foreach ($this->tables as $table) {
+          DB::table($table)->truncate();
+      }
     // DB::statement('TRUNCATE TABLE '.implode(',', $this->tables).' CASCADE;');
       $this->enableForeignKeyCheck();
   }
