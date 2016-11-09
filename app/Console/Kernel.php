@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\CancelAbandonedOrders::class,
         \App\Console\Commands\RefreshSearchIndex::class,
         \App\Console\Commands\InitialiseApp::class,
+        \App\Console\Commands\CreateXeroInvoice::class,
     ];
 
     /**

@@ -41,4 +41,8 @@ return [
         'browser_key'            => env('GOOGLE_BROWSER_KEY'),
     ],
 
+    'xero' => [
+        'key' => env('XERO_KEY'),
+        'secret' => env('XERO_SECRET'),
+    ]
 ];
