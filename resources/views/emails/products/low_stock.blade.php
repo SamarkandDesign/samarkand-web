@@ -1,7 +1,5 @@
 @extends('emails.layout')
 
 @section('content')
-<p>Product stock low: {{ $product->sku }}</p>
-
-<p><a href="{{ url($product->url) }}">{{ $product->name }}</a></p>
+<p>Product stock low: <a href="{{ url($product->url) }}">{{ $product->name }}</a> ({{ $product->sku }}) - {{ $product->stock_qty }} left</p>
 @stop
