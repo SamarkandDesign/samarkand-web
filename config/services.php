@@ -42,7 +42,7 @@ return [
     ],
 
     'xero' => [
-        'key' => env('XERO_KEY'),
+        'key'    => env('XERO_KEY'),
         'secret' => env('XERO_SECRET'),
-    ]
+    ],
 ];

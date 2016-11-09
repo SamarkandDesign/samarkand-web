@@ -5,8 +5,6 @@ namespace App\Console\Commands;
 use App\Order;
 use App\OrderItem;
 use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use Illuminate\Console\Command;
 use XeroPHP\Application\PrivateApplication;
 use XeroPHP\Models\Accounting\Contact;
@@ -70,7 +68,7 @@ class CreateXeroInvoice extends Command
         $contact = new Contact($this->client);
         $contact->setName($order->user->name)
                 ->setEmailAddress($order->user->email);
-        
+
         // get the line item for the order
         $itemToUse = $order->items->first();
 
@@ -92,6 +90,4 @@ class CreateXeroInvoice extends Command
                 ->save();
         dd($invoice);
     }
-
-
 }
