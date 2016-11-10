@@ -100,10 +100,11 @@ class AppServiceProvider extends ServiceProvider
                     'consumer_key'     => config('services.xero.key'),
                     'consumer_secret'  => config('services.xero.secret'),
                     'rsa_private_key'  => sprintf('file://%s', storage_path('certs/xero_private.pem')),
-                ]
+                ],
             ];
 
             $xero = new \XeroPHP\Application\PrivateApplication($config);
+
             return new \App\Services\Invoicing\XeroInvoiceCreator($xero);
         });
     }
