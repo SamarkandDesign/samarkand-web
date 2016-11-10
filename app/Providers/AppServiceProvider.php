@@ -92,5 +92,19 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->app->make(\App\Services\Geocoder\GoogleGeocoder::class);
         });
+
+        $this->app->singleton(\App\Services\Invoicing\InvoiceCreator::class, function () {
+            $config = [
+                'oauth' => [
+                    'callback'         => 'http://localhost/',
+                    'consumer_key'     => config('services.xero.key'),
+                    'consumer_secret'  => config('services.xero.secret'),
+                    'rsa_private_key'  => sprintf('file://%s', storage_path('certs/xero_private.pem')),
+                ]
+            ];
+
+            $xero = new \XeroPHP\Application\PrivateApplication($config);
+            return new \App\Services\Invoicing\XeroInvoiceCreator($xero);
+        });
     }
 }
