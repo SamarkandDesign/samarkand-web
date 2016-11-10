@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Services\Invoicing\InvoiceCreator;
 use Illuminate\Console\Command;
 
-
 class CreateXeroInvoice extends Command
 {
     /**
