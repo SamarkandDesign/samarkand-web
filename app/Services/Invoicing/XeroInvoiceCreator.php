@@ -30,9 +30,9 @@ class XeroInvoiceCreator implements InvoiceCreator
     /**
      * Create an invoice for an order.
      *
-     * @param  Order  $order
+     * @param Order $order
      *
-     * @return string        The ID of the saved invoice
+     * @return string The ID of the saved invoice
      */
     public function createInvoice(Order $order)
     {
@@ -71,14 +71,14 @@ class XeroInvoiceCreator implements InvoiceCreator
 
     protected function getContact(Order $order)
     {
-      return (new Contact())->setName($order->user->name)
+        return (new Contact())->setName($order->user->name)
                             ->setEmailAddress($order->user->email)
                             ->addAddress($this->getAddress($order));
     }
 
     protected function getAddress(Order $order)
     {
-      return (new Address())->setAddressType('STREET')
+        return (new Address())->setAddressType('STREET')
                             ->setAddressLine1($order->billing_address->line_1)
                             ->setAddressLine2($order->billing_address->line_2)
                             ->setAddressLine3($order->billing_address->line_3)
@@ -90,7 +90,6 @@ class XeroInvoiceCreator implements InvoiceCreator
     protected function getLineItems($order)
     {
         return $order->items->map(function ($item) {
-
             $code = $item->orderable ? $item->orderable->sku : '';
 
             return (new LineItem())->setDescription($item->description)
@@ -101,21 +100,24 @@ class XeroInvoiceCreator implements InvoiceCreator
     }
 
     /**
-     * Create the corresponding payment for the invoice
-     * @param  Order   $order   
-     * @param  Invoice $invoice 
-     * @return Payment           
+     * Create the corresponding payment for the invoice.
+     *
+     * @param Order   $order
+     * @param Invoice $invoice
+     *
+     * @return Payment
      */
     protected function createPayment(Order $order, Invoice $invoice)
     {
-      $account = (new Account())->setCode($this->paymentAccountCode);
+        $account = (new Account())->setCode($this->paymentAccountCode);
 
-      $payment = (new Payment($this->xero))->setInvoice($invoice)
+        $payment = (new Payment($this->xero))->setInvoice($invoice)
                                            ->setAccount($account)
                                            ->setDate($order->updated_at)
                                            ->setAmount($order->amount->asDecimal())
                                            ->setReference($order->payment_id);
-      $payment->save();
-      return $payment;
+        $payment->save();
+
+        return $payment;
     }
 }
