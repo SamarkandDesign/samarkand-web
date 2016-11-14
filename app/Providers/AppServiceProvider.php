@@ -100,7 +100,7 @@ class AppServiceProvider extends ServiceProvider
                     'consumer_key'     => config('services.xero.key'),
                     'consumer_secret'  => config('services.xero.secret'),
                     'rsa_private_key'  => config('services.xero.rsa_key'),
-                ]
+                ],
 
             ];
 
