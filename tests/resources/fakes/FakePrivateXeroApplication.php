@@ -13,6 +13,8 @@ class FakePrivateXeroApplication extends PrivateApplication
 
     public function save(Object $object, $replace_data = false)
     {
-        $object->setInvoiceId(self::INVOICE_ID);
+        if (method_exists($object, 'setInvoiceId')) {
+          $object->setInvoiceId(self::INVOICE_ID);
+        }
     }
 }

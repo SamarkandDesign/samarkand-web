@@ -29,6 +29,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\MarkOrderPaid',
             'App\Listeners\SendCustomerOrderEmail',
             'App\Listeners\SendAdminOrderEmail',
+            'App\Listeners\CreateOrderInvoice',
         ],
         'App\Events\ProductStockChanged' => [
             'App\Listeners\EmailStockNotification',
