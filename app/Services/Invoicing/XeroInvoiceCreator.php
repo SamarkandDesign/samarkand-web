@@ -27,6 +27,11 @@ class XeroInvoiceCreator implements InvoiceCreator
         $this->paymentAccountCode = config('services.xero.payment_account');
     }
 
+    public function getXeroClient()
+    {
+      return $this->xero;
+    }
+
     /**
      * Create an invoice for an order.
      *
