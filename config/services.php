@@ -42,7 +42,9 @@ return [
     ],
 
     'xero' => [
-        'key'    => env('XERO_KEY'),
-        'secret' => env('XERO_SECRET'),
+        'key'     => env('XERO_KEY'),
+        'secret'  => env('XERO_SECRET'),
+        // The contents of the .pem file should be base64 encoded and stored as an environment variable
+        'rsa_key' => base64_decode(env('XERO_RSA_KEY')),
     ],
 ];

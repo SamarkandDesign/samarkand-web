@@ -99,7 +99,7 @@ class AppServiceProvider extends ServiceProvider
                     'callback'         => 'http://localhost/',
                     'consumer_key'     => config('services.xero.key'),
                     'consumer_secret'  => config('services.xero.secret'),
-                    'rsa_private_key'  => sprintf('file://%s', storage_path('certs/xero_private.pem')),
+                    'rsa_private_key'  => config('services.xero.rsa_key'),
                 ]
             ];
 

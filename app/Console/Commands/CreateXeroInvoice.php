@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\CreateInvoiceForOrder;
 use App\Services\Invoicing\InvoiceCreator;
 use Illuminate\Console\Command;
 
@@ -13,7 +14,7 @@ class CreateXeroInvoice extends Command
      *
      * @var string
      */
-    protected $signature = 'xero:create-invoice';
+    protected $signature = 'xero:create-invoice {order_id}';
 
     /**
      * The console command description.
@@ -42,8 +43,8 @@ class CreateXeroInvoice extends Command
      */
     public function handle()
     {
-        $order = \App\Order::where('status', 'completed')->get()->first();
-        $result = $this->invoiceCreator->createInvoice($order);
-        dd($result);
+        $order = \App\Order::findOrFail($this->argument('order_id'));
+        $result = dispatch(new CreateInvoiceForOrder($order));
+        $this->info('Invoice created');
     }
 }

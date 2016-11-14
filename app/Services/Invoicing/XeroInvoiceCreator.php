@@ -21,9 +21,17 @@ class XeroInvoiceCreator implements InvoiceCreator {
     $this->xero = $xero;
   }
 
-
+  /**
+   * Create an invoice for an order
+   * @param  Order  $order 
+   * @return String        The ID of the saved invoice
+   */
   public function createInvoice(Order $order)
   {
+    if (!is_null($order->invoice_id)) {
+      throw new \Exception(sprintf('The order has already an invoice generated for it ("%s")', $order->invoice_id));
+    }
+
     $invoice = $this->buildInvoice($order);
     $invoice->save();
 
