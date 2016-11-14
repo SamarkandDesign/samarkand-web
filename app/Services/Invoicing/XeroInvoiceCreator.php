@@ -29,7 +29,7 @@ class XeroInvoiceCreator implements InvoiceCreator
 
     public function getXeroClient()
     {
-      return $this->xero;
+        return $this->xero;
     }
 
     /**

@@ -2,11 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\CreateInvoiceForOrder;
 use App\Services\Invoicing\InvoiceCreator;
-use App\Services\Invoicing\XeroInvoiceCreator;
 use Illuminate\Console\Command;
-
 
 class CheckXeroAccess extends Command
 {
@@ -39,7 +36,7 @@ class CheckXeroAccess extends Command
 
     /**
      * Execute the console command.
-     * If no exception is thrown, we know we have proper access to our xero account
+     * If no exception is thrown, we know we have proper access to our xero account.
      *
      * @return mixed
      */
