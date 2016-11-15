@@ -41,4 +41,14 @@ return [
         'browser_key'            => env('GOOGLE_BROWSER_KEY'),
     ],
 
+    'xero' => [
+        'key'     => env('XERO_KEY'),
+        'secret'  => env('XERO_SECRET'),
+        // The contents of the .pem file should be base64 encoded and stored as an environment variable
+        'rsa_key' => base64_decode(env('XERO_RSA_KEY')),
+
+        'invoice_account' => env('XERO_INVOICE_ACCOUNT', '200'),
+        'payment_account' => env('XERO_PAYMENT_ACCOUNT', '090'),
+
+    ],
 ];
