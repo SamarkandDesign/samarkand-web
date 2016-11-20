@@ -21,7 +21,6 @@ trait CreatesOrders
         $order_item = factory('App\OrderItem')->create(['order_id' => $this->order->id]);
 
         $this->order->amount = $order_item->price_paid->value();
-        $this->order->invoice_id = str_random(10);
         $this->order->save();
 
         return $this->order;
