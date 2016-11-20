@@ -151,6 +151,7 @@ return [
         'App\Providers\AuthServiceProvider',
         'App\Providers\CountriesServiceProvider',
         'App\Providers\CacheServiceProvider',
+        'App\Providers\XeroServiceProvider',
 
         /*
          * 3rd Party Service Providers
