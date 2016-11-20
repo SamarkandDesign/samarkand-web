@@ -2,7 +2,6 @@
 
 namespace Integration;
 
-use App\Events\OrderWasPaid;
 use App\Jobs\CreateInvoiceForOrder;
 use App\OrderNote;
 use App\User;
