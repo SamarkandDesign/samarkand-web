@@ -1,6 +1,6 @@
 <?php
 
-namespace integration;
+namespace Integration;
 
 use App\User;
 use MailThief\Testing\InteractsWithMail;

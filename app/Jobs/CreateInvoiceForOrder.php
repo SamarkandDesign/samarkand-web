@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Order;
+use App\OrderNote;
 use App\Services\Invoicing\InvoiceCreator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,5 +36,12 @@ class CreateInvoiceForOrder implements ShouldQueue
         $invoiceId = $invoiceCreator->createInvoice($this->order);
 
         $this->order->update(['invoice_id' => $invoiceId]);
+
+        OrderNote::create([
+            'order_id' => $this->order->id,
+            'key'      => 'invoice_created',
+            'body'     => sprintf('Invoice created with id "%s"', $invoiceId),
+            'user_id'  => null,
+            ]);
     }
 }

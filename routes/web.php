@@ -45,6 +45,7 @@ Route::group(['prefix' => 'account'], function () {
     Route::patch('{user}', ['uses' => 'AccountsController@update', 'as' => 'accounts.update']);
 
     Route::get('orders/{order}', ['uses' => 'OrdersController@show', 'as' => 'orders.show']);
+    Route::get('orders/{order}/invoice', ['uses' => 'InvoicesController@show', 'as' => 'orders.invoices.show']);
 
     Route::group(['prefix' => 'addresses'], function () {
         Route::get('/', ['uses' => 'AddressesController@index', 'as' => 'addresses.index']);

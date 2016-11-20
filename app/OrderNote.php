@@ -35,6 +35,7 @@ class OrderNote extends Model
             'payment_completed' => 'credit-card',
             'payment_failed'    => 'times',
             'status_changed'    => 'flag',
+            'invoice_created'   => 'file-text-o',
         ];
 
         return array_get($icons, $this->key, 'envelope');

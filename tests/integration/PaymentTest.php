@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use App\Jobs\CreateInvoiceForOrder;
 use App\OrderNote;
 use App\User;
 use MailThief\Testing\InteractsWithMail;
@@ -14,6 +15,8 @@ class PaymentTest extends TestCase
     /** @test **/
     public function it_completes_an_order_upon_payment()
     {
+        $this->expectsJobs(CreateInvoiceForOrder::class);
+
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
         $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
 
@@ -28,6 +31,7 @@ class PaymentTest extends TestCase
             'stripe_token' => $token,
             '_token'       => csrf_token(),
             ]);
+
 
         $this->assertRedirectedTo('order-completed');
 
