@@ -16,6 +16,7 @@ class InvoiceTest extends TestCase
 
     // Given I am logged in and have placed an order
     $order = $this->createOrder();
+      $order->update(['invoice_id' => str_random(10)]);
       $this->be($order->customer);
 
     // I can view the order page and see a link for the invoice
@@ -36,5 +37,14 @@ class InvoiceTest extends TestCase
 
       $this->get("/account/orders/{$order->id}/invoice");
       $this->assertResponseOk();
+  }
+
+  /** @test **/
+  public function it_returns_not_found_if_no_invoice_id_exists()
+  {
+      $order = $this->createOrder();
+      $this->be($order->customer);
+      $this->get("/account/orders/{$order->id}/invoice");
+      $this->assertResponseStatus(404);
   }
 }
