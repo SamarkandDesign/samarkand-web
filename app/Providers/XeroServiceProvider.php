@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Services\Invoicing\InvoiceCreator;
 use App\Services\Invoicing\XeroInvoiceCreator;
+use Illuminate\Support\ServiceProvider;
 use XeroPHP\Application\PrivateApplication;
 
-class XeroServiceProvider  extends ServiceProvider
+class XeroServiceProvider extends ServiceProvider
 {
-  public function register()
-  {
-    // Register the private xero application
+    public function register()
+    {
+        // Register the private xero application
     $this->app->singleton(PrivateApplication::class, function () {
-      $config = [
+        $config = [
         'oauth' => [
             'callback'         => 'http://localhost/',
             'consumer_key'     => config('services.xero.key'),
@@ -22,9 +22,9 @@ class XeroServiceProvider  extends ServiceProvider
         ],
       ];
 
-      return new PrivateApplication($config);
+        return new PrivateApplication($config);
     });
 
-    $this->app->singleton(InvoiceCreator::class, XeroInvoiceCreator::class);
-  }
+        $this->app->singleton(InvoiceCreator::class, XeroInvoiceCreator::class);
+    }
 }
