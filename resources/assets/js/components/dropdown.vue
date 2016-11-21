@@ -4,29 +4,32 @@
             <strong><slot></slot></strong>
             <span class="caret"></span>
         </a>
-        <div v-show="active" transition="fade">
+        <transition name="fade">
+        <div v-show="active">
             <slot name="dropdown-menu"></slot>
         </div>
+        </transition>
     </li>
 
 </template>
 
 <script>
 export default {
-    props: {
-        active: {
-            type: Boolean,
-            default: false
+    data () {
+        return {
+            active: false
         }
     },
-    ready () {
-        var el = this.$el;
-        window.addEventListener('click', e => {
-            if (!el.contains(e.target)) {
-                this.active = false;
-            }
-        });
-    },
+    mounted () {
+        this.$nextTick(() => {
+            const el = this.$el;
+            window.addEventListener('click', e => {
+                if (!el.contains(e.target)) {
+                    this.active = false;
+                }
+            })
+        })
+    }
 }
 </script>
 

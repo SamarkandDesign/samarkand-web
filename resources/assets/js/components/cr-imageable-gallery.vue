@@ -16,12 +16,12 @@
 				<div  class="col-md-8">
 					<div class="form-group">
 						<label>URL: </label>
-						<input type="text" class="form-control input-sm" readonly value="{{ images[selectedImage].url }}">
+						<input type="text" class="form-control input-sm" readonly v-bind:value="images[selectedImage].url">
 					</div>
 
 					<div class="form-group">
 						<label>Thumbnail: </label>
-						<input type="text" class="form-control input-sm" readonly value="{{ images[selectedImage].thumbnail_url }}">
+						<input type="text" class="form-control input-sm" readonly v-bind:value="images[selectedImage].thumbnail_url">
 					</div>
 					<div class="row">
 						<div class="form-group col-sm-9">
@@ -56,9 +56,9 @@
 			<span v-show="imagesLoading"><i class="fa fa-circle-o-notch fa-spin"></i> Loading images...</span>
 
 			<div class="row" v-show="hasImages">
-			    <div class="col-md-3 col-sm-4 col-xs-6 top-buffer" v-for="image in images">
-			    	<a href="#" class="thumbnail"  @click.prevent="selectImage($index)">
-					<img v-bind:src="image.thumbnail_url" alt="" class="img-responsive selectable" v-bind:class="{'selected': isSelected(image.id)}">
+			    <div class="col-md-3 col-sm-4 col-xs-6 top-buffer" v-for="(image, index) in images">
+			    	<a href="#" class="thumbnail"  @click.prevent="selectImage(index)">
+					<img v-bind:src="image.thumbnail_url" class="img-responsive selectable" v-bind:class="{'selected': isSelected(image.id)}">
 					</a>
 				</div>
 			</div>
@@ -71,7 +71,9 @@
 
 
 <script>
-	module.exports = {
+	import eventHub from '../eventHub'
+
+	export default {
 		props: ['imageableUrl'],
 
 		data () {
@@ -81,23 +83,28 @@
 				imagesLoading: false,
 				imageUpdating: false,
 				imageUpdatedMessage: false,
-                customProperties: {
-                    title: '',
-                    caption: ''
-                }
+        customProperties: {
+            title: '',
+            caption: ''
+        }
 			}
 		},
 
 		computed: {
-			hasImages ()
-			{
+			hasImages () {
 				return this.images.length > 0;
 			}
 		},
 
-		ready ()
-		{
+		mounted () {
 			this.fetchImages();
+		},
+
+		created () {
+			eventHub.$on('file-uploaded', () => {
+				console.info('the file file-uploaded event was fired')
+				this.fetchImages()
+			})
 		},
 
 		methods: {
@@ -111,23 +118,21 @@
 
 			},
 
-			updateImage (e) {
-                var selectedImage = this.selectedImage;
+			updateImage () {
+        let selectedImage = this.selectedImage;
 
 				this.imageUpdating = true;
-                this.images[selectedImage].custom_properties = this.customProperties;
-				this.$http.patch('/api/media/' + this.images[selectedImage].id, this.images[selectedImage])
-				.then(response => {
-                    this.images[selectedImage] = response.data;
+        this.images[selectedImage].custom_properties = this.customProperties;
+				this.$http.patch('/api/media/' + this.images[selectedImage].id, this.images[selectedImage]).then(response => {
+          this.images[selectedImage] = response.data;
 					this.imageUpdating = false;
 					this.showMessage('Done');
 				});
 			},
 
-			deleteImage (e)
-			{
+			deleteImage () {
 				if (confirm("Are you sure?")) {
-                    var selectedImage = this.selectedImage;
+          let selectedImage = this.selectedImage;
 
 					this.$http.delete('/api/media/' + this.images[selectedImage].id).then(response => {
 						this.showMessage(response.data);
@@ -144,8 +149,8 @@
 
 			selectImage (index) {
 				this.selectedImage = index;
-                this.customProperties.title = this.images[index].custom_properties.title || '';
-                this.customProperties.caption = this.images[index].custom_properties.caption || '';
+        this.customProperties.title = this.images[index].custom_properties.title || '';
+        this.customProperties.caption = this.images[index].custom_properties.caption || '';
 			},
 
 			isSelected (id) {
@@ -155,12 +160,12 @@
 			url (image, thumbnail) {
 				thumbnail = thumbnail || false;
 
-				var url = '/images/' + image.id;
+				let url = '/images/' + image.id;
 				if (thumbnail) {
-					url += '?thumbnail=1';
+					return url + '?thumbnail=1';
 				}
 				return url;
 			}
 		}
-	};
+	}
 </script>

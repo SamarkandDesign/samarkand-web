@@ -38,7 +38,6 @@
 
 @section('content')
 
-
   <section class="shop-filters row">
     <div class="col-md-6">
       @include('shop._product_search')
@@ -51,7 +50,7 @@
 
   </section>
 
-  <section class="products">
+  <section class="products" v-pre>
     @if(Request::has('query'))
       <h2>Results for "{{ Request::get('query') }}"</h2>
     @elseif($product_category->id)

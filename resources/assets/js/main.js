@@ -1,7 +1,7 @@
 // Browserify Entry Point
 
 import Vue from 'vue'
-import VueValidator from 'vue-validator'
+// import VueValidator from 'vue-validator'
 
 // Components
 import dropdown from './components/dropdown.vue'
@@ -16,15 +16,17 @@ import {ProductSearchVisitor as productSearch} from './components/product-search
 import googleMap from './components/google-map.vue'
 import collapser from './components/collapser.vue'
 
-Vue.use(VueValidator)
+// Vue.use(VueValidator)
 
-global.vm = new Vue({
+import eventHub from './eventHub'
+
+window.vm = new Vue({
     el: '#app',
     components: { dropdown, carousel, slider, addressForm, customerForm, cardForm, navbar, alert, productSearch, googleMap, collapser },
     methods: {
     	initMaps () {
     		console.log('Maps loading for the VM')
-    		this.$broadcast('MapsApiLoaded')
+    		eventHub.$emit('maps-api-loaded')
     	}
     }
 })

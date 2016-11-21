@@ -4,12 +4,12 @@
     <div class="input-group">
       <input type="search"
       name="query"
-      value="{{ query }}"
+      v-bind:value="query"
       class="form-control"
       placeholder="Search Products"
       v-model="query"
       autocomplete="off"
-      @keyup="searchProducts | debounce 350"
+      @keyup="searchProducts"
       >
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
@@ -27,10 +27,11 @@
 
     <button type="button" class="close clear-hits" aria-label="Close" @click.prevent="query = ''"><span aria-hidden="true">&times;</span></button>
 
-      <div v-for="hit in hits" class="product-search-result" transition="fade">
-        <a href="/admin/products/{{ hit.id }}/edit" class="media">
+      <transition name="fade">
+      <div v-for="hit in hits" class="product-search-result">
+        <a v-bind:href="`/admin/products/${hit.id}/edit`" class="media">
           <div class="media-left image-search-thumb">
-            <img :src="hit.thumbnail" clas="img-responsive" alt="" />
+            <img :src="hit.thumbnail" clas="img-responsive" />
           </div>
           
           <div class="media-body">
@@ -41,7 +42,7 @@
             </p>
             <div class="text-small text-muted">
               <i class="fa fa-fw fa-map-marker"></i> {{ hit.location }} | 
-              <i class="fa fa-fw {{ hit.listed ? 'fa-eye' : 'fa-eye-slash' }}"></i> | 
+              <i class="fa fa-fw" v-bind:class="hit.listed ? 'fa-eye' : 'fa-eye-slash'"></i> | 
               Stock: {{ hit.stock_qty }}
             </div>
 
@@ -49,6 +50,7 @@
           </div>
         </a>
       </div>
+      </transition>
 
       <div class="alogia-logo">
         Powered by <a href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link" target="_blank"><img src="/img/Algolia_logo_bg-white.svg" alt="Powered by Algolia" /></a>

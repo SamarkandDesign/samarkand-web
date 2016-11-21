@@ -1,9 +1,9 @@
 <template>
-    <validator name="cardValidator">
-        <form v-el:form action="{{ route }}" method="POST" novalidate>
+    <div>
+        <form ref="form" v-bind:action="route" method="POST" novalidate>
             <slot></slot>
             <div class="row">
-                <div class="form-group col-md-6 col-xs-12" v-bind:class="{ 'has-error': $cardValidator.cardnumber.touched && $cardValidator.cardnumber.invalid, 'has-success': $cardValidator.cardnumber.valid }">
+                <div class="form-group col-md-6 col-xs-12" v-bind:class="{'has-error': (formSubmitted && !cardIsValid), 'has-success': cardIsValid}">
                     <label for="cc-number" class="control-label">Card number</label>
                     <div class="input-group">
                         <input
@@ -12,15 +12,14 @@
                         class="form-control cc-number"
                         autocomplete="cc-number"
                         placeholder="•••• •••• •••• ••••"
-                        v-validate:cardNumber="['required', 'card']"
                         v-model="card.number"
                         required
-                        v-el:card
+                        ref="card"
                         >
-                        <span class="input-group-addon cc-icon-addon"><i class="cc-icon {{ cardType }}" title="{{ cardType }}"></i></span>
+                        <span class="input-group-addon cc-icon-addon"><i class="cc-icon" v-bind:class="cardType" v-bind:title="cardType"></i></span>
                     </div>
                 </div>
-                <div class="form-group col-md-3 col-xs-6" v-bind:class="{ 'has-error': $cardValidator.exp.touched && $cardValidator.exp.invalid, 'has-success': $cardValidator.exp.valid }">
+                <div class="form-group col-md-3 col-xs-6" v-bind:class="{'has-error': (formSubmitted && !expiryIsValid), 'has-success': expiryIsValid}">
                     <label for="cc-exp" class="control-label">Card expiry (MM/YY)</label>
                     <input
                     id="cc-exp"
@@ -28,19 +27,17 @@
                     class="form-control cc-exp"
                     autocomplete="cc-exp"
                     placeholder="•• / ••"
-                    v-validate:exp="['required', 'expiry']"
                     v-model="card.exp"
                     required
-                    v-el:exp
+                    ref="exp"
                     >
                 </div>
 
-                <div class="form-group col-md-3 col-xs-6" v-bind:class="{'has-error': $cardValidator.cvc.touched && $cardValidator.cvc.invalid, 'has-success': $cardValidator.cvc.valid }">
+                <div class="form-group col-md-3 col-xs-6" v-bind:class="{'has-error': (formSubmitted && !cvcIsValid), 'has-success': cvcIsValid}">
                     <label for="cc-cvc" class="control-label">
                         Security Code (CVV)
                         <tooltip message="3 digits on back. 4 digits on front of American Express."></tooltip>
                     </label>
-
 
                     <input
                     id="cc-cvc"
@@ -48,20 +45,21 @@
                     class="form-control cc-cvc"
                     autocomplete="off"
                     placeholder="•••"
-                    v-validate:cvc="['required', 'cvc']"
                     v-model="card.cvc"
                     required
-                    v-el:cvc
+                    ref="cvc"
                     >
                 </div>
 
             </div><!-- /row -->
             
-            <p v-show="error_message" transition="fade" class="text-danger">{{ error_message }}</p>
+            <transition name="fade">
+                <p v-show="error_message" class="text-danger">{{ error_message }}</p>
+            </transition>
 
             <div class="row">
                 <div class="col-sm-4 col-md-2 col-sm-push-8 col-md-push-10">
-                    <button @click.prevent="getStripeToken" class="btn btn-lg btn-success btn-block" :disabled="isLoading">
+                    <button @click.prevent="submitForm" class="btn btn-lg btn-success btn-block" :disabled="isLoading">
                       <span v-show="isLoading"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading...</span>
                       <span v-show="!isLoading">Place Order</span>
                   </button>
@@ -70,10 +68,8 @@
                 <p class="top-buffer"><i class="fa fa-lock"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>
             </div>
         </div>
-
-
     </form>
-</validator>
+</div>
 </template>
 
 <script>
@@ -96,16 +92,23 @@
                 },
                 error_message: null,
                 isLoading: false,
+                formSubmitted: false,
             }
         },
-        ready () {
-            payform.cardNumberInput(this.$els.card)
-            payform.expiryInput(this.$els.exp)
-            payform.cvcInput(this.$els.cvc)
+        mounted () {
+            this.$nextTick(() => {
+                payform.cardNumberInput(this.$refs.card)
+                payform.expiryInput(this.$refs.exp)
+                payform.cvcInput(this.$refs.cvc)
+            })
 
             window.Stripe.setPublishableKey(this.stripeKey);
         },
         methods: {
+            submitForm () {
+                this.formSubmitted = true
+                this.getStripeToken()
+            },
             getStripeToken () {
                 this.isLoading = true;
 
@@ -127,50 +130,49 @@
                 if (response.error) {
                     this.error_message = response.error.message;
                     this.isLoading = false;
-
                 } else {
-                // response contains id and card, which contains additional card details
-                let form = this.$els.form;
+                    let form = this.$refs.form;
 
-                let input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'stripe_token';
-                input.value = response.id;
+                    let input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'stripe_token';
+                    input.value = response.id;
 
-                form.appendChild(input);
-                form.submit();
+                    form.appendChild(input);
+                    form.submit();
+                }
+            },
+            handleStripeError (e) {
+                this.isLoading = false;
+                if (e.message.indexOf("expiration date") > -1) {
+                    this.error_message = "Your expiry date looks wrong. Please provide it in MM/YY format.";
+                    return;
+                }
+                this.error_message = "Something was wrong with your input";
             }
         },
-        handleStripeError (e) {
-            this.isLoading = false;
-            if (e.message.indexOf("expiration date") > -1) {
-                this.error_message = "Your expiry date looks wrong. Please provide it in MM/YY format.";
-                return;
+        computed: {
+            expiryString () {
+                return payform.parseCardExpiry(this.card.exp)
+            },
+            cardType () {
+                return payform.parseCardType(this.card.number) || 'none'
+            },
+            cardIsValid () {
+                return payform.validateCardNumber(this.card.number)
+            },
+            cvcIsValid () {
+                return payform.validateCardCVC(this.card.cvc, this.cardType)
+            },
+            expiryIsValid () {
+                return payform.validateCardExpiry(this.expiryString)
+            },
+            formIsValid () {
+                return this.cardIsValid && this.cvcIsValid && this.expiryIsValid
             }
-            this.error_message = "Something was wrong with your input";
-        }
-    },
-    computed: {
-        expiryString () {
-            return payform.parseCardExpiry(this.card.exp)
         },
-        cardType () {
-            return payform.parseCardType(this.card.number) || 'none'
-        }
-    },
-    validators: {
-        card (number) {
-            return payform.validateCardNumber(number)
-        },
-        cvc (cvc) {
-            return payform.validateCardCVC(cvc, this.cardType);
-        },
-        expiry (expiry) {
-            return payform.validateCardExpiry(payform.parseCardExpiry(expiry))
-        }
-    },
-    components: {tooltip}
-}
+        components: {tooltip}
+    }
 </script>
 
 <style scoped>
@@ -191,7 +193,6 @@
     .cc-icon.amex {
         background-position: 0 40%;
     }
-
     .cc-icon.visa {
         background-position: 0 0;
     }

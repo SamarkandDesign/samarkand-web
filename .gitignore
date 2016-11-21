@@ -11,5 +11,8 @@ _ide_helper.php
 npm-debug.log
 npm-debug.log.*
 /public/uploads
+/public/build
+/public/js
+/public/css
 tags
 .tags_swap

@@ -14,15 +14,15 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 	.tooltip-container {
 		display: inline-block;
 		position: relative;
 
-		&:hover > .tooltip {
-			left: 50%;
-			opacity: 1;
-		}
+	}
+	.tooltip-container:hover > .tooltip {
+		left: 50%;
+		opacity: 1;
 	}
 
 	.tooltip {
@@ -44,19 +44,19 @@
 		opacity: 0;
 		transition: opacity .3s ease;
 
-		.tooltip-arrow {
-			position: absolute;
-			bottom: -5px;
-			left: 50%;
-			margin-left: -5px;
-			width: 0;
-			border-top: 5px solid #000;
-			border-top: 5px solid hsla(0, 0%, 20%, 0.9);
-			border-right: 5px solid transparent;
-			border-left: 5px solid transparent;
-			font-size: 0;
-			line-height: 0;
-		}
+	}
+	.tooltip-arrow {
+		position: absolute;
+		bottom: -5px;
+		left: 50%;
+		margin-left: -5px;
+		width: 0;
+		border-top: 5px solid #000;
+		border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+		border-right: 5px solid transparent;
+		border-left: 5px solid transparent;
+		font-size: 0;
+		line-height: 0;
 	}
 
 </style>

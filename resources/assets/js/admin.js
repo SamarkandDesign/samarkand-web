@@ -34,20 +34,28 @@ var larail = require('./plugins/larail.js');
 import graph from './components/graph.js'
 import alert from './components/alert.vue'
 import {ProductSearchAdmin as productSearch} from './components/product-search.js'
+import markArea from './components/cr-markarea.vue'
+import titleSlugger from './components/cr-title-slugger.vue'
+import categoryChooser from './components/cr-category-chooser.vue'
+import imageableGallery from './components/cr-imageable-gallery.vue'
+import imageChooser from './components/cr-image-chooser.vue'
+import attributeForm from './components/cr-attribute-form.vue'
+import imageUploader from './components/image-uploader.vue'
 
-global.vm = new Vue({
+window.vm = new Vue({
 	el: '#admin',
 
 	components: {
-		'cr-markarea':  require('./components/cr-markarea.vue'),
-		'cr-title-slugger': require('./components/cr-title-slugger.vue'),
-		'cr-category-chooser': require('./components/cr-category-chooser.vue'),
-		'cr-imageable-gallery': require('./components/cr-imageable-gallery.vue'),
-		'cr-image-chooser': require('./components/cr-image-chooser.vue'),
-        'cr-attribute-form': require('./components/cr-attribute-form.vue'),
+		'cr-markarea': markArea,
+		'cr-title-slugger': titleSlugger,
+		'cr-category-chooser': categoryChooser,
+		'cr-imageable-gallery': imageableGallery,
+		'cr-image-chooser': imageChooser,
+        'cr-attribute-form': attributeForm,
         'product-search': productSearch,
         'graph': graph,
-        'alert': alert
+        'alert': alert,
+        'image-uploader': imageUploader
 	}
 })
 

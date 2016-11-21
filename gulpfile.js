@@ -1,6 +1,6 @@
 var elixir = require('laravel-elixir');
 
-require('laravel-elixir-vueify');
+require('laravel-elixir-vue');
 
 var jsPath = 'resources/assets/js/vendor/';
 var lessPath = 'resources/assets/less/vendor/';
@@ -18,8 +18,8 @@ elixir(function(mix) {
         includePaths: [ 'node_modules' ]
     });
 
-    mix.browserify('admin.js');
-    mix.browserify('main.js');
+    mix.webpack('admin.js');
+    mix.webpack('main.js');
 
 
     mix.copy('node_modules/admin-lte/dist/js/app.min.js', 'public/js/admin-lte.js');

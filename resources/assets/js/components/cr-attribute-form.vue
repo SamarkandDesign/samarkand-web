@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
 
     <!-- Errors -->
     <div class="alert alert-danger" v-if="errors">
@@ -31,7 +31,7 @@
       <!-- Attribute Display -->
       <div class="col-md-6">
         <ul class="list-group">
-          <li v-for="property in properties | orderBy 'order'"class="list-group-item">
+          <li v-for="(property, index) in orderedProperties"class="list-group-item">
 
             <div v-if="editingProperty !== property.id" style="max-width:50%; display:inline;">
               {{ property.name }} <span class='text-muted'>({{ property.order}})</span>
@@ -50,10 +50,9 @@
 
             </div>
 
-
             <span class="pull-right" v-if="!editingProperty">
-              <button class="btn-link" @click="promote($index)" :disabled="$index === 0"><i class="fa fa-fw fa-arrow-up"></i></button>
-              <button class="btn-link" @click="demote($index)" :disabled="$index === (properties.length - 1)"><i class="fa fa-fw fa-arrow-down"></i></button>
+              <button class="btn-link" @click="promote(index)" :disabled="index === 0"><i class="fa fa-fw fa-arrow-up"></i></button>
+              <button class="btn-link" @click="demote(index)" :disabled="index === (properties.length - 1)"><i class="fa fa-fw fa-arrow-down"></i></button>
               <button class="btn btn-link" @click="removeProperty(property)"><span class="text-danger"><i class="fa fa-fw fa-trash"></i></span></button>
             </span>
           </li>
@@ -72,15 +71,14 @@
 
 <script>
 
-var sluggify = require('../filters/sluggify.js');
+import {sluggify, order} from '../filters'
 
-module.exports = {
+export default {
   props: {
     productAttribute: {type: Object, required: true}
   },
 
-  data: function ()
-  {
+  data () {
     return {
       'currentAttribute': null,
       'property': '',
@@ -92,24 +90,25 @@ module.exports = {
     };
   },
 
-  ready: function ()
-  {
+  mounted () {
     if (this.productAttribute) {
       this.fetchCurrentProperties();
     }
   },
 
-  methods: {
+  computed: {
+    orderedProperties () {
+      return order(this.properties, 'order')
+    }
+  },
 
-    setAttribute: function ()
-    {
+  methods: {
+    setAttribute () {
       this.productAttribute = this.currentAttribute;
       this.fetchCurrentProperties();
-
     },
 
-    addProperty: function ()
-    {
+    addProperty () {
       var property = {
         name: this.property,
         order: this.properties.length + 1,
@@ -118,81 +117,69 @@ module.exports = {
       this.loading = true;
 
       this.$http.post('/api/product_attributes/' + this.productAttribute.id + '/attribute_properties', property)
-      .then(function (response) {
+      .then(response => {
         this.properties.push(response.data);
         this.property = '';
         this.loading = false;
         this.showMessage('Property Saved');
-      })
-      .catch(function (response) {
+      }).catch(response => {
         this.displayErrors(response.data);
-
         this.loading = false;
       });
 
     },
 
-    removeProperty: function (property)
-    {
+    removeProperty (property) {
       this.loading = true;
+      const index = this.properties.indexOf(property)
 
-      this.$http.delete('/api/attribute_properties/' + property.id)
-      .then(function (response) {
-        this.properties.$remove(property);
+      this.$http.delete('/api/attribute_properties/' + property.id).then(response => {
+        this.properties.splice(index, 1)
         this.loading = false;
-        this.showMessage('Property Deleted');
-      })
-      .catch(function (response) {
-        this.loading = false;
+        this.showMessage('Property Deleted')
+      }).catch(response => {
+        console.warn(response)
+        this.loading = false
       });
     },
 
-    fetchCurrentProperties: function ()
-    {
+    fetchCurrentProperties () {
       this.loading = true;
 
       this.$http.get('/api/attribute_properties/' + this.productAttribute.id)
-      .then(function (response) {
+      .then(response => {
         this.properties = response.data;
         this.loading = false;
 
         this.reindexItems();
-      }).catch(function (response) {
+      }).catch(response => {
         this.loading = false;
       });
     },
 
-    switchAttribute: function ()
-    {
+    switchAttribute () {
       this.currentAttribute = this.product_attribute;
       this.property = null;
       this.fetchCurrentAttributes();
     },
 
-    displayErrors: function(errors)
-    {
+    displayErrors (errors) {
       this.errors = errors;
 
       var errorDisplayTime = 5000;
 
       // Wait a bit and reset the errors
-      setTimeout(function()
-      {
-        this.errors = null;
-      }.bind(this), errorDisplayTime);
+      setTimeout(() => { this.errors = null }, errorDisplayTime);
     },
 
-    reindexItems: function() {
-
-      this.properties = this.$options.filters.orderBy(this.properties, 'order');
-
-      for (var ind = 0; ind < this.properties.length; ind++) {
-        this.properties[ind].order = ind;
-      }
+    reindexItems () {
+      this.properties = order(this.properties, 'order').map((property, index) => {
+        property.order = index
+        return property
+      })
     },
 
-    promote: function(index) {
-
+    promote (index) {
       this.reindexItems();
 
       if (index !== 0) {
@@ -204,11 +191,9 @@ module.exports = {
         this.properties[index].order = newOrder;
         this.updateProperty(this.properties[index]);
       }
-
     },
 
-    demote: function(index) {
-
+    demote (index) {
       this.reindexItems();
 
       if ((index + 1) !== this.properties.length) {
@@ -219,33 +204,30 @@ module.exports = {
 
         this.properties[index].order = newOrder;
         this.updateProperty(this.properties[index]);
-
       }
-
     },
 
-    updateProperty: function(property) {
-
+    updateProperty (property) {
       this.loading = true;
 
       property.slug = sluggify(property.name)
 
       this.$http.patch('/api/attribute_properties/' + property.id, property)
-      .then(function(response){
+      .then(response => {
         this.editingProperty = null;
         this.loading = false;
         this.showMessage('Property Updated');
       })
-      .catch(function(response){
+      .catch(response => {
         this.displayErrors(response.data);
 
         this.loading = false;
       });
     },
 
-    showMessage: function(message) {
+    showMessage (message) {
       this.updatedMessage = message;
-      setTimeout(function(){ this.updatedMessage = false}.bind(this), 5000);
+      setTimeout(() => { this.updatedMessage = false }, 5000);
     },
   }
 }

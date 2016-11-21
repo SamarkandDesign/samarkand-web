@@ -84,9 +84,9 @@
 <div class="form-group col-md-8 col-md-pull-4">
 	<div class="box box-primary" id="postContent">
 		<div class="box-body">
-			<cr-title-slugger name="name" value="{{ old('name', $product->name) }}" slug="{{ old('slug', $product->slug) }}"></cr-title-slugger>
+			<cr-title-slugger name="name" initial-value="{{ old('name', $product->name) }}" initial-slug="{{ old('slug', $product->slug) }}"></cr-title-slugger>
 
-			<cr-markarea value="{{ old('description', $product->description) }}" name="description" title="description"></cr-markarea>
+			<cr-markarea initial="{{ old('description', $product->description) }}" name="description" title="description"></cr-markarea>
 
 		</div>
 	</div>

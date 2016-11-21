@@ -20,23 +20,22 @@
                 </div>
             </div>
             <p v-show="!differentshipping">Same as billing</p>
-            <div v-show="differentshipping" transition="fade">
+            <transition name="fade">
+            <div v-show="differentshipping">
                 <slot name="shipping-address"></slot>
             </div>
+            </transition>
             <slot name="delivery-note"></slot>
         </div>
     </div>
 </template>
 
 <script>
-    import coerceBoolean from '../utils/coerceBoolean'
-
     export default {
         props: {
             'differentshipping': {
                 type: Boolean,
-                default: false,
-                coerce: coerceBoolean
+                default: false
             }
         }
     }
