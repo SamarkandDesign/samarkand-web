@@ -22,8 +22,7 @@
     "raw-loader": "^0.5.1",
     "select2": "^4.0.1",
     "vue": "^2.0.1",
-    "vue-resource": "^1.0.3",
-    "vue-validator": "^2.1.7"
+    "vue-resource": "^1.0.3"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha ./resources/assets/js/tests --compilers js:babel-core/register"
