@@ -46,6 +46,9 @@ class DatabaseSeeder extends Seeder
       $this->call('AddressesTableSeeder');
       $this->call('ShippingMethodsTableSeeder');
       $this->call('OrdersTableSeeder');
+
+      $this->command->getOutput()->writeln('Flushing Cache');
+      \Cache::flush();
   }
 
   /**
@@ -54,10 +57,10 @@ class DatabaseSeeder extends Seeder
   protected function cleanDatabase()
   {
       $this->disableForeignKeyCheck();
-    // foreach ($this->tables as $table) {
-    //   DB::table($table)->truncate();
-    // }
-    DB::statement('TRUNCATE TABLE '.implode(',', $this->tables).' CASCADE;');
+      foreach ($this->tables as $table) {
+          DB::table($table)->truncate();
+      }
+    // DB::statement('TRUNCATE TABLE '.implode(',', $this->tables).' CASCADE;');
       $this->enableForeignKeyCheck();
   }
 

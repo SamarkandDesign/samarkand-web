@@ -44,7 +44,7 @@ class Order extends Model
      *
      * @var array
      */
-    public $fillable = ['amount', 'status', 'user_id', 'payment_id', 'billing_address_id', 'shipping_address_id', 'delivery_note'];
+    public $fillable = ['amount', 'status', 'user_id', 'payment_id', 'billing_address_id', 'shipping_address_id', 'delivery_note', 'invoice_id'];
 
     public static function boot()
     {
@@ -154,6 +154,11 @@ class Order extends Model
     public function getAmountAttribute($amount)
     {
         return new Price($amount);
+    }
+
+    public function getVatAmountAttribute()
+    {
+        return new Price($this->amount->value() * (config('shop.vat_rate') / 100));
     }
 
     /**
