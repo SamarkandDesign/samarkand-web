@@ -1,8 +1,6 @@
 <?php
 
 use Faker\Factory;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase

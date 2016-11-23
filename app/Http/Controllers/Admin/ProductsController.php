@@ -10,7 +10,6 @@ use App\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Search\TokenGenerator;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductsController extends Controller
 {
@@ -52,7 +51,7 @@ class ProductsController extends Controller
     /**
      * Perform a search for products and display the results.
      *
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Illuminate\Http\Response
      */

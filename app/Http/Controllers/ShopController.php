@@ -6,7 +6,6 @@ use App\Pagination\Paginator;
 use App\Repositories\Product\ProductRepository;
 use App\Term;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ShopController extends Controller
 {
@@ -44,7 +43,7 @@ class ShopController extends Controller
         $showNoStock = config('shop.show_out_of_stock');
         $results = $this->products->search($request->get('query'))
                                  ->filter(function ($product) use ($showNoStock) {
-                                    return $product->listed and ($showNoStock or $product->inStock());
+                                     return $product->listed and ($showNoStock or $product->inStock());
                                  });
 
         $products = (new Paginator($request))->make($results);
