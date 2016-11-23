@@ -28,7 +28,7 @@ trait DatabaseSetup
 
     protected function setupTestDatabase()
     {
-        if (! static::$migrated) {
+        if (!static::$migrated) {
             $this->setUpSqliteDatabase();
             $this->artisan('migrate:refresh');
             $this->app[Kernel::class]->setArtisan(null);
@@ -60,9 +60,9 @@ trait DatabaseSetup
 
     public function setUpSqliteDatabase()
     {
-       $databaseInUse = config('database.connections')[config('database.default')];
-       if ($databaseInUse['driver'] === 'sqlite') {
-         shell_exec(sprintf('echo \'\' > %s', $databaseInUse['database']));
-       }
+        $databaseInUse = config('database.connections')[config('database.default')];
+        if ($databaseInUse['driver'] === 'sqlite') {
+            shell_exec(sprintf('echo \'\' > %s', $databaseInUse['database']));
+        }
     }
 }
