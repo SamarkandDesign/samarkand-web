@@ -88,4 +88,9 @@ class DbProductRepository extends DbRepository implements ProductRepository
     {
         return Product::groupBy('location')->pluck('location');
     }
+
+    public function search($query)
+    {
+        return $this->model->search($query)->get()->load('product_categories');
+    }
 }
