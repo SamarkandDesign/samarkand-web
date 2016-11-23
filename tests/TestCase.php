@@ -7,9 +7,15 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseSetup;
 
     protected $baseUrl;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->setUpDatabase();
+    }
 
     /**
      * Creates the application.
@@ -27,14 +33,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $this->baseUrl = \Config::get('app.url', 'http://homestead.app');
 
-        $this->setUpDatabase();
-
         return $app;
-    }
-
-    protected function setUpDatabase()
-    {
-        Artisan::call('migrate:refresh');
     }
 
     protected function logInAsAdmin(array $overrides = [])
