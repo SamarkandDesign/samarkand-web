@@ -85,4 +85,9 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
             return $this->repository->getLocations();
         });
     }
+
+    public function search($query)
+    {
+        return $this->repository->search($query);
+    }
 }

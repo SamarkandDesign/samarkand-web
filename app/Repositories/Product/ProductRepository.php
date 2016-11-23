@@ -54,4 +54,6 @@ interface ProductRepository
      * @return Collection
      */
     public function getLocations();
+
+    public function search($query);
 }

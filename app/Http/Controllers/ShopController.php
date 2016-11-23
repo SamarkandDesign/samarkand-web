@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Pagination\Paginator;
 use App\Repositories\Product\ProductRepository;
 use App\Term;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ShopController extends Controller
 {
@@ -40,20 +40,13 @@ class ShopController extends Controller
     public function search(Request $request)
     {
         $product_category = new Term();
+        $showNoStock = config('shop.show_out_of_stock');
+        $results = $this->products->search($request->get('query'))
+                                 ->filter(function ($product) use ($showNoStock) {
+                                     return $product->listed and ($showNoStock or $product->inStock());
+                                 });
 
-        $results = \App\Product::search($request->get('query'))
-            ->where('listed', true)
-            ->get()
-            ->load('product_categories');
-
-        // filter out-of-stock products if needed
-        if (!config('shop.show_out_of_stock')) {
-            $results = $results->filter(function ($product) {
-                return $product->inStock();
-            });
-        }
-
-        $products = new LengthAwarePaginator($results, $results->count(), config('shop.products_per_page'));
+        $products = (new Paginator($request))->make($results);
 
         return view('shop.index')->with(compact('product_category', 'products'));
     }

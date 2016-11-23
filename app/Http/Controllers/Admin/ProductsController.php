@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use App\Pagination\Paginator;
 use App\Product;
 use App\Repositories\Product\ProductRepository;
 use App\Search\TokenGenerator;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductsController extends Controller
 {
@@ -50,11 +50,8 @@ class ProductsController extends Controller
 
     /**
      * Perform a search for products and display the results.
-     * Here we are just extracting the IDs of the result and querying the products from the DB.
-     * We will have a more snappy JS-powered search on the front end.
      *
-     * @param Request         $request
-     * @param ProductSearcher $searcher
+     * @param Request $request
      *
      * @return Illuminate\Http\Response
      */
@@ -62,9 +59,7 @@ class ProductsController extends Controller
     {
         $query = $request->get('query');
 
-        $results = Product::search($query)->get()->load('product_categories');
-        $products = new LengthAwarePaginator($results, $results->count(), config('shop.products_per_page'));
-
+        $products = (new Paginator($request))->make($this->products->search($query));
 
         return view('admin.products.index')->with([
             'products'     => $products,
