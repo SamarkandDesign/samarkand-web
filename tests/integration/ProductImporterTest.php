@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Requests\Product\CreateProductRequest;
 use App\Product;
 
 class ProductImporterTest extends TestCase
@@ -15,21 +14,21 @@ class ProductImporterTest extends TestCase
          ->press('Import Products')
          ->see('2 products imported');
 
-    $this->seeInDatabase('products', ['name' => 'Some Product']);
+      $this->seeInDatabase('products', ['name' => 'Some Product']);
   }
 
-    /** @test **/
+  /** @test **/
   public function it_validates_products_and_displays_failed_imports()
   {
-    $this->loginAsAdmin();
+      $this->loginAsAdmin();
 
-    $this->visit('admin/products/upload')
+      $this->visit('admin/products/upload')
          ->attach(base_path('tests/resources/files/products_with_failure.csv'), 'file')
          ->press('Import Products')
          ->see('1 products imported')
          ->see('The following imports failed')
          ->see('The price must be at least 0');
 
-    $this->seeInDatabase('products', ['name' => 'Some Product']);
+      $this->seeInDatabase('products', ['name' => 'Some Product']);
   }
 }

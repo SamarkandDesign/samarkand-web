@@ -21,10 +21,10 @@ class ProductImportsController extends Controller
         $importer = new ProductImporter();
         $products = $importer->run($request->file('file'));
 
-      return redirect()->route('admin.products.upload')->with([
-        'alert' => sprintf('%s products imported', $products->count()),
+        return redirect()->route('admin.products.upload')->with([
+        'alert'       => sprintf('%s products imported', $products->count()),
         'alert-class' => $products->count() ? 'success' : 'warning',
-        'failures' => $importer->getFailures(),
+        'failures'    => $importer->getFailures(),
         ]);
     }
 }
