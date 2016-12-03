@@ -5,12 +5,12 @@ use App\Product;
 
 class ProductImporterTest extends TestCase
 {
-  /** @test **/
+    /** @test **/
   public function it_imports_a_csv_of_products_into_the_database()
   {
-    $this->loginAsAdmin();
+      $this->loginAsAdmin();
 
-    $this->visit('admin/products/upload')
+      $this->visit('admin/products/upload')
          ->attach(base_path('tests/resources/files/products.csv'), 'file')
          ->press('Import Products')
          ->see('2 products imported');
