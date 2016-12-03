@@ -56,10 +56,10 @@ class ProductImporter
  {
      $item = array_combine($this->headings, $item);
 
-   $defaults = [
-     'name' => array_get($item, 'name', '(no name provided)'),
-     'sku' => array_get($item, 'sku', '(no sku provided)'),
-     'slug' => ($slug = array_get($item, 'slug', false)) ? $slug : str_slug($item['name']),
+     $defaults = [
+     'name'    => array_get($item, 'name', '(no name provided)'),
+     'sku'     => array_get($item, 'sku', '(no sku provided)'),
+     'slug'    => ($slug = array_get($item, 'slug', false)) ? $slug : str_slug($item['name']),
      'user_id' => $this->userId,
    ];
 
@@ -77,9 +77,9 @@ class ProductImporter
  {
      $validator = Validator::make($item, $this->rules);
 
-    if ($validator->fails()) {
-      $this->failures[] = [
-        'data' => $item,
+     if ($validator->fails()) {
+         $this->failures[] = [
+        'data'   => $item,
         'errors' => $validator->errors(),
       ];
      }
