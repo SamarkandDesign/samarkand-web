@@ -59,6 +59,8 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
 
 
         Route::delete('/{trashedProduct}', ['uses' => 'ProductsController@destroy', 'as' => 'admin.products.delete']);
+        Route::get('upload', ['uses' => 'ProductImportsController@show', 'as' => 'admin.products.upload']);
+        Route::post('upload', ['uses' => 'ProductImportsController@create', 'as' => 'admin.products.upload']);
     });
 
     // Events
