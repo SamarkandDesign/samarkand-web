@@ -43,11 +43,13 @@ class ProductImporter {
   * @param  Array $item
   * @return Array
   */
- public function sanitizeProduct($item)
+ protected function sanitizeProduct($item)
  {
    $item = array_combine($this->headings, $item);
 
    $defaults = [
+     'name' => array_get($item, 'name', '(no name provided)'),
+     'sku' => array_get($item, 'sku', '(no sku provided)'),
      'slug' => ($slug = array_get($item, 'slug', false)) ? $slug : str_slug($item['name']),
      'user_id' => $this->userId,
    ];
@@ -66,8 +68,8 @@ class ProductImporter {
 
     if ($validator->fails()) {
       $this->failures[] = [
-        'data' => $$item,
-        'validator' => $validator,
+        'data' => $item,
+        'errors' => $validator->errors(),
       ];
     }
 

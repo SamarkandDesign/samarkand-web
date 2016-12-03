@@ -16,21 +16,20 @@ class ProductImporterTest extends TestCase
          ->see('2 products imported');
 
     $this->seeInDatabase('products', ['name' => 'Some Product']);
+  }
 
-    // $request = new CreateProductRequest();
-    // $rules = $request->rules();
+    /** @test **/
+  public function it_validates_products_and_displays_failed_imports()
+  {
+    $this->loginAsAdmin();
 
-    // $csv = collect(file(base_path('tests/resources/files/products.csv')))->map(function($line) {
-    //   return str_getcsv($line);
-    // });
+    $this->visit('admin/products/upload')
+         ->attach(base_path('tests/resources/files/products_with_failure.csv'), 'file')
+         ->press('Import Products')
+         ->see('1 products imported')
+         ->see('The following imports failed')
+         ->see('The price must be at least 0');
 
-    // $headings = $csv->first();
-    // $data = $csv->except([0])->map(function($item) use ($headings) {
-    //   return array_combine($headings, $item);
-    // })->filter(function ($item) use ($rules) {
-    //   return Validator::make($item, $rules)->passes();
-    // });
-
-    // dd($data);
+    $this->seeInDatabase('products', ['name' => 'Some Product']);
   }
 }

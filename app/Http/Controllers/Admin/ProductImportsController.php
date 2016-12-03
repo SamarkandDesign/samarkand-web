@@ -6,11 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Importers\ProductImporter;
 use Illuminate\Http\Request;
 
-
 class ProductImportsController extends Controller
 {
-    protected $failures = [];
-
     public function show()
     {
         return view('admin.products.upload');
@@ -18,14 +15,15 @@ class ProductImportsController extends Controller
 
     public function create(Request $request)
     {
-      $this->validate($request, ['file' => 'required|file|mimes:csv,txt']);
+      // $this->validate($request, ['file' => 'required|file|mimes:csv,txt']);
 
       $importer = new ProductImporter();
       $products = $importer->run($request->file('file'));
 
-      return redirect()->back()->with([
+      return redirect()->route('admin.products.upload')->with([
         'alert' => sprintf('%s products imported', $products->count()),
-        'alert-class' => 'success',
+        'alert-class' => $products->count() ? 'success' : 'warning',
+        'failures' => $importer->getFailures(),
         ]);
     }
 }
