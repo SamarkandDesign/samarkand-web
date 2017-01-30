@@ -19,7 +19,6 @@ class TermRepositoryTest extends TestCase
   {
       $categories = factory(\App\Term::class, 3)->create(['taxonomy' => 'category']);
 
-
       $this->assertCount(3, $this->terms->getCategories());
       $this->assertEmpty($this->terms->getTags());
   }

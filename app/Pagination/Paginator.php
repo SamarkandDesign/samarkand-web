@@ -17,7 +17,7 @@ class Paginator
   /**
    * Make an iterable paginator from a collection of results.
    *
-   * @param  Arrayable $results
+   * @param Arrayable $results
    *
    * @return LengthAwarePaginator
    */

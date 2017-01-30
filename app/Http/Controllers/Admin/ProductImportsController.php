@@ -17,7 +17,6 @@ class ProductImportsController extends Controller
     {
         $this->validate($request, ['file' => 'required|file|mimes:csv,txt']);
 
-
         $importer = new ProductImporter();
         $products = $importer->run($request->file('file'));
 
