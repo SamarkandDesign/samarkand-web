@@ -32,7 +32,6 @@ class PaymentTest extends TestCase
             '_token'       => csrf_token(),
             ]);
 
-
         $this->assertRedirectedTo('order-completed');
 
         $this->followRedirects();

@@ -15,7 +15,6 @@ class Page extends \Baum\Node implements HasMediaConversions
 
     protected $table = 'pages';
 
-
     /**
      * The attributes that are mass assignable.
      *

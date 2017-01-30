@@ -66,7 +66,6 @@ class XeroInvoiceCreator implements InvoiceCreator
                            ->setReference(sprintf('Order #%s', $order->id))
                            ->setLineAmountType('Inclusive');
 
-
         foreach ($this->getLineItems($order) as $item) {
             $invoice->addLineItem($item);
         }
