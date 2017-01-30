@@ -25,8 +25,8 @@
     </div>
     <button type="button" class="close clear-hits" aria-label="Close" @click.prevent="query = ''"><span aria-hidden="true">&times;</span></button>
 
-    <transition name="fade">
-    <div v-for="hit in hits" class="product-search-result">
+    <transition-group name="fade">
+    <div v-for="hit in hits" :key="hit.id" class="product-search-result">
       <a v-bind:href="hit.url">
         <div class="image-search-thumb">
           <img :src="hit.thumbnail" clas="img-responsive" />
@@ -43,7 +43,7 @@
         </div>
       </a>
     </div>
-    </transition>
+    </transition-group>
     <div class="alogia-logo">
       Powered by <a href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link" target="_blank"><img src="/img/Algolia_logo_bg-white.svg" alt="Powered by Algolia" /></a>
     </div>

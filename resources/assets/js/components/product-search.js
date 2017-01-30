@@ -1,6 +1,6 @@
 import algoliasearch from 'algoliasearch'
 import Vue from 'vue'
-import _ from 'lodash'
+import debounce from 'lodash/debounce'
 
 const ProductSearch = Vue.extend({
   props: {
@@ -12,7 +12,7 @@ const ProductSearch = Vue.extend({
 
   mounted () {
     this.query = this.initialQuery
-    let client = algoliasearch(this.appId, this.apiKey)
+    const client = algoliasearch(this.appId, this.apiKey)
     this.index = client.initIndex(this.indexName)
 
     // Empty the results if user click outside them
@@ -35,7 +35,7 @@ const ProductSearch = Vue.extend({
     }
   },
   methods: {
-    searchProducts: _.debounce(function() {
+    searchProducts: debounce(function () {
       if (this.query === '') {
         this.hits = []
         return
