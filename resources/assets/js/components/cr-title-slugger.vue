@@ -1,23 +1,24 @@
 <template>
 	<div>
 		<div class="form-group">
-			<label for="title" class="sr-only">{{ capitalizedName }}</label>
-			<input 
-			type="text" 
-			v-bind:name="name" 
-			class="post-title-input" 
-			v-bind:placeholder="capitalizedName" 
-			v-model="value" 
-			@blur="setNewSlug">                 
+			<label :for="id" class="sr-only">{{ capitalizedName }}</label>
+			<input
+			type="text"
+			:id="id"
+			:name="name"
+			class="post-title-input"
+			:placeholder="capitalizedName"
+			v-model="value"
+			@blur="setNewSlug">
 		</div>
 		<div class="form-group">
 			<label for="slug" class="sr-only">Slug</label>
 			<div class="input-group input-group-sm">
-		  
+
 				<input type="text" name="slug" class="form-control" placeholder="slug" v-model="slug">
 
 				<span class="input-group-btn refresh-slug">
-					<button class="btn btn-default" v-bind:value="slug" type="button" @click.prevent="sluggifyTitle"><i class="fa fa-refresh"></i></button>
+					<button class="btn btn-default" :value="slug" type="button" @click.prevent="sluggifyTitle"><i class="fa fa-refresh"></i></button>
 				</span>
 			</div>
 		</div>
@@ -28,16 +29,12 @@
 import {sluggify, capitalize} from '../filters'
 
 export default {
-	props: ['initial-value', 'initial-slug', 'name'],
+	props: ['initialValue', 'initialSlug', 'name'],
 	data () {
 		return {
-			value: '',
-			slug: ''
+			value: this.initialValue || '',
+			slug: this.initialSlug || '',
 		}
-	},
-	mounted () {
-		this.value = this.initialValue || ''
-		this.slug = this.initialSlug || ''
 	},
 	methods: {
 		sluggifyTitle () {
@@ -53,6 +50,9 @@ export default {
 	computed: {
 		capitalizedName () {
 			return capitalize(this.name)
+		},
+		id () {
+			return sluggify(this.name)
 		}
 	}
 }

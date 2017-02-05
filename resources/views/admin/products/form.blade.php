@@ -54,7 +54,7 @@
 				<label>
 					{!! Form::checkbox('listed', '1', !$product->exists() ? true : null) !!} Listed in the Online Store
 				</label>
-			</div>			
+			</div>
 
 			<div class="checkbox">
 				<input type="hidden" name="featured" value="0">
@@ -86,7 +86,7 @@
 		<div class="box-body">
 			<cr-title-slugger name="name" initial-value="{{ old('name', $product->name) }}" initial-slug="{{ old('slug', $product->slug) }}"></cr-title-slugger>
 
-			<cr-markarea initial="{{ old('description', $product->description) }}" name="description" title="description"></cr-markarea>
+			<cr-markarea initial-value="{{ old('description', $product->description) }}" name="description" title="description"></cr-markarea>
 
 		</div>
 	</div>
