@@ -49,6 +49,4 @@ abstract class BrowserKitTestCase extends BaseTestCase
 
         return $user;
     }
-
-
 }
