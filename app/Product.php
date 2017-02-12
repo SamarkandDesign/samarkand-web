@@ -234,7 +234,7 @@ class Product extends Model implements HasMediaConversions, Termable
   /**
    * Only get listed products.
    *
-   * @param  Builder $query
+   * @param Builder $query
    *
    * @return Builder
    */

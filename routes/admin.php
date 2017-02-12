@@ -57,7 +57,6 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
         Route::patch('/{product}', ['uses' => 'ProductsController@update', 'as' => 'admin.products.update']);
         Route::put('/{trashedProduct}/restore', ['uses' => 'ProductsController@restore', 'as' => 'admin.products.restore']);
 
-
         Route::delete('/{trashedProduct}', ['uses' => 'ProductsController@destroy', 'as' => 'admin.products.delete']);
     });
 

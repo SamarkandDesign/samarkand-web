@@ -22,7 +22,6 @@ Route::get('pages/{page}/images', ['uses' => 'MediaController@modelImages', 'as'
 Route::get('media/{media}', ['uses' => 'MediaController@show', 'as' => 'api.media.show'])->where('id', '[0-9]+');
 Route::get('media/{collection?}', ['uses' => 'MediaController@index', 'as' => 'api.media.index']);
 
-
     // Protected API routes
 Route::group(['middleware' => 'can:access-admin'], function () {
     // Attach media to models

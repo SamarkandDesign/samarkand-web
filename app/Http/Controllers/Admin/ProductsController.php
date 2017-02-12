@@ -65,7 +65,6 @@ class ProductsController extends Controller
         $results = Product::search($query)->get()->load('product_categories');
         $products = new LengthAwarePaginator($results, $results->count(), config('shop.products_per_page'));
 
-
         return view('admin.products.index')->with([
             'products'     => $products,
             'productCount' => $products->count(),
