@@ -10,9 +10,5 @@ _ide_helper.php
 /.idea
 npm-debug.log
 npm-debug.log.*
-/public/uploads
-/public/build
-/public/js
-/public/css
 tags
 .tags_swap
