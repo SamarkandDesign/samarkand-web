@@ -6,62 +6,65 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Product\ProductRepository;
+use Illuminate\Cache\Repository as CacheRepository;
+use Carbon\Carbon;
 
 class ProductsController extends Controller
 {
-    public function feed(ProductRepository $productRepo)
-    {
-        $products = $productRepo->all(['media', 'product_categories', 'attribute_properties']);
+    protected $products;
+    protected $cache;
+    protected $keys;
+    protected $consts;
 
+    public function __construct (ProductRepository $products, CacheRepository $cache)
+    {
+      $this->products = $products;
+      $this->cache = $cache;
+      $this->keys = collect(['id', 'title', 'description', 'link', 'image_link', 'availability', 'price', 'mpn', 'condition', 'brand', 'color', 'size',]);
+    }
+
+    public function feed()
+    {
         $consts = [
       'site_url'  => config('app.url'),
       'shop_name' => config('shop.name'),
       'currency'  => config('shop.currency'),
     ];
 
-        $keys = collect([
-      'id',
-      'title',
-      'description',
-      'link',
-      'image_link',
-      'availability',
-      'price',
-      'mpn',
-      'condition',
-      'brand',
-      'color',
-      'size',
-    ]);
 
-        if (!$products->count()) {
-            return response($keys->implode("\t"), 200)->header('Content-Type', 'text/plain');
-        }
+        $data = $this->cache->remember('product-feed-text', Carbon::now()->addHours(23), function () use ($consts){
+          $products = $this->products->all(['media', 'product_categories', 'attribute_properties']);
 
-        $data = $products
-    ->filter(function ($p) {
-        return $p->inStock();
-    })
-    ->map(function ($p) use ($consts, $keys) {
-        $image = $p->media->count() ? $p->media->first()->getUrl('wide') : '';
+          if (!$products->count()) {
+              return $this->keys->implode("\t");
+          }
 
-        return $keys->combine([
-        $p->sku,
-        $p->name,
-        $p->description,
-        sprintf('%s%s', $consts['site_url'], $p->url),
-        $image,
-        'in stock',
-        sprintf('%s %s', $p->price->asDecimal(), $consts['currency']),
-        $p->sku,
-        'new',
-        $consts['shop_name'],
-        $this->getProductProperties($p, 'colour'),
-        $this->getProductProperties($p, 'size'),
-      ]);
-    });
+          $data = $products
+            ->filter(function ($p) {
+                return $p->inStock();
+            })
+            ->map(function ($p) use ($consts) {
+              $image = $p->media->count() ? $p->media->first()->getUrl('wide') : '';
 
-        return response($this->generateFeedText($data), 200)->header('Content-Type', 'text/plain');
+              return $this->keys->combine([
+                $p->sku,
+                $p->name,
+                $p->description,
+                sprintf('%s%s', $consts['site_url'], $p->url),
+                $image,
+                'in stock',
+                sprintf('%s %s', $p->price->asDecimal(), $consts['currency']),
+                $p->sku,
+                'new',
+                $consts['shop_name'],
+                $this->getProductProperties($p, 'colour'),
+                $this->getProductProperties($p, 'size'),
+              ]);
+            });
+            return $this->generateFeedText($data);
+        });
+
+        return response($data, 200)->header('Content-Type', 'text/plain');
     }
 
     protected function generateFeedText($data)
