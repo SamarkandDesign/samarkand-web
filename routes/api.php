@@ -15,8 +15,12 @@ Route::get('categories', ['uses' => 'TermsController@categories', 'as' => 'api.c
 Route::post('categories', ['uses' => 'TermsController@storeCategory', 'as' => 'api.categories']);
 
 Route::get('posts/{post}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.posts.images']);
+
 Route::get('products/{product}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.products.images']);
+Route::get('products/feed.txt', ['uses' => 'ProductsController@feed', 'as' => 'api.products.feed.txt']);
+
 Route::get('events/{event}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.events.images']);
+
 Route::get('pages/{page}/images', ['uses' => 'MediaController@modelImages', 'as' => 'api.pages.images']);
 
 Route::get('media/{media}', ['uses' => 'MediaController@show', 'as' => 'api.media.show'])->where('id', '[0-9]+');
