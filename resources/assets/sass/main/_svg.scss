@@ -1,0 +1,32 @@
+.svg {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.svg-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.svg-amex {
+  width: 1.5966796875em;
+}
+
+.svg-default {
+  width: 1.5927734375em;
+}
+
+.svg-mastercard {
+  width: 1.5927734375em;
+}
+
+.svg-visa {
+  width: 1.5927734375em;
+}

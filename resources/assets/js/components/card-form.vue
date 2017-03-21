@@ -16,7 +16,11 @@
                         required
                         ref="card"
                         >
-                        <span class="input-group-addon cc-icon-addon"><i class="cc-icon" v-bind:class="cardType" v-bind:title="cardType"></i></span>
+                        <span class="input-group-addon cc-icon-addon">
+                            <span class="cc-icon-addon cc-icon-addon-container">
+                                <svg :class="`svg svg-${cardType}`"><use :xlink:href="`/img/sprite.svg#svg-${cardType}`"></use></svg>
+                            </span>
+                        </span>
                     </div>
                 </div>
                 <div class="form-group col-md-3 col-xs-6" v-bind:class="{'has-error': (formSubmitted && !expiryIsValid), 'has-success': expiryIsValid}">
@@ -52,7 +56,7 @@
                 </div>
 
             </div><!-- /row -->
-            
+
             <transition name="fade">
                 <p v-show="error_message" class="text-danger">{{ error_message }}</p>
             </transition>
@@ -66,6 +70,9 @@
               </div>
               <div class="col-sm-8 col-md-10 col-sm-pull-4 col-md-pull-2">
                 <p class="top-buffer"><i class="fa fa-lock"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>
+                <p class="accepted-cards">
+                    <svg v-for="card in acceptedCards" :class="`svg svg-${card}`"><use :xlink:href="`/img/sprite.svg#svg-${card}`"></use></svg>
+                </p>
             </div>
         </div>
     </form>
@@ -93,6 +100,7 @@
                 error_message: null,
                 isLoading: false,
                 formSubmitted: false,
+                acceptedCards: ['visa', 'mastercard', 'amex'],
             }
         },
         mounted () {
@@ -156,7 +164,7 @@
                 return payform.parseCardExpiry(this.card.exp)
             },
             cardType () {
-                return payform.parseCardType(this.card.number) || 'none'
+                return payform.parseCardType(this.card.number) || 'default'
             },
             cardIsValid () {
                 return payform.validateCardNumber(this.card.number)
@@ -176,27 +184,19 @@
 </script>
 
 <style scoped>
-    .cc-icon {
-        display: inline-block;
-        background: url('/img/cc-sprite2.css.svg');
-        background-repeat: no-repeat;
-        background-position: -1000px -1000px;
-        white-space: nowrap;
-        background-size: 30px auto;
-        width:30px;
-        height: 21px;
-        margin-bottom: -4px;
+    .accepted-cards {
+        font-size: 32px;
+    }
+    .accepted-cards svg {
+        margin-right: 10px;
     }
     .cc-icon-addon {
-        padding: 5px;
+        padding: 0;
     }
-    .cc-icon.amex {
-        background-position: 0 40%;
-    }
-    .cc-icon.visa {
-        background-position: 0 0;
-    }
-    .cc-icon.mastercard {
-        background-position: 0 20%;
+    .cc-icon-addon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 33px;
     }
 </style>
