@@ -40,7 +40,7 @@ class ProductsController extends Controller
 
             $data = $products
             ->filter(function ($p) {
-                return $p->inStock();
+                return $p->listed and $p->inStock();
             })
             ->map(function ($p) use ($consts) {
                 $image = $p->media->count() ? $p->media->first()->getUrl('wide') : '';
