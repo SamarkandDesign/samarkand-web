@@ -43,7 +43,7 @@ class ProductsController extends Controller
                 return $p->listed and $p->inStock();
             })
             ->map(function ($p) use ($consts) {
-                $image = $p->media->count() ? $p->media->first()->getUrl('wide') : '';
+                $image = $p->media->count() ? $p->media->first()->getUrl() : '';
 
                 return $this->keys->combine([
                 $p->sku,
