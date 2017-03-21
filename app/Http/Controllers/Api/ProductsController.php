@@ -48,7 +48,7 @@ class ProductsController extends Controller
                 return $this->keys->combine([
                 $p->sku,
                 $p->name,
-                sprintf('"%s"', str_replace(PHP_EOL, ' ', strip_tags($p->description))),
+                sprintf('"%s"', str_replace(["\n", "\r"], ' ', strip_tags($p->description))),
                 sprintf('%s%s', $consts['site_url'], $p->url),
                 $image,
                 'in stock',
