@@ -14,6 +14,7 @@
                             </li>
                             <li><a href="/faqs">Help</a></li>
                             <li><a href="/terms-and-conditions">Terms &amp; Privacy</a></li>
+                            <li><a href="/delivery-and-returns">Delivery &amp; Returns</a></li>
                         </ul>
                     </div>
                     <div class="col-xs-6">
@@ -56,7 +57,7 @@
                             <li>
                                 <a target="_blank" rel="nofollow" href="https://www.houzz.co.uk/user/hillygrumbar"><i class="fa fa-houzz"></i>
                                 </a>
-                            </li>                          
+                            </li>
                             <li>
                                 <a target="_blank" rel="nofollow" href="https://www.pinterest.com/samarkanddesign/"><i class="fa fa-pinterest"></i>
                                 </a>
