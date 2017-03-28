@@ -18,13 +18,13 @@
 @endsection
 
 @section('section-header')
-@if($product_category->id)
-<header class="section-header" style="background-image: url('/img/product-cat-bg.jpg')">
-<div class="container">
-<h1 class="category-header">{{ $product_category->term }}</h1>
-</div>
-</header>
-@endif
+  @if($product_category->id)
+    <header class="section-header" style="background-image: url('/img/product-cat-bg.jpg')">
+    <div class="container">
+    <h1 class="category-header">{{ $product_category->term }}</h1>
+    </div>
+    </header>
+  @endif
 @endsection
 
 @section('breadcrumb')
@@ -38,50 +38,53 @@
 
 @section('content')
 
-  <section class="shop-filters row">
-    <div class="col-md-6">
-      @include('shop._product_search')
-    </div>
+  <div class="row">
+    <section class="products col-sm-9 col-sm-push-3" v-pre>
+      @if(Request::has('query'))
+        <h2>Results for "{{ Request::get('query') }}"</h2>
+      @elseif($product_category->id)
+        <h2>{{ $product_category->term }}</h2>
+      @endif
 
-    <div class="col-md-6">
-      @include('shop._category_filter')
-      @include('shop._attribute_filter')
-    </div>
+      @if($products->total() > 0)
+        <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} items</p>
+      @else
+        No items
+      @endif
 
-  </section>
+      @foreach ($products->chunk($products_per_row) as $product_group)
+        <div class="row">
 
-  <section class="products" v-pre>
-    @if(Request::has('query'))
-      <h2>Results for "{{ Request::get('query') }}"</h2>
-    @elseif($product_category->id)
-      <h2>{{ $product_category->term }}</h2>
-    @endif
+          @foreach ($product_group as $i => $product)
+            <div class="product col-md-{{ (int) 12 / $products_per_row }} col-xs-{{ (int) 24 / $products_per_row }} top-buffer">
+              @include('shop._product_tile', compact('product'))
+            </div>
 
-    @if($products->total() > 0)
-      <p>Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} items</p>
-    @else
-      No items
-    @endif
+            @if( ($i + 1) % ($products_per_row / 2) === 0 )
+              <div class="clearfix visible-xs-block"></div>
+            @endif
 
-    @foreach ($products->chunk($products_per_row) as $product_group)
-      <div class="row">
+          @endforeach
 
-        @foreach ($product_group as $i => $product)
-          <div class="product col-md-{{ (int) 12 / $products_per_row }} col-xs-{{ (int) 24 / $products_per_row }} top-buffer">
-            @include('shop._product_tile', compact('product'))
-          </div>
+        </div>
+      @endforeach
 
-          @if( ($i + 1) % ($products_per_row / 2) === 0 )
-            <div class="clearfix visible-xs-block"></div>
-          @endif
-
-        @endforeach
-
+      <div class="text-center">
+        {!! $products->appends(Request::query())->links() !!}
       </div>
-    @endforeach
-  </section>
-  <div class="text-center">
-    {!! $products->appends(Request::query())->links() !!}
+    </section>
+
+    <aside class="shop-filters col-sm-3 col-sm-pull-9">
+      <div class="xcol-md-6">
+        @include('shop._product_search')
+      </div>
+
+      <div class="xcol-md-6">
+        @include('shop._category_filter')
+        @include('shop._attribute_filter')
+      </div>
+    </aside>
   </div>
+
 
 @stop

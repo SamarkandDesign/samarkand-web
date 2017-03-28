@@ -35,28 +35,12 @@
     position: absolute;
   }
 
-/* Product Categories */
-.term-list {
+.sidebar-list {
   list-style-type: none;
   padding: 0;
-  font-size: 120%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 -$padding-small-vertical;
   li {
-    display: inline-block;
-    margin-bottom: $padding-xs-horizontal;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: $padding-small-vertical;
-    a {
-        color: $gray-light;
-        &.active {
-            color: $gold;
-        }
-    }
-}
+    padding: $padding-xs-vertical 0;
+  }
 }
 
 /* Shop index */
@@ -110,22 +94,4 @@
 }
 .product-grid-element:hover .product-grid-image {
     opacity: 0.6;
-}
-
-
-/* Atttribute Filter */
-.attribute-panel {
-    background-color: $gray-accent;
-    color: #fff;
-    border: none;
-    h4 {
-        text-transform: uppercase;
-    }
-    a {
-        color: $gold;
-    }
-    .attribute-ul {
-        list-style-type: none;
-        padding: 0;
-    }
 }
