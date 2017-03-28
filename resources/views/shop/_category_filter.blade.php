@@ -1,13 +1,16 @@
-<collapser>
-<span slot="title">Categories</span>
+<div>
+<h3 slot="title">By Category</h3>
 
-<ul class="term-list">
-@foreach($product_categories as $category)
-<li>
-  <a href="/shop/{{ $category->slug }}" class="category-label {{ $product_category->slug === $category->slug ? 'active' : '' }}">
+<ul class="sidebar-list">
+  @foreach($product_categories as $category)
+  <li>
+    <a
+      href="/shop/{{ $category->slug }}"
+      class="category-label {{ $product_category->slug === $category->slug ? 'active' : '' }}"
+    >
       {{ $category->term }}
-  </a>
-</li>
-@endforeach
+    </a>
+  </li>
+  @endforeach
 </ul>
-</collapser>
+</div>
