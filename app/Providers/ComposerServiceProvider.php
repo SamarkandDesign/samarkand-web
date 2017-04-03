@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Countries\CountryRepository;
-use App\Product;
 use App\MenuItem;
+use App\Product;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Term\TermRepository;
