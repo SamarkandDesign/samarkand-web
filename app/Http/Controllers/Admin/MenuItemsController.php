@@ -4,10 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\MenuItem;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Http\Request;
 
 class MenuItemsController extends Controller
 {
+    private $cache;
+
+    public function __construct(Repository $cache)
+    {
+        $this->cache = $cache;
+    }
+
     protected $rules = [
         'menu' => 'required',
         'label' => 'required',
@@ -26,6 +34,7 @@ class MenuItemsController extends Controller
         $this->validate($request, $this->rules);
 
         $item = MenuItem::create($request->all());
+        $this->cache->forget('app.menus');
 
         return redirect()->route('admin.menus.index')->with([
             'alert'       => 'Menu Item Saved',
@@ -44,6 +53,7 @@ class MenuItemsController extends Controller
         $this->validate($request, $this->rules);
 
         $item->update($request->all());
+        $this->cache->forget('app.menus');
 
         return redirect()->route('admin.menus.index')->with([
             'alert'       => 'Menu Item Updated',
@@ -54,6 +64,8 @@ class MenuItemsController extends Controller
     public function destroy(MenuItem $item)
     {
        $item->delete();
+       $this->cache->forget('app.menus');
+
        return redirect()->route('admin.menus.index')->with([
         'alert'       => 'Menu Item Deleted',
         'alert-class' => 'success',
