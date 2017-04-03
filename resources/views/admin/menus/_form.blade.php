@@ -23,9 +23,3 @@
         {!! Form::number('order', null, ['class' => 'form-control input-sm']) !!}
       </div>
     </div>
-
-    <div>
-      <button type="submit" class="btn btn-primary btn-sm">
-        <i class="fa fa-plus"></i> Save
-      </button>
-    </div>

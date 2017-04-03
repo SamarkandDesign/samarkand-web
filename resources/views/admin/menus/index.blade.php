@@ -17,6 +17,9 @@ Menus
   <div class="box-body">
     {!! Form::model($menuItem, ['route' => 'admin.menus.store', 'method' => 'POST']) !!}
       @include('admin.menus._form')
+      <button type="submit" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus"></i> Save
+      </button>
     {!! Form::close() !!}
   </div>
 </div>

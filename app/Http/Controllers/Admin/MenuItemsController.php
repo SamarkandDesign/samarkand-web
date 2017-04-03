@@ -12,7 +12,7 @@ class MenuItemsController extends Controller
         'menu' => 'required',
         'label' => 'required',
         'link' => 'required',
-        'order' => 'required',
+        'order' => 'required|integer',
     ];
 
     public function index(MenuItem $menuItem)

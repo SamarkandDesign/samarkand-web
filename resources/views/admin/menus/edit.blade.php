@@ -17,6 +17,9 @@ Edit Menu
   <div class="box-body">
     {!! Form::model($menuItem, ['route' => ['admin.menus.update', $menuItem], 'method' => 'PATCH']) !!}
       @include('admin.menus._form')
+      <button type="submit" class="btn btn-primary btn-sm">
+          <i class="fa fa-check"></i> Update
+      </button>
     {!! Form::close() !!}
   </div>
 </div>
