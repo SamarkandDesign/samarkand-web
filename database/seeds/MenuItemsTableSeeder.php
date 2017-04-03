@@ -13,7 +13,7 @@ class MenuItemsTableSeeder extends Seeder
             ['menu' => 'main', 'label' => 'FAQ', 'link' => '/faq'],
         ];
 
-        $ids = array_map(function($link) {
+        $ids = array_map(function ($link) {
             return MenuItem::create($link);
         }, $links);
     }

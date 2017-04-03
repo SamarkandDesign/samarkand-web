@@ -17,15 +17,16 @@ class MenuItemsController extends Controller
     }
 
     protected $rules = [
-        'menu' => 'required',
+        'menu'  => 'required',
         'label' => 'required',
-        'link' => 'required',
+        'link'  => 'required',
         'order' => 'required|integer',
     ];
 
     public function index(MenuItem $menuItem)
     {
         $menus = MenuItem::all()->groupBy('menu');
+
         return view('admin.menus.index', compact('menus', 'menuItem'));
     }
 
@@ -45,6 +46,7 @@ class MenuItemsController extends Controller
     public function edit(MenuItem $menuItem)
     {
         $menus = MenuItem::all()->groupBy('menu');
+
         return view('admin.menus.edit', compact('menuItem', 'menus'));
     }
 
@@ -63,10 +65,10 @@ class MenuItemsController extends Controller
 
     public function destroy(MenuItem $item)
     {
-       $item->delete();
-       $this->cache->forget('app.menus');
+        $item->delete();
+        $this->cache->forget('app.menus');
 
-       return redirect()->route('admin.menus.index')->with([
+        return redirect()->route('admin.menus.index')->with([
         'alert'       => 'Menu Item Deleted',
         'alert-class' => 'success',
         ]);
