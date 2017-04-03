@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\OrderWasPaid;
 use App\Jobs\CreateInvoiceForOrder;
-use App\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateOrderInvoice implements ShouldQueue

@@ -2,19 +2,18 @@
 
 class MenuItemsTest extends TestCase
 {
+    private $user;
 
-  private $user;
-
-  public function setUp()
-  {
-      parent::setUp();
-      $this->user = $this->logInAsAdmin();
-  }
+    public function setUp()
+    {
+        parent::setUp();
+        $this->user = $this->logInAsAdmin();
+    }
 
   /** @test **/
   public function it_allows_adding_a_menu_item()
   {
-    $this->visit('/admin/menus')
+      $this->visit('/admin/menus')
          ->type('main', 'menu')
          ->type('My Item', 'label')
          ->type('/my-item', 'link')
@@ -23,8 +22,8 @@ class MenuItemsTest extends TestCase
          ->see('Item Saved')
          ->see('/my-item');
 
-    $this->seeInDatabase('menu_items', [
-      'menu' => 'main',
+      $this->seeInDatabase('menu_items', [
+      'menu'  => 'main',
       'label' => 'My Item',
       'link'  => '/my-item',
       'order' => 4,
@@ -34,16 +33,16 @@ class MenuItemsTest extends TestCase
   /** @test **/
   public function it_edits_a_menu_items()
   {
-    $item = factory('App\MenuItem')->create();
+      $item = factory('App\MenuItem')->create();
 
-    $this->visit("admin/menus/{$item->id}/edit")
+      $this->visit("admin/menus/{$item->id}/edit")
          ->see($item->label)
          ->type('/whatever', 'link')
          ->press('Update')
          ->seePageIs('/admin/menus')
          ->see('Item Updated');
 
-    $this->seeInDatabase('menu_items', [
+      $this->seeInDatabase('menu_items', [
       'link'  => '/whatever',
       ]);
   }
@@ -51,11 +50,11 @@ class MenuItemsTest extends TestCase
   /** @test **/
   public function it_deletes_a_menu()
   {
-    $item = factory('App\MenuItem')->create();
+      $item = factory('App\MenuItem')->create();
 
-    $this->delete("/admin/menus/{$item->id}");
+      $this->delete("/admin/menus/{$item->id}");
 
-    $this->dontSeeInDatabase('menu_items', [
+      $this->dontSeeInDatabase('menu_items', [
       'link'  => $item->link,
     ]);
   }
