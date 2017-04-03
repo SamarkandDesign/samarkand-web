@@ -104,6 +104,13 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
     Route::get('media', ['uses' => 'MediaController@index', 'as' => 'admin.media.index']);
     Route::delete('media/{media}', ['uses' => 'MediaController@destroy', 'as' => 'admin.media.delete']);
 
+    // Menu Items
+    Route::get('menus', ['uses' => 'MenuItemsController@index', 'as' => 'admin.menus.index']);
+    Route::post('menus', ['uses' => 'MenuItemsController@store', 'as' => 'admin.menus.store']);
+    Route::get('menus/{menu_item}/edit', ['uses' => 'MenuItemsController@edit', 'as' => 'admin.menus.edit']);
+    Route::patch('menus/{menu_item}', ['uses' => 'MenuItemsController@update', 'as' => 'admin.menus.update']);
+    Route::delete('menus/{menu_item}', ['uses' => 'MenuItemsController@destroy', 'as' => 'admin.menus.delete']);
+
     // Users
     Route::get('profile', ['uses' => 'UsersController@profile', 'as' => 'admin.users.profile']);
 

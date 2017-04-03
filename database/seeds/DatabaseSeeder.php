@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
     'orders',
     'order_items',
     'addresses',
+    'menu_items',
   ];
 
   /**
@@ -46,6 +47,7 @@ class DatabaseSeeder extends Seeder
       $this->call('AddressesTableSeeder');
       $this->call('ShippingMethodsTableSeeder');
       $this->call('OrdersTableSeeder');
+      $this->call('MenuItemsTableSeeder');
 
       $this->command->getOutput()->writeln('Flushing Cache');
       \Cache::flush();
