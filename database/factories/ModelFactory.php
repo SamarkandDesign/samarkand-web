@@ -193,6 +193,17 @@ $factory->define('App\Event', function ($faker) {
     ];
 });
 
+$factory->define('App\MenuItem', function ($faker) {
+    $label = $faker->sentence(2, true);
+
+    return [
+        'label'       => $label,
+        'link'        => sprintf('/%s', str_slug($label)),
+        'order'       => $faker->randomDigit(),
+        'menu'        => $faker->randomElement(['main', 'footer_left', 'footer_right']),
+    ];
+});
+
 $factory->define('App\ShippingMethod', function ($faker) {
     return [
     'description'   => $faker->sentence,

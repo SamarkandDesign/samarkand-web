@@ -12,7 +12,7 @@ Media
 
     <div class="box box-primary">
         <div class="box-body">
-        {{-- <?php //dd($media); ?> --}}
+
         <table class="table table-striped">
             <thead>
                 <tr>

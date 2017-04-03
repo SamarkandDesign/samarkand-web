@@ -3,7 +3,6 @@
 namespace Integration\Admin;
 
 use App\Address;
-use App\User;
 use TestCase;
 
 class AddressesTest extends TestCase

@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('media', 'App\Media');
         Route::model('address', 'App\Address');
         Route::model('page', 'App\Page');
+        Route::model('menu_item', 'App\MenuItem');
 
         Route::bind('product', function ($id) {
             $products = $this->app->make(\App\Repositories\Product\ProductRepository::class);
