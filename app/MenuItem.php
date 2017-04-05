@@ -3,15 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class MenuItem extends \Baum\Node
+class MenuItem extends Model
 {
     protected static function boot()
     {
         parent::boot();
 
         static::addGlobalScope('orderByOrder', function (Builder $query) {
-            $query->orderBy('order');
+            $query->orderBy('menu', 'ASC')->orderBy('order', 'ASC');
         });
     }
 
