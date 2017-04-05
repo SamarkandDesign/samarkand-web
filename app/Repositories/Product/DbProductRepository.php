@@ -37,7 +37,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
     {
         return $this->model->filter($this->filter)
                            ->with($with)
-                           ->latest();
+                           ->orderBy('published_at', 'DESC');
     }
 
     /**
