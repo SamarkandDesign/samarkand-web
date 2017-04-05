@@ -58,7 +58,7 @@ class ProductPresenter extends ModelPresenter
         return new HtmlString(sprintf(
       '<img src="%s" alt="%s" width="%s" height="%s" class="img-responsive">',
       $this->thumbnail_url($w, $h),
-      $this->model->name,
+      htmlentities($this->model->name),
       $w,
       $h
       ));
