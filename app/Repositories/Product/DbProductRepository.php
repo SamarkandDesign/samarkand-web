@@ -76,7 +76,7 @@ class DbProductRepository extends DbRepository implements ProductRepository
                      ->with('product_categories')
                      ->filter($this->filter)
                      ->orderBy('featured', 'DESC')
-                     ->orderBy('published_at', 'ASC')
+                     ->orderBy('published_at', 'DESC')
                      ->paginate(config('shop.products_per_page'));
     }
 
