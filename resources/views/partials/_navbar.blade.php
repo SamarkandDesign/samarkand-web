@@ -5,11 +5,11 @@
   </a>
 
   <ul class="nav navbar-nav">
-    <li class=""><a href="/">Home</a></li>
-    <li><a href="/shop">Shop</a></li>
-    <li><a href="/events">Events</a></li>
-    <li><a href="/faqs">FAQs</a></li>
-    <li><a href="/contact">Contact</a></li>
+    @if (isset($menuItems['main']))
+      @foreach($menuItems['main'] as $item)
+        <li><a href="{{ $item->link }}">{{ $item->label }}</a></li>
+      @endforeach
+    @endif
   </ul>
 
   <ul class="nav navbar-nav navbar-right">

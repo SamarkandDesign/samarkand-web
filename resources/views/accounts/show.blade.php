@@ -43,12 +43,6 @@ My Account
             @endforeach
         </tbody>
     </table>
-    {{-- @if ($user->orders->count() > 5)
-    TODO: implement full order index
-        <p>
-            <a href="/account/orders">View all orders</a>
-        </p>
-    @endif --}}
 
 @else
     <p>You haven't made any orders yet. Why not visit <a href="/shop">the shop</a></p>

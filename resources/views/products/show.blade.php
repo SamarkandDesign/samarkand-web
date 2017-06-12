@@ -37,13 +37,15 @@
             </header>
 
             <hr>
-            <section class="description" itemprop="description">
+            <section class="description">
               <header><h4>Description</h4></header>
-              {!! $product->getDescriptionHtml() !!}
+              <div itemprop="description">
+                {!! $product->getDescriptionHtml() !!}
+              </div>
           </section>
           <hr>
           <section>
-            <strong>Categories:</strong> 
+            <strong>Categories:</strong>
             @foreach ($product->product_categories as $index => $category)
               <a href="/shop/{{$category->slug}}">{{ $category->term }}</a>@if ($index+1 !== $product->product_categories->count() ), @endif
             @endforeach
@@ -61,6 +63,7 @@
 
             <div class="col-sm-6 text-right">
                 <span class="stock {{ $product->stock_qty > 0 ? 'in-stock' : '' }}">
+                    <link itemprop="availability" href="http://schema.org/{{ $product->stock_qty > 0 ? 'InStock' : 'OutOfStock' }}" />
                     {{ $product->present()->stock() }}
                 </span>
             </div>

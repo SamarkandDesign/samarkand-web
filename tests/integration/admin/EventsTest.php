@@ -4,7 +4,6 @@ namespace Integration\Admin;
 
 use App\Address;
 use App\Event;
-use App\User;
 use Carbon\Carbon;
 use TestCase;
 

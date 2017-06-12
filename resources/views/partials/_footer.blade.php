@@ -12,8 +12,11 @@
                             <li>
                                 <h6 class="footer-heading">{{ config('shop.name') }}</h6>
                             </li>
-                            <li><a href="/faqs">Help</a></li>
-                            <li><a href="/terms-and-conditions">Terms &amp; Privacy</a></li>
+                            @if (isset($menuItems['footer_left']))
+                              @foreach($menuItems['footer_left'] as $item)
+                                <li><a href="{{ $item->link }}">{{ $item->label }}</a></li>
+                              @endforeach
+                            @endif
                         </ul>
                     </div>
                     <div class="col-xs-6">
@@ -21,20 +24,13 @@
                             <li>
                                 <h6 class="footer-heading">Company</h6>
                             </li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/contact">Contact</a></li>
-                            <li><a href="/press">Press</a></li>
+                            @if (isset($menuItems['footer_right']))
+                              @foreach($menuItems['footer_right'] as $item)
+                                <li><a href="{{ $item->link }}">{{ $item->label }}</a></li>
+                              @endforeach
+                            @endif
                         </ul>
                     </div>
-                    {{-- <div class="col-xs-4">
-                        <ul class="footer-list">
-                            <li>
-                                <h6 class="footer-heading">Discover</h6>
-                            </li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Events</a></li>
-                        </ul>
-                    </div> --}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-sm-offset-1">
@@ -56,7 +52,7 @@
                             <li>
                                 <a target="_blank" rel="nofollow" href="https://www.houzz.co.uk/user/hillygrumbar"><i class="fa fa-houzz"></i>
                                 </a>
-                            </li>                          
+                            </li>
                             <li>
                                 <a target="_blank" rel="nofollow" href="https://www.pinterest.com/samarkanddesign/"><i class="fa fa-pinterest"></i>
                                 </a>

@@ -55,7 +55,7 @@ window.vm = new Vue({
         'product-search': productSearch,
         'graph': graph,
         'alert': alert,
-        'image-uploader': imageUploader
+        'image-uploader': imageUploader,
 	}
 })
 

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Countries\CountryRepository;
+use App\MenuItem;
 use App\Product;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductRepository;
@@ -19,6 +20,8 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->shareMenuItems();
+
         $this->shareRoles();
 
         $this->sharePostData();
@@ -34,6 +37,16 @@ class ComposerServiceProvider extends ServiceProvider
         $this->shareProductCategories();
 
         $this->shareSearchKey();
+    }
+
+    private function shareMenuItems()
+    {
+        $this->app->view->composer(['partials._navbar', 'partials._footer'], function ($view) {
+            $menuItems = $this->app->cache->rememberForever('app.menus', function () {
+                return MenuItem::all()->groupBy('menu');
+            });
+            $view->with(compact('menuItems'));
+        });
     }
 
     /**
