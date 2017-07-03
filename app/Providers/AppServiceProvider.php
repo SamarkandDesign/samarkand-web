@@ -10,6 +10,7 @@ use App\Services\Geocoder\Geocoder;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
 use Psr\Log\LoggerInterface;
+use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -92,5 +93,9 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->app->make(\App\Services\Geocoder\GoogleGeocoder::class);
         });
+
+        if ($this->app->environment('local', 'testing')) {
+            $this->app->register(DuskServiceProvider::class);
+        }
     }
 }
