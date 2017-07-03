@@ -32,12 +32,12 @@ class DbTermRepositoryTest extends TestCase
         $tagIds = $this->terms->process($tags->toArray(), 'tag');
 
         // Check the new tags are in the database
-        $this->seeInDatabase('terms', [
+        $this->assertDatabaseHas('terms', [
             'term'     => 'Smashing',
             'taxonomy' => 'tag',
             ]);
 
-        $this->seeInDatabase('terms', [
+        $this->assertDatabaseHas('terms', [
             'slug'     => 'wonderful-thoughts',
             'taxonomy' => 'tag',
             ]);

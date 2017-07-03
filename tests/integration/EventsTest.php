@@ -13,8 +13,8 @@ class EventsTest extends TestCase
   {
       $event = factory(Event::class)->create();
 
-      $this->visit("/event/{$event->slug}")
-         ->see($event->title);
+      $response = $this->get("/event/{$event->slug}");
+      $this->assertContains($event->title, $response->getContent());
   }
 
   /** @test **/
@@ -23,9 +23,9 @@ class EventsTest extends TestCase
       $upcomingEvent = factory(Event::class)->create(['start_date' => Carbon::now()->addWeek()]);
       $pastEvent = factory(Event::class)->create(['end_date' => Carbon::now()->subWeek()]);
 
-      $this->visit('/events')
-    ->seePageIs('/events')
-    ->see($upcomingEvent->title)
-    ->dontSee($pastEvent->title);
+      $response = $this->get('/events');
+
+    $this->assertContains($upcomingEvent->title, $response->getContent());
+    $this->assertNotContains($pastEvent->title, $response->getContent());
   }
 }

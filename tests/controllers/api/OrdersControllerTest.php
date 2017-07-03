@@ -15,6 +15,6 @@ class OrdersControllerTest extends \TestCase
 
         $response = $this->patch(route('api.orders.update', $order), ['status' => Order::COMPLETED]);
 
-        $this->seeInDatabase('orders', ['id' => $order->id, 'status' => Order::COMPLETED]);
+        $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => Order::COMPLETED]);
     }
 }

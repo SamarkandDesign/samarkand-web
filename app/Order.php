@@ -66,7 +66,7 @@ class Order extends Model
         $this->items()->delete();
 
         $order_items = Cart::content()->map(function ($row) {
-            return OrderItem::forProduct($row->product, $row->qty);
+            return OrderItem::forProduct($row->model, $row->qty);
         });
 
         $this->order_items()->saveMany($order_items);

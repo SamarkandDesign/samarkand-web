@@ -12,7 +12,9 @@ class CheckoutControllerTest extends \TestCase
         $this->withoutEvents();
         $product = $this->putProductInCart();
 
-        $this->visit('checkout')
-             ->see($product->name);
+        $response = $this->get('/checkout');
+
+        $response->assertStatus(200);
+        $this->assertContains($product->name, $response->getContent());
     }
 }

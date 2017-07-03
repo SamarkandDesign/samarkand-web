@@ -12,14 +12,16 @@ class AttributePropertiesControllerTest extends \TestCase
   {
       $product_attribute = factory(ProductAttribute::class)->create();
 
-      $this->json('POST', route('api.product_attributes.attribute_properties.store', $product_attribute->id), [
+      $response = $this->post(route('api.product_attributes.attribute_properties.store', $product_attribute->id), [
       'name' => 'Foo',
-    ])->seeJson([
+    ]);
+
+    $response->assertJson([
       'name' => 'Foo',
       'slug' => 'foo',
     ]);
 
-      $this->seeInDatabase('attribute_properties', [
+      $this->assertDatabaseHas('attribute_properties', [
       'slug'                 => 'foo',
       'product_attribute_id' => $product_attribute->id,
     ]);
@@ -30,15 +32,16 @@ class AttributePropertiesControllerTest extends \TestCase
   {
       $attribute_property = factory(AttributeProperty::class)->create();
 
-      $this->json('PATCH', route('api.attribute_properties.update', $attribute_property), [
+      $response = $this->patch(route('api.attribute_properties.update', $attribute_property), [
       'name' => 'Foo',
       'slug' => 'foo',
-    ])->seeJson([
+    ]);
+    $response->assertJson([
       'name' => 'Foo',
       'slug' => 'foo',
     ]);
 
-      $this->seeInDatabase('attribute_properties', [
+      $this->assertDatabaseHas('attribute_properties', [
       'slug' => 'foo',
     ]);
   }
@@ -47,9 +50,9 @@ class AttributePropertiesControllerTest extends \TestCase
   public function it_deletes_an_attribute_property()
   {
       $attribute_property = factory(AttributeProperty::class)->create();
-      $this->json('DELETE', route('api.attribute_properties.delete', $attribute_property));
+      $response = $this->delete(route('api.attribute_properties.delete', $attribute_property));
 
-      $this->notSeeInDatabase('attribute_properties', [
+      $this->assertDatabaseMissing('attribute_properties', [
       'slug'                 => $attribute_property->slug,
       'product_attribute_id' => $attribute_property->product_attribute_id,
     ]);

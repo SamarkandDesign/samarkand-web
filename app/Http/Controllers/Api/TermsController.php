@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTermRequest;
 use App\Http\Requests\Term\UpdateTermRequest;
 use App\Repositories\Term\TermRepository;
+use Illuminate\Http\Response;
 use App\Term;
 
 class TermsController extends Controller
@@ -71,7 +72,8 @@ class TermsController extends Controller
      */
     public function store(CreateTermRequest $request)
     {
-        return Term::create($request->all());
+        $term = Term::create($request->all());
+        return response()->json($term, Response::HTTP_CREATED);
     }
 
     /**

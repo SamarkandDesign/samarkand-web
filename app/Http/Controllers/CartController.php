@@ -29,15 +29,15 @@ class CartController extends Controller
    */
   public function store(AddToCartRequest $request)
   {
-      $product = Product::findOrFail($request->product_id);
+       $product = Product::findOrFail($request->product_id);
       $qty = (int) $request->quantity;
 
-      Cart::associate('Product', 'App')->add([
+      Cart::add([
       'id'    => $product->id,
       'qty'   => $qty,
       'name'  => $product->name,
-      'price' => $product->getPrice()->asDecimal(),
-    ]);
+      'price' => $product->getPrice()->asDecimal (),
+    ])->associate(Product::class);
 
       $request->session()->forget('order');
 

@@ -29,9 +29,9 @@ Checkout
 
 @foreach (Cart::content() as $item)
 <tr>
-  <td class="td-thumbnail">{{ $item->product->present()->thumbnail(45) }}</td>
+  <td class="td-thumbnail">{{ $item->model->present()->thumbnail(45) }}</td>
   <td>{{ $item->name }} x{{ $item->qty }}</td>
-  <td>{{ new App\Values\Price($item->product->getPrice()->value() * $item->qty) }}</td>
+  <td>{{ new App\Values\Price($item->model->getPrice()->value() * $item->qty) }}</td>
 </tr>
 @endforeach
 

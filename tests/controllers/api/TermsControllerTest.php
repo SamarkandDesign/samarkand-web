@@ -27,9 +27,10 @@ class TermsControllerTest extends \TestCase
             'taxonomy' => 'product_category',
         ];
 
-        $this->json('POST', 'api/terms', $payload)->seeJson(['term' => 'pa laa']);
+        $response = $this->post('api/terms', $payload);
+        $response->assertJson(['term' => 'pa laa']);
 
-        $this->seeInDatabase('terms', $payload);
+        $this->assertDatabaseHas('terms', $payload);
     }
 
     /** @test **/
@@ -40,9 +41,10 @@ class TermsControllerTest extends \TestCase
             'taxonomy' => 'Tree Height',
         ];
 
-        $this->json('POST', 'api/terms', $payload)->seeJson(['term' => 'Very Tall']);
+        $response = $this->post('api/terms', $payload);
+        $response->assertJson(['term' => 'Very Tall']);
 
-        $this->seeInDataBase('terms', ['taxonomy' => 'tree_height', 'term' => 'Very Tall']);
+        $this->assertDatabaseHas('terms', ['taxonomy' => 'tree_height', 'term' => 'Very Tall']);
     }
 
     /** @test **/
@@ -50,7 +52,8 @@ class TermsControllerTest extends \TestCase
     {
         $terms = factory(Term::class, 5)->create(['taxonomy' => 'product_category']);
 
-        $this->json('GET', route('api.terms', 'product_category'))->seeJson(['term' => $terms[0]->term]);
+        $response = $this->get(route('api.terms', 'product_category'));
+        $response->assertJsonFragment(['term' => $terms[0]->term]);
     }
 
     /** @test **/
@@ -60,8 +63,8 @@ class TermsControllerTest extends \TestCase
             'term'     => 'Humungous',
             'taxonomy' => 'Lampshade Size',
         ];
-        $this->json('POST', 'api/terms', $payload);
-        $this->assertResponseOk();
+        $response = $this->post('api/terms', $payload);
+        $response->assertStatus(201);
 
         // adjust the taxonomy to just send the snake case version
         $payload = [
@@ -69,10 +72,10 @@ class TermsControllerTest extends \TestCase
             'taxonomy' => 'lampshade_size',
         ];
 
-        $this->json('POST', 'api/terms', $payload);
+        $response = $this->json('POST', 'api/terms', $payload);
 
-        $this->seeJson(['The term has already been taken.']);
-        $this->assertResponseStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonFragment(['The term has already been taken.']);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test **/
@@ -80,9 +83,9 @@ class TermsControllerTest extends \TestCase
     {
         $term = factory(Term::class)->create();
 
-        $this->json('DELETE', "api/terms/{$term->id}");
+        $response = $this->delete("api/terms/{$term->id}");
 
-        $this->notSeeInDatabase('terms', ['taxonomy' => $term->taxonomy, 'term' => $term->term]);
+        $this->assertDatabaseMissing('terms', ['taxonomy' => $term->taxonomy, 'term' => $term->term]);
     }
 
     /** @test */
@@ -90,8 +93,8 @@ class TermsControllerTest extends \TestCase
     {
         $term = factory(Term::class)->create();
 
-        $this->json('PATCH', "api/terms/{$term->id}", ['order' => 11]);
+        $response = $this->patch("api/terms/{$term->id}", ['order' => 11]);
 
-        $this->seeInDatabase('terms', ['taxonomy' => $term->taxonomy, 'term' => $term->term, 'order' => 11]);
+        $this->assertDatabaseHas('terms', ['taxonomy' => $term->taxonomy, 'term' => $term->term, 'order' => 11]);
     }
 }

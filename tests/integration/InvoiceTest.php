@@ -20,8 +20,8 @@ class InvoiceTest extends TestCase
       $this->be($order->customer);
 
     // I can view the order page and see a link for the invoice
-    $this->visit("/account/orders/{$order->id}")
-         ->see('Download Invoice');
+    $response = $this->get("/account/orders/{$order->id}");
+    $this->assertContains('Download Invoice', $response->getContent());
 
     // And click it to download the invoice
     $fakeInvoice = \Mockery::mock(Invoice::class);
@@ -35,8 +35,8 @@ class InvoiceTest extends TestCase
 
       $this->app->instance(PrivateApplication::class, $xero);
 
-      $this->get("/account/orders/{$order->id}/invoice");
-      $this->assertResponseOk();
+      $response = $this->get("/account/orders/{$order->id}/invoice");
+      $response->assertStatus(200);
   }
 
   /** @test **/
@@ -44,7 +44,7 @@ class InvoiceTest extends TestCase
   {
       $order = $this->createOrder();
       $this->be($order->customer);
-      $this->get("/account/orders/{$order->id}/invoice");
-      $this->assertResponseStatus(404);
+      $response = $this->get("/account/orders/{$order->id}/invoice");
+      $response->assertStatus(404);
   }
 }

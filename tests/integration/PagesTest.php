@@ -17,9 +17,9 @@ class PagesTest extends TestCase
             'meta_description' => 'The quick brown fox is hairy',
             ]);
 
-        $this->visit('/my-very-nice-page')
-             ->see('content="The quick brown fox')
-             ->see($page->content);
+        $response = $this->get('/my-very-nice-page');
+        $this->assertContains('content="The quick brown fox', $response->getContent());
+        $this->assertContains($page->content, $response->getContent());
     }
 
     /** @test **/
@@ -44,13 +44,13 @@ class PagesTest extends TestCase
     {
         $pages = $this->seedNestedPages();
 
-        $this->visit('/first/second')
-             ->see($pages[1]->title)
-             ->see($pages[1]->content);
+        $response = $this->get('/first/second');
+             $this->assertContains($pages[1]->title, $response->getContent());
+             $this->assertContains($pages[1]->content, $response->getContent());
 
-        $this->visit('/first/second/third')
-             ->see($pages[2]->title)
-             ->see($pages[2]->content);
+        $response = $this->get('/first/second/third');
+             $this->assertContains($pages[2]->title, $response->getContent());
+             $this->assertContains($pages[2]->content, $response->getContent());
     }
 
     /** @test **/

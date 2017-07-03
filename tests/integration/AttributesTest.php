@@ -24,8 +24,8 @@ class AttributesTest extends TestCase
 
         $product_1->addProperty($property);
 
-        $this->visit('/shop?filter[size]=huge')
-             ->see($product_1->name)
-             ->dontSee($product_2->name);
+        $response = $this->get('/shop?filter[size]=huge');
+        $this->assertContains($product_1->name, $response->getContent());
+        $this->assertNotContains($product_2->name, $response->getContent());
     }
 }
