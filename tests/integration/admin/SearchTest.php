@@ -23,9 +23,9 @@ class SearchTest extends \TestCase
   {
       $this->logInAsAdmin();
       $response = $this->get('/admin/products/search?query=somequery');
-         $this->assertContains($this->products[3]->name, $response->getContent());
-         $this->assertNotContains($this->products[8]->name, $response->getContent());
-         $this->markTestSkipped();
+      $this->assertContains($this->products[3]->name, $response->getContent());
+      $this->assertNotContains($this->products[8]->name, $response->getContent());
+      $this->markTestSkipped();
          // ->click('2')
          // $this->assertContains($this->products[8]->name, $response->getContent());
   }
@@ -37,10 +37,10 @@ class SearchTest extends \TestCase
       $this->products[9]->update(['listed' => false]);
 
       $response = $this->get('/shop/search?query=somequery');
-         $this->assertContains($this->products[3]->name, $response->getContent());
-         $this->assertNotContains($this->products[1]->name, $response->getContent());
-         $this->assertNotContains($this->products[8]->name, $response->getContent());
-         $this->markTestSkipped();
+      $this->assertContains($this->products[3]->name, $response->getContent());
+      $this->assertNotContains($this->products[1]->name, $response->getContent());
+      $this->assertNotContains($this->products[8]->name, $response->getContent());
+      $this->markTestSkipped();
          // ->click('2')
          // $this->assertContains($this->products[8]->name, $response->getContent());
          // $this->assertNotContains($this->products[9]->name, $response->getContent());

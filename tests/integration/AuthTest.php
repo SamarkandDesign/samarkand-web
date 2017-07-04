@@ -78,7 +78,7 @@ class AuthTest extends TestCase
     /** @test **/
     public function it_throttles_invalid_logins()
     {
-        $response = $this->get('login');;
+        $response = $this->get('login');
         $this->markTestSkipped();
 
         foreach (range(0, 5) as $attempt) {

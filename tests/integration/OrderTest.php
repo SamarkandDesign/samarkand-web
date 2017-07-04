@@ -38,7 +38,6 @@ class OrderTest extends TestCase
   /** @test **/
   public function it_redirects_back_to_checkout_if_user_logs_in_at_checkout()
   {
-
       $user = factory(User::class)->create([
       'password' => 'secret',
     ]);
@@ -84,7 +83,7 @@ class OrderTest extends TestCase
     //$current_stock = $product->stock_qty;
 
     $response = $this->get('checkout');
-    $this->markTestSkipped();
+      $this->markTestSkipped();
     // ->type('Leave in the linhay', 'delivery_note')
     // ->select($address->id, 'billing_address_id')
     // ->select($address->id, 'shipping_address_id')

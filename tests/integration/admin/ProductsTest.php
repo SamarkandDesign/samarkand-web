@@ -26,7 +26,7 @@ class ProductsTest extends \TestCase
 
       $response = $this->get('admin/products');
 
-    $this->assertContains($product->name, $response->getContent());
+      $this->assertContains($product->name, $response->getContent());
   }
 
   /** @test **/
@@ -43,7 +43,7 @@ class ProductsTest extends \TestCase
   /** @test **/
   public function it_can_create_a_product()
   {
-      $response = $this->get('admin/products/create');;
+      $response = $this->get('admin/products/create');
       $this->assertContains('Create Product', $response->getContent());
 
       $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
@@ -106,9 +106,9 @@ class ProductsTest extends \TestCase
 
       $response = $this->get("admin/products/{$product->id}/edit");
 
-           $this->assertContains('Edit Product', $response->getContent());
+      $this->assertContains('Edit Product', $response->getContent());
 
-      $response =$this->patch("admin/products/{$product->id}", [
+      $response = $this->patch("admin/products/{$product->id}", [
       'name'   => 'lorem ipsum',
       'terms'  => $terms->pluck('id')->toArray(),
       '_token' => csrf_token(),
@@ -140,7 +140,7 @@ class ProductsTest extends \TestCase
 
       $response = $this->get('admin/products/trash');
 
-    $this->assertContains($product->name, $response->getContent());
+      $this->assertContains($product->name, $response->getContent());
 
     // hard delete the product
     $this->delete("/admin/products/{$product->id}");

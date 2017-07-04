@@ -12,7 +12,6 @@ class OrdersTest extends TestCase
     /** @test */
     public function it_shows_a_list_of_orders_and_allows_order_completion()
     {
-
         $this->logInAsAdmin();
 
         $order = $this->createOrder(['status' => 'processing']);
