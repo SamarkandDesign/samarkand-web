@@ -11,6 +11,7 @@ use Tests\DuskTestCase;
 class PurchaseTest extends DuskTestCase
 {
     use DatabaseMigrations;
+
     /**
      * A Dusk test example.
      *

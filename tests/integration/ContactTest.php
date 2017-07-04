@@ -21,14 +21,14 @@ class ContactTest extends TestCase
       $user = factory(User::class)->create(['is_shop_manager' => true]);
 
       $response = $this->post('/contact', [
-          'name' => 'Joe Bloggs',
-          'email' => 'joe@example.com',
+          'name'    => 'Joe Bloggs',
+          'email'   => 'joe@example.com',
           'subject' => 'This is an email',
           'message' => 'Lorem Ipsum',
         ]);
 
-      \Mail::assertSent(ContactSubmitted::class, function($m) {
-        return $m->hasTo('foo@example.com');
+      \Mail::assertSent(ContactSubmitted::class, function ($m) {
+          return $m->hasTo('foo@example.com');
       });
       $response->assertRedirect('/contact');
 
