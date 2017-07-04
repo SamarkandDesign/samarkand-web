@@ -21,7 +21,7 @@ class InvoiceTest extends TestCase
 
     // I can view the order page and see a link for the invoice
     $response = $this->get("/account/orders/{$order->id}");
-    $this->assertContains('Download Invoice', $response->getContent());
+      $this->assertContains('Download Invoice', $response->getContent());
 
     // And click it to download the invoice
     $fakeInvoice = \Mockery::mock(Invoice::class);

@@ -45,12 +45,12 @@ class PagesTest extends TestCase
         $pages = $this->seedNestedPages();
 
         $response = $this->get('/first/second');
-             $this->assertContains($pages[1]->title, $response->getContent());
-             $this->assertContains($pages[1]->content, $response->getContent());
+        $this->assertContains($pages[1]->title, $response->getContent());
+        $this->assertContains($pages[1]->content, $response->getContent());
 
         $response = $this->get('/first/second/third');
-             $this->assertContains($pages[2]->title, $response->getContent());
-             $this->assertContains($pages[2]->content, $response->getContent());
+        $this->assertContains($pages[2]->title, $response->getContent());
+        $this->assertContains($pages[2]->content, $response->getContent());
     }
 
     /** @test **/

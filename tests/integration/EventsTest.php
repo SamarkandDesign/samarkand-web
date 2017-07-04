@@ -25,7 +25,7 @@ class EventsTest extends TestCase
 
       $response = $this->get('/events');
 
-    $this->assertContains($upcomingEvent->title, $response->getContent());
-    $this->assertNotContains($pastEvent->title, $response->getContent());
+      $this->assertContains($upcomingEvent->title, $response->getContent());
+      $this->assertNotContains($pastEvent->title, $response->getContent());
   }
 }
