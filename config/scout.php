@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'null'),
+    'driver' => is_null(env('SCOUT_DRIVER')) ? 'null' : env('SCOUT_DRIVER', 'algolia'),
 
     /*
     |--------------------------------------------------------------------------
