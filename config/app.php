@@ -165,6 +165,7 @@ return [
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         // Laravel\Tinker\TinkerServiceProvider::class,
+        App\Billing\BillingServiceProvider::class,
     ],
 
     /*

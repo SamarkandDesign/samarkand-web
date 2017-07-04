@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
-use App\Mailers\ContactMailer;
+use App\Mail\ContactSubmitted;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -13,7 +13,7 @@ class ContactsController extends Controller
         return view('contacts.create');
     }
 
-    public function store(Request $request, ContactMailer $mailer)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'name'    => 'required',
@@ -23,8 +23,11 @@ class ContactsController extends Controller
         ]);
 
         $contact = Contact::create($request->all());
-        $mailer->sendContactEmail($contact);
+        \Mail::to(config('mail.recipients.contact'))->send(new ContactSubmitted($contact));
 
-        return redirect()->back()->with(['alert' => 'Thanks, your message has been sent', 'alert-class' => 'success']);
+        return redirect('/contact')->with([
+            'alert' => 'Thanks, your message has been sent',
+            'alert-class' => 'success'
+            ]);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace Tests\Browser;
 
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
+use App\Mail\OrderConfirmed;
+use App\Mail\ProductOutOfStock;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class PurchaseTest extends DuskTestCase
 {
@@ -17,7 +19,9 @@ class PurchaseTest extends DuskTestCase
     public function testCanPurchaseAProduct()
     {
         $this->browse(function (Browser $b) {
-            $product = factory('App\Product')->create();
+            \Mail::fake();
+
+            $product = factory('App\Product')->create(['stock_qty' => 1]);
             $shippingMethod = factory('App\ShippingMethod')->create(['description' => 'UK Shipping']);
             $shippingMethod->allowCountries(['gb']);
 
@@ -47,6 +51,9 @@ class PurchaseTest extends DuskTestCase
             $b->press('Place Order');
 
             $b->waitForText('ORDER COMPLETED');
+
+            Mail::assertSent(OrderConfirmed::class);
+            Mail::assertSent(ProductOutOfStock::class);
         });
     }
 }
