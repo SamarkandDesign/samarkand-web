@@ -15,7 +15,7 @@ class ShippingMethodsTest extends TestCase
         $shipping_method = factory(ShippingMethod::class)->create();
 
         $response = $this->get('admin/shipping-methods');
-             $this->assertContains($shipping_method->description, $response->getContent());
+        $this->assertContains($shipping_method->description, $response->getContent());
     }
 
     /** @test **/

@@ -53,7 +53,7 @@ class PostsTest extends \TestCase
         $postTitle = 'Edited Title';
 
         $response = $this->get("/admin/posts/{$post->id}/edit");
-             $this->assertContains('Edit Post', $response->getContent());
+        $this->assertContains('Edit Post', $response->getContent());
 
         $this->patch("admin/posts/{$post->id}", [
             'title'  => $postTitle,

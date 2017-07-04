@@ -9,8 +9,8 @@ use App\Page;
 use App\Services\Geocoder\Geocoder;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
-use Psr\Log\LoggerInterface;
 use Laravel\Dusk\DuskServiceProvider;
+use Psr\Log\LoggerInterface;
 
 class AppServiceProvider extends ServiceProvider
 {

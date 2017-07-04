@@ -16,7 +16,7 @@ class AttributePropertiesControllerTest extends \TestCase
       'name' => 'Foo',
     ]);
 
-    $response->assertJson([
+      $response->assertJson([
       'name' => 'Foo',
       'slug' => 'foo',
     ]);
@@ -36,7 +36,7 @@ class AttributePropertiesControllerTest extends \TestCase
       'name' => 'Foo',
       'slug' => 'foo',
     ]);
-    $response->assertJson([
+      $response->assertJson([
       'name' => 'Foo',
       'slug' => 'foo',
     ]);

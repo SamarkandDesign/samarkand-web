@@ -63,7 +63,7 @@ class AddressTest extends TestCase
         $address = factory(Address::class)->create([
                                'addressable_id' => $user->id,
                                ]);
-        $response = $this->get("account/addresses/{$address->id}/edit");;
+        $response = $this->get("account/addresses/{$address->id}/edit");
     }
 
     /** @test **/
