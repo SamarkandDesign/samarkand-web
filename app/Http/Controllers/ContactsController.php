@@ -26,8 +26,8 @@ class ContactsController extends Controller
         \Mail::to(config('mail.recipients.contact'))->send(new ContactSubmitted($contact));
 
         return redirect('/contact')->with([
-            'alert' => 'Thanks, your message has been sent',
-            'alert-class' => 'success'
+            'alert'       => 'Thanks, your message has been sent',
+            'alert-class' => 'success',
             ]);
     }
 }
