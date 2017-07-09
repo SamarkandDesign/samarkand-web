@@ -52,14 +52,14 @@ class AccountTest extends TestCase
     {
         $user = $this->loginWithUser();
 
-        $response = $this->get('/account/edit');
-        // ->type('Joe Bloggs', 'name')
-        // ->type('joe@example.com', 'email')
-        // ->press('Update Account')
-        // ->seePageIs('/account')
-        // $this->assertContains('Profile updated', $response->getContent());
+        $response = $this->patch("/account/{$user->id}", [
+            'name' => 'Joe Bloggs',
+            'email' => 'joe@example.com',
+        ]);
 
-        // $this->assertDatabaseHas('users', ['id' => $user->id, 'email' => 'joe@example.com']);
+        $response->assertRedirect('/account');
+
+        $this->assertDatabaseHas('users', ['id' => $user->id, 'email' => 'joe@example.com']);
     }
 
     /** @test **/

@@ -4,13 +4,10 @@ namespace Integration;
 
 use App\Mail\ContactSubmitted;
 use App\User;
-use MailThief\Testing\InteractsWithMail;
 use TestCase;
 
 class ContactTest extends TestCase
 {
-    use InteractsWithMail;
-
   /** @test */
   public function it_sends_an_email_from_the_contact_page_and_stores_the_message()
   {
@@ -38,10 +35,13 @@ class ContactTest extends TestCase
   /** @test */
   public function it_validates_the_contact_form()
   {
-      $this->markTestSkipped();
-      $response = $this->get('/contact');
-    // ->press('send')
-    // ->seePageIs('/contact')
-    // ->see('email field is required');
+      $response = $this->post('/contact', [
+          'name'    => '',
+          'email'   => '',
+          'subject' => '',
+          'message' => '',
+          ]);
+
+      $response->assertSessionHasErrors(['name']);
   }
 }

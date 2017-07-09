@@ -33,6 +33,6 @@ class ContactSubmitted extends Mailable
         return $this->text('emails.plaintext')
                     ->with(['text' => $this->contact->message])
                     ->subject($this->contact->subject)
-                    ->from($contact->email, $contact->name);
+                    ->from($this->contact->email, $this->contact->name);
     }
 }
