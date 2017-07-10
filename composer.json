@@ -25,7 +25,8 @@
 		"doctrine/dbal": "^2.5",
 		"laravel/scout": "^3.0",
 		"calcinai/xero-php": "^1.4",
-		"laravel/dusk": "^1.1"
+		"laravel/dusk": "^1.1",
+		"laravel/tinker": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~5.7",

@@ -3,6 +3,8 @@
 namespace Integration;
 
 use App\User;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Notification;
 use TestCase;
 
 class AuthTest extends TestCase
@@ -10,33 +12,48 @@ class AuthTest extends TestCase
     /** @test **/
     public function it_allows_resetting_a_users_password()
     {
+        Notification::fake();
+
         $user = factory(User::class)->create();
 
         $response = $this->get('/password/reset');
         $response->assertStatus(200);
-            //  ->type($user->email, 'email')
-            //  ->press('Send Password Reset Link')
-            //  ->see('password reset link');
 
-        // look in the db for a password reset link
-        $token = collect(\DB::table('password_resets')->where('email', $user->email)->first())->get('token');
+        $response = $this->post('password/email', [
+            'email' => $user->email,
+            ]);
 
-        $response = $this->get("/password/reset/$token");
+        $response->assertRedirect('/password/reset');
+
+        $token = '';
+
+        Notification::assertSentTo(
+            $user,
+            ResetPassword::class,
+            function ($notification, $channels) use (&$token) {
+                $token = $notification->token;
+                return true;
+            });
+
+        $response = $this->get("/password/reset/{$token}");
+
         $response->assertStatus(200);
-        //      ->type($user->email, 'email')
-        //      ->type('secret', 'password')
-        //      ->type('secret', 'password_confirmation')
-        //      ->press('Reset Password');
 
-        // $this->assertTrue(\Auth::check());
+        $response = $this->post('/password/reset', [
+             'token' => $token,
+             'email' => $user->email,
+             'password' => 'secret',
+             'password_confirmation' => 'secret',
+            ]);
+
 
         \Auth::logout();
-        $this->markTestSkipped();
+
         // Ensure the newly reset password works to login with
-        // $this->assertTrue(\Auth::attempt([
-        //     'email'    => $user->email,
-        //     'password' => 'secret',
-        //     ]));
+        $this->assertTrue(\Auth::attempt([
+            'email'    => $user->email,
+            'password' => 'secret',
+            ]));
     }
 
     /** @test **/
@@ -50,44 +67,45 @@ class AuthTest extends TestCase
 
         $response = $this->get('/login');
         $response->assertStatus(200);
-        $this->markTestSkipped();
-        // ->type($email, 'email')
-        // ->type('password', 'password')
-        // ->press('Login')
-        // ->seePageIs('/');
 
-        // $this->assertTrue(\Auth::check());
+        $this->post('/login', [
+            'email' => $email,
+            'password' => 'password',
+        ]);
 
-        // $this->assertFalse($user->fresh()->autoCreated());
+        $this->assertTrue(\Auth::check());
+
+        $this->assertFalse($user->fresh()->autoCreated());
     }
 
     /** @test **/
     public function it_cannot_login_with_invalid_credentials()
     {
         $response = $this->get('login');
-        $this->markTestSkipped();
-        // ->type('fakename@noone.com', 'email')
-        // ->type('wrongpw', 'password')
-        // ->press('Login')
-        // ->seePageIs('/login')
-        // ->see('Your login details were invalid');
 
+        $response = $this->post('/login', [
+            'email' => 'fakename@noone.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect('/login');
+        $response->assertSessionHasErrors(['email']);
         $this->assertTrue(\Auth::guest());
     }
 
     /** @test **/
     public function it_throttles_invalid_logins()
     {
-        $response = $this->get('login');
-        $this->markTestSkipped();
+        $response = array_reduce(range(0,5), function() {
+            return $this->post('/login', [
+                'email' => 'fakename@noone.com',
+                'password' => 'password',
+            ]);
+        });
 
-        foreach (range(0, 5) as $attempt) {
-            $this->type('fakename@noone.com', 'email')
-                 ->type('wrongpw', 'password')
-                 ->press('Login');
-        }
-
-        $this->seePageIs('/login')
-             ->see('Too many login attempts');
+        $this->assertContains(
+            'Too many login attempts. Please try again in 60 seconds.',
+            session()->get('errors')->get('email')
+            );
     }
 }
