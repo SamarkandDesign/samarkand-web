@@ -3,6 +3,8 @@
 namespace App\Traits;
 
 use Carbon\Carbon;
+use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Environment;
 
 trait Postable
 {
@@ -94,6 +96,14 @@ trait Postable
      */
     public function getContentHtml()
     {
-        return \Markdown::convertToHtml($this->content);
+        // Obtain a pre-configured Environment with all the CommonMark parsers/renderers ready-to-go
+        $environment = Environment::createCommonMarkEnvironment();
+        $config = ['html_input' => 'allow'];
+
+        // Create the converter
+        $converter = new CommonMarkConverter($config, $environment);
+        $markdown = $this->content;
+
+        return $converter->convertToHtml($this->content);
     }
 }
