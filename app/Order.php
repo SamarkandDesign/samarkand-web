@@ -33,7 +33,8 @@ class Order extends Model
     ];
 
     /**
-     * Default values for an order
+     * Default values for an order.
+     *
      * @var array
      */
     protected $attributes = [

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ShippingMethod\ShippingMethodRepository;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
