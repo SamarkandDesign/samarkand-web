@@ -84,9 +84,9 @@ class DeriveUserForOrder
 
     protected function createCustomer()
     {
-        $fields = $this->request->has('create_account') ?
-        ['email', 'password', 'password_confirmation'] :
-        ['email'];
+        $fields = $this->request->has('create_account')
+            ? ['email', 'password', 'password_confirmation']
+            : ['email'];
 
         $billing_address = $this->request->get('billing_address');
 
@@ -102,6 +102,10 @@ class DeriveUserForOrder
         ]);
 
         $user->assignRole('customer');
+
+        if ($this->request->has('create_account')) {
+            \Auth::login($user);
+        }
 
         return $user;
     }
