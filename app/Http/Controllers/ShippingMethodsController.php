@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ShippingMethodsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('order.session');
+    }
 
     /**
      * Show the page for choosing a shipping method for an order.

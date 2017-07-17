@@ -9,7 +9,7 @@ class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('order.session', ['only' => ['shipping', 'pay']]);
+        $this->middleware('order.session', ['only' => ['pay']]);
     }
 
     /**
