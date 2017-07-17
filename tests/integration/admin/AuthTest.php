@@ -16,7 +16,7 @@ class AuthTest extends TestCase
         \Session::put('url.intended', '/admin');
 
         $response = $this->post('/login', [
-         'email' => $user->email,
+         'email'    => $user->email,
          'password' => 'password',
          ]);
 

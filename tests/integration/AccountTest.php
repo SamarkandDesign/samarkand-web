@@ -53,7 +53,7 @@ class AccountTest extends TestCase
         $user = $this->loginWithUser();
 
         $response = $this->patch("/account/{$user->id}", [
-            'name' => 'Joe Bloggs',
+            'name'  => 'Joe Bloggs',
             'email' => 'joe@example.com',
         ]);
 

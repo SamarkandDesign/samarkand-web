@@ -20,18 +20,18 @@ class OrderTest extends TestCase
   /** @test **/
   public function it_redirects_to_login_if_email_is_recognised()
   {
-    $user = factory(User::class)->create([
+      $user = factory(User::class)->create([
       'password' => 'secret',
     ]);
-    $product = $this->putProductInCart();
+      $product = $this->putProductInCart();
 
-    $response = $this->get('checkout');
+      $response = $this->get('checkout');
 
-    $response = $this->post('/orders', [
+      $response = $this->post('/orders', [
       'email' => $user->email,
     ]);
 
-    $response->assertRedirect(sprintf('login?email=%s', urlencode($user->email)));
+      $response->assertRedirect(sprintf('login?email=%s', urlencode($user->email)));
   }
 
   /** @test **/
@@ -43,7 +43,7 @@ class OrderTest extends TestCase
       $response = $this->get('checkout');
 
       $response = $this->post('/orders', array_merge($this->getAddressFields(), [
-        'email' => 'booboo@tempuser.com',
+        'email'         => 'booboo@tempuser.com',
         'delivery_note' => 'Leave in the barn',
       ]));
 
@@ -53,8 +53,8 @@ class OrderTest extends TestCase
 
       $this->assertDatabaseHas('orders', [
         // 'amount' => $expectedTotal,
-        'status' => 'pending',
-        'delivery_note' => 'Leave in the barn'
+        'status'        => 'pending',
+        'delivery_note' => 'Leave in the barn',
       ]);
 
       $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
@@ -74,8 +74,8 @@ class OrderTest extends TestCase
       $response = $this->get('checkout');
 
       $response = $this->followRedirects($this->post('/orders', [
-        'delivery_note' => 'Leave in the barn',
-        'billing_address_id' => $address->id,
+        'delivery_note'       => 'Leave in the barn',
+        'billing_address_id'  => $address->id,
         'shipping_address_id' => $address->id,
       ]));
 
@@ -83,9 +83,9 @@ class OrderTest extends TestCase
 
       $order = \App\Order::where('user_id', $user->id)->first();
       $this->assertDatabaseHas('orders', [
-        'status' => 'pending',
+        'status'        => 'pending',
         'delivery_note' => 'Leave in the barn',
-        'amount' => $shipping_method->getPrice()->value() + $product->getPrice()->value(),
+        'amount'        => $shipping_method->getPrice()->value() + $product->getPrice()->value(),
       ]);
 
       $this->assertEquals($address->id, $order->billing_address_id);
@@ -105,7 +105,7 @@ class OrderTest extends TestCase
       $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 650])->allowCountries(['GB']);
       $this->get('checkout');
       $response = $this->post('/orders', [
-        'billing_address_id' => $address->id,
+        'billing_address_id'  => $address->id,
         'shipping_address_id' => $address->id,
       ]);
 
@@ -134,12 +134,11 @@ class OrderTest extends TestCase
 
       $this->get('checkout');
       $response = $this->followRedirects($this->post('/orders', [
-        'billing_address_id' => $address->id,
+        'billing_address_id'  => $address->id,
         'shipping_address_id' => $address->id,
       ]));
       $response->assertSee($shipping_method->description);
       $response->assertSee('Order Details');
-
   }
 
   /** @test **/
@@ -158,7 +157,7 @@ class OrderTest extends TestCase
 
       $response = $this->get('checkout');
       $response = $this->followRedirects($this->post('/orders', [
-        'billing_address_id' => $address->id,
+        'billing_address_id'  => $address->id,
         'shipping_address_id' => $address->id,
       ]));
       // // simulate a post request as if the user maliciously changed
@@ -182,7 +181,7 @@ class OrderTest extends TestCase
 
       $response = $this->get('checkout');
       $response = $this->followRedirects($this->post('/orders', [
-        'billing_address_id' => $address->id,
+        'billing_address_id'  => $address->id,
         'shipping_address_id' => $address->id,
       ]));
       $response->assertSee('choose a different shipping address');
@@ -196,9 +195,9 @@ class OrderTest extends TestCase
 
       $response = $this->get('checkout');
       $request = array_merge($this->getAddressFields(), [
-        'email' => 'booboo@tempuser.com',
-        'create_account' => '1',
-        'password' => 'smoomoo',
+        'email'                 => 'booboo@tempuser.com',
+        'create_account'        => '1',
+        'password'              => 'smoomoo',
         'password_confirmation' => 'smoomoo',
         ]);
 
@@ -218,25 +217,24 @@ class OrderTest extends TestCase
   {
       $product = $this->putProductInCart();
       $user = factory(User::class)->create([
-        'password' => 'password'
+        'password' => 'password',
       ]);
 
       $response = $this->get('checkout');
 
-
-    $request = array_merge($this->getAddressFields(), [
+      $request = array_merge($this->getAddressFields(), [
         'email' => $user->email,
         ]);
 
-    $response = $this->followRedirects($this->post('orders', $request));
-    $response->assertSee('This email has an account here');
+      $response = $this->followRedirects($this->post('orders', $request));
+      $response->assertSee('This email has an account here');
 
-    $response = $this->post('/login', [
-      'email' => $user->email,
+      $response = $this->post('/login', [
+      'email'    => $user->email,
       'password' => 'password',
       ]);
 
-    $response->assertRedirect('/checkout');
+      $response->assertRedirect('/checkout');
   }
 
   /** @test **/
@@ -297,17 +295,17 @@ class OrderTest extends TestCase
       $this->assertContains($order->order_items->first()->description, $response->getContent());
   }
 
-  protected function getAddressFields($type = 'billing')
-  {
-    return [
+    protected function getAddressFields($type = 'billing')
+    {
+        return [
       "{$type}_address" => [
-        'name' => 'Joe',
-        'line_1' => '10 Downing Street',
-        'city' => 'London',
-        'country' => 'GB',
+        'name'     => 'Joe',
+        'line_1'   => '10 Downing Street',
+        'city'     => 'London',
+        'country'  => 'GB',
         'postcode' => 'SW1A 2AA',
-        'phone' => '01234567891',
-      ]
+        'phone'    => '01234567891',
+      ],
     ];
-  }
+    }
 }

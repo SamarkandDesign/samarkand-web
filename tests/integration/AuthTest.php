@@ -32,6 +32,7 @@ class AuthTest extends TestCase
             ResetPassword::class,
             function ($notification, $channels) use (&$token) {
                 $token = $notification->token;
+
                 return true;
             });
 
@@ -40,12 +41,11 @@ class AuthTest extends TestCase
         $response->assertStatus(200);
 
         $response = $this->post('/password/reset', [
-             'token' => $token,
-             'email' => $user->email,
-             'password' => 'secret',
+             'token'                 => $token,
+             'email'                 => $user->email,
+             'password'              => 'secret',
              'password_confirmation' => 'secret',
             ]);
-
 
         \Auth::logout();
 
@@ -69,7 +69,7 @@ class AuthTest extends TestCase
         $response->assertStatus(200);
 
         $this->post('/login', [
-            'email' => $email,
+            'email'    => $email,
             'password' => 'password',
         ]);
 
@@ -84,7 +84,7 @@ class AuthTest extends TestCase
         $response = $this->get('login');
 
         $response = $this->post('/login', [
-            'email' => 'fakename@noone.com',
+            'email'    => 'fakename@noone.com',
             'password' => 'password',
         ]);
 
@@ -96,9 +96,9 @@ class AuthTest extends TestCase
     /** @test **/
     public function it_throttles_invalid_logins()
     {
-        $response = array_reduce(range(0,5), function() {
+        $response = array_reduce(range(0, 5), function () {
             return $this->post('/login', [
-                'email' => 'fakename@noone.com',
+                'email'    => 'fakename@noone.com',
                 'password' => 'password',
             ]);
         });
