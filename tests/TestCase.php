@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Factory;
+use Illuminate\Foundation\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
@@ -33,6 +34,15 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->baseUrl = \Config::get('app.url', 'http://homestead.app');
 
         return $app;
+    }
+
+    protected function followRedirects(TestResponse $response)
+    {
+        while ($response->isRedirect()) {
+            $response = $this->get($response->headers->get('Location'));
+        }
+
+        return $response;
     }
 
     protected function logInAsAdmin(array $overrides = [])

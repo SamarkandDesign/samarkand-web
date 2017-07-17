@@ -6,7 +6,6 @@ use App\Address;
 use App\Events\OrderWasCreated;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\Order\ViewOrderRequest;
-use App\Http\Requests\SetShippingMethodRequest;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,6 +29,9 @@ class OrdersController extends Controller
     public function store(CreateOrderRequest $request)
     {
         $customer = $request->get('customer');
+        if (!$request->session()->has('order')) {
+            abort(400, 'No order in session');
+        }
         $order = $request->session()->get('order');
 
         $addresses = $this->processAddresses($request);
@@ -38,7 +40,7 @@ class OrdersController extends Controller
         $order->billing_address_id = $addresses['billing_address_id'];
         $order->shipping_address_id = $addresses['shipping_address_id'];
         $order->user_id = $customer->id;
-        $order->delivery_note = $request->get('delivery_note');
+        $order->delivery_note = $request->get('delivery_note', '');
         $order->save();
 
         $order->syncWithCart();
@@ -49,24 +51,6 @@ class OrdersController extends Controller
         $request->session()->put('order', $order->fresh());
 
         return redirect()->route('checkout.shipping');
-    }
-
-    /**
-     * Add a shipping to an order.
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function shipping(SetShippingMethodRequest $request)
-    {
-        $order = $request->session()->get('order');
-
-        $order = $order->setShipping($request->get('shipping_method_id'));
-
-        $request->session()->put('order', $order->fresh());
-
-        return redirect()->route('checkout.pay');
     }
 
     /**
@@ -117,6 +101,7 @@ class OrdersController extends Controller
         }
 
         $customer = $request->get('customer');
+
         $order = $request->session()->get('order');
 
         $billing_address = $order->getAddress('billing');

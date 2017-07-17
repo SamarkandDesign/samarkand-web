@@ -33,6 +33,14 @@ class Order extends Model
     ];
 
     /**
+     * Default values for an order
+     * @var array
+     */
+    protected $attributes = [
+        'delivery_note' => 'hello',
+    ];
+
+    /**
      * The database table used by the model.
      *
      * @var string

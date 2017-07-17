@@ -20,36 +20,18 @@ class OrderTest extends TestCase
   /** @test **/
   public function it_redirects_to_login_if_email_is_recognised()
   {
-      $user = factory(User::class)->create([
+    $user = factory(User::class)->create([
       'password' => 'secret',
     ]);
-      $product = $this->putProductInCart();
+    $product = $this->putProductInCart();
 
-      $response = $this->get('checkout');
-      $this->markTestSkipped();
-    // ->type($user->email, 'email')
-    // ->press('Continue')
-    // ->seePageIs(sprintf('login?email=%s', urlencode($user->email)))
-    // ->type('secret', 'password')
-    // ->press('Login')
-    // ->seePageIs('checkout');
-  }
+    $response = $this->get('checkout');
 
-  /** @test **/
-  public function it_redirects_back_to_checkout_if_user_logs_in_at_checkout()
-  {
-      $user = factory(User::class)->create([
-      'password' => 'secret',
+    $response = $this->post('/orders', [
+      'email' => $user->email,
     ]);
-      $product = $this->putProductInCart();
-      $response = $this->get('checkout');
-      $this->markTestSkipped();
-    // ->click('Login')
-    // ->seePageIs('login')
-    // ->type($user->email, 'email')
-    // ->type('secret', 'password')
-    // ->press('Login')
-    // ->seePageIs('checkout');
+
+    $response->assertRedirect(sprintf('login?email=%s', urlencode($user->email)));
   }
 
   /** @test **/
@@ -59,17 +41,24 @@ class OrderTest extends TestCase
       $shipping_method = factory('App\ShippingMethod')->create()->allowCountries(['GB']);
 
       $response = $this->get('checkout');
-      $this->markTestSkipped();
 
-    // ->type('booboo@tempuser.com', 'email')
-    // ->fillAddress()
-    // ->type('Leave in the barn', 'delivery_note')
-    // ->press('Continue')
-    // ->seePageIs('checkout/pay');
+      $response = $this->post('/orders', array_merge($this->getAddressFields(), [
+        'email' => 'booboo@tempuser.com',
+        'delivery_note' => 'Leave in the barn',
+      ]));
 
-    //   $this->assertDatabaseHas('orders', ['amount' => $product->getPrice()->value() + $shipping_method->getPrice()->value(), 'status' => 'pending', 'delivery_note' => 'Leave in the barn']);
-    //   $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
-    //   $this->assertDatabaseHas('addresses', ['city' => 'London']);
+      $response->assertRedirect('/checkout/shipping');
+
+      // $expectedTotal = $product->getPrice()->value() + $shipping_method->getPrice()->value();
+
+      $this->assertDatabaseHas('orders', [
+        // 'amount' => $expectedTotal,
+        'status' => 'pending',
+        'delivery_note' => 'Leave in the barn'
+      ]);
+
+      $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
+      $this->assertDatabaseHas('addresses', ['city' => 'London']);
   }
 
   /** @test **/
@@ -80,25 +69,29 @@ class OrderTest extends TestCase
       $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
       $shipping_method = factory('App\ShippingMethod')->create()->allowCountries(['GB']);
 
-    //$current_stock = $product->stock_qty;
+      $current_stock = $product->stock_qty;
 
-    $response = $this->get('checkout');
-      $this->markTestSkipped();
-    // ->type('Leave in the linhay', 'delivery_note')
-    // ->select($address->id, 'billing_address_id')
-    // ->select($address->id, 'shipping_address_id')
-    // ->press('Continue')
-    // ->seePageIs('checkout/pay');
+      $response = $this->get('checkout');
 
-    //   $order_amount = $product->getPrice()->value() + $shipping_method->getPrice()->value();
+      $response = $this->followRedirects($this->post('/orders', [
+        'delivery_note' => 'Leave in the barn',
+        'billing_address_id' => $address->id,
+        'shipping_address_id' => $address->id,
+      ]));
 
-    //   $order = \App\Order::where('user_id', $user->id)->first();
-    //   $this->assertDatabaseHas('orders', ['amount' => $order_amount, 'status' => 'pending', 'delivery_note' => 'Leave in the linhay']);
+      $response->assertSee('<h1>Pay</h1>');
 
-    //   $this->assertEquals($address->id, $order->billing_address_id);
-    //   $this->assertEquals($address->id, $order->shipping_address_id);
+      $order = \App\Order::where('user_id', $user->id)->first();
+      $this->assertDatabaseHas('orders', [
+        'status' => 'pending',
+        'delivery_note' => 'Leave in the barn',
+        'amount' => $shipping_method->getPrice()->value() + $product->getPrice()->value(),
+      ]);
 
-    //$this->assertEquals($current_stock - 1, $product->fresh()->stock_qty);
+      $this->assertEquals($address->id, $order->billing_address_id);
+      $this->assertEquals($address->id, $order->shipping_address_id);
+
+      $this->assertEquals($current_stock, $product->fresh()->stock_qty);
   }
 
   /** @test **/
@@ -107,22 +100,24 @@ class OrderTest extends TestCase
       $user = $this->loginWithUser([], 'customer');
       $product = $this->putProductInCart();
       $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
-      $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 550]);
-      $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 650]);
 
-      $shipping_method->allowCountries(['GB']);
-      $shipping_method_2->allowCountries(['GB']);
+      $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 550])->allowCountries(['GB']);
+      $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 650])->allowCountries(['GB']);
+      $this->get('checkout');
+      $response = $this->post('/orders', [
+        'billing_address_id' => $address->id,
+        'shipping_address_id' => $address->id,
+      ]);
 
-      $response = $this->get('checkout');
-      $this->markTestSkipped();
-    // ->select($address->id, 'billing_address_id')
-    // ->select($address->id, 'shipping_address_id')
-    // ->press('Continue')
-    // ->seePageIs('checkout/shipping')
-    // ->select($shipping_method_2->id, 'shipping_method_id')
-    // ->press('Proceed to Payment')
-    // ->seePageIs('checkout/pay')
-    // ->see($shipping_method_2->description);
+      $response = $this->get('/checkout/shipping');
+      $response->assertSee($shipping_method->description);
+      $response->assertSee($shipping_method_2->description);
+
+      $response = $this->post('/orders/shipping', [
+        'shipping_method_id' => $shipping_method_2->id,
+        ]);
+
+      $response->assertRedirect('checkout/pay');
   }
 
   /** @test **/
@@ -294,14 +289,17 @@ class OrderTest extends TestCase
       // $this->assertContains($order->order_items->first()->description, $response->getContent());
   }
 
-    protected function fillAddress($type = 'billing')
-    {
-        return $this
-    ->type('Joe', "{$type}_address[name]")
-    ->type('10 Downing Street', "{$type}_address[line_1]")
-    ->type('London', "{$type}_address[city]")
-    ->select('GB', "{$type}_address[country]")
-    ->type('SW1A 2AA', "{$type}_address[postcode]")
-    ->type('01234567891', "{$type}_address[phone]");
-    }
+  protected function getAddressFields($type = 'billing')
+  {
+    return [
+      "{$type}_address" => [
+        'name' => 'Joe',
+        'line_1' => '10 Downing Street',
+        'city' => 'London',
+        'country' => 'GB',
+        'postcode' => 'SW1A 2AA',
+        'phone' => '01234567891',
+      ]
+    ];
+  }
 }
