@@ -46,7 +46,7 @@ class ShopTest extends TestCase
         $product = factory(Product::class)->create(['stock_qty' => 10]);
         $product->makeUncategorised();
         $this->get($product->url);
-        $response = $this->followRedirects($this->post('/cart',[
+        $response = $this->followRedirects($this->post('/cart', [
           'product_id' => $product->id,
           'quantity' => '',
         ]));
@@ -61,7 +61,7 @@ class ShopTest extends TestCase
         $product->makeUncategorised();
         $this->get($product->url);
 
-        $response = $this->followRedirects($this->post('/cart',[
+        $response = $this->followRedirects($this->post('/cart', [
           'product_id' => $product->id,
           'quantity' => 3,
         ]));
@@ -80,7 +80,7 @@ class ShopTest extends TestCase
         $product->makeUncategorised();
         $this->get($product->url);
 
-        $response = $this->followRedirects($this->post('/cart',[
+        $response = $this->followRedirects($this->post('/cart', [
           'product_id' => $product->id,
           'quantity' => 1,
         ]));
@@ -88,7 +88,7 @@ class ShopTest extends TestCase
         // there is already 1 of the product in the cart, we shouldn't be able
         // to add 2 more even though there is 2 in stock
 
-        $response = $this->followRedirects($this->post('/cart',[
+        $response = $this->followRedirects($this->post('/cart', [
           'product_id' => $product->id,
           'quantity' => 2,
         ]));

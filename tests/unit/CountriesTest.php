@@ -1,10 +1,10 @@
 <?php
 
-use App\Countries\CacheCountryRepository;
+use GuzzleHttp\Client;
 use App\Countries\CountryRepository;
 use App\Countries\FileCountryRepository;
+use App\Countries\CacheCountryRepository;
 use App\Countries\RestCountriesCountryRepository;
-use GuzzleHttp\Client;
 
 class CountriesTest extends TestCase
 {

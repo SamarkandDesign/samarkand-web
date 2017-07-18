@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Event;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductRepository;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -38,7 +38,7 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
-        if (!$request->session()->has('url.intended')) {
+        if (! $request->session()->has('url.intended')) {
             $request->session()->flash('url.intended', 'admin');
         }
 

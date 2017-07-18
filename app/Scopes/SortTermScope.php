@@ -2,9 +2,9 @@
 
 namespace App\Scopes;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * A scope to automatically sort terms by their specified order, deferring to alphabetical if the order value is equal.
