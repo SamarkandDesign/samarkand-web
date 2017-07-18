@@ -3,9 +3,9 @@
 namespace Integration;
 
 use App\User;
-use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Support\Facades\Notification;
 use TestCase;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AuthTest extends TestCase
 {
@@ -32,6 +32,7 @@ class AuthTest extends TestCase
             ResetPassword::class,
             function ($notification, $channels) use (&$token) {
                 $token = $notification->token;
+
                 return true;
             });
 
@@ -45,7 +46,6 @@ class AuthTest extends TestCase
              'password' => 'secret',
              'password_confirmation' => 'secret',
             ]);
-
 
         \Auth::logout();
 
@@ -96,7 +96,7 @@ class AuthTest extends TestCase
     /** @test **/
     public function it_throttles_invalid_logins()
     {
-        $response = array_reduce(range(0,5), function() {
+        $response = array_reduce(range(0, 5), function () {
             return $this->post('/login', [
                 'email' => 'fakename@noone.com',
                 'password' => 'password',

@@ -46,7 +46,7 @@ class Role extends Model
      */
     public function getDisplayNameAttribute($display_name)
     {
-        if (!$display_name) {
+        if (! $display_name) {
             return ucwords(\Present::unslug($this->name));
         }
 

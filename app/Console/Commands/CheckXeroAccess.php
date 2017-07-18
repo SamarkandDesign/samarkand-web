@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Invoicing\InvoiceCreator;
 use Illuminate\Console\Command;
+use App\Services\Invoicing\InvoiceCreator;
 
 class CheckXeroAccess extends Command
 {

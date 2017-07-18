@@ -2,11 +2,11 @@
 
 namespace Integration;
 
-use App\Jobs\CreateInvoiceForOrder;
-use App\OrderNote;
 use App\User;
-use Illuminate\Support\Facades\Mail;
 use TestCase;
+use App\OrderNote;
+use App\Jobs\CreateInvoiceForOrder;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentTest extends TestCase
 {
