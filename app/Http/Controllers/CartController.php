@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddToCartRequest;
-use App\Product;
 use Cart;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
+use App\Http\Requests\AddToCartRequest;
 
 class CartController extends Controller
 {

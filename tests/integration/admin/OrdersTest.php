@@ -2,8 +2,8 @@
 
 namespace Integration;
 
-use App\Order;
 use TestCase;
+use App\Order;
 
 class OrdersTest extends TestCase
 {

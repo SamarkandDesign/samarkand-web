@@ -22,7 +22,7 @@ class Term extends Model
          * Set a slug on the term if it's not passed in.
          */
         static::creating(function ($term) {
-            if (!$term->slug) {
+            if (! $term->slug) {
                 $term->slug = str_slug($term->term);
             }
         });
@@ -79,7 +79,7 @@ class Term extends Model
      */
     public function getTermAttribute($term)
     {
-        if (!$term) {
+        if (! $term) {
             return ucwords(\Present::unslug($this->slug));
         }
 

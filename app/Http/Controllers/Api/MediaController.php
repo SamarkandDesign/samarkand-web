@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Media;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
 class MediaController extends Controller

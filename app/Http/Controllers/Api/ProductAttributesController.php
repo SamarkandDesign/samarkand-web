@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductAttribute\CreateProductAttributeRequest;
 use App\ProductAttribute;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductAttribute\CreateProductAttributeRequest;
 
 class ProductAttributesController extends Controller
 {
