@@ -25,18 +25,19 @@ class ProductAttributesTest extends \TestCase
     /** @test **/
     public function it_updates_an_attribute()
     {
-        $this->markTestSkipped();
         $this->logInAsAdmin();
 
         $property = factory('App\AttributeProperty')->create([
             'name' => 'Lampshade Size',
-            ]);
+        ]);
 
-        $response = $this->get("admin/attributes/{$property->id}/edit")
-             ->see('Edit Attribute')
-             ->type(3, 'order')
-             ->press('Update')
-             ->seePageIs("admin/attributes/{$property->id}/edit");
+        $response = $this->get("admin/attributes/{$property->id}/edit");
+        $response->assertSee('Edit Attribute');
+
+        $response = $this->patch("admin/attributes/{$property->id}", array_merge($property->toArray(), [
+            'order' => 3,
+        ]));
+        $response->assertRedirect("admin/attributes/{$property->id}/edit");
 
         $this->assertDatabaseHas('product_attributes', ['id' => $property->id, 'order' => 3]);
     }

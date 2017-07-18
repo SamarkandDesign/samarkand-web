@@ -26,17 +26,18 @@ class OrdersTest extends TestCase
     /** @test **/
     public function it_shows_a_single_order_summary()
     {
-        $this->markTestSkipped();
         $this->logInAsAdmin();
 
         $order = $this->createOrder(['status' => 'processing']);
 
-        $response = $this->get("admin/orders/{$order->id}")
-             ->see("#{$order->id}")
-             ->select('completed', 'status')
-             ->press('update-status')
-             ->seePageIs("admin/orders/{$order->id}")
-             ->see(Order::$statuses['completed']);
+        $response = $this->get("admin/orders/{$order->id}");
+        $response->assertSee("#{$order->id}");
+
+        $response = $this->patch("admin/orders/{$order->id}", [
+            'status' => 'completed',
+            ]);
+        $response->assertRedirect("admin/orders/{$order->id}");
+        $this->followRedirects($response)->assertSee(Order::$statuses['completed']);
     }
 
     /** @test **/
