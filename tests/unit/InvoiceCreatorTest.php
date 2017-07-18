@@ -7,13 +7,6 @@ use App\Services\Invoicing\XeroInvoiceCreator;
 
 class InvoiceCreatorTest extends TestCase
 {
-    /** @test **/
-  public function it_instantiates_an_invoice_creator()
-  {
-      $invoiceCreator = App::make(InvoiceCreator::class);
-      $this->assertInstanceOf(XeroInvoiceCreator::class, $invoiceCreator);
-  }
-
   /** @test **/
   public function it_creates_an_invoice_from_an_order_and_returns_the_id()
   {

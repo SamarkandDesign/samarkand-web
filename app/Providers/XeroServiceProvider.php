@@ -15,9 +15,9 @@ class XeroServiceProvider extends ServiceProvider
         if (config('shop.invoice_driver') === 'fake') {
             $this->app->singleton(InvoiceCreator::class, FakeInvoiceCreator::class);
         } else {
-            $this->registerXeroApplication();
             $this->app->singleton(InvoiceCreator::class, XeroInvoiceCreator::class);
         }
+        $this->registerXeroApplication();
     }
 
     protected function registerXeroApplication()

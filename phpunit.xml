@@ -34,5 +34,6 @@
         <env name="MEDIA_FILESYSTEM" value="testmedia" />
         <env name="MAIL_DRIVER" value="log" />
         <env name="BILLING_DRIVER" value="fake" />
+        <env name="INVOICE_DRIVER" value="fake" />
     </php>
 </phpunit>

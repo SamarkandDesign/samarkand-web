@@ -3,6 +3,7 @@
 namespace Integration;
 
 use App\Jobs\CreateInvoiceForOrder;
+use App\Mail\OrderConfirmed;
 use App\OrderNote;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -15,10 +16,9 @@ class PaymentTest extends TestCase
     /** @test **/
     public function it_completes_an_order_upon_payment()
     {
-        $this->markTestSkipped();
-        Mail::fake();
+        \Mail::fake();
 
-        $this->expectsJobs(CreateInvoiceForOrder::class);
+        // \Event::fake();
 
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
         $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
@@ -37,9 +37,8 @@ class PaymentTest extends TestCase
 
         $response->assertRedirect('order-completed');
 
-        $this->followRedirects();
 
-        $this->see(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
+        $this->followRedirects($response)->assertSee(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
 
         $this->assertDatabaseHas('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
 
@@ -52,12 +51,12 @@ class PaymentTest extends TestCase
 
         $this->assertEquals(0, \Cart::total());
         $this->assertContains('ch_', $this->order->fresh()->payment_id);
+        Mail::assertSent(OrderConfirmed::class, function ($mail) {
+            return $mail->order->id === $this->order->id;
+        });
 
-        $this->seeMessageFor($this->customer->email);
 
         $admin_users = User::shopAdmins()->get();
-        $this->seeMessageFor($admin_users->first()->email);
-        $this->assertContains('leave in the linhay', $this->lastMessage()->getBody());
     }
 
     /** @test */
