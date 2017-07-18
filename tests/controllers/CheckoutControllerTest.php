@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+
 class CheckoutControllerTest extends \TestCase
 {
     use \UsesCart, \FlushesProductEvents;
@@ -9,12 +11,13 @@ class CheckoutControllerTest extends \TestCase
     /** @test **/
     public function it_shows_the_checkout_page()
     {
-        $this->withoutEvents();
+        \Event::fake();
+
         $product = $this->putProductInCart();
 
         $response = $this->get('/checkout');
 
         $response->assertStatus(200);
-        $this->assertContains($product->name, $response->getContent());
+        $response->assertSee($product->name);
     }
 }

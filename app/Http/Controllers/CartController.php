@@ -61,7 +61,7 @@ class CartController extends Controller
  */
 public function remove(Request $request, $rowid)
 {
-    $product = Cart::get($rowid)->product;
+    $product = Cart::get($rowid)->model;
 
     Cart::remove($rowid);
 

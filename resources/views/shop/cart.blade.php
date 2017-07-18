@@ -32,7 +32,7 @@ Cart
                 @foreach (Cart::content() as $item)
                 <tr>
                     <td>
-                        <form action="{{ route('cart.remove', $item->rowid) }}" method="POST" style="display:inline-block;">
+                        <form action="{{ route('cart.remove', $item->rowId) }}" method="POST" style="display:inline-block;">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
                             <button type="submit" class="btn btn-link text-danger" name="remove"><i class="fa fa-times text-danger"></i></button>
