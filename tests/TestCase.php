@@ -64,7 +64,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function getRole($role_name)
     {
         $role = App\Role::where('name', $role_name)->first();
-        if (!$role) {
+        if (! $role) {
             return App\Role::create([
                 'name'         => $role_name,
                 'display_name' => ucwords($role_name),

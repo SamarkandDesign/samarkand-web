@@ -2,11 +2,11 @@
 
 namespace Tests\Browser;
 
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
 use App\Mail\OrderConfirmed;
 use App\Mail\ProductOutOfStock;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
 
 class PurchaseTest extends DuskTestCase
 {

@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
+use App\User;
 use App\Events\OrderWasPaid;
 use App\Mail\OrderConfirmedForAdmin;
-use App\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendAdminOrderEmail implements ShouldQueue

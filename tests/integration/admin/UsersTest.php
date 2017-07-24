@@ -13,7 +13,6 @@ class UsersTest extends TestCase
     {
         $this->logInAsAdmin();
 
-
         $this->get('/admin/users/new');
 
         $response = $this->followRedirects($this->post('/admin/users', [
@@ -23,7 +22,6 @@ class UsersTest extends TestCase
              'password' => 'secret123',
              'password_confirmation' => 'secret123',
             ]));
-
 
         $this->assertDatabaseHas('users', [
             'username'    => 'joebloggs',
@@ -44,9 +42,7 @@ class UsersTest extends TestCase
 
         $newUserProfile = factory('App\User')->create()->toArray();
 
-
         $response = $this->updateProfile($newUserProfile);
-
 
         $response->assertRedirect("/admin/users/{$newUserProfile['username']}");
 
@@ -141,7 +137,7 @@ class UsersTest extends TestCase
     {
         $user = array_merge($this->newUserProfile(), $overrides);
 
-        return $this->patch("/admin/users/{$user['id']}",[
+        return $this->patch("/admin/users/{$user['id']}", [
              'name' => $user['name'],
              'username' => $user['username'],
              'email' => $user['email'],

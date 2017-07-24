@@ -2,8 +2,8 @@
 
 namespace Integration;
 
-use App\ShippingMethod;
 use TestCase;
+use App\ShippingMethod;
 
 class ShippingMethodsTest extends TestCase
 {
@@ -28,7 +28,6 @@ class ShippingMethodsTest extends TestCase
              'base_rate' => '5.40',
              'shipping_countries' => ['GB'],
             ]));
-
 
         $response->assertSee('Shipping Method Saved');
         $response->assertSee('Express Shipping');
