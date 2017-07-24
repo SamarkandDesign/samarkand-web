@@ -23,19 +23,19 @@ class ShippingMethodsTest extends TestCase
     {
         $this->logInAsAdmin();
 
-        $response = $this->get('admin/shipping-methods');
-        $this->markTestSkipped();
-             // ->type('Express Shipping', 'description')
-             // ->type('5.40', 'base_rate')
-             // // ->select('GB', 'shipping_countries[]')
-             // ->press('submit')
-             // ->seePageIs('admin/shipping-methods')
-             // ->see('Shipping Method Saved')
-             // ->see('Express Shipping');
+        $response = $this->followRedirects($this->post('admin/shipping-methods', [
+             'description' => 'Express Shipping',
+             'base_rate' => '5.40',
+             'shipping_countries' => ['GB'],
+            ]));
+
+
+        $response->assertSee('Shipping Method Saved');
+        $response->assertSee('Express Shipping');
 
         $shipping_method = ShippingMethod::where('description', 'Express Shipping')->first();
 
-        //$this->assertTrue($shipping_method->allowsCountry('GB'));
+        $this->assertTrue($shipping_method->allowsCountry('GB'));
     }
 
     /** @test **/
@@ -59,14 +59,14 @@ class ShippingMethodsTest extends TestCase
 
         $shipping_method = factory(ShippingMethod::class)->create();
 
-        $this->markTestSkipped();
-        // $response = $this->get("admin/shipping-methods/{$shipping_method->id}/edit")
-        //      ->type('Awesome Shipping', 'description')
-        //      ->type('8.40', 'base_rate')
-        //      //->select('GB', 'shipping_countries[]')
-        //      ->press('submit')
-        //      ->seePageIs('admin/shipping-methods')
-        //      ->see('Shipping Method Updated')
-        //      ->see('8.40');
+        $response = $this->get("admin/shipping-methods/{$shipping_method->id}/edit");
+        $response = $this->followRedirects($this->patch("admin/shipping-methods/{$shipping_method->id}", [
+             'description' => 'Awesome Shipping',
+             'base_rate' => '8.40',
+             'shipping_countries' => ['GB'],
+            ]));
+
+        $this->assertDatabaseHas('shipping_methods', ['description' => 'Awesome Shipping']);
+        $this->assertDatabaseMissing('shipping_methods', ['description' => $shipping_method->description]);
     }
 }

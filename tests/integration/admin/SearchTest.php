@@ -25,9 +25,10 @@ class SearchTest extends \TestCase
       $response = $this->get('/admin/products/search?query=somequery');
       $this->assertContains($this->products[3]->name, $response->getContent());
       $this->assertNotContains($this->products[8]->name, $response->getContent());
-      $this->markTestSkipped();
-         // ->click('2')
-         // $this->assertContains($this->products[8]->name, $response->getContent());
+
+      $response = $this->get('/admin/products/search?query=somequery&page=2');
+
+      $response->assertSee($this->products[8]->name);
   }
 
   /** @test **/
@@ -40,10 +41,12 @@ class SearchTest extends \TestCase
       $this->assertContains($this->products[3]->name, $response->getContent());
       $this->assertNotContains($this->products[1]->name, $response->getContent());
       $this->assertNotContains($this->products[8]->name, $response->getContent());
-      $this->markTestSkipped();
-         // ->click('2')
-         // $this->assertContains($this->products[8]->name, $response->getContent());
-         // $this->assertNotContains($this->products[9]->name, $response->getContent());
+
+      $response = $this->get('/shop/search?query=somequery&page=2');
+
+
+      $response->assertSee($this->products[8]->name);
+      $response->assertDontSee($this->products[9]->name);
   }
 
     protected function useFakeProductRepo($query, $results)

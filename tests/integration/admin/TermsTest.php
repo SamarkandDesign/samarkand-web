@@ -45,10 +45,10 @@ class TermsTest extends \TestCase
 
         $this->assertDatabaseHas('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
 
-        $response = $this->delete('Admin\TermsController@destroy', ['term' => $category]);
-        $this->markTestSkipped();
-        // $response->assertRedirect('/admin/categories');
-        // $this->assertDatabaseMissing('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
+        $response = $this->delete("/admin/terms/{$category->id}");
+
+        $response->assertRedirect('/admin/categories');
+        $this->assertDatabaseMissing('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
     }
 
     /** @test **/
@@ -61,13 +61,14 @@ class TermsTest extends \TestCase
           'term'     => 'Nasty Cat',
           ]);
 
-        $response = $this->get("admin/terms/{$category->id}/edit");
-        $this->markTestSkipped();
-        // ->type('Nice Cat', 'term')
-        // ->press('submit')
-        // $this->assertContains('Category updated', $response->getContent();
+        $this->get("/admin/terms/{$category->id}/edit");
 
-        // $this->assertDatabaseHas('terms', ['taxonomy' => 'category', 'term'     => 'Nice Cat']);
+        $response = $this->followRedirects($this->patch("/admin/terms/{$category->id}", [
+          'term' => 'Nice Cat',
+          ]));
+        $response->assertSee('Category updated');
+
+        $this->assertDatabaseHas('terms', ['taxonomy' => 'category', 'term'     => 'Nice Cat']);
     }
 
     /** @test **/
@@ -85,12 +86,14 @@ class TermsTest extends \TestCase
           'term'     => 'Nice Cat',
           ]);
 
-        $response = $this->get("admin/terms/{$category_1->id}/edit");
-        $this->markTestSkipped();
+        $this->get("/admin/terms/{$category_1->id}/edit");
+        $response = $this->followRedirects($this->patch("/admin/terms/{$category_1->id}", [
+          'term' => $category_2->term,
+          ]));
         // ->type($category_2->term, 'term')
         // ->press('submit')
-        // $this->assertContains('already been taken', $response->getContent();
+        $response->assertSee('already been taken');
 
-        // $this->dontassertDatabaseHas('terms', ['id' => $category_1, 'taxonomy' => 'category', 'term' => 'Nice Cat']);
+        $this->assertDatabaseMissing('terms', ['id' => $category_1, 'taxonomy' => 'category', 'term' => 'Nice Cat']);
     }
 }
