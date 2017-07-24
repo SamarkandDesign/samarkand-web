@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\SetShippingMethodRequest;
 use App\Repositories\ShippingMethod\ShippingMethodRepository;
-use Illuminate\Http\Request;
 
 class ShippingMethodsController extends Controller
 {

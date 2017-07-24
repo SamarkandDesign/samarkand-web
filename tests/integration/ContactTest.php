@@ -2,13 +2,13 @@
 
 namespace Integration;
 
-use App\Mail\ContactSubmitted;
 use App\User;
 use TestCase;
+use App\Mail\ContactSubmitted;
 
 class ContactTest extends TestCase
 {
-  /** @test */
+    /** @test */
   public function it_sends_an_email_from_the_contact_page_and_stores_the_message()
   {
       \Mail::fake();

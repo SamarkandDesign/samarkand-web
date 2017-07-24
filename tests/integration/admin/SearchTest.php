@@ -44,7 +44,6 @@ class SearchTest extends \TestCase
 
       $response = $this->get('/shop/search?query=somequery&page=2');
 
-
       $response->assertSee($this->products[8]->name);
       $response->assertDontSee($this->products[9]->name);
   }
