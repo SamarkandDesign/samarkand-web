@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Importers\ProductImporter;
 use Illuminate\Http\Request;
+use App\Importers\ProductImporter;
+use App\Http\Controllers\Controller;
 
 class ProductImportsController extends Controller
 {

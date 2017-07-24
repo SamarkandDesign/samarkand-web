@@ -2,10 +2,10 @@
 
 namespace App\Importers;
 
-use App\Http\Requests\Product\CreateProductRequest;
+use Validator;
 use App\Product;
 use Symfony\Component\HttpFoundation\File\File;
-use Validator;
+use App\Http\Requests\Product\CreateProductRequest;
 
 class ProductImporter
 {

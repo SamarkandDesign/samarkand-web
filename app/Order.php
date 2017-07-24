@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\Presenters\PresentableTrait;
-use App\Values\Price;
 use Cart;
+use App\Values\Price;
+use App\Presenters\PresentableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -33,7 +33,7 @@ class Order extends Model
     ];
 
     /**
-     * Default values for an order
+     * Default values for an order.
      * @var array
      */
     protected $attributes = [
@@ -291,7 +291,7 @@ class Order extends Model
      */
     public function shippingSameAsBilling()
     {
-        return !is_null($this->billing_address_id) and $this->billing_address_id === $this->shipping_address_id;
+        return ! is_null($this->billing_address_id) and $this->billing_address_id === $this->shipping_address_id;
     }
 
     /**

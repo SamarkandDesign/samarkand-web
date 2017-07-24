@@ -2,12 +2,12 @@
 
 namespace Events;
 
-use App\Events\ProductStockChanged;
-use App\Mail\ProductOutOfStock;
-use App\Mail\ProductStockLow;
-use App\Product;
 use App\User;
 use TestCase;
+use App\Product;
+use App\Mail\ProductStockLow;
+use App\Mail\ProductOutOfStock;
+use App\Events\ProductStockChanged;
 
 class ProductStockChangedEventTest extends TestCase
 {

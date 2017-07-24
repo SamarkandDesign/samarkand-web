@@ -13,7 +13,7 @@ class UserRequest extends Request
      */
     protected function filterEditRoles($attributes)
     {
-        if (!$this->user()->hasRole('admin')) {
+        if (! $this->user()->hasRole('admin')) {
             $attributes = $this->except($this->user()->adminFields);
         }
 
