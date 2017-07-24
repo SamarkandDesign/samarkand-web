@@ -26,7 +26,7 @@ class EventsController extends Controller
 
     protected function getEarliestDate($events, $before)
     {
-        if (!$events->count()) {
+        if (! $events->count()) {
             return $before;
         }
 
