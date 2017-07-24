@@ -7,4 +7,4 @@ npm install
 npm rebuild node-sass
 
 # build assets
-gulp --production
+npm run production
