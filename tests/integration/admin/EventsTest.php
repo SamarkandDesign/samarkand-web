@@ -2,10 +2,10 @@
 
 namespace Integration\Admin;
 
-use App\Address;
-use App\Event;
-use Carbon\Carbon;
 use TestCase;
+use App\Event;
+use App\Address;
+use Carbon\Carbon;
 
 class EventsTest extends TestCase
 {
@@ -79,12 +79,12 @@ class EventsTest extends TestCase
                 'city' => 'London',
                 'postcode' => 'SW1 4NQ',
                 'country' => 'GB',
-            ]
+            ],
         ]);
 
         $venue = Address::where('line_1', 'Buckingham Palace')->first();
         $this->assertDatabaseHas('addresses', [
-            'line_1' => 'Buckingham Palace'
+            'line_1' => 'Buckingham Palace',
             ]);
 
         $this->assertDatabaseHas('events', [
@@ -127,9 +127,8 @@ class EventsTest extends TestCase
                 'city' => 'London',
                 'postcode' => 'SW1 4NQ',
                 'country' => 'GB',
-            ]
+            ],
         ]));
-
 
         $venue = Address::where('line_1', 'Buckingham Palace2')->first();
         $this->assertTrue($venue->exists());

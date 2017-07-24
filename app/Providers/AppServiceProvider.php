@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Page;
+use Psr\Log\LoggerInterface;
 use App\Services\Geocoder\Geocoder;
 use Illuminate\Contracts\Logging\Log;
-use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
-use Psr\Log\LoggerInterface;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

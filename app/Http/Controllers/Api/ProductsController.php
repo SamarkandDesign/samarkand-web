@@ -4,9 +4,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Repositories\Product\ProductRepository;
-use Carbon\Carbon;
 use Illuminate\Cache\Repository as CacheRepository;
 
 class ProductsController extends Controller
@@ -34,7 +34,7 @@ class ProductsController extends Controller
         $data = $this->cache->remember('product-feed-text', Carbon::now()->addHours(23), function () use ($consts) {
             $products = $this->products->all(['media', 'product_categories', 'attribute_properties']);
 
-            if (!$products->count()) {
+            if (! $products->count()) {
                 return $this->keys->implode("\t");
             }
 

@@ -3,8 +3,8 @@
 namespace Integration;
 
 use TestCase;
-use XeroPHP\Application\PrivateApplication;
 use XeroPHP\Models\Accounting\Invoice;
+use XeroPHP\Application\PrivateApplication;
 
 class InvoiceTest extends TestCase
 {
