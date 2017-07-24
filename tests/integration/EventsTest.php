@@ -2,9 +2,9 @@
 
 namespace Integration;
 
+use TestCase;
 use App\Event;
 use Carbon\Carbon;
-use TestCase;
 
 class EventsTest extends TestCase
 {

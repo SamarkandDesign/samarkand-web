@@ -79,7 +79,7 @@ class AttributeQueryBuilder
         $filters = array_merge($this->currentFilters, $this->filters);
 
         return array_filter($filters, function ($value, $key) {
-            return !$this->filterAlreadyInRequest($key);
+            return ! $this->filterAlreadyInRequest($key);
         }, ARRAY_FILTER_USE_BOTH);
     }
 

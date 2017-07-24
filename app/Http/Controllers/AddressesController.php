@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-use App\Http\Requests\Address\CreateAddressRequest;
-use App\Http\Requests\Address\EditAddressRequest;
-use App\Http\Requests\Address\UpdateAddressRequest;
 use Illuminate\Contracts\Auth\Guard;
+use App\Http\Requests\Address\EditAddressRequest;
+use App\Http\Requests\Address\CreateAddressRequest;
+use App\Http\Requests\Address\UpdateAddressRequest;
 
 class AddressesController extends Controller
 {

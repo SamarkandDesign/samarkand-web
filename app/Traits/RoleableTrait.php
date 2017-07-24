@@ -14,7 +14,7 @@ trait RoleableTrait
     public static function bootRoleableTrait()
     {
         static::created(function ($model) {
-            if (!$model->role_id) {
+            if (! $model->role_id) {
                 $model->enroll();
             }
         });
@@ -65,11 +65,11 @@ trait RoleableTrait
             $role = Role::where('name', $role_name)->first();
         }
 
-        if (!$role) {
+        if (! $role) {
             throw new \InvalidArgumentException("The role to assign '$role_name' does not exist");
         }
 
-        if (!$this->hasRole($role_name)) {
+        if (! $this->hasRole($role_name)) {
             $this->role()->associate($role);
             $this->save();
         }

@@ -2,8 +2,8 @@
 
 namespace App\Repositories\User;
 
-use App\Repositories\DbRepository;
 use App\User;
+use App\Repositories\DbRepository;
 
 class DbUserRepository extends DbRepository
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\MenuItem;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Cache\Repository;
 
 class MenuItemsController extends Controller
 {

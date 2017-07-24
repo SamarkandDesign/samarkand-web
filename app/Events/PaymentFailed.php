@@ -3,8 +3,8 @@
 namespace App\Events;
 
 use App\Order;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 
 class PaymentFailed
 {
