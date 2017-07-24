@@ -3,8 +3,9 @@
 # Build assets for production
 
 # install node dependencies
-npm install
+nvm use 7
+yarn install
 npm rebuild node-sass
 
 # build assets
-npm run production
+yarn production
