@@ -17,7 +17,7 @@ class BillingServiceProvider extends ServiceProvider
     public function getDriver()
     {
         if (config('shop.billing_driver') === 'fake') {
-            return new FakeStripeGateWay();
+            return new FakeStripeGateway();
         }
 
         return new StripeGateway();
