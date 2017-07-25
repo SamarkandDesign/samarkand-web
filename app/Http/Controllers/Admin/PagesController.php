@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Page;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Page\CreatePageRequest;
 use App\Http\Requests\Page\UpdatePageRequest;
-use App\Page;
 
 class PagesController extends Controller
 {

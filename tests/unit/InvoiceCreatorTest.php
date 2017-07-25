@@ -2,12 +2,11 @@
 
 use App\Order;
 use App\OrderItem;
-use App\Services\Invoicing\InvoiceCreator;
 use App\Services\Invoicing\XeroInvoiceCreator;
 
 class InvoiceCreatorTest extends TestCase
 {
-  /** @test **/
+    /** @test **/
   public function it_creates_an_invoice_from_an_order_and_returns_the_id()
   {
       $invoiceCreator = new XeroInvoiceCreator(new FakePrivateXeroApplication());

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Product;
+use Illuminate\Http\Request;
+use App\Pagination\Paginator;
+use App\Search\TokenGenerator;
 use App\Http\Controllers\Controller;
+use App\Repositories\Product\ProductRepository;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
-use App\Pagination\Paginator;
-use App\Product;
-use App\Repositories\Product\ProductRepository;
-use App\Search\TokenGenerator;
-use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {

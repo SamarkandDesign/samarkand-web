@@ -1,8 +1,8 @@
 <?php
 
 use App\Address;
-use App\Services\Geocoder\GoogleGeocoder;
 use GuzzleHttp\Client;
+use App\Services\Geocoder\GoogleGeocoder;
 
 class GoogleGeocoderTest extends TestCase
 {

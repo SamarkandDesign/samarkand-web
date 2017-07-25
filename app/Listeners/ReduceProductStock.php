@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Product;
 use App\Events\OrderWasPaid;
 use App\Events\ProductStockChanged;
-use App\Product;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ReduceProductStock implements ShouldQueue

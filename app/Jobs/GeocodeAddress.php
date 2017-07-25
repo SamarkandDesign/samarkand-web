@@ -3,11 +3,11 @@
 namespace App\Jobs;
 
 use App\Address;
-use App\Services\Geocoder\Geocoder;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Services\Geocoder\Geocoder;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GeocodeAddress implements ShouldQueue
 {
