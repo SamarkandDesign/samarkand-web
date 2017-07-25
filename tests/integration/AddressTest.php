@@ -25,6 +25,7 @@ class AddressTest extends TestCase
         $user = $this->loginWithUser();
 
         $response = $this->get(route('addresses.create'));
+        $response->assertStatus(200);
             //  ->type('Mr Joe Bloggs', 'name')
             //  ->type('0123456789', 'phone')
             //  ->type('11 Acacia Avenue', 'line_1')
@@ -64,6 +65,7 @@ class AddressTest extends TestCase
                                'addressable_id' => $user->id,
                                ]);
         $response = $this->get("account/addresses/{$address->id}/edit");
+        $response->assertStatus(200);
     }
 
     /** @test **/

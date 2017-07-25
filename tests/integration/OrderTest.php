@@ -191,7 +191,7 @@ class OrderTest extends TestCase
   public function it_creates_a_user_for_the_order_when_they_select_to_make_new_account()
   {
       $product = $this->putProductInCart();
-      $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 500])->allowCountries(['GB']);
+      factory('App\ShippingMethod')->create(['base_rate' => 500])->allowCountries(['GB']);
 
       $response = $this->get('checkout');
       $request = array_merge($this->getAddressFields(), [

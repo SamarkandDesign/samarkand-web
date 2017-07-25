@@ -50,7 +50,7 @@ class AttributePropertiesControllerTest extends \TestCase
   public function it_deletes_an_attribute_property()
   {
       $attribute_property = factory(AttributeProperty::class)->create();
-      $response = $this->delete(route('api.attribute_properties.delete', $attribute_property));
+      $this->delete(route('api.attribute_properties.delete', $attribute_property));
 
       $this->assertDatabaseMissing('attribute_properties', [
       'slug'                 => $attribute_property->slug,

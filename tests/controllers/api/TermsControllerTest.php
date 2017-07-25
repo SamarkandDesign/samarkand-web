@@ -83,7 +83,7 @@ class TermsControllerTest extends \TestCase
     {
         $term = factory(Term::class)->create();
 
-        $response = $this->delete("api/terms/{$term->id}");
+        $this->delete("api/terms/{$term->id}");
 
         $this->assertDatabaseMissing('terms', ['taxonomy' => $term->taxonomy, 'term' => $term->term]);
     }
@@ -93,7 +93,7 @@ class TermsControllerTest extends \TestCase
     {
         $term = factory(Term::class)->create();
 
-        $response = $this->patch("api/terms/{$term->id}", ['order' => 11]);
+        $this->patch("api/terms/{$term->id}", ['order' => 11]);
 
         $this->assertDatabaseHas('terms', ['taxonomy' => $term->taxonomy, 'term' => $term->term, 'order' => 11]);
     }

@@ -15,7 +15,7 @@ class UsersTest extends TestCase
 
         $this->get('/admin/users/new');
 
-        $response = $this->followRedirects($this->post('/admin/users', [
+       $this->followRedirects($this->post('/admin/users', [
              'name' => 'Joe Bloggs',
              'username' => 'joebloggs',
              'email' => 'joe@bloggs.com',

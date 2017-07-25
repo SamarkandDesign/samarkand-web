@@ -7,6 +7,7 @@ use Laravel\Dusk\Browser;
 use App\Mail\OrderConfirmed;
 use App\Mail\ProductOutOfStock;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Mail;
 
 class PurchaseTest extends DuskTestCase
 {
@@ -20,7 +21,7 @@ class PurchaseTest extends DuskTestCase
     public function testCanPurchaseAProduct()
     {
         $this->browse(function (Browser $b) {
-            \Mail::fake();
+            Mail::fake();
 
             $product = factory('App\Product')->create(['stock_qty' => 1]);
             $shippingMethod = factory('App\ShippingMethod')->create(['description' => 'UK Shipping']);

@@ -49,6 +49,7 @@ class EventsTest extends TestCase
             ]);
 
         $response = $this->get('/admin/events/create');
+        $response->assertStatus(200);
         $this->post('/admin/events', [
             'title' => 'Foo Event',
             'description' => 'Foo event content',

@@ -67,8 +67,8 @@ class AddToCartRequest extends Request
     {
         $this->qty_in_stock = $this->products->fetch($this->product_id)->stock_qty;
 
-        $alreadyAddedProducts = \Cart::search(function ($cartItem, $rowId) {
-            return $cartItem->model->id === $this->product_id;
+        $alreadyAddedProducts = \Cart::search(function ($cartItem) {
+            return intval($cartItem->model->id) === intval($this->product_id);
         });
 
         if ($alreadyAddedProducts->count() > 0) {

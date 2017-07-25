@@ -38,6 +38,7 @@ class ProductsTest extends \TestCase
       $query = substr($product->description, 0, 4);
 
       $response = $this->get("admin/products/search?query=$query");
+      $response->assertStatus(200);
   }
 
   /** @test **/

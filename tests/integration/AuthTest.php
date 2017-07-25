@@ -30,7 +30,7 @@ class AuthTest extends TestCase
         Notification::assertSentTo(
             $user,
             ResetPassword::class,
-            function ($notification, $channels) use (&$token) {
+            function ($notification) use (&$token) {
                 $token = $notification->token;
 
                 return true;
@@ -96,7 +96,7 @@ class AuthTest extends TestCase
     /** @test **/
     public function it_throttles_invalid_logins()
     {
-        $response = array_reduce(range(0, 5), function () {
+        array_reduce(range(0, 5), function () {
             return $this->post('/login', [
                 'email' => 'fakename@noone.com',
                 'password' => 'password',

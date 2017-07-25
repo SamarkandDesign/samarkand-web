@@ -25,6 +25,7 @@ class PostsTest extends \TestCase
         $postContent = 'Here is some post content';
 
         $response = $this->get('/admin/posts/create');
+        $response->assertStatus(200);
 
         $this->post('admin/posts', [
             'title'        => $postTitle,
