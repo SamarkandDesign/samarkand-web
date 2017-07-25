@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Event;
+use Route;
 use App\Page;
 use App\Post;
-use App\Product;
 use App\Term;
+use App\Event;
+use App\Product;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Route;
 
 class RouteServiceProvider extends ServiceProvider
 {

@@ -15,7 +15,7 @@ class ProductImporterTest extends TestCase
       $file = new UploadedFile($path, 'products.csv', filesize($path), 'text/csv', null, true);
 
       $response = $this->followRedirects($this->call('POST', '/admin/products/upload', [], [], [
-        'file' => $file
+        'file' => $file,
         ]));
 
       $response->assertSee('2 products imported');
@@ -32,7 +32,7 @@ class ProductImporterTest extends TestCase
       $file = new UploadedFile($path, 'products_with_failure.csv', filesize($path), 'text/csv', null, true);
 
       $response = $this->followRedirects($this->call('POST', '/admin/products/upload', [], [], [
-        'file' => $file
+        'file' => $file,
         ]));
 
       $response->assertSee('1 products imported');

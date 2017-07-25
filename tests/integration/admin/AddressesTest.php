@@ -2,8 +2,8 @@
 
 namespace Integration\Admin;
 
-use App\Address;
 use TestCase;
+use App\Address;
 
 class AddressesTest extends TestCase
 {
@@ -18,7 +18,6 @@ class AddressesTest extends TestCase
     /** @test **/
     public function it_can_edit_an_address()
     {
-
         $address = factory(Address::class)->create();
 
         $response = $this->get(route('admin.addresses.edit', $address));

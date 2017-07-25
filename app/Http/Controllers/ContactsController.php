@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
-use App\Mail\ContactSubmitted;
 use Illuminate\Http\Request;
+use App\Mail\ContactSubmitted;
 
 class ContactsController extends Controller
 {
