@@ -1,7 +1,7 @@
 <?php
 
-use App\Services\AttributeQueryBuilder;
 use Illuminate\Http\Request;
+use App\Services\AttributeQueryBuilder;
 
 class AttributeQueryBuilderTest extends TestCase
 {

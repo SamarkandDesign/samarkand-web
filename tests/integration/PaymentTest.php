@@ -2,12 +2,11 @@
 
 namespace Integration;
 
-use App\Jobs\CreateInvoiceForOrder;
-use App\Mail\OrderConfirmed;
-use App\OrderNote;
 use App\User;
-use Illuminate\Support\Facades\Mail;
 use TestCase;
+use App\OrderNote;
+use App\Mail\OrderConfirmed;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentTest extends TestCase
 {
@@ -37,7 +36,6 @@ class PaymentTest extends TestCase
 
         $response->assertRedirect('order-completed');
 
-
         $this->followRedirects($response)->assertSee(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
 
         $this->assertDatabaseHas('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
@@ -54,7 +52,6 @@ class PaymentTest extends TestCase
         Mail::assertSent(OrderConfirmed::class, function ($mail) {
             return $mail->order->id === $this->order->id;
         });
-
 
         $admin_users = User::shopAdmins()->get();
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\ShippingMethod\ShippingMethodRepository;
 use App\ShippingMethod;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\ShippingMethod\ShippingMethodRepository;
 
 class ShippingMethodsController extends Controller
 {

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-
 class CheckoutControllerTest extends \TestCase
 {
     use \UsesCart, \FlushesProductEvents;

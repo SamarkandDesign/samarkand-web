@@ -2,11 +2,11 @@
 
 namespace App;
 
-use App\Presenters\PresentableTrait;
 use App\Traits\RoleableTrait;
+use App\Presenters\PresentableTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {

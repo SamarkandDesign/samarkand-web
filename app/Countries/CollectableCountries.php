@@ -67,7 +67,7 @@ trait CollectableCountries
 
         $first_countries = new Collection();
         foreach ($top_keys as $code) {
-            if (!$list->has($code)) {
+            if (! $list->has($code)) {
                 throw new \InvalidArgumentException("The country code '$code' does not exist");
             }
 

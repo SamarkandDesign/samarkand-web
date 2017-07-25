@@ -2,10 +2,10 @@
 
 namespace Integration;
 
-use App\Order;
-use App\Product;
 use App\User;
 use TestCase;
+use App\Order;
+use App\Product;
 
 class OrderTest extends TestCase
 {
@@ -20,18 +20,18 @@ class OrderTest extends TestCase
   /** @test **/
   public function it_redirects_to_login_if_email_is_recognised()
   {
-    $user = factory(User::class)->create([
+      $user = factory(User::class)->create([
       'password' => 'secret',
     ]);
-    $product = $this->putProductInCart();
+      $product = $this->putProductInCart();
 
-    $response = $this->get('checkout');
+      $response = $this->get('checkout');
 
-    $response = $this->post('/orders', [
+      $response = $this->post('/orders', [
       'email' => $user->email,
     ]);
 
-    $response->assertRedirect(sprintf('login?email=%s', urlencode($user->email)));
+      $response->assertRedirect(sprintf('login?email=%s', urlencode($user->email)));
   }
 
   /** @test **/
@@ -54,7 +54,7 @@ class OrderTest extends TestCase
       $this->assertDatabaseHas('orders', [
         // 'amount' => $expectedTotal,
         'status' => 'pending',
-        'delivery_note' => 'Leave in the barn'
+        'delivery_note' => 'Leave in the barn',
       ]);
 
       $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
@@ -139,7 +139,6 @@ class OrderTest extends TestCase
       ]));
       $response->assertSee($shipping_method->description);
       $response->assertSee('Order Details');
-
   }
 
   /** @test **/
@@ -218,25 +217,24 @@ class OrderTest extends TestCase
   {
       $product = $this->putProductInCart();
       $user = factory(User::class)->create([
-        'password' => 'password'
+        'password' => 'password',
       ]);
 
       $response = $this->get('checkout');
 
-
-    $request = array_merge($this->getAddressFields(), [
+      $request = array_merge($this->getAddressFields(), [
         'email' => $user->email,
         ]);
 
-    $response = $this->followRedirects($this->post('orders', $request));
-    $response->assertSee('This email has an account here');
+      $response = $this->followRedirects($this->post('orders', $request));
+      $response->assertSee('This email has an account here');
 
-    $response = $this->post('/login', [
+      $response = $this->post('/login', [
       'email' => $user->email,
       'password' => 'password',
       ]);
 
-    $response->assertRedirect('/checkout');
+      $response->assertRedirect('/checkout');
   }
 
   /** @test **/
@@ -297,9 +295,9 @@ class OrderTest extends TestCase
       $this->assertContains($order->order_items->first()->description, $response->getContent());
   }
 
-  protected function getAddressFields($type = 'billing')
-  {
-    return [
+    protected function getAddressFields($type = 'billing')
+    {
+        return [
       "{$type}_address" => [
         'name' => 'Joe',
         'line_1' => '10 Downing Street',
@@ -307,7 +305,7 @@ class OrderTest extends TestCase
         'country' => 'GB',
         'postcode' => 'SW1A 2AA',
         'phone' => '01234567891',
-      ]
+      ],
     ];
-  }
+    }
 }
