@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Media;
 use App\Http\Controllers\Controller;
+use App\Media;
 
 class MediaController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ProductAttribute;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductAttribute\CreateProductAttributeRequest;
 use App\Http\Requests\ProductAttribute\UpdateProductAttributeRequest;
+use App\ProductAttribute;
 
 class AttributesController extends Controller
 {

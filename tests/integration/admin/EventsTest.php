@@ -2,10 +2,10 @@
 
 namespace Integration\Admin;
 
-use TestCase;
-use App\Event;
 use App\Address;
+use App\Event;
 use Carbon\Carbon;
+use TestCase;
 
 class EventsTest extends TestCase
 {
@@ -23,10 +23,10 @@ class EventsTest extends TestCase
         $upcomingEvent = factory(Event::class)->create(['start_date' => Carbon::now()->addWeek()]);
         $pastEvent = factory(Event::class)->create(['end_date' => Carbon::now()->subWeek()]);
 
-        $response = $this->get('/admin/events');
-
-        $this->assertContains($upcomingEvent->title, $response->getContent());
-        $this->assertNotContains($pastEvent->title, $response->getContent());
+        $this->visit('/admin/events')
+        ->seePageIs('/admin/events')
+        ->see($upcomingEvent->title)
+        ->dontSee($pastEvent->title);
     }
 
     /** @test **/
@@ -35,9 +35,9 @@ class EventsTest extends TestCase
         $upcomingEvent = factory(Event::class)->create(['start_date' => Carbon::now()->addWeek()]);
         $pastEvent = factory(Event::class)->create(['end_date' => Carbon::now()->subWeek()]);
 
-        $response = $this->get('/admin/events?all=1');
-        $this->assertContains($upcomingEvent->title, $response->getContent());
-        $this->assertContains($pastEvent->title, $response->getContent());
+        $this->visit('/admin/events?all=1')
+        ->see($upcomingEvent->title)
+        ->see($pastEvent->title);
     }
 
     /** @test **/
@@ -48,18 +48,16 @@ class EventsTest extends TestCase
             'addressable_id'   => 1,
             ]);
 
-        $response = $this->get('/admin/events/create');
-        $response->assertStatus(200);
-        $this->post('/admin/events', [
-            'title' => 'Foo Event',
-            'description' => 'Foo event content',
-            'all_day' => true,
-            'start_date' => Carbon::now()->addWeek()->format('Y-m-d\TH:i:s'),
-            'end_date' => Carbon::now()->addWeeks(2)->format('Y-m-d\TH:i:s'),
-            'address_id' => $address->id,
-        ]);
+        $this->visit('/admin/events/create')
+        ->type('Foo Event', 'title')
+        ->type('Foo event content', 'description')
+        ->check('all_day')
+        ->type(Carbon::now()->addWeek()->format('Y-m-d\TH:i:s'), 'start_date')
+        ->type(Carbon::now()->addWeeks(2)->format('Y-m-d\TH:i:s'), 'end_date')
+        ->select($address->id, 'address_id')
+        ->press('Submit');
 
-        $this->assertDatabaseHas('events', [
+        $this->seeInDataBase('events', [
             'title' => 'Foo Event',
             ]);
     }
@@ -67,28 +65,23 @@ class EventsTest extends TestCase
     /** @test **/
     public function it_creates_a_new_venue_for_an_event()
     {
-        $response = $this->get('/admin/events/create');
-        $response = $this->post('/admin/events', [
-            'title' => 'Foo Event',
-            'description' => 'Foo event content',
-            'all_day' => true,
-            'start_date' => '2016-10-22',
-            'end_date' => '2016-10-22',
-            'create_new_venue' => true,
-            'address' => [
-                'line_1' => 'Buckingham Palace',
-                'city' => 'London',
-                'postcode' => 'SW1 4NQ',
-                'country' => 'GB',
-            ],
-        ]);
+        $this->visit('/admin/events/create')
+        ->type('Foo Event', 'title')
+        ->type('Foo event content', 'description')
+        ->check('all_day')
+        ->type('2016-10-22', 'start_date')
+        ->type('2016-10-22', 'end_date')
+        ->check('create_new_venue')
+        ->type('Buckingham Palace', 'address[line_1]')
+        ->type('London', 'address[city]')
+        ->type('SW1 4NQ', 'address[postcode]')
+        ->select('GB', 'address[country]')
+        ->press('Submit');
 
         $venue = Address::where('line_1', 'Buckingham Palace')->first();
-        $this->assertDatabaseHas('addresses', [
-            'line_1' => 'Buckingham Palace',
-            ]);
+        $this->assertTrue($venue->exists());
 
-        $this->assertDatabaseHas('events', [
+        $this->seeInDataBase('events', [
             'title'      => 'Foo Event',
             'address_id' => $venue->id,
             ]);
@@ -99,17 +92,15 @@ class EventsTest extends TestCase
     {
         $event = factory(Event::class)->create();
 
-        $response = $this->get("/admin/events/{$event->id}/edit");
+        $this->visit("/admin/events/{$event->id}/edit")
+        ->type('Foo Event', 'title')
+        ->type('Foo event content', 'description')
+        ->check('all_day')
+        ->press('Submit');
 
-        $response = $this->patch("/admin/events/{$event->id}", array_merge($event->toArray(), [
+        $this->seeInDataBase('events', [
             'title' => 'Foo Event',
-            'description' => 'Foo event content',
-            'all_day' => true,
-        ]));
-
-        $this->assertDatabaseHas('events', [
-            'title' => 'Foo Event',
-        ]);
+            ]);
     }
 
     /** @test **/
@@ -117,24 +108,21 @@ class EventsTest extends TestCase
     {
         $event = factory(Event::class)->create();
 
-        $response = $this->get("/admin/events/{$event->id}/edit");
-        $response = $this->patch("/admin/events/{$event->id}", array_merge($event->toArray(), [
-            'title' => 'Foo2 Event',
-            'description' => 'Foo event content',
-            'all_day' => true,
-            'create_new_venue' => true,
-            'address' => [
-                'line_1' => 'Buckingham Palace2',
-                'city' => 'London',
-                'postcode' => 'SW1 4NQ',
-                'country' => 'GB',
-            ],
-        ]));
+        $this->visit("/admin/events/{$event->id}/edit")
+        ->type('Foo2 Event', 'title')
+        ->type('Foo event content', 'description')
+        ->check('all_day')
+        ->check('create_new_venue')
+        ->type('Buckingham Palace2', 'address[line_1]')
+        ->type('London', 'address[city]')
+        ->type('SW1 4NQ', 'address[postcode]')
+        ->select('GB', 'address[country]')
+        ->press('Submit');
 
         $venue = Address::where('line_1', 'Buckingham Palace2')->first();
         $this->assertTrue($venue->exists());
 
-        $this->assertDatabaseHas('events', [
+        $this->seeInDataBase('events', [
             'title'      => 'Foo2 Event',
             'address_id' => $venue->id,
             ]);
@@ -144,10 +132,11 @@ class EventsTest extends TestCase
     public function it_deletes_an_event()
     {
         $event = factory(Event::class)->create();
+        $this->visit('/admin/events');
 
-        $response = $this->delete("/admin/events/{$event->id}");
+        $this->delete("/admin/events/{$event->id}");
 
-        $response->assertRedirect('/admin/events');
-        $this->assertNotContains($event->title, $this->get('/admin/events')->getContent());
+        $this->assertRedirectedTo('/admin/events');
+        $this->visit('/admin/events')->dontSee($event->title);
     }
 }

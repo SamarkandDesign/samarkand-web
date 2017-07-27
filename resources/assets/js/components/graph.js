@@ -26,6 +26,9 @@ export default Vue.extend({
         }
     },
     methods: {
+        render (data) {
+            const chart = new Chart(this.$refs.chart, {data: data, type: 'bar'})
+        },
         getData () {
             return this.$http.get('/api/data/sales')
         },
@@ -46,21 +49,7 @@ export default Vue.extend({
     mounted () {
         this.getData()
             .then(data => this.processData(data.data) )
-            .then(renderChart)
+            .then(this.render)
             .catch(err => console.error(err))
     }
 })
-
-function renderChart (data) {
-    const options = {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-    console.log('rendering the chart')
-    const chart = new Chart(this.$refs.chart, {data, type: 'bar', options})
-}

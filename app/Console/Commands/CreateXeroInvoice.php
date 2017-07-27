@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Jobs\CreateInvoiceForOrder;
 use App\Services\Invoicing\InvoiceCreator;
+use Illuminate\Console\Command;
 
 class CreateXeroInvoice extends Command
 {

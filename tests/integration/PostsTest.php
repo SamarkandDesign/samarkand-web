@@ -2,8 +2,8 @@
 
 namespace Unit;
 
-use TestCase;
 use App\Repositories\Post\DbPostRepository;
+use TestCase;
 
 class PostsTest extends TestCase
 {

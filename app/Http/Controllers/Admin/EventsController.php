@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Event;
 use App\Address;
-use Illuminate\Http\Request;
+use App\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Event\CreateEventRequest;
 use App\Http\Requests\Event\UpdateEventRequest;
+use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {

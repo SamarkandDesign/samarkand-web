@@ -22,7 +22,7 @@ class PagesTest extends \TestCase
     {
         $parentPage = factory(Page::class)->create(['slug' => 'parent']);
 
-        $response = $this->get('admin/pages/create');
+        $this->visit('admin/pages/create');
 
         // Simulate submitting a form to create a page
         $response = $this->call('POST', 'admin/pages', [
@@ -35,9 +35,9 @@ class PagesTest extends \TestCase
             'published_at'  => '2016-03-14T16:36:15',
             ]);
 
-        $response->assertRedirect('admin/pages/2/edit');
+        $this->assertRedirectedTo('admin/pages/2/edit');
 
-        $this->assertDatabaseHas('pages', ['slug' => 'my-first-title']);
+        $this->seeInDataBase('pages', ['slug' => 'my-first-title']);
 
         $this->assertCount(1, $parentPage->children);
 
@@ -49,7 +49,7 @@ class PagesTest extends \TestCase
     {
         $pages = $this->seedNestedPages();
 
-        $response = $this->get("admin/pages/{$pages[1]->id}/edit");
+        $this->visit("admin/pages/{$pages[1]->id}/edit");
 
         // Simulate submitting a form to create a page
         $response = $this->call('PATCH', "admin/pages/{$pages[1]->id}", [
@@ -74,7 +74,7 @@ class PagesTest extends \TestCase
         // Make another root page
         $pages[] = factory(Page::class)->create(['slug' => 'parent2']);
 
-        $response = $this->get("admin/pages/{$pages[1]->id}/edit");
+        $this->visit("admin/pages/{$pages[1]->id}/edit");
 
         // Edit the first child of the original root
         $response = $this->call('PATCH', "admin/pages/{$pages[1]->id}", [
@@ -96,7 +96,7 @@ class PagesTest extends \TestCase
     {
         $pages = $this->seedNestedPages();
 
-        $response = $this->get("admin/pages/{$pages[0]->id}/edit");
+        $this->visit("admin/pages/{$pages[0]->id}/edit");
 
         $response = $this->call('PATCH', "admin/pages/{$pages[1]->id}", [
             'title'         => $pages[1]->title,
@@ -108,8 +108,8 @@ class PagesTest extends \TestCase
             'published_at'  => '2016-03-14T16:36:15',
             ]);
 
-        // $response->assertSessionHasErrors();
-        $response->assertRedirect("admin/pages/{$pages[0]->id}/edit");
+        $this->assertRedirectedTo("admin/pages/{$pages[0]->id}/edit");
+        $this->assertSessionhasErrors();
     }
 
     /** @test **/
@@ -117,12 +117,12 @@ class PagesTest extends \TestCase
     {
         $page = factory('App\Page')->create();
 
-        $response = $this->get('/admin/pages');
-        $this->assertContains($page->title, $response->getContent());
+        $this->visit('/admin/pages')
+             ->see($page->title);
 
         // move to trash
         $this->delete("/admin/pages/{$page->id}");
-        $response->assertSessionHas('alert', 'Page moved to trash');
+        $this->assertSessionHas('alert', 'Page moved to trash');
     }
 
     /** @test **/
@@ -132,17 +132,17 @@ class PagesTest extends \TestCase
             'deleted_at' => Carbon::now()->subDay(),
         ]);
 
-        $response = $this->get('/admin/pages');
-        $this->assertNotContains($page->title, $response->getContent());
+        $this->visit('/admin/pages')
+              ->dontSee($page->title);
 
-        $response = $this->get('admin/pages/trash');
-        $this->assertContains($page->title, $response->getContent());
+        $this->visit('admin/pages/trash')
+             ->see($page->title);
 
         // Delete permanently
         $this->delete("/admin/pages/{$page->id}");
-        $response->assertSessionHas('alert', 'Page permanently deleted');
+        $this->assertSessionHas('alert', 'Page permanently deleted');
 
-        $this->assertDatabaseMissing('pages', [
+        $this->notSeeInDatabase('pages', [
             'title' => $page->title,
             ]);
     }
@@ -157,8 +157,8 @@ class PagesTest extends \TestCase
         // restore
         $this->put("/admin/pages/{$page->id}/restore");
 
-        $response = $this->get('/admin/pages');
-        $this->assertContains($page->title, $response->getContent());
-        // $this->assertContains('Page restored', $response->getContent());
+        $this->visit('/admin/pages')
+             ->see($page->title)
+             ->see('Page restored');
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Product;
 
+use App\Product;
 use App\Term;
 use TestCase;
-use App\Product;
 
 class ProductRepositoryTest extends TestCase
 {

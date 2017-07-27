@@ -45,7 +45,7 @@ class ForbidIfNotAdmin
             return redirect()->guest('/admin/login');
         }
 
-        if (! $this->auth->user()->hasRole('admin')) {
+        if (!$this->auth->user()->hasRole('admin')) {
             return response('Unauthorized.', 401);
         }
 

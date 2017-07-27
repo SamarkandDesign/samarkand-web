@@ -2,9 +2,9 @@
 
 namespace Events;
 
-use TestCase;
-use App\Order;
 use App\Events\OrderStatusChanged;
+use App\Order;
+use TestCase;
 
 class OrderStatusChangedTest extends TestCase
 {
@@ -13,7 +13,7 @@ class OrderStatusChangedTest extends TestCase
     {
         event(new OrderStatusChanged(22, Order::PAID, Order::CANCELLED));
 
-        $this->assertDatabaseHas('order_notes', [
+        $this->seeInDatabase('order_notes', [
             'order_id' => 22,
             'key'      => 'status_changed',
             ]);

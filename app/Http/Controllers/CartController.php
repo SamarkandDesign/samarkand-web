@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Cart;
+use App\Http\Requests\AddToCartRequest;
 use App\Product;
+use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
-use App\Http\Requests\AddToCartRequest;
 
 class CartController extends Controller
 {
@@ -32,12 +32,12 @@ class CartController extends Controller
       $product = Product::findOrFail($request->product_id);
       $qty = (int) $request->quantity;
 
-      Cart::add([
+      Cart::associate('Product', 'App')->add([
       'id'    => $product->id,
       'qty'   => $qty,
       'name'  => $product->name,
       'price' => $product->getPrice()->asDecimal(),
-    ])->associate(Product::class);
+    ]);
 
       $request->session()->forget('order');
 
@@ -61,7 +61,7 @@ class CartController extends Controller
  */
 public function remove(Request $request, $rowid)
 {
-    $product = Cart::get($rowid)->model;
+    $product = Cart::get($rowid)->product;
 
     Cart::remove($rowid);
 

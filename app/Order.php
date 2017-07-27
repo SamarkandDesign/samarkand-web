@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Cart;
-use App\Values\Price;
 use App\Presenters\PresentableTrait;
+use App\Values\Price;
+use Cart;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -30,14 +30,6 @@ class Order extends Model
         'completed'     => 'Completed',
         'refunded'      => 'Refunded',
         'cancelled'     => 'Cancelled',
-    ];
-
-    /**
-     * Default values for an order.
-     * @var array
-     */
-    protected $attributes = [
-        'delivery_note' => 'hello',
     ];
 
     /**
@@ -74,7 +66,7 @@ class Order extends Model
         $this->items()->delete();
 
         $order_items = Cart::content()->map(function ($row) {
-            return OrderItem::forProduct($row->model, $row->qty);
+            return OrderItem::forProduct($row->product, $row->qty);
         });
 
         $this->order_items()->saveMany($order_items);
@@ -291,7 +283,7 @@ class Order extends Model
      */
     public function shippingSameAsBilling()
     {
-        return ! is_null($this->billing_address_id) and $this->billing_address_id === $this->shipping_address_id;
+        return !is_null($this->billing_address_id) and $this->billing_address_id === $this->shipping_address_id;
     }
 
     /**

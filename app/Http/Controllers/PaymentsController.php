@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Billing\GatewayInterface;
 use App\Order;
 use Illuminate\Http\Request;
-use App\Billing\GatewayInterface;
 
 class PaymentsController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\UpdateUserRequest;
+use App\User;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
 
 class AccountsController extends Controller
 {

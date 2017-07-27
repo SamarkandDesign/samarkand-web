@@ -2,8 +2,8 @@
 
 namespace App;
 
-use TestCase;
 use Carbon\Carbon;
+use TestCase;
 
 class PostTest extends TestCase
 {

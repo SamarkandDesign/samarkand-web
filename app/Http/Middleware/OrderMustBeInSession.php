@@ -30,7 +30,7 @@ class OrderMustBeInSession
     {
         $this->setOrder($request);
 
-        if (! $this->orderExists() or ! $this->orderNeedsPayment()) {
+        if (!$this->orderExists() or !$this->orderNeedsPayment()) {
             return redirect()->route('products.index')->with([
                 'alert'         => 'No order exists or your order has expired. Please try again.',
                 'alert-class'   => 'warning',
@@ -47,7 +47,7 @@ class OrderMustBeInSession
      */
     private function orderExists()
     {
-        return ! is_null($this->order) and $this->order->exists;
+        return !is_null($this->order) and $this->order->exists;
     }
 
     /**

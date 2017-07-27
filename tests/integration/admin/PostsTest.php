@@ -24,8 +24,7 @@ class PostsTest extends \TestCase
         $postTitle = 'Awesome Post Title';
         $postContent = 'Here is some post content';
 
-        $response = $this->get('/admin/posts/create');
-        $response->assertStatus(200);
+        $this->visit('/admin/posts/create');
 
         $this->post('admin/posts', [
             'title'        => $postTitle,
@@ -36,7 +35,7 @@ class PostsTest extends \TestCase
             '_token'       => csrf_token(),
             ]);
         // And see that I created a post successfully
-        $this->assertDatabaseHas('posts', [
+        $this->seeInDatabase('posts', [
             'title'   => $postTitle,
             'content' => $postContent,
             'user_id' => $this->user->id,
@@ -53,8 +52,8 @@ class PostsTest extends \TestCase
         // I update the post
         $postTitle = 'Edited Title';
 
-        $response = $this->get("/admin/posts/{$post->id}/edit");
-        $this->assertContains('Edit Post', $response->getContent());
+        $this->visit("/admin/posts/{$post->id}/edit")
+             ->see('Edit Post');
 
         $this->patch("admin/posts/{$post->id}", [
             'title'  => $postTitle,
@@ -64,7 +63,7 @@ class PostsTest extends \TestCase
         //dd($this->response->getContent());
 
         // And see that I edited the post successfully
-        $this->assertDatabaseHas('posts', [
+        $this->seeInDatabase('posts', [
             'id'      => $post->id,
             'title'   => $postTitle,
             ]);
@@ -75,12 +74,12 @@ class PostsTest extends \TestCase
     {
         $post = factory('App\Post')->create();
 
-        $response = $this->get('/admin/posts');
-        $this->assertContains($post->title, $response->getContent());
+        $this->visit('/admin/posts')
+             ->see($post->title);
 
         // move to trash
         $this->delete("/admin/posts/{$post->id}");
-        $response->assertSessionHas('alert', 'Post moved to trash');
+        $this->assertSessionHas('alert', 'Post moved to trash');
     }
 
     /** @test **/
@@ -90,17 +89,17 @@ class PostsTest extends \TestCase
             'deleted_at' => Carbon::now()->subDay(),
         ]);
 
-        $response = $this->get('/admin/posts');
-        $this->assertNotContains($post->title, $response->getContent());
+        $this->visit('/admin/posts')
+              ->dontSee($post->title);
 
-        $response = $this->get('admin/posts/trash');
-        $this->assertContains($post->title, $response->getContent());
+        $this->visit('admin/posts/trash')
+             ->see($post->title);
 
         // Delete permanently
         $this->delete("/admin/posts/{$post->id}");
-        $response->assertSessionHas('alert', 'Post permanently deleted');
+        $this->assertSessionHas('alert', 'Post permanently deleted');
 
-        $this->assertDatabaseMissing('posts', [
+        $this->notSeeInDatabase('posts', [
             'title' => $post->title,
             ]);
     }
@@ -115,9 +114,9 @@ class PostsTest extends \TestCase
         // restore
         $this->put("/admin/posts/{$post->id}/restore");
 
-        $response = $this->get('/admin/posts');
-        $this->assertContains($post->title, $response->getContent());
-        // $this->assertContains('Post restored', $response->getContent());
+        $this->visit('/admin/posts')
+             ->see($post->title)
+             ->see('Post restored');
     }
 
     /** @test **/
@@ -140,7 +139,7 @@ class PostsTest extends \TestCase
         $responseData = json_decode($response->getContent());
 
         // Ensure the image has been saved in the db and attached to our post
-        $this->assertDatabaseHas('media', [
+        $this->seeInDatabase('media', [
             'model_id'   => $post->id,
             'model_type' => 'App\Post',
             'file_name'  => basename($image),

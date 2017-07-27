@@ -13,9 +13,6 @@
 
           </div>
           <div class="panel-collapse collapse" id="attribute-{{ str_slug($attribute->slug) }}">
-            @if(!$attribute->attribute_properties->count())
-              <p>No properties exist for this attribute</p>
-            @endif
             @foreach ($attribute->attribute_properties as $property)
               <div class="checkbox">
                 <label>

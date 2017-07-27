@@ -40,7 +40,7 @@ class RefreshSearchIndex extends Command
     {
         $modelName = $this->argument('model');
 
-        if (! class_exists($modelName) or ! ($model = new $modelName()) instanceof Searchable) {
+        if (!class_exists($modelName) or !($model = new $modelName()) instanceof Searchable) {
             $this->error(sprintf('%s is not a searchable model.', $modelName));
 
             return;

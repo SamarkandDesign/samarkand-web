@@ -2,8 +2,8 @@
 
 namespace Integration\Admin;
 
-use TestCase;
 use App\Address;
+use TestCase;
 
 class AddressesTest extends TestCase
 {
@@ -20,17 +20,13 @@ class AddressesTest extends TestCase
     {
         $address = factory(Address::class)->create();
 
-        $response = $this->get(route('admin.addresses.edit', $address));
-
-        $response->assertSee($address->line_1);
-
-        $response = $this->patch("/account/addresses/{$address->id}", array_merge($address->toArray(), [
-            'line_2' => 'My Road',
-            ]));
-
-        $response->assertRedirect(route('admin.addresses.edit', $address));
-        $this->followRedirects($response)->assertSee('Address Updated');
-        $this->followRedirects($response)->assertSee('My Road');
+        $this->visit(route('admin.addresses.edit', $address))
+             ->see($address->line_1)
+             ->type('My Road', 'line_2')
+             ->press('Submit')
+             ->seePageIs(route('admin.addresses.edit', $address))
+             ->see('Address updated')
+             ->see($address->line_2);
     }
 
     /** @test **/
@@ -44,8 +40,8 @@ class AddressesTest extends TestCase
             'addressable_type' => 'App\Event',
         ]);
 
-        $response = $this->get(route('admin.addresses.index'));
-        $this->assertContains($venue->line_1, $response->getContent());
-        $this->assertNotContains($address->line_1, $response->getContent());
+        $this->visit(route('admin.addresses.index'))
+             ->see($venue->line_1)
+             ->dontSee($address->line_1);
     }
 }

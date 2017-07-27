@@ -1,7 +1,6 @@
 <?php
 
 use Faker\Factory;
-use Illuminate\Foundation\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
@@ -23,7 +22,6 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        putenv('SCOUT_DRIVER="null"');
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
@@ -34,15 +32,6 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->baseUrl = \Config::get('app.url', 'http://homestead.app');
 
         return $app;
-    }
-
-    protected function followRedirects(TestResponse $response)
-    {
-        while ($response->isRedirect()) {
-            $response = $this->get($response->headers->get('Location'));
-        }
-
-        return $response;
     }
 
     protected function logInAsAdmin(array $overrides = [])
@@ -64,7 +53,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function getRole($role_name)
     {
         $role = App\Role::where('name', $role_name)->first();
-        if (! $role) {
+        if (!$role) {
             return App\Role::create([
                 'name'         => $role_name,
                 'display_name' => ucwords($role_name),

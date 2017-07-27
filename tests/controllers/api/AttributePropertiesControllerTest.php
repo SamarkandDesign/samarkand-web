@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\ProductAttribute;
 use App\AttributeProperty;
+use App\ProductAttribute;
 
 class AttributePropertiesControllerTest extends \TestCase
 {
@@ -12,16 +12,14 @@ class AttributePropertiesControllerTest extends \TestCase
   {
       $product_attribute = factory(ProductAttribute::class)->create();
 
-      $response = $this->post(route('api.product_attributes.attribute_properties.store', $product_attribute->id), [
+      $this->json('POST', route('api.product_attributes.attribute_properties.store', $product_attribute->id), [
       'name' => 'Foo',
-    ]);
-
-      $response->assertJson([
+    ])->seeJson([
       'name' => 'Foo',
       'slug' => 'foo',
     ]);
 
-      $this->assertDatabaseHas('attribute_properties', [
+      $this->seeInDatabase('attribute_properties', [
       'slug'                 => 'foo',
       'product_attribute_id' => $product_attribute->id,
     ]);
@@ -32,16 +30,15 @@ class AttributePropertiesControllerTest extends \TestCase
   {
       $attribute_property = factory(AttributeProperty::class)->create();
 
-      $response = $this->patch(route('api.attribute_properties.update', $attribute_property), [
+      $this->json('PATCH', route('api.attribute_properties.update', $attribute_property), [
       'name' => 'Foo',
       'slug' => 'foo',
-    ]);
-      $response->assertJson([
+    ])->seeJson([
       'name' => 'Foo',
       'slug' => 'foo',
     ]);
 
-      $this->assertDatabaseHas('attribute_properties', [
+      $this->seeInDatabase('attribute_properties', [
       'slug' => 'foo',
     ]);
   }
@@ -50,9 +47,9 @@ class AttributePropertiesControllerTest extends \TestCase
   public function it_deletes_an_attribute_property()
   {
       $attribute_property = factory(AttributeProperty::class)->create();
-      $this->delete(route('api.attribute_properties.delete', $attribute_property));
+      $this->json('DELETE', route('api.attribute_properties.delete', $attribute_property));
 
-      $this->assertDatabaseMissing('attribute_properties', [
+      $this->notSeeInDatabase('attribute_properties', [
       'slug'                 => $attribute_property->slug,
       'product_attribute_id' => $attribute_property->product_attribute_id,
     ]);

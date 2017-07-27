@@ -33,9 +33,12 @@
         </div>
         <!-- /#admin -->
 
+
     @include('admin.layouts.footer')
 
-    {!! HTML::script(mix('js/admin.js')) !!}
+    {{-- Browserify --}}
+    {!! HTML::script(elixir('js/admin.js')) !!}
+    {{-- {!! HTML::script('js/admin-lte.js') !!} --}}
 
     @yield('admin.scripts')
 </body>

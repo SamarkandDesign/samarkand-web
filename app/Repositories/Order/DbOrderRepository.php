@@ -3,8 +3,8 @@
 namespace App\Repositories\Order;
 
 use App\Order;
-use Carbon\Carbon;
 use App\Repositories\DbRepository;
+use Carbon\Carbon;
 
 class DbOrderRepository extends DbRepository implements OrderRepository
 {
@@ -15,7 +15,7 @@ class DbOrderRepository extends DbRepository implements OrderRepository
 
     public function count($status = null)
     {
-        if (! $status) {
+        if (!$status) {
             return $this->model->count();
         }
 

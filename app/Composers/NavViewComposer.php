@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class NavViewComposer
 {

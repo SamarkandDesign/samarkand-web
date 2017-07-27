@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Product;
-use App\MenuItem;
-use App\Search\TokenGenerator;
 use App\Countries\CountryRepository;
-use Illuminate\Support\ServiceProvider;
-use App\Repositories\Term\TermRepository;
+use App\MenuItem;
+use App\Product;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductRepository;
+use App\Repositories\Term\TermRepository;
+use App\Search\TokenGenerator;
+use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
 {

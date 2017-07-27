@@ -24,9 +24,8 @@ class ProductsTest extends \TestCase
   {
       $product = factory(Product::class)->create();
 
-      $response = $this->get('admin/products');
-
-      $this->assertContains($product->name, $response->getContent());
+      $this->visit('admin/products')
+    ->see($product->name);
   }
 
   /** @test **/
@@ -37,15 +36,13 @@ class ProductsTest extends \TestCase
       $product = factory(Product::class)->create();
       $query = substr($product->description, 0, 4);
 
-      $response = $this->get("admin/products/search?query=$query");
-      $response->assertStatus(200);
+      $this->visit("admin/products/search?query=$query");
   }
 
   /** @test **/
   public function it_can_create_a_product()
   {
-      $response = $this->get('admin/products/create');
-      $this->assertContains('Create Product', $response->getContent());
+      $this->visit('admin/products/create')->see('Create Product');
 
       $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
 
@@ -67,9 +64,9 @@ class ProductsTest extends \TestCase
     ]);
 
     // dd($this->response->getContent());
-    // $response->assertRedirectRoute('admin.products.edit', 1);
+    // $this->assertRedirectedToRoute('admin.products.edit', 1);
 
-    $this->assertDatabaseHas('products', [
+    $this->seeInDatabase('products', [
       'slug'       => 'nice-product',
       'price'      => 6250,
       'sale_price' => 3000,
@@ -79,8 +76,8 @@ class ProductsTest extends \TestCase
 
       $product = Product::whereSlug('nice-product')->first();
 
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
+      $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
+      $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
   }
 
   /** @test **/
@@ -105,26 +102,24 @@ class ProductsTest extends \TestCase
       $product = factory(Product::class)->create();
       $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
 
-      $response = $this->get("admin/products/{$product->id}/edit");
+      $this->visit("admin/products/{$product->id}/edit")
+           ->see('Edit Product');
 
-      $this->assertContains('Edit Product', $response->getContent());
-
-      $response = $this->patch("admin/products/{$product->id}", [
+      $this->patch("admin/products/{$product->id}", [
       'name'   => 'lorem ipsum',
       'terms'  => $terms->pluck('id')->toArray(),
       '_token' => csrf_token(),
     ]);
 
-      $this->assertDatabaseHas('products', ['id' => $product->id, 'name' => 'lorem ipsum']);
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
+      $this->seeInDatabase('products', ['id' => $product->id, 'name' => 'lorem ipsum']);
+      $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
+      $this->seeInDatabase('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
 
     // Ensure the product has only 2 terms associated to it
     $this->assertCount(2, $product->terms);
 
-      $response->assertRedirect("admin/products/{$product->id}/edit");
-      $response = $this->get('admin/products');
-      $this->assertContains('lorem ipsum', $response->getContent());
+      $this->assertRedirectedToRoute('admin.products.edit', $product);
+      $this->visit('admin/products')->see('lorem ipsum');
   }
 
   /** @test **/
@@ -132,20 +127,19 @@ class ProductsTest extends \TestCase
   {
       $product = factory(Product::class)->create();
 
-      $response = $this->delete(route('admin.products.delete', $product));
+      $this->delete(route('admin.products.delete', $product));
 
-      $response->assertRedirect('admin/products');
+      $this->assertRedirectedToRoute('admin.products.index');
 
     // assert that the product has been soft deleted
     $this->assertTrue(Product::withTrashed()->find($product->id)->trashed());
 
-      $response = $this->get('admin/products/trash');
-
-      $this->assertContains($product->name, $response->getContent());
+      $this->visit('admin/products/trash')
+         ->see($product->name);
 
     // hard delete the product
     $this->delete("/admin/products/{$product->id}");
-      $this->assertDatabaseMissing('products', [
+      $this->notSeeInDatabase('products', [
         'slug' => $product->slug,
         ]);
   }
@@ -160,11 +154,9 @@ class ProductsTest extends \TestCase
       // restore
       $this->put("/admin/products/{$product->id}/restore");
 
-      $response = $this->get('/admin/products');
-
-      $this->assertContains($product->name, $response->getContent());
-
-      // $this->assertContains('Product restored', $response->getContent());
+      $this->visit('/admin/products')
+           ->see($product->name)
+           ->see('Product restored');
   }
 
   /** @test **/
@@ -184,7 +176,7 @@ class ProductsTest extends \TestCase
     $response = $this->call('POST', route('api.products.media.store', $product->id), [], [], ['image' => $file]);
 
     // Ensure the image has been saved in the db and attached to our post
-    $this->assertDatabaseHas('media', [
+    $this->seeInDatabase('media', [
       'model_id'   => $product->id,
       'model_type' => 'App\Product',
       'file_name'  => basename($image),

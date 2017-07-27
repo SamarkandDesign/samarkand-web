@@ -10,8 +10,8 @@ class MediaControllerTest extends \TestCase
         // new up some images
         $images = $this->createImage(3);
 
-        $response = $this->get('api/media');
-        $response->assertJsonFragment(['name' => $images->first()->name]);
+        $this->get('api/media')
+             ->seeJson(['name' => $images->first()->name]);
 
         // deleting the parent model will also delete the child images
         $images->first()->model->forceDelete();
@@ -22,8 +22,8 @@ class MediaControllerTest extends \TestCase
     {
         $image = $this->createImage();
 
-        $response = $this->get('api/media/'.$image->id);
-        $response->assertJsonFragment(['name' => $image->name]);
+        $this->get('api/media/'.$image->id)
+             ->seeJson(['name' => $image->name]);
 
         $image->model->forceDelete();
     }

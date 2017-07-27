@@ -3,9 +3,9 @@
 namespace Unit;
 
 use App\Post;
+use App\Repositories\Term\DbTermRepository;
 use App\Term;
 use TestCase;
-use App\Repositories\Term\DbTermRepository;
 
 class DbTermRepositoryTest extends TestCase
 {
@@ -32,12 +32,12 @@ class DbTermRepositoryTest extends TestCase
         $tagIds = $this->terms->process($tags->toArray(), 'tag');
 
         // Check the new tags are in the database
-        $this->assertDatabaseHas('terms', [
+        $this->seeInDatabase('terms', [
             'term'     => 'Smashing',
             'taxonomy' => 'tag',
             ]);
 
-        $this->assertDatabaseHas('terms', [
+        $this->seeInDatabase('terms', [
             'slug'     => 'wonderful-thoughts',
             'taxonomy' => 'tag',
             ]);

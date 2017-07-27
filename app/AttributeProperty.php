@@ -19,7 +19,7 @@ class AttributeProperty extends Model
        * Set a slug on the attribute if it's not passed in.
        */
       static::creating(function ($attribute) {
-          if (! $attribute->slug) {
+          if (!$attribute->slug) {
               $attribute->slug = str_slug($attribute->name);
           }
       });

@@ -3,8 +3,8 @@
 namespace Integration;
 
 use TestCase;
-use XeroPHP\Models\Accounting\Invoice;
 use XeroPHP\Application\PrivateApplication;
+use XeroPHP\Models\Accounting\Invoice;
 
 class InvoiceTest extends TestCase
 {
@@ -20,8 +20,8 @@ class InvoiceTest extends TestCase
       $this->be($order->customer);
 
     // I can view the order page and see a link for the invoice
-    $response = $this->get("/account/orders/{$order->id}");
-      $this->assertContains('Download Invoice', $response->getContent());
+    $this->visit("/account/orders/{$order->id}")
+         ->see('Download Invoice');
 
     // And click it to download the invoice
     $fakeInvoice = \Mockery::mock(Invoice::class);
@@ -35,8 +35,8 @@ class InvoiceTest extends TestCase
 
       $this->app->instance(PrivateApplication::class, $xero);
 
-      $response = $this->get("/account/orders/{$order->id}/invoice");
-      $response->assertStatus(200);
+      $this->get("/account/orders/{$order->id}/invoice");
+      $this->assertResponseOk();
   }
 
   /** @test **/
@@ -44,7 +44,7 @@ class InvoiceTest extends TestCase
   {
       $order = $this->createOrder();
       $this->be($order->customer);
-      $response = $this->get("/account/orders/{$order->id}/invoice");
-      $response->assertStatus(404);
+      $this->get("/account/orders/{$order->id}/invoice");
+      $this->assertResponseStatus(404);
   }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Countries\CountryRepository;
-use Illuminate\Support\ServiceProvider;
-use App\Countries\FileCountryRepository;
 use App\Countries\CacheCountryRepository;
+use App\Countries\CountryRepository;
+use App\Countries\FileCountryRepository;
+use Illuminate\Support\ServiceProvider;
 
 class CountriesServiceProvider extends ServiceProvider
 {

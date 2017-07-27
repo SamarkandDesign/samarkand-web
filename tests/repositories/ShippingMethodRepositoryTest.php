@@ -2,8 +2,8 @@
 
 namespace App\Repositories\ShippingMethod;
 
-use TestCase;
 use App\ShippingMethod;
+use TestCase;
 
 class ShippingMethodRepositoryTest extends TestCase
 {

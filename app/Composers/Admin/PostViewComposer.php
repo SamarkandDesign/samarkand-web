@@ -2,8 +2,8 @@
 
 namespace App\Composers\Admin;
 
-use Illuminate\Contracts\View\View;
 use App\Repositories\Post\PostRepository;
+use Illuminate\Contracts\View\View;
 
 class PostViewComposer
 {

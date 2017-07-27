@@ -35,7 +35,7 @@ Venues
 		</table>
 
 		<!-- Pagination -->
-		{!! $addresses->render() !!}
+		{!! $addresses->links() !!}
 	</div>
 </div>
 

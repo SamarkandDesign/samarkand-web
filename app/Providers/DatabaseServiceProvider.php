@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use App\Repositories\Post\PostRepository;
-use App\Repositories\Term\TermRepository;
-use App\Repositories\Order\OrderRepository;
-use App\Repositories\Post\DbPostRepository;
-use App\Repositories\Term\DbTermRepository;
-use App\Repositories\Order\DbOrderRepository;
-use App\Repositories\Post\CachePostRepository;
-use App\Repositories\Term\CacheTermRepository;
-use App\Repositories\Product\ProductRepository;
 use App\Repositories\Order\CacheOrderRepository;
-use App\Repositories\Product\DbProductRepository;
+use App\Repositories\Order\DbOrderRepository;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Post\CachePostRepository;
+use App\Repositories\Post\DbPostRepository;
+use App\Repositories\Post\PostRepository;
 use App\Repositories\Product\CacheProductRepository;
-use App\Repositories\ShippingMethod\ShippingMethodRepository;
-use App\Repositories\ShippingMethod\DbShippingMethodRepository;
+use App\Repositories\Product\DbProductRepository;
+use App\Repositories\Product\ProductRepository;
 use App\Repositories\ShippingMethod\CacheShippingMethodRepository;
+use App\Repositories\ShippingMethod\DbShippingMethodRepository;
+use App\Repositories\ShippingMethod\ShippingMethodRepository;
+use App\Repositories\Term\CacheTermRepository;
+use App\Repositories\Term\DbTermRepository;
+use App\Repositories\Term\TermRepository;
+use Illuminate\Support\ServiceProvider;
 
 class DatabaseServiceProvider extends ServiceProvider
 {

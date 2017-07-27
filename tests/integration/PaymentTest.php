@@ -2,43 +2,43 @@
 
 namespace Integration;
 
-use App\User;
-use TestCase;
+use App\Jobs\CreateInvoiceForOrder;
 use App\OrderNote;
-use App\Mail\OrderConfirmed;
-use Illuminate\Support\Facades\Mail;
+use App\User;
+use MailThief\Testing\InteractsWithMail;
+use TestCase;
 
 class PaymentTest extends TestCase
 {
-    use \CreatesOrders, \UsesCart, \FlushesProductEvents;
+    use \CreatesOrders, \UsesCart, InteractsWithMail, \FlushesProductEvents;
 
     /** @test **/
     public function it_completes_an_order_upon_payment()
     {
-        \Mail::fake();
-
-        // \Event::fake();
+        $this->expectsJobs(CreateInvoiceForOrder::class);
 
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
         $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
 
         \Session::put('order', $this->order);
 
-        $response = $this->get('checkout/pay');
+        $this->visit('checkout/pay');
 
         $token = $this->getFakeToken();
 
-        $response = $this->post(route('payments.store'), [
+        $response = $this->call('POST', route('payments.store'), [
             'order_id'     => $this->order->id,
             'stripe_token' => $token,
             '_token'       => csrf_token(),
             ]);
 
-        $response->assertRedirect('order-completed');
+        $this->assertRedirectedTo('order-completed');
 
-        $this->followRedirects($response)->assertSee(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
+        $this->followRedirects();
 
-        $this->assertDatabaseHas('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
+        $this->see(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
+
+        $this->seeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
 
         $note = OrderNote::where([
             'order_id' => $this->order->id,
@@ -49,24 +49,23 @@ class PaymentTest extends TestCase
 
         $this->assertEquals(0, \Cart::total());
         $this->assertContains('ch_', $this->order->fresh()->payment_id);
-        Mail::assertSent(OrderConfirmed::class, function ($mail) {
-            return $mail->order->id === $this->order->id;
-        });
+
+        $this->seeMessageFor($this->customer->email);
 
         $admin_users = User::shopAdmins()->get();
+        $this->seeMessageFor($admin_users->first()->email);
+        $this->assertContains('leave in the linhay', $this->lastMessage()->getBody());
     }
 
     /** @test */
     public function it_ensures_an_order_cannot_be_completed_more_than_once()
     {
-        Mail::fake();
-
         $shop_admin = factory(User::class)->create();
         $this->createOrder(['status' => 'completed']);
 
         \Session::put('order', $this->order);
 
-        $response = $this->get('checkout/pay');
+        $this->visit('checkout/pay');
 
         $token = $this->getFakeToken();
 
@@ -76,22 +75,20 @@ class PaymentTest extends TestCase
           '_token'       => csrf_token(),
           ]);
 
-        $response->assertRedirect('shop');
+        $this->assertRedirectedTo('shop');
         $this->assertContains('order has either already been paid for', \Session::get('alert'));
     }
 
     /** @test **/
     public function it_returns_to_the_pay_page_if_there_is_a_payment_error()
     {
-        Mail::fake();
-
         $this->createOrder(['status' => 'pending']);
 
         $this->order->setShipping(factory(\App\ShippingMethod::class)->create()->id);
 
         \Session::put('order', $this->order);
 
-        $response = $this->get('checkout/pay');
+        $this->visit('checkout/pay');
 
         $token = $this->getFakeToken(true);
 
@@ -101,13 +98,13 @@ class PaymentTest extends TestCase
             '_token'       => csrf_token(),
             ]);
 
-        $response->assertRedirect('checkout/pay');
+        $this->assertRedirectedTo('checkout/pay');
         $this->assertContains('declined', \Session::get('alert'));
 
-        $this->assertDatabaseMissing('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
+        $this->dontSeeInDatabase('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
 
         // ensure an order note was logged
-        $this->assertDatabaseHas('order_notes', ['order_id' => $this->order->id]);
+        $this->seeInDatabase('order_notes', ['order_id' => $this->order->id]);
     }
 
     /**

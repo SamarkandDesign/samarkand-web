@@ -2,15 +2,15 @@
 
 namespace App;
 
-use Carbon\Carbon;
-use App\Values\Price;
-use App\Traits\Postable;
 use App\Contracts\Termable;
-use Laravel\Scout\Searchable;
 use App\Presenters\PresentableTrait;
-use Illuminate\Database\Eloquent\Model;
 use App\Services\ProductAttributeFilter;
+use App\Traits\Postable;
+use App\Values\Price;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
@@ -173,7 +173,7 @@ class Product extends Model implements HasMediaConversions, Termable
    */
   public function syncTerms($terms = [])
   {
-      if (! count($terms)) {
+      if (!count($terms)) {
           return $this->makeUncategorised();
       }
 

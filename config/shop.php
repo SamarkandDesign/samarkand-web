@@ -36,14 +36,4 @@ return [
      */
     'show_out_of_stock' => env('SHOW_OUT_OF_STOCK', false),
 
-    /*
-     * Available options are 'stripe' and 'fake'
-     */
-    'billing_driver'    => env('BILLING_DRIVER', 'stripe'),
-
-    /*
-     * Available options are 'xero' and 'fake'
-     */
-    'invoice_driver'    => env('INVOICE_DRIVER', 'xero'),
-
 ];

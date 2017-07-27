@@ -13,10 +13,10 @@ class TermsTest extends \TestCase
         $category = factory(Term::class)->create(['taxonomy' => 'category']);
         $tag = factory(Term::class)->create(['taxonomy' => 'tag']);
 
-        $response = $this->get('/admin/terms/categories');
-        $this->assertContains('Categories', $response->getContent());
-        $this->assertContains($category->term, $response->getContent());
-        $this->assertNotContains($tag->term, $response->getContent());
+        $this->visit('/admin/terms/categories')
+        ->see('Categories')
+        ->see($category->term)
+        ->dontSee($tag->term);
     }
 
     /** @test **/
@@ -29,8 +29,8 @@ class TermsTest extends \TestCase
           'term'     => 'homeparty',
           ]);
 
-        $response = $this->get('/admin/categories');
-        $this->assertContains('homeparty', $response->getContent());
+        $this->visit('/admin/categories')
+        ->see('homeparty');
     }
 
     /** @test **/
@@ -43,12 +43,12 @@ class TermsTest extends \TestCase
           'term'     => 'nasty cat',
           ]);
 
-        $this->assertDatabaseHas('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
+        $this->seeInDatabase('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
 
-        $response = $this->delete("/admin/terms/{$category->id}");
+        $response = $this->action('DELETE', 'Admin\TermsController@destroy', ['term' => $category]);
 
-        $response->assertRedirect('/admin/categories');
-        $this->assertDatabaseMissing('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
+        $this->assertRedirectedTo('/admin/categories');
+        $this->notSeeInDatabase('terms', ['term' => 'nasty cat', 'taxonomy' => 'category']);
     }
 
     /** @test **/
@@ -61,14 +61,12 @@ class TermsTest extends \TestCase
           'term'     => 'Nasty Cat',
           ]);
 
-        $this->get("/admin/terms/{$category->id}/edit");
+        $this->visit("admin/terms/{$category->id}/edit")
+        ->type('Nice Cat', 'term')
+        ->press('submit')
+        ->see('Category updated');
 
-        $response = $this->followRedirects($this->patch("/admin/terms/{$category->id}", [
-          'term' => 'Nice Cat',
-          ]));
-        $response->assertSee('Category updated');
-
-        $this->assertDatabaseHas('terms', ['taxonomy' => 'category', 'term'     => 'Nice Cat']);
+        $this->seeInDatabase('terms', ['taxonomy' => 'category', 'term'     => 'Nice Cat']);
     }
 
     /** @test **/
@@ -86,14 +84,11 @@ class TermsTest extends \TestCase
           'term'     => 'Nice Cat',
           ]);
 
-        $this->get("/admin/terms/{$category_1->id}/edit");
-        $response = $this->followRedirects($this->patch("/admin/terms/{$category_1->id}", [
-          'term' => $category_2->term,
-          ]));
-        // ->type($category_2->term, 'term')
-        // ->press('submit')
-        $response->assertSee('already been taken');
+        $this->visit("admin/terms/{$category_1->id}/edit")
+        ->type($category_2->term, 'term')
+        ->press('submit')
+        ->see('already been taken');
 
-        $this->assertDatabaseMissing('terms', ['id' => $category_1, 'taxonomy' => 'category', 'term' => 'Nice Cat']);
+        $this->dontSeeInDatabase('terms', ['id' => $category_1, 'taxonomy' => 'category', 'term' => 'Nice Cat']);
     }
 }

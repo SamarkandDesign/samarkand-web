@@ -2,8 +2,8 @@
 
 namespace App\Repositories\ShippingMethod;
 
-use App\ShippingMethod;
 use App\Repositories\CacheRepository;
+use App\ShippingMethod;
 
 class CacheShippingMethodRepository extends CacheRepository implements ShippingMethodRepository
 {

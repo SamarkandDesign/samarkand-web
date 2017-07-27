@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use App\Presenters\PresentableTrait;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
@@ -29,7 +29,7 @@ class Event extends Model implements HasMediaConversions
          * Set a slug on the event if it's not passed in.
          */
         static::saving(function ($event) {
-            if (! $event->slug) {
+            if (!$event->slug) {
                 $event->slug = str_slug($event->title);
             }
             $event->adjustDates();

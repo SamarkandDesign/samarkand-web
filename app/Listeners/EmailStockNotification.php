@@ -2,15 +2,24 @@
 
 namespace App\Listeners;
 
-use App\User;
-use App\Product;
-use App\Mail\ProductStockLow;
-use App\Mail\ProductOutOfStock;
 use App\Events\ProductStockChanged;
+use App\Mailers\ProductMailer;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EmailStockNotification implements ShouldQueue
 {
+    private $mailer;
+
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct(ProductMailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     /**
      * Handle the event.
      *
@@ -20,25 +29,10 @@ class EmailStockNotification implements ShouldQueue
      */
     public function handle(ProductStockChanged $event)
     {
-        if ($this->isLowInStock($event->product)) {
-            $mailable = $this->getStockMailable($event->product);
-            foreach (User::shopAdmins()->get() as $admin) {
-                \Mail::to($admin)->send($mailable);
-            }
+        if ($event->product->stock_qty == 0) {
+            $this->mailer->sendOutOfStockNotificationFor($event->product);
+        } elseif ($event->product->stock_qty <= config('shop.low_stock_qty')) {
+            $this->mailer->sendLowStockNotificationFor($event->product);
         }
-    }
-
-    protected function isLowInStock(Product $product)
-    {
-        return $product->stock_qty <= config('shop.low_stock_qty');
-    }
-
-    protected function getStockMailable(Product $product)
-    {
-        if ($product->stock_qty == 0) {
-            return new ProductOutOfStock($product);
-        }
-
-        return new ProductStockLow($product);
     }
 }

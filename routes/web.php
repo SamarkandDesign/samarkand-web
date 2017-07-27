@@ -16,11 +16,11 @@ Route::post('cart', ['uses' => 'CartController@store', 'as' => 'cart.store']);
 Route::delete('cart/{rowid}', ['uses' => 'CartController@remove', 'as' => 'cart.remove']);
 
 Route::get('checkout', ['uses' => 'CheckoutController@show', 'as' => 'checkout.show', 'middleware' => 'cart.empty']);
-Route::get('checkout/shipping', ['uses' => 'ShippingMethodsController@show', 'as' => 'checkout.shipping']);
+Route::get('checkout/shipping', ['uses' => 'CheckoutController@shipping', 'as' => 'checkout.shipping']);
 Route::get('checkout/pay', ['uses' => 'CheckoutController@pay', 'as' => 'checkout.pay']);
 
 Route::post('orders', ['uses' => 'OrdersController@store', 'as' => 'orders.store']);
-Route::post('orders/shipping', ['uses' => 'ShippingMethodsController@store', 'as' => 'orders.shipping']);
+Route::post('orders/shipping', ['uses' => 'OrdersController@shipping', 'as' => 'orders.shipping']);
 Route::get('orders/{order}/pay', ['uses' => 'OrdersController@pay', 'as' => 'orders.pay']);
 
 Route::post('payments', ['uses' => 'PaymentsController@store', 'as' => 'payments.store']);
