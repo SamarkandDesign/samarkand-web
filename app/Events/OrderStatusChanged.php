@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Queue\SerializesModels;
 
 class OrderStatusChanged
 {

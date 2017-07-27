@@ -1,5 +1,6 @@
 <?php
 
+
 class InitialiseAppTest extends TestCase
 {
     /** @test */
@@ -10,7 +11,7 @@ class InitialiseAppTest extends TestCase
         Artisan::call('skd:init', ['email' => $email, 'password' => 'secret']);
         $this->assertContains("Created new admin user with email $email", Artisan::output());
 
-        $this->assertDatabaseHas('users', ['email' => $email]);
+        $this->seeInDatabase('users', ['email' => $email]);
         $user = App\User::where('email', $email)->first();
 
         $this->assertTrue($user->hasRole('admin'));

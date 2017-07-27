@@ -1,7 +1,7 @@
 <?php
 
-use App\User;
 use App\Product;
+use App\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 

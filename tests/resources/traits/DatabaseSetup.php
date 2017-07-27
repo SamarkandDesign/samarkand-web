@@ -28,7 +28,7 @@ trait DatabaseSetup
 
     protected function setupTestDatabase()
     {
-        if (! static::$migrated) {
+        if (!static::$migrated) {
             $this->setUpSqliteDatabase();
             $this->artisan('migrate:refresh');
             $this->app[Kernel::class]->setArtisan(null);

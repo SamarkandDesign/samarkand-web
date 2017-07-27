@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use Spatie\SearchIndex\Searchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Spatie\SearchIndex\Searchable;
 
 class RemoveModelFromSearchIndex implements ShouldQueue
 {

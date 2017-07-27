@@ -32,7 +32,7 @@ class ProductPresenter extends ModelPresenter
      */
     public function price()
     {
-        if (! $this->model->sale_price->value()) {
+        if (!$this->model->sale_price->value()) {
             return new HtmlString($this->model->price);
         }
 

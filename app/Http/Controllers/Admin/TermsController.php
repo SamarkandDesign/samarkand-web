@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Term;
 use App\Http\Controllers\Controller;
-use App\Repositories\Term\TermRepository;
 use App\Http\Requests\Term\UpdateTermRequest;
+use App\Repositories\Term\TermRepository;
+use App\Term;
 
 class TermsController extends Controller
 {
@@ -37,7 +37,7 @@ class TermsController extends Controller
     {
         $taxonomy = str_singular($taxonomies);
 
-        if (! isset(Term::$taxonomies[$taxonomy])) {
+        if (!isset(Term::$taxonomies[$taxonomy])) {
             abort(404);
         }
 

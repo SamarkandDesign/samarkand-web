@@ -9,13 +9,10 @@ class CheckoutControllerTest extends \TestCase
     /** @test **/
     public function it_shows_the_checkout_page()
     {
-        \Event::fake();
-
+        $this->withoutEvents();
         $product = $this->putProductInCart();
 
-        $response = $this->get('/checkout');
-
-        $response->assertStatus(200);
-        $response->assertSee($product->name);
+        $this->visit('checkout')
+             ->see($product->name);
     }
 }

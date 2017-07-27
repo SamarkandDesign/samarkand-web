@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Term;
 
-use App\Term;
 use App\Contracts\Termable;
+use App\Term;
 use Illuminate\Database\Eloquent\Model;
 
 class CacheTermRepository implements TermRepository

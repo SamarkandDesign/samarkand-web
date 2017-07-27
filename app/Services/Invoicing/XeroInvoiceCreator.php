@@ -3,13 +3,13 @@
 namespace App\Services\Invoicing;
 
 use App\Order;
+use XeroPHP\Application\PrivateApplication;
 use XeroPHP\Models\Accounting\Account;
 use XeroPHP\Models\Accounting\Address;
 use XeroPHP\Models\Accounting\Contact;
 use XeroPHP\Models\Accounting\Invoice;
-use XeroPHP\Models\Accounting\Payment;
-use XeroPHP\Application\PrivateApplication;
 use XeroPHP\Models\Accounting\Invoice\LineItem;
+use XeroPHP\Models\Accounting\Payment;
 
 class XeroInvoiceCreator implements InvoiceCreator
 {
@@ -41,7 +41,7 @@ class XeroInvoiceCreator implements InvoiceCreator
      */
     public function createInvoice(Order $order)
     {
-        if (! is_null($order->invoice_id)) {
+        if (!is_null($order->invoice_id)) {
             throw new \Exception(sprintf('The order has already an invoice generated for it ("%s")', $order->invoice_id));
         }
 

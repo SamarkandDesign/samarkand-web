@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Product;
 
-use App\Term;
 use App\Product;
 use App\Repositories\DbRepository;
 use App\Services\ProductAttributeFilter;
+use App\Term;
 
 class DbProductRepository extends DbRepository implements ProductRepository
 {
@@ -62,13 +62,13 @@ class DbProductRepository extends DbRepository implements ProductRepository
 
     public function shopProducts(Term $productCategory)
     {
-        if (! $productCategory->slug) {
+        if (!$productCategory->slug) {
             $query = $this->model->with('media');
         } else {
             $query = $productCategory->products()->with('media');
         }
 
-        if (! config('shop.show_out_of_stock')) {
+        if (!config('shop.show_out_of_stock')) {
             $query = $query->inStock();
         }
 

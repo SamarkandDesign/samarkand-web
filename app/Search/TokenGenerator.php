@@ -2,8 +2,8 @@
 
 namespace App\Search;
 
-use Carbon\Carbon;
 use AlgoliaSearch\Client;
+use Carbon\Carbon;
 use Illuminate\Cache\Repository as Cache;
 use Illuminate\Config\Repository as Config;
 
@@ -26,7 +26,7 @@ class TokenGenerator
     public function getVisitorFilters()
     {
         $filters = 'listed:true';
-        if (! $this->config->get('shop.show_out_of_stock')) {
+        if (!$this->config->get('shop.show_out_of_stock')) {
             $filters .= ' AND stock_qty>0';
         }
 

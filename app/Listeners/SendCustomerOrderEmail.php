@@ -3,11 +3,26 @@
 namespace App\Listeners;
 
 use App\Events\OrderWasPaid;
-use App\Mail\OrderConfirmed;
+use App\Mailers\OrderMailer;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendCustomerOrderEmail implements ShouldQueue
 {
+    /**
+     * @var OrderMailer
+     */
+    private $mailer;
+
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct(OrderMailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     /**
      * Handle the event.
      *
@@ -17,7 +32,6 @@ class SendCustomerOrderEmail implements ShouldQueue
      */
     public function handle(OrderWasPaid $event)
     {
-        $order = $event->order;
-        \Mail::to($order->customer)->send(new OrderConfirmed($order));
+        $this->mailer->sendOrderConfirmationEmailFor($event->order);
     }
 }

@@ -13,19 +13,16 @@ class MenuItemsTest extends TestCase
   /** @test **/
   public function it_allows_adding_a_menu_item()
   {
-      $response = $this->get('/admin/menus');
+      $this->visit('/admin/menus')
+         ->type('main', 'menu')
+         ->type('My Item', 'label')
+         ->type('/my-item', 'link')
+         ->type('4', 'order')
+         ->press('Save')
+         ->see('Item Saved')
+         ->see('/my-item');
 
-      $response = $this->followRedirects($this->post('/admin/menus', [
-         'menu' =>'main',
-         'label' =>'My Item',
-         'link' =>'/my-item',
-         'order' =>'4',
-        ]));
-
-      $response->assertSee('Item Saved');
-      $response->assertSee('/my-item');
-
-      $this->assertDatabaseHas('menu_items', [
+      $this->seeInDatabase('menu_items', [
       'menu'  => 'main',
       'label' => 'My Item',
       'link'  => '/my-item',
@@ -38,16 +35,14 @@ class MenuItemsTest extends TestCase
   {
       $item = factory('App\MenuItem')->create();
 
-      $response = $this->get("admin/menus/{$item->id}/edit");
-      $response->assertSee($item->label);
+      $this->visit("admin/menus/{$item->id}/edit")
+         ->see($item->label)
+         ->type('/whatever', 'link')
+         ->press('Update')
+         ->seePageIs('/admin/menus')
+         ->see('Item Updated');
 
-      $response = $this->followRedirects($this->patch("/admin/menus/{$item->id}", array_merge($item->toArray(), [
-         'link' =>'/whatever',
-        ])));
-
-      $response->assertSee('Item Updated');
-
-      $this->assertDatabaseHas('menu_items', [
+      $this->seeInDatabase('menu_items', [
       'link'  => '/whatever',
       ]);
   }
@@ -59,7 +54,7 @@ class MenuItemsTest extends TestCase
 
       $this->delete("/admin/menus/{$item->id}");
 
-      $this->assertDatabaseMissing('menu_items', [
+      $this->dontSeeInDatabase('menu_items', [
       'link'  => $item->link,
     ]);
   }

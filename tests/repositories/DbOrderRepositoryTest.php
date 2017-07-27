@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Order;
 
-use TestCase;
 use App\Order;
 use Carbon\Carbon;
+use TestCase;
 
 class DbOrderRepositoryTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Traits\HasTerms;
-use App\Traits\Postable;
 use App\Contracts\Termable;
 use App\Presenters\PresentableTrait;
+use App\Traits\HasTerms;
+use App\Traits\Postable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;

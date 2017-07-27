@@ -4,8 +4,8 @@ namespace App\Services\Geocoder;
 
 use App\Address;
 use GuzzleHttp\Client;
-use Illuminate\Support\Collection;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Collection;
 
 class GoogleGeocoder implements Geocoder
 {

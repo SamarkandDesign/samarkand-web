@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Events\OrderStatusChanged;
 use App\Order;
 use App\OrderNote;
-use App\Events\OrderStatusChanged;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class LogOrderStatusNote implements ShouldQueue

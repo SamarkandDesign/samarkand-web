@@ -13,17 +13,15 @@ class UsersTest extends TestCase
     {
         $this->logInAsAdmin();
 
-        $this->get('/admin/users/new');
+        $this->visit('/admin/users/new')
+             ->type('Joe Bloggs', 'name')
+             ->type('joebloggs', 'username')
+             ->type('joe@bloggs.com', 'email')
+             ->type('secret123', 'password')
+             ->type('secret123', 'password_confirmation')
+             ->press('Create User');
 
-        $this->followRedirects($this->post('/admin/users', [
-             'name' => 'Joe Bloggs',
-             'username' => 'joebloggs',
-             'email' => 'joe@bloggs.com',
-             'password' => 'secret123',
-             'password_confirmation' => 'secret123',
-            ]));
-
-        $this->assertDatabaseHas('users', [
+        $this->seeInDatabase('users', [
             'username'    => 'joebloggs',
             'email'       => 'joe@bloggs.com',
             ]);
@@ -40,15 +38,14 @@ class UsersTest extends TestCase
     {
         $currentUser = $this->logInAsAdmin();
 
-        $newUserProfile = factory('App\User')->create()->toArray();
+        $newUserProfile = factory('App\User')->make()->toArray();
 
-        $response = $this->updateProfile($newUserProfile);
+        $this->updateProfile($newUserProfile);
 
-        $response->assertRedirect("/admin/users/{$newUserProfile['username']}");
+        $this->seePageIs("/admin/users/{$newUserProfile['username']}")
+             ->see('Profile updated');
 
-        $this->followRedirects($response)->assertSee('Profile updated');
-
-        $this->assertDatabaseHas('users', [
+        $this->seeInDatabase('users', [
             'name'        => $newUserProfile['name'],
             'username'    => $newUserProfile['username'],
             'email'       => $newUserProfile['email'],
@@ -67,26 +64,21 @@ class UsersTest extends TestCase
         $currentUser = $this->logInAsAdmin();
 
         // Make a new user in the database
-        $user = factory('App\User')->create();
+        $newUserProfile = $this->newUserProfile();
+        factory('App\User')->create($newUserProfile);
 
-        $this->get('/admin/profile');
         // Try to update our own profile with info from the already existant user
-        $response = $this->updateProfile([
-            'id' => $currentUser->id,
-            'email' => $user->email,
-            'username' => $user->username,
-            ]);
+        $this->updateProfile($newUserProfile);
 
         // Check for error messages
-        $content = $this->followRedirects($response)->content();
-        $this->assertContains('email has already been taken', $content);
-        $this->assertContains('username has already been taken', $content);
+        $this->seePageIs('/admin/profile')
+             ->see('email has already been taken')
+             ->see('username has already been taken');
 
         // Ensure we haven't updated the user in the database
-        $this->assertDatabaseHas('users', ['username' => $user['username']]);
-        $this->assertDatabaseMissing('users', [
+        $this->notSeeInDatabase('users', [
             'id'       => $currentUser->id,
-            'username' => $user['username'],
+            'username' => $newUserProfile['username'],
             ]);
     }
 
@@ -99,8 +91,8 @@ class UsersTest extends TestCase
 
         $this->logInAsAdmin();
 
-        $response = $this->get("admin/users/{$user->username}/orders");
-        $this->assertContains("#{$order_item->id}", $response->getContent());
+        $this->visit("admin/users/{$user->username}/orders")
+             ->see("#{$order_item->id}");
     }
 
     /** @test **/
@@ -113,8 +105,8 @@ class UsersTest extends TestCase
 
         $this->logInAsAdmin();
 
-        $response = $this->get("admin/users/{$user->username}/addresses");
-        $this->assertContains($address->line_1, $response->getContent());
+        $this->visit("admin/users/{$user->username}/addresses")
+             ->see($address->line_1);
     }
 
     /** @test **/
@@ -124,26 +116,25 @@ class UsersTest extends TestCase
         $token = $user->api_token;
         $this->logInAsAdmin();
 
-        $response = $this->get("admin/users/{$user->username}");
-        $this->assertContains($token, $response->getContent());
-        $response = $this->patch("admin/users/{$user->id}/token");
-
-        $response->assertRedirect("admin/users/{$user->username}");
+        $this->visit("admin/users/{$user->username}")
+             ->see($token)
+             ->press('Regenerate')
+             ->seePageIs("admin/users/{$user->username}");
 
         $this->assertNotEquals($token, $user->fresh()->api_token);
     }
 
     private function updateProfile($overrides = [])
     {
-        $user = array_merge($this->newUserProfile(), $overrides);
+        $newUserProfile = array_merge($this->newUserProfile(), $overrides);
 
-        return $this->patch("/admin/users/{$user['id']}", [
-             'name' => $user['name'],
-             'username' => $user['username'],
-             'email' => $user['email'],
-             'password' => 'secret123',
-             'password_confirmation' => 'secret123',
-             ]);
+        $this->visit('/admin/profile')
+             ->type($newUserProfile['name'], 'name')
+             ->type($newUserProfile['username'], 'username')
+             ->type($newUserProfile['email'], 'email')
+             ->type('secret123', 'password')
+             ->type('secret123', 'password_confirmation')
+             ->press('Update Profile');
     }
 
     private function newUserProfile()

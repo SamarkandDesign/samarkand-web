@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Term;
 
-use App\Term;
 use App\Contracts\Termable;
+use App\Term;
 use Illuminate\Database\Eloquent\Model;
 
 class DbTermRepository implements TermRepository
@@ -27,7 +27,7 @@ class DbTermRepository implements TermRepository
     {
         $categories = $this->getCategories()->pluck('term', 'id')->toArray();
 
-        if (! is_null($related_model)) {
+        if (!is_null($related_model)) {
             $categories = $this->orderBySelected($categories, $related_model);
         }
 

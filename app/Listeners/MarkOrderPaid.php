@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Order;
 use App\Events\OrderWasPaid;
+use App\Order;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class MarkOrderPaid implements ShouldQueue

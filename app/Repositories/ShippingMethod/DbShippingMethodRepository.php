@@ -2,8 +2,8 @@
 
 namespace App\Repositories\ShippingMethod;
 
-use App\ShippingMethod;
 use App\Repositories\DbRepository;
+use App\ShippingMethod;
 
 class DbShippingMethodRepository extends DbRepository implements ShippingMethodRepository
 {

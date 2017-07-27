@@ -13,8 +13,8 @@ class AccountTest extends TestCase
     public function it_can_see_the_account_page()
     {
         $this->loginWithUser();
-        $response = $this->get('/account');
-        $this->assertContains('Manage Addresses', $response->getContent());
+        $this->visit('/account')
+        ->see('Manage Addresses');
     }
 
     /** @test **/
@@ -24,12 +24,12 @@ class AccountTest extends TestCase
 
         $this->be($this->customer);
 
-        $response = $this->get('/account/addresses');
-        // ->press('Delete')
-        // $this->assertContains('Address deleted', $response->getContent());
+        $this->visit('/account/addresses')
+        ->press('Delete')
+        ->see('Address deleted');
 
-        $response = $this->get("/account/orders/{$this->order->id}");
-        $this->assertContains("Order #{$this->order->id}", $response->getContent());
+        $this->visit("/account/orders/{$this->order->id}")
+        ->see("Order #{$this->order->id}");
     }
 
     /** @test **/
@@ -43,8 +43,8 @@ class AccountTest extends TestCase
 
         $this->be($this->customer);
 
-        $response = $this->get("/account/orders/{$this->order->id}");
-        $this->assertContains("Order #{$this->order->id}", $response->getContent());
+        $this->visit("/account/orders/{$this->order->id}")
+        ->see("Order #{$this->order->id}");
     }
 
     /** @test **/
@@ -52,14 +52,14 @@ class AccountTest extends TestCase
     {
         $user = $this->loginWithUser();
 
-        $response = $this->patch("/account/{$user->id}", [
-            'name' => 'Joe Bloggs',
-            'email' => 'joe@example.com',
-        ]);
+        $this->visit('/account/edit')
+        ->type('Joe Bloggs', 'name')
+        ->type('joe@example.com', 'email')
+        ->press('Update Account')
+        ->seePageIs('/account')
+        ->see('Profile updated');
 
-        $response->assertRedirect('/account');
-
-        $this->assertDatabaseHas('users', ['id' => $user->id, 'email' => 'joe@example.com']);
+        $this->seeInDatabase('users', ['id' => $user->id, 'email' => 'joe@example.com']);
     }
 
     /** @test **/
@@ -69,10 +69,10 @@ class AccountTest extends TestCase
 
         $user = $this->loginWithUser();
 
-        $response = $this->patch(route('accounts.update', $other_user), ['email' => 'bad@email.com']);
-        $response->assertStatus(403);
+        $this->patch(route('accounts.update', $other_user), ['email' => 'bad@email.com']);
+        $this->assertResponseStatus(403);
 
-        $this->assertDatabaseMissing('users', ['id' => $other_user->id, 'email' => 'bad@email.com']);
+        $this->notSeeInDatabase('users', ['id' => $other_user->id, 'email' => 'bad@email.com']);
     }
 
     /** @test **/
@@ -90,7 +90,7 @@ class AccountTest extends TestCase
             ]);
 
         $this->assertFalse($user->fresh()->hasRole('admin'));
-        $this->assertDatabaseMissing('users', ['id' => $user->id, 'is_shop_manager' => true]);
-        $this->assertDatabaseHas('users', ['id' => $user->id, 'username' => 'foobar']);
+        $this->notSeeInDatabase('users', ['id' => $user->id, 'is_shop_manager' => true]);
+        $this->seeInDatabase('users', ['id' => $user->id, 'username' => 'foobar']);
     }
 }

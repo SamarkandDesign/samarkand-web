@@ -2,9 +2,9 @@
 
 namespace Integration;
 
+use App\Address;
 use App\User;
 use TestCase;
-use App\Address;
 
 class AddressTest extends TestCase
 {
@@ -15,8 +15,8 @@ class AddressTest extends TestCase
         $address = factory(Address::class)->create([
                                                    'addressable_id' => $user->id,
                                                    ]);
-        $response = $this->get('account/addresses');
-        $this->assertContains($address->line_1, $response->getContent());
+        $this->visit('account/addresses')
+             ->see($address->line_1);
     }
 
     /** @test **/
@@ -24,17 +24,16 @@ class AddressTest extends TestCase
     {
         $user = $this->loginWithUser();
 
-        $response = $this->get(route('addresses.create'));
-        $response->assertStatus(200);
-            //  ->type('Mr Joe Bloggs', 'name')
-            //  ->type('0123456789', 'phone')
-            //  ->type('11 Acacia Avenue', 'line_1')
-            //  ->type('London', 'city')
-            //  ->type('SW1 4NQ', 'postcode')
-            //  ->select('GB', 'country')
-            //  ->press('Save Address')
-            //  ->seePageIs('/account/addresses')
-            //  ->see('saved')->see('11 Acacia Avenue');
+        $this->visit(route('addresses.create'))
+             ->type('Mr Joe Bloggs', 'name')
+             ->type('0123456789', 'phone')
+             ->type('11 Acacia Avenue', 'line_1')
+             ->type('London', 'city')
+             ->type('SW1 4NQ', 'postcode')
+             ->select('GB', 'country')
+             ->press('Save Address')
+             ->seePageIs('/account/addresses')
+             ->see('saved')->see('11 Acacia Avenue');
     }
 
     /** @test **/
@@ -47,14 +46,14 @@ class AddressTest extends TestCase
 
         $this->assertCount(1, $user->fresh()->addresses);
 
-        $response = $this->get('account/addresses');
-        $this->assertContains($address->postcode, $response->getContent());
-            //  ->press('Delete')
-            //  ->seePageIs('account/addresses')
-            //  ->see('Address Deleted');
+        $this->visit('account/addresses')
+             ->see($address->postcode)
+             ->press('Delete')
+             ->seePageIs('account/addresses')
+             ->see('Address Deleted');
              //->dontSee($address->postcode);
 
-        // $this->assertCount(0, $user->fresh()->addresses);
+        $this->assertCount(0, $user->fresh()->addresses);
     }
 
     /** @test **/
@@ -64,8 +63,7 @@ class AddressTest extends TestCase
         $address = factory(Address::class)->create([
                                'addressable_id' => $user->id,
                                ]);
-        $response = $this->get("account/addresses/{$address->id}/edit");
-        $response->assertStatus(200);
+        $this->visit("account/addresses/{$address->id}/edit");
     }
 
     /** @test **/
@@ -76,8 +74,8 @@ class AddressTest extends TestCase
         $address = factory(Address::class)->create([
                                'addressable_id' => $user_2->id,
                                ]);
-        $response = $this->get("account/addresses/{$address->id}/edit");
-        $response->assertStatus(403);
+        $this->call('GET', "account/addresses/{$address->id}/edit");
+        $this->assertResponseStatus(403);
     }
 
     /** @test **/

@@ -1,10 +1,10 @@
 <?php
 
-use App\User;
-use App\Order;
 use App\Address;
+use App\Order;
 use App\Product;
 use App\ShippingMethod;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class OrdersTableSeeder extends Seeder
@@ -18,7 +18,7 @@ class OrdersTableSeeder extends Seeder
         $order_ids = array_map(function ($index) use ($shipping_methods, $products, $users) {
             $user = $users->random();
 
-            if (! $user->addresses->count()) {
+            if (!$user->addresses->count()) {
                 $address = factory(Address::class)->create(['addressable_id' => $user->id]);
                 $user = $user->fresh();
             }

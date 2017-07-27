@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\Traits\Postable;
-use App\Traits\ConvertsMedia;
 use App\Presenters\PresentableTrait;
+use App\Traits\ConvertsMedia;
+use App\Traits\Postable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;

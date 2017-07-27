@@ -3,8 +3,8 @@
 # Build assets for production
 
 # install node dependencies
-yarn install
+npm install
 npm rebuild node-sass
 
 # build assets
-yarn production
+gulp --production

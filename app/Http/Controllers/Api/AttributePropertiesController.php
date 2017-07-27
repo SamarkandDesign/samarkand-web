@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\ProductAttribute;
 use App\AttributeProperty;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttributeProperty\CreateAttributePropertyRequest;
 use App\Http\Requests\AttributeProperty\UpdateAttributePropertyRequest;
+use App\ProductAttribute;
 
 class AttributePropertiesController extends Controller
 {

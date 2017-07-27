@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Term;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTermRequest;
-use App\Repositories\Term\TermRepository;
 use App\Http\Requests\Term\UpdateTermRequest;
+use App\Repositories\Term\TermRepository;
+use App\Term;
 
 class TermsController extends Controller
 {
@@ -72,9 +71,7 @@ class TermsController extends Controller
      */
     public function store(CreateTermRequest $request)
     {
-        $term = Term::create($request->all());
-
-        return response()->json($term, Response::HTTP_CREATED);
+        return Term::create($request->all());
     }
 
     /**

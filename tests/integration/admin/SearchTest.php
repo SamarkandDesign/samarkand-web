@@ -22,13 +22,11 @@ class SearchTest extends \TestCase
   public function it_paginates_product_search_results_in_the_admin_area()
   {
       $this->logInAsAdmin();
-      $response = $this->get('/admin/products/search?query=somequery');
-      $this->assertContains($this->products[3]->name, $response->getContent());
-      $this->assertNotContains($this->products[8]->name, $response->getContent());
-
-      $response = $this->get('/admin/products/search?query=somequery&page=2');
-
-      $response->assertSee($this->products[8]->name);
+      $this->visit('/admin/products/search?query=somequery')
+         ->see($this->products[3]->name)
+         ->dontSee($this->products[8]->name)
+         ->click('2')
+         ->see($this->products[8]->name);
   }
 
   /** @test **/
@@ -37,15 +35,13 @@ class SearchTest extends \TestCase
       $this->products[1]->update(['stock_qty' => 0]);
       $this->products[9]->update(['listed' => false]);
 
-      $response = $this->get('/shop/search?query=somequery');
-      $this->assertContains($this->products[3]->name, $response->getContent());
-      $this->assertNotContains($this->products[1]->name, $response->getContent());
-      $this->assertNotContains($this->products[8]->name, $response->getContent());
-
-      $response = $this->get('/shop/search?query=somequery&page=2');
-
-      $response->assertSee($this->products[8]->name);
-      $response->assertDontSee($this->products[9]->name);
+      $this->visit('/shop/search?query=somequery')
+         ->see($this->products[3]->name)
+         ->dontSee($this->products[1]->name)
+         ->dontSee($this->products[8]->name)
+         ->click('2')
+         ->see($this->products[8]->name)
+         ->dontSee($this->products[9]->name);
   }
 
     protected function useFakeProductRepo($query, $results)

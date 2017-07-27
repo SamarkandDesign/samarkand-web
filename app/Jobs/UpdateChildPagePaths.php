@@ -3,9 +3,9 @@
 namespace App\Jobs;
 
 use App\Page;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class UpdateChildPagePaths extends Job implements ShouldQueue
 {
