@@ -17,7 +17,7 @@ class RedirectIfCartIsEmpty
      */
     public function handle($request, Closure $next)
     {
-        if (!Cart::count()) {
+        if (! Cart::count()) {
             return redirect()->route('products.index')->with([
                 'alert'         => 'There is nothing in your cart.',
                 'alert-class'   => 'warning',

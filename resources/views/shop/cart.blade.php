@@ -32,17 +32,17 @@ Cart
                 @foreach (Cart::content() as $item)
                 <tr>
                     <td>
-                        <form action="{{ route('cart.remove', $item->rowid) }}" method="POST" style="display:inline-block;">
+                        <form action="{{ route('cart.remove', $item->rowId) }}" method="POST" style="display:inline-block;">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
                             <button type="submit" class="btn btn-link text-danger" name="remove"><i class="fa fa-times text-danger"></i></button>
                         </form>
                     </td>
-                    <td class="td-thumbnail">{{ $item->product->present()->thumbnail(45) }}</td>
-                    <td><a href="{{ $item->product->url }}">{{ $item->name }}</a></td>
-                    <td>{{ $item->product->present()->price() }}</td>
+                    <td class="td-thumbnail">{{ $item->model->present()->thumbnail(45) }}</td>
+                    <td><a href="{{ $item->model->url }}">{{ $item->name }}</a></td>
+                    <td>{{ $item->model->present()->price() }}</td>
                     <td>{{ $item->qty }}</td>
-                    <td>{{ Present::money($item->product->getPrice()->asDecimal() * $item->qty) }}</td>
+                    <td>{{ Present::money($item->model->getPrice()->asDecimal() * $item->qty) }}</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -14,8 +14,9 @@ class MediaControllerTest extends \TestCase
         // new up some images
         $images = $this->createImage(3);
 
-        $this->visit('admin/media')
-             ->see($images->first()->title);
+        $response = $this->get('/admin/media');
+
+        $this->assertContains($images->first()->name, $response->getContent());
 
         $images->first()->model->forceDelete();
     }
@@ -31,8 +32,8 @@ class MediaControllerTest extends \TestCase
         $model = $image->model;
         $model->forceDelete();
 
-        $this->visit('admin/media')
-             ->see($image->title);
+        $response = $this->get('/admin/media');
+        $this->assertNotContains($image->name, $response->getContent());
     }
 
     /** @test **/
@@ -43,11 +44,12 @@ class MediaControllerTest extends \TestCase
         $image = $this->createImage();
 
         // simulate clicking 'delete' for a given media item
-        $this->delete("admin/media/{$image->id}");
+        $response = $this->delete("admin/media/{$image->id}");
 
-        $this->assertRedirectedTo('admin/media');
-        $this->assertSessionHas(['alert' => 'Image Deleted']);
+        $response->assertRedirect('admin/media');
 
-        $this->notSeeInDatabase('media', ['name' => $image->name]);
+        $response->assertSessionHas('alert', 'Image Deleted');
+
+        $this->assertDatabaseMissing('media', ['name' => $image->name]);
     }
 }

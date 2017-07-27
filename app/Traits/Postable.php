@@ -66,7 +66,7 @@ trait Postable
      */
     public function isNew()
     {
-        return !$this->exists();
+        return ! $this->exists();
     }
 
     /**

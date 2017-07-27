@@ -13,8 +13,8 @@ class ProductsControllerTest extends \TestCase
     {
         $products = factory(Product::class, 4)->create();
 
-        $this->visit('shop')
-             ->see($products->first()->name);
+        $response = $this->get('/shop');
+        $this->assertContains($products->first()->name, $response->getContent());
     }
 
     /** @test **/
@@ -22,8 +22,10 @@ class ProductsControllerTest extends \TestCase
     {
         $product = factory(Product::class)->create();
 
-        $this->visit("shop/{$product->product_category->slug}/{$product->slug}")
-             ->see($product->name)
-             ->see($product->description);
+        $response = $this->get("/shop/{$product->product_category->slug}/{$product->slug}");
+
+        $content = $response->getContent();
+        $this->assertContains($product->name, $content);
+        $this->assertContains($product->description, $content);
     }
 }

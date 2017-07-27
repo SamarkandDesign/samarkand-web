@@ -2,14 +2,12 @@
 
 namespace App\Providers;
 
-use App\Billing\FakeStripeGateway;
-use App\Billing\GatewayInterface;
-use App\Billing\StripeGateway;
 use App\Page;
+use Psr\Log\LoggerInterface;
 use App\Services\Geocoder\Geocoder;
 use Illuminate\Contracts\Logging\Log;
+use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
-use Psr\Log\LoggerInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -72,15 +70,6 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind('Illuminate\Contracts\Auth\Registrar', 'App\Services\Registrar');
 
-        // bind a fake payment gateway if the environment is testing
-        $this->app->singleton(GatewayInterface::class, function () {
-            if ($this->app->environment('testing')) {
-                return new FakeStripeGateWay();
-            }
-
-            return new StripeGateway();
-        });
-
         $this->app->singleton(\AlgoliaSearch\Client::class, function () {
             return new \AlgoliaSearch\Client(config('scout.algolia.id'), config('scout.algolia.secret'));
         });
@@ -92,5 +81,9 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->app->make(\App\Services\Geocoder\GoogleGeocoder::class);
         });
+
+        if ($this->app->environment('local', 'testing')) {
+            $this->app->register(DuskServiceProvider::class);
+        }
     }
 }

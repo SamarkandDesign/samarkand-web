@@ -1,7 +1,7 @@
 <?php
 
-use XeroPHP\Application\PrivateApplication;
 use XeroPHP\Remote\Object;
+use XeroPHP\Application\PrivateApplication;
 
 class FakePrivateXeroApplication extends PrivateApplication
 {

@@ -13,20 +13,21 @@ class AuthTest extends TestCase
         $user = factory(User::class)->create(['password' => 'password']);
         $user->assignRole('admin');
 
-        $this->visit('admin/login')
-             ->type($user->email, 'email')
-             ->type('password', 'password')
-             ->press('Sign In')
-             ->seePageIs('admin');
+        \Session::put('url.intended', '/admin');
+
+        $response = $this->post('/login', [
+         'email' => $user->email,
+         'password' => 'password',
+         ]);
+
+        $response->assertRedirect('/admin');
     }
 
     /** @test **/
     public function it_shows_the_admin_login_page_if_unauthenticated()
     {
-        $this->visit('admin')
-             ->seePageIs('admin/login');
+        $response = $this->get('admin')->assertRedirect('admin/login');
 
-        $this->visit('admin/products')
-             ->seePageIs('admin/login');
+        $response = $this->get('admin/products')->assertRedirect('admin/login');
     }
 }

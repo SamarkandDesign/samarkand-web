@@ -1,8 +1,8 @@
 <?php
 
-use App\Jobs\CreateInvoiceForOrder;
 use App\Order;
 use App\OrderItem;
+use App\Jobs\CreateInvoiceForOrder;
 
 class CreateInvoiceForOrderJobTest extends TestCase
 {

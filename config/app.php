@@ -164,6 +164,9 @@ return [
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
+        // Laravel\Tinker\TinkerServiceProvider::class,
+        App\Billing\BillingServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
     ],
 
     /*

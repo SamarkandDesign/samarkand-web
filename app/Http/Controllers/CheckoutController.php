@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ShippingMethod\ShippingMethodRepository;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('order.session', ['only' => ['shipping', 'pay']]);
+        $this->middleware('order.session', ['only' => ['pay']]);
     }
 
     /**
@@ -27,45 +26,11 @@ class CheckoutController extends Controller
 
         $order = $request->session()->get('order', new \App\Order());
 
-        if (!$request->session()->has('order')) {
+        if (! $request->session()->has('order')) {
             $request->session()->put('order', $order);
         }
 
         return view('shop.checkout', compact('order'));
-    }
-
-    /**
-     * Show the page for choosing a shipping method for an order.
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function shipping(Request $request, ShippingMethodRepository $shipping_methods)
-    {
-        $order = $request->session()->get('order')->fresh();
-        $shipping_methods = $shipping_methods->forCountry($order->shipping_address->country);
-
-        if ($shipping_methods->isEmpty()) {
-            return redirect()->route('checkout.show')->with([
-                'alert'       => 'It looks as though we can\'t deliver to your chosen country. Please choose a different shipping address.',
-                'alert-class' => 'warning',
-                ]);
-        }
-
-        // If there's only one shipping method available, just skip the shipping page and set it directly
-        if (count($shipping_methods) === 1) {
-            $order = $order->setShipping($shipping_methods->first()->id)->fresh();
-
-            $request->session()->put('order', $order);
-
-            return redirect()->route('checkout.pay');
-        }
-
-        return view('shop.shipping', [
-            'order'            => $order,
-            'shipping_methods' => $shipping_methods,
-            ]);
     }
 
     /**
@@ -79,7 +44,7 @@ class CheckoutController extends Controller
     {
         $order = $request->session()->get('order')->fresh();
 
-        if (!$order->hasShipping()) {
+        if (! $order->hasShipping()) {
             return redirect()->route('checkout.shipping')->with([
                 'alert'       => 'Please select a shipping method',
                 'alert-class' => 'warning',

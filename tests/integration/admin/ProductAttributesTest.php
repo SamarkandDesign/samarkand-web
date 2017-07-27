@@ -17,9 +17,9 @@ class ProductAttributesTest extends \TestCase
 
         $this->logInAsAdmin();
 
-        $this->visit('admin/attributes')
-             ->see('Lampshade Size')
-             ->see('Lampshade Colour');
+        $response = $this->get('admin/attributes');
+        $this->assertContains('Lampshade Size', $response->getContent());
+        $this->assertContains('Lampshade Colour', $response->getContent());
     }
 
     /** @test **/
@@ -29,15 +29,17 @@ class ProductAttributesTest extends \TestCase
 
         $property = factory('App\AttributeProperty')->create([
             'name' => 'Lampshade Size',
-            ]);
+        ]);
 
-        $this->visit("admin/attributes/{$property->id}/edit")
-             ->see('Edit Attribute')
-             ->type(3, 'order')
-             ->press('Update')
-             ->seePageIs("admin/attributes/{$property->id}/edit");
+        $response = $this->get("admin/attributes/{$property->id}/edit");
+        $response->assertSee('Edit Attribute');
 
-        $this->seeInDataBase('product_attributes', ['id' => $property->id, 'order' => 3]);
+        $response = $this->patch("admin/attributes/{$property->id}", array_merge($property->toArray(), [
+            'order' => 3,
+        ]));
+        $response->assertRedirect("admin/attributes/{$property->id}/edit");
+
+        $this->assertDatabaseHas('product_attributes', ['id' => $property->id, 'order' => 3]);
     }
 
     /** @test **/
@@ -49,9 +51,9 @@ class ProductAttributesTest extends \TestCase
             'name' => 'Lampshade Size',
             ]);
 
-        $this->call('DELETE', "admin/attributes/{$property->id}");
+        $response = $this->call('DELETE', "admin/attributes/{$property->id}");
 
-        $this->assertRedirectedTo('admin/attributes');
-        $this->notSeeInDatabase('product_attributes', ['slug' => 'lampshade_size']);
+        $response->assertRedirect('admin/attributes');
+        $this->assertDatabaseMissing('product_attributes', ['slug' => 'lampshade_size']);
     }
 }

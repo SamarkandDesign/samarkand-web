@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\CreatePostRequest;
-use App\Http\Requests\Post\UpdatePostRequest;
 use App\Post;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Repositories\Post\PostRepository;
 use App\Repositories\Term\TermRepository;
-use Illuminate\Http\Response;
+use App\Http\Requests\Post\CreatePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
 
 /**
  * Class PostsController.

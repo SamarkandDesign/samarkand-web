@@ -1,4 +1,5 @@
 <template>
+<div>
 	<div class="box box-primary" id="featuredImageChooser">
 		<div class="box-header">
 			Featured Image
@@ -77,6 +78,7 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </template>
 
 <script>
@@ -105,7 +107,7 @@
 					this.lastPage = response.last_page;
 				})
 			},
-			
+
 			fetchChosenImage () {
 				if (this.image) {
 					this.$http.get('/api/media/' + this.image).success(response => {

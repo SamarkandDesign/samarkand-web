@@ -24,11 +24,9 @@ class CreateOrderRequest extends Request
      */
     public function rules()
     {
-        $rules = new Collection([
-            'delivery_note' => 'max:800',
-            ]);
+        $rules = new Collection(['delivery_note' => 'max:800']);
 
-        if (!$this->user() or !$this->user()->addresses()->count()) {
+        if (! $this->user() or ! $this->user()->addresses()->count()) {
             $rules = $rules->merge($this->addressRules('billing'));
             if ($this->has('different_shipping_address')) {
                 $rules = $rules->merge($this->addressRules('shipping'));

@@ -2,27 +2,13 @@
 
 namespace App\Listeners;
 
+use App\User;
 use App\Events\OrderWasPaid;
-use App\Mailers\OrderMailer;
+use App\Mail\OrderConfirmedForAdmin;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendAdminOrderEmail implements ShouldQueue
 {
-    /**
-     * @var OrderMailer
-     */
-    private $mailer;
-
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct(OrderMailer $mailer)
-    {
-        $this->mailer = $mailer;
-    }
-
     /**
      * Handle the event.
      *
@@ -32,6 +18,11 @@ class SendAdminOrderEmail implements ShouldQueue
      */
     public function handle(OrderWasPaid $event)
     {
-        $this->mailer->sendAdminOrderNotificationFor($event->order);
+        $order = $event->order;
+        $admins = User::shopAdmins()->get();
+
+        foreach ($admins as $admin) {
+            \Mail::to($admin)->send(new OrderConfirmedForAdmin($order));
+        }
     }
 }

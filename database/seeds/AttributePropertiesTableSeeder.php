@@ -1,7 +1,7 @@
 <?php
 
-use App\AttributeProperty;
 use App\ProductAttribute;
+use App\AttributeProperty;
 use Illuminate\Database\Seeder;
 
 class AttributePropertiesTableSeeder extends Seeder

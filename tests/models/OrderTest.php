@@ -57,8 +57,8 @@ class OrderTest extends TestCase
 
         $order->setShipping($shipping_method_2->id);
 
-        $this->seeInDatabase('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method_2->base_rate->value()]);
-        $this->notSeeInDatabase('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method->base_rate->value()]);
+        $this->assertDatabaseHas('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method_2->base_rate->value()]);
+        $this->assertDatabaseMissing('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method->base_rate->value()]);
         $this->assertEquals($order->shipping_method->id, $shipping_method_2->id);
     }
 
@@ -126,10 +126,10 @@ class OrderTest extends TestCase
 
         // The order items should correspond to the cart
         $this->assertEquals($product->getPrice(), $order->fresh()->amount);
-        $this->seeInDatabase('order_items', ['orderable_id' => $product->id, 'order_id' => $order->id]);
+        $this->assertDatabaseHas('order_items', ['orderable_id' => $product->id, 'order_id' => $order->id]);
 
         // And I shouldn't have the old item in the order anymore
-        $this->notSeeInDatabase('order_items', ['description' => $order_item->description]);
+        $this->assertDatabaseMissing('order_items', ['description' => $order_item->description]);
     }
 
     /** @test **/
