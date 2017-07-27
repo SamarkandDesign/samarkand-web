@@ -2,10 +2,10 @@
 
 namespace Integration\Admin;
 
-use App\Address;
-use App\Event;
-use Carbon\Carbon;
 use TestCase;
+use App\Event;
+use App\Address;
+use Carbon\Carbon;
 
 class EventsTest extends TestCase
 {

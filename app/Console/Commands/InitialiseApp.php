@@ -45,7 +45,7 @@ class InitialiseApp extends Command
         $this->makeRoles();
 
         $user = User::where('email', $email)->first();
-        if (!$user) {
+        if (! $user) {
             $user = User::create([
                 'email'    => $email,
                 'password' => $password,
@@ -65,7 +65,7 @@ class InitialiseApp extends Command
     private function makeRoles()
     {
         $roles = collect(User::$base_roles)->map(function ($role, $slug) {
-            if (!Role::where('name', $slug)->count()) {
+            if (! Role::where('name', $slug)->count()) {
                 return Role::create(['name' => $slug, 'display_name' => $role]);
             }
         });

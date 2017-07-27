@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Term;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TermsControllerTest extends \TestCase
 {

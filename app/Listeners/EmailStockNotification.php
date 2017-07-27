@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\ProductStockChanged;
 use App\Mailers\ProductMailer;
+use App\Events\ProductStockChanged;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EmailStockNotification implements ShouldQueue

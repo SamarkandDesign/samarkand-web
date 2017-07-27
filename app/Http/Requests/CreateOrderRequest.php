@@ -28,7 +28,7 @@ class CreateOrderRequest extends Request
             'delivery_note' => 'max:800',
             ]);
 
-        if (!$this->user() or !$this->user()->addresses()->count()) {
+        if (! $this->user() or ! $this->user()->addresses()->count()) {
             $rules = $rules->merge($this->addressRules('billing'));
             if ($this->has('different_shipping_address')) {
                 $rules = $rules->merge($this->addressRules('shipping'));

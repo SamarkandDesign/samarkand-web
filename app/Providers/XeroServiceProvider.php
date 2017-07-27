@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\Invoicing\InvoiceCreator;
-use App\Services\Invoicing\XeroInvoiceCreator;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Invoicing\InvoiceCreator;
 use XeroPHP\Application\PrivateApplication;
+use App\Services\Invoicing\XeroInvoiceCreator;
 
 class XeroServiceProvider extends ServiceProvider
 {

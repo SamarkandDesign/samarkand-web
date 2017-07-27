@@ -4,11 +4,11 @@ namespace App\Jobs;
 
 use App\Order;
 use App\OrderNote;
-use App\Services\Invoicing\InvoiceCreator;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use App\Services\Invoicing\InvoiceCreator;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CreateInvoiceForOrder implements ShouldQueue
 {

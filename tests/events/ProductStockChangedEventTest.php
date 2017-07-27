@@ -2,11 +2,11 @@
 
 namespace Events;
 
-use App\Events\ProductStockChanged;
-use App\Product;
 use App\User;
-use MailThief\Testing\InteractsWithMail;
 use TestCase;
+use App\Product;
+use App\Events\ProductStockChanged;
+use MailThief\Testing\InteractsWithMail;
 
 class ProductStockChangedEventTest extends TestCase
 {

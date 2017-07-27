@@ -2,8 +2,8 @@
 
 namespace Integration\Admin;
 
-use App\Address;
 use TestCase;
+use App\Address;
 
 class AddressesTest extends TestCase
 {

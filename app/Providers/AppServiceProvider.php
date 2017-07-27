@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Billing\FakeStripeGateway;
-use App\Billing\GatewayInterface;
-use App\Billing\StripeGateway;
 use App\Page;
+use Psr\Log\LoggerInterface;
+use App\Billing\StripeGateway;
+use App\Billing\GatewayInterface;
+use App\Billing\FakeStripeGateway;
 use App\Services\Geocoder\Geocoder;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
-use Psr\Log\LoggerInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
