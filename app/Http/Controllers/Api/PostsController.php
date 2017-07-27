@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
@@ -14,7 +14,7 @@ class PostsController extends Controller
 
     public function show(Request $request, $id = null)
     {
-        if (!$id) {
+        if (! $id) {
             $id = $request->get('id');
         }
         var_dump($id);

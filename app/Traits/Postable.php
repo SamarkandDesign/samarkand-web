@@ -3,8 +3,8 @@
 namespace App\Traits;
 
 use Carbon\Carbon;
-use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Environment;
+use League\CommonMark\CommonMarkConverter;
 
 trait Postable
 {
@@ -66,7 +66,7 @@ trait Postable
      */
     public function isNew()
     {
-        return !$this->exists();
+        return ! $this->exists();
     }
 
     /**

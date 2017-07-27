@@ -18,11 +18,11 @@ class Price
     $value = intval($value);
 
     // DEBT: Null object needed here
-    if (!$value) {
+    if (! $value) {
         $value = 0;
     }
 
-      if (!is_int($value)) {
+      if (! is_int($value)) {
           throw new \InvalidArgumentException(sprintf('A price must be instantiated with an integer. %s given', gettype($value)));
       }
 

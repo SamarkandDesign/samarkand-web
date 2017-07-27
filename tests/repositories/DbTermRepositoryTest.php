@@ -3,9 +3,9 @@
 namespace Unit;
 
 use App\Post;
-use App\Repositories\Term\DbTermRepository;
 use App\Term;
 use TestCase;
+use App\Repositories\Term\DbTermRepository;
 
 class DbTermRepositoryTest extends TestCase
 {

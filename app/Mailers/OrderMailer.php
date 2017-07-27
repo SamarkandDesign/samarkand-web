@@ -2,8 +2,8 @@
 
 namespace App\Mailers;
 
-use App\Order;
 use App\User;
+use App\Order;
 
 class OrderMailer extends Mailer
 {

@@ -2,9 +2,9 @@
 
 namespace Events;
 
-use App\Events\OrderStatusChanged;
-use App\Order;
 use TestCase;
+use App\Order;
+use App\Events\OrderStatusChanged;
 
 class OrderStatusChangedTest extends TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
 use App\Post;
-use App\Product;
 use App\Term;
+use App\Product;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 

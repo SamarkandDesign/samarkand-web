@@ -2,8 +2,8 @@
 
 namespace Integration;
 
-use App\ShippingMethod;
 use TestCase;
+use App\ShippingMethod;
 
 class ShippingMethodsTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductAttributeFilter
 {

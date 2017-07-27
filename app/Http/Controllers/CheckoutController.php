@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ShippingMethod\ShippingMethodRepository;
 use Illuminate\Http\Request;
+use App\Repositories\ShippingMethod\ShippingMethodRepository;
 
 class CheckoutController extends Controller
 {
@@ -27,7 +27,7 @@ class CheckoutController extends Controller
 
         $order = $request->session()->get('order', new \App\Order());
 
-        if (!$request->session()->has('order')) {
+        if (! $request->session()->has('order')) {
             $request->session()->put('order', $order);
         }
 
@@ -79,7 +79,7 @@ class CheckoutController extends Controller
     {
         $order = $request->session()->get('order')->fresh();
 
-        if (!$order->hasShipping()) {
+        if (! $order->hasShipping()) {
             return redirect()->route('checkout.shipping')->with([
                 'alert'       => 'Please select a shipping method',
                 'alert-class' => 'warning',

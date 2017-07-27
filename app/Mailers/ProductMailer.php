@@ -2,8 +2,8 @@
 
 namespace App\Mailers;
 
-use App\Product;
 use App\User;
+use App\Product;
 
 class ProductMailer extends Mailer
 {

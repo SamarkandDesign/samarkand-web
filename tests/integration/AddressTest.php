@@ -2,9 +2,9 @@
 
 namespace Integration;
 
-use App\Address;
 use App\User;
 use TestCase;
+use App\Address;
 
 class AddressTest extends TestCase
 {

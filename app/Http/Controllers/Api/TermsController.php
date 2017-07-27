@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Term;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTermRequest;
-use App\Http\Requests\Term\UpdateTermRequest;
 use App\Repositories\Term\TermRepository;
-use App\Term;
+use App\Http\Requests\Term\UpdateTermRequest;
 
 class TermsController extends Controller
 {

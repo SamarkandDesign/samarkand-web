@@ -3,8 +3,8 @@
 namespace Integration;
 
 use App\User;
-use MailThief\Testing\InteractsWithMail;
 use TestCase;
+use MailThief\Testing\InteractsWithMail;
 
 class ContactTest extends TestCase
 {

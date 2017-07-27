@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\AttributeProperty;
 use App\ProductAttribute;
+use App\AttributeProperty;
 
 class AttributePropertiesControllerTest extends \TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\User\DbUserRepository;
-use App\User;
 use Closure;
+use App\User;
 use Illuminate\Contracts\Auth\Guard;
+use App\Repositories\User\DbUserRepository;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class DeriveUserForOrder

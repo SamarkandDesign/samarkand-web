@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\Address;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Events\OrderWasCreated;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\Order\ViewOrderRequest;
 use App\Http\Requests\SetShippingMethodRequest;
-use App\Order;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class OrdersController extends Controller
 {
@@ -78,7 +78,7 @@ class OrdersController extends Controller
      */
     public function completed(Request $request)
     {
-        if (!$request->session()->has('order_id')) {
+        if (! $request->session()->has('order_id')) {
             abort(Response::HTTP_BAD_REQUEST);
         }
         $order = Order::findOrFail($request->session()->get('order_id'));
