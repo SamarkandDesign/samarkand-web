@@ -85,6 +85,7 @@
                 <li ><a href="/admin/products"><i class="fa fa-shopping-bag"></i> All Products</a></li>
                 <li ><a href="/admin/products/create"><i class="fa fa-shopping-bag"></i> New Product</a></li>
                 <li><a href="/admin/pages/create"><i class="fa fa-file-text"></i> New Page</a></li>
+                <li><a href="/admin/menus"><i class="fa fa-bars"></i> Menus</a></li>
               </ul>
             </div>
             <!-- /.box-body -->
