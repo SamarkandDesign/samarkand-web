@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use App\Page;
-use Psr\Log\LoggerInterface;
 use App\Services\Geocoder\Geocoder;
-use Illuminate\Contracts\Logging\Log;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
