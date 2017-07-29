@@ -4,6 +4,10 @@
         <a href="{{ route('admin.dashboard') }}"><i class="fa fa-fw fa-dashboard"></i> <span>Dashboard</span></a>
     </li>
 
+    <li>
+        <a href="{{ route('admin.menus.index') }}"><i class="fa fa-fw fa-bars"></i> <span>Menus</span></a>
+    </li>
+
     <li class="treeview">
         <a href="{{ route('admin.pages.index') }}"><i class="fa fa-fw fa-files-o"></i> <span>Pages</span></a>
         <ul class="treeview-menu">
@@ -35,7 +39,7 @@
     </li>
 
     <li class="treeview">
-        <a href="{{ route('admin.orders.index') }}"><i class="fa fa-fw fa-truck"></i> <span>Orders 
+        <a href="{{ route('admin.orders.index') }}"><i class="fa fa-fw fa-truck"></i> <span>Orders
         @if ($order_count > 0)
         <span class="label label-primary pull-right">{{ $order_count }}</span>
         @endif
