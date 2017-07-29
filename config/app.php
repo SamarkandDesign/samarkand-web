@@ -162,11 +162,11 @@ return [
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         // Laravel\Tinker\TinkerServiceProvider::class,
         App\Billing\BillingServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
     ],
 
     /*
@@ -219,7 +219,7 @@ return [
         'Cart'          => 'Gloudemans\Shoppingcart\Facades\Cart',
         'Markdown'      => 'GrahamCampbell\Markdown\Facades\Markdown',
         'Present'       => 'App\Presenters\Presenter',
-        'Bugsnag'       => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'Sentry'        => Sentry\SentryLaravel\SentryFacade::class,
 
     ],
 
