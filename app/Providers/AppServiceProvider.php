@@ -3,9 +3,7 @@
 namespace App\Providers;
 
 use App\Page;
-use Psr\Log\LoggerInterface;
 use App\Services\Geocoder\Geocoder;
-use Illuminate\Contracts\Logging\Log;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -62,12 +60,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Bugsnag reporting
-        if ($this->app->environment('production')) {
-            $this->app->alias('bugsnag.multi', Log::class);
-            $this->app->alias('bugsnag.multi', LoggerInterface::class);
-        }
-
         $this->app->bind('Illuminate\Contracts\Auth\Registrar', 'App\Services\Registrar');
 
         $this->app->singleton(\AlgoliaSearch\Client::class, function () {
