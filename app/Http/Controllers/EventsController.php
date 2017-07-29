@@ -27,7 +27,7 @@ class EventsController extends Controller
     protected function getEarliestDate($events, $before)
     {
         if (! $events->count()) {
-            return $before;
+            return $before ? $before : Carbon::now()->format('Y-m-d');
         }
 
         return $events->min('start_date')->format('Y-m-d');
