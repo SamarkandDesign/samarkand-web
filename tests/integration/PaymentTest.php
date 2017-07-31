@@ -17,8 +17,6 @@ class PaymentTest extends TestCase
     {
         \Mail::fake();
 
-        // \Event::fake();
-
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
         $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
 
