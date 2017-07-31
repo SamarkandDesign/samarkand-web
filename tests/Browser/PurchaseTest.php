@@ -23,6 +23,8 @@ class PurchaseTest extends DuskTestCase
         $this->browse(function (Browser $b) {
             Mail::fake();
 
+            factory('App\User')->create(['is_shop_manager' => true]);
+
             $product = factory('App\Product')->create(['stock_qty' => 1]);
             $shippingMethod = factory('App\ShippingMethod')->create(['description' => 'UK Shipping']);
             $shippingMethod->allowCountries(['gb']);

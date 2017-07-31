@@ -11,6 +11,8 @@ class ProductStockLow extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $product;
+
     /**
      * Create a new message instance.
      *
