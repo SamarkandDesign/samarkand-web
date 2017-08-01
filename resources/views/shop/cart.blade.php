@@ -58,7 +58,7 @@ Cart
     <div class="col-sm-4 col-md-3">
         <div class="panel panel-default">
             <div class="panel-body">
-                <p class="text-center">Subtototal ({{ Cart::count() }} {{ str_plural('Item', Cart::count()) }}):{{ Present::money(Cart::total()) }}</p>
+                <p class="text-center">Subtototal ({{ Cart::count() }} {{ str_plural('Item', Cart::count()) }}):{{ config('shop.currency_symbol') }}{{ Cart::total() }}</p>
                 <a href="/checkout" class="btn btn-success btn-block">Proceed to Checkout</a>
             </div>
         </div>
