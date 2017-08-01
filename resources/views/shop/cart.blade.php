@@ -49,7 +49,7 @@ Cart
             <tfoot>
                 <tr>
                     <th colspan="5"></th>
-                    <th>{{ Present::money(Cart::total()) }}</th>
+                    <th>{{ config('shop.currency_symbol') }}{{ Cart::total() }}</th>
                 </tr>
             </tfoot>
         </table>
