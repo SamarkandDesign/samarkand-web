@@ -37,7 +37,7 @@ Checkout
 
 <tr>
   <th colspan="2"></th>
-  <th>{{ Present::money(Cart::total()) }}</th>
+  <th>{{ config('shop.currency_symbol') }}{{ Cart::total() }}</th>
 </tr>
 </table>
 
