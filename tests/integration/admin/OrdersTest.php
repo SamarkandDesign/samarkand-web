@@ -18,7 +18,7 @@ class OrdersTest extends TestCase
 
         $response = $this->get('admin/orders');
         $this->assertContains("#{$order->id}", $response->getContent());
-             // ->press('complete-order')
+        // ->press('complete-order')
              // ->see('Order Updated')
              // ->see(Order::$statuses['completed']);
     }

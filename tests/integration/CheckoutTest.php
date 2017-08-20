@@ -11,10 +11,10 @@ class CheckoutTest extends TestCase
     {
         $this->get('cart')->assertRedirect('/shop'); // 'nothing in your cart'
 
-         $this->get('checkout')->assertRedirect('/shop'); // 'nothing in your cart'
+        $this->get('checkout')->assertRedirect('/shop'); // 'nothing in your cart'
 
-         $this->get('checkout/shipping')->assertRedirect('/shop'); // 'No order exists'
+        $this->get('checkout/shipping')->assertRedirect('/shop'); // 'No order exists'
 
-         $this->get('checkout/pay')->assertRedirect('/shop'); // 'No order exists'
+        $this->get('checkout/pay')->assertRedirect('/shop'); // 'No order exists'
     }
 }

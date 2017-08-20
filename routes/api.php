@@ -34,19 +34,19 @@ Route::group(['middleware' => 'can:access-admin'], function () {
     Route::post('posts/{post}/image', ['uses' => 'MediaController@store', 'as' => 'api.posts.media.store']);
     Route::post('events/{event}/image', ['uses' => 'MediaController@store', 'as' => 'api.events.media.store']);
 
-        // Terms
+    // Terms
     Route::post('terms', ['uses' => 'TermsController@store', 'as' => 'api.terms.store']);
     Route::delete('terms/{term}', ['uses' => 'TermsController@destroy', 'as' => 'api.terms.delete']);
     Route::patch('terms/{term}', ['uses' => 'TermsController@update', 'as' => 'api.terms.update']);
 
-        // Update an order
+    // Update an order
     Route::patch('orders/{order}', ['uses' => 'OrdersController@update', 'as' => 'api.orders.update']);
 
-        // Media
+    // Media
     Route::patch('media/{media}', ['uses' => 'MediaController@update', 'as' => 'api.images.update']);
     Route::delete('media/{media}', ['uses' => 'MediaController@destroy', 'as' => 'api.images.destroy']);
 
-        // Product Attributes
+    // Product Attributes
     Route::post('product_attributes', ['uses' => 'ProductAttributesController@store', 'as' => 'api.product_attributes.store']);
     Route::delete('product_attributes/{product_attribute}', ['uses' => 'ProductAttributesController@destroy', 'as' => 'api.product_attributes.delete']);
     Route::patch('product_attributes/{product_attribute}', ['uses' => 'ProductAttributesController@update', 'as' => 'api.product_attributes.update']);
