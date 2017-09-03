@@ -45,45 +45,45 @@ class ProductImporter
         return $this->failures;
     }
 
- /**
-  * Sanitize product data and populate with sensible default if needed.
-  *
-  * @param  array $item
-  *
-  * @return array
-  */
- protected function sanitizeProduct($item)
- {
-     $item = array_combine($this->headings, $item);
+    /**
+     * Sanitize product data and populate with sensible default if needed.
+     *
+     * @param  array $item
+     *
+     * @return array
+     */
+    protected function sanitizeProduct($item)
+    {
+        $item = array_combine($this->headings, $item);
 
-     $defaults = [
+        $defaults = [
      'name'    => array_get($item, 'name', '(no name provided)'),
      'sku'     => array_get($item, 'sku', '(no sku provided)'),
      'slug'    => ($slug = array_get($item, 'slug', false)) ? $slug : str_slug($item['name']),
      'user_id' => $this->userId,
    ];
 
-     return array_merge($item, $defaults);
- }
+        return array_merge($item, $defaults);
+    }
 
- /**
-  * Validate product data and log if a failure.
-  *
-  * @param  array $item
-  *
-  * @return bool
-  */
- protected function validateProduct($item)
- {
-     $validator = Validator::make($item, $this->rules);
+    /**
+     * Validate product data and log if a failure.
+     *
+     * @param  array $item
+     *
+     * @return bool
+     */
+    protected function validateProduct($item)
+    {
+        $validator = Validator::make($item, $this->rules);
 
-     if ($validator->fails()) {
-         $this->failures[] = [
+        if ($validator->fails()) {
+            $this->failures[] = [
         'data'   => $item,
         'errors' => $validator->errors(),
       ];
-     }
+        }
 
-     return $validator->passes();
- }
+        return $validator->passes();
+    }
 }

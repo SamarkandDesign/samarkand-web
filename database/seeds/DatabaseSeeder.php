@@ -24,47 +24,47 @@ class DatabaseSeeder extends Seeder
     'menu_items',
   ];
 
-  /**
-   * Run the database seeds.
-   *
-   * @return void
-   */
-  public function run()
-  {
-      $this->cleanDatabase();
-      $this->command->getOutput()->writeln('Truncated Tables');
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->cleanDatabase();
+        $this->command->getOutput()->writeln('Truncated Tables');
 
-      Model::unguard();
+        Model::unguard();
 
-      $this->call('UsersTableSeeder');
-      $this->call('PostsTableSeeder');
-      $this->call('PagesTableSeeder');
-      $this->call('ProductsTableSeeder');
-      $this->call('TermsTableSeeder');
-      $this->call('ProductAttributesTableSeeder');
-      $this->call('AttributePropertiesTableSeeder');
-      $this->call('TermablesTableSeeder');
-      $this->call('AddressesTableSeeder');
-      $this->call('ShippingMethodsTableSeeder');
-      $this->call('OrdersTableSeeder');
-      $this->call('MenuItemsTableSeeder');
+        $this->call('UsersTableSeeder');
+        $this->call('PostsTableSeeder');
+        $this->call('PagesTableSeeder');
+        $this->call('ProductsTableSeeder');
+        $this->call('TermsTableSeeder');
+        $this->call('ProductAttributesTableSeeder');
+        $this->call('AttributePropertiesTableSeeder');
+        $this->call('TermablesTableSeeder');
+        $this->call('AddressesTableSeeder');
+        $this->call('ShippingMethodsTableSeeder');
+        $this->call('OrdersTableSeeder');
+        $this->call('MenuItemsTableSeeder');
 
-      $this->command->getOutput()->writeln('Flushing Cache');
-      \Cache::flush();
-  }
+        $this->command->getOutput()->writeln('Flushing Cache');
+        \Cache::flush();
+    }
 
-  /**
-   * Remove any data currently in the database tables.
-   */
-  protected function cleanDatabase()
-  {
-      $this->disableForeignKeyCheck();
-      foreach ($this->tables as $table) {
-          DB::table($table)->truncate();
-      }
-    // DB::statement('TRUNCATE TABLE '.implode(',', $this->tables).' CASCADE;');
-      $this->enableForeignKeyCheck();
-  }
+    /**
+     * Remove any data currently in the database tables.
+     */
+    protected function cleanDatabase()
+    {
+        $this->disableForeignKeyCheck();
+        foreach ($this->tables as $table) {
+            DB::table($table)->truncate();
+        }
+        // DB::statement('TRUNCATE TABLE '.implode(',', $this->tables).' CASCADE;');
+        $this->enableForeignKeyCheck();
+    }
 
     protected function disableForeignKeyCheck()
     {
