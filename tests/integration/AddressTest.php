@@ -26,7 +26,7 @@ class AddressTest extends TestCase
 
         $response = $this->get(route('addresses.create'));
         $response->assertStatus(200);
-            //  ->type('Mr Joe Bloggs', 'name')
+        //  ->type('Mr Joe Bloggs', 'name')
             //  ->type('0123456789', 'phone')
             //  ->type('11 Acacia Avenue', 'line_1')
             //  ->type('London', 'city')
@@ -49,7 +49,7 @@ class AddressTest extends TestCase
 
         $response = $this->get('account/addresses');
         $this->assertContains($address->postcode, $response->getContent());
-            //  ->press('Delete')
+        //  ->press('Delete')
             //  ->seePageIs('account/addresses')
             //  ->see('Address Deleted');
              //->dontSee($address->postcode);

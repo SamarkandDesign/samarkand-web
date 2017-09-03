@@ -14,12 +14,12 @@ class TermRepositoryTest extends TestCase
         $this->terms = \App::make(TermRepository::class);
     }
 
-  /** @test **/
-  public function it_gets_terms_by_taxonomy()
-  {
-      $categories = factory(\App\Term::class, 3)->create(['taxonomy' => 'category']);
+    /** @test **/
+    public function it_gets_terms_by_taxonomy()
+    {
+        $categories = factory(\App\Term::class, 3)->create(['taxonomy' => 'category']);
 
-      $this->assertCount(3, $this->terms->getCategories());
-      $this->assertEmpty($this->terms->getTags());
-  }
+        $this->assertCount(3, $this->terms->getCategories());
+        $this->assertEmpty($this->terms->getTags());
+    }
 }
