@@ -129,4 +129,14 @@ class ProductTest extends TestCase
       $this->assertCount(1, $sale_products);
       $this->assertEquals($sale_products->first()->name, $sale_product->name);
   }
+
+  /** @test **/
+  public function it_renders_html_in_a_product_description()
+  {
+    $product = factory(Product::class)->create([
+      'description' => '<ul><li>this is a list item</li></ul>'
+    ]);
+
+    $this->assertContains('a list item', $product->getDescriptionHtml());
+  }
 }
