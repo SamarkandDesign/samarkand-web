@@ -1,6 +1,6 @@
 <template>
-  <div class="carousel-cell" :style="{backgroundImage: `url('${image}')`}">
-  <div class="carousel-copy" v-if='headline'>
+  <div class="carousel-cell" :style="cellStyle">
+  <div class="carousel-copy" v-if='headline || true'>
       <h3 class="headline-text" v-if='headline'>{{headline}}</h3>
       <div class="body-text"><slot></slot></div>
     </div>
@@ -9,17 +9,28 @@
 
 <script>
   export default {
-    props: ['image', 'headline'],
+    props: {
+      image: {type: String},
+      headline: {type: String},
+      cstyle: {type: Object, default: () => ({})},
+    },
+    computed: {
+      cellStyle () {
+        return Object.assign({}, {
+          backgroundImage: this.image ? `url('${this.image}')` : undefined,
+          height: '320px',
+         }, this.cstyle)
+        }
+      }
   }
 </script>
 
 <style>
 
   .carousel-cell {
-    height: 320px;
     width: 100%;
     background-position: left top;
-    background-attachment: cover;
+    background-size: cover;
   }
 .carousel-cell .carousel-copy {
     position: absolute;

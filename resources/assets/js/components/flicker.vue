@@ -12,7 +12,11 @@ export default {
 
   },
   mounted () {
-    const f = new Flickity(this.$refs.carousel)
+    const f = new Flickity(this.$refs.carousel, {
+      imagesLoaded: true,
+      wrapAround: true,
+      pageDots: false,
+    })
   }
 }
 </script>

@@ -2156,7 +2156,7 @@ etag@~1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.0.tgz#6f631aef336d6c46362b51764044ce216be3c051"
 
-ev-emitter@^1.0.1, ev-emitter@^1.0.2:
+ev-emitter@^1.0.0, ev-emitter@^1.0.1, ev-emitter@^1.0.2:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ev-emitter/-/ev-emitter-1.1.1.tgz#8f18b0ce5c76a5d18017f71c0a795c65b9138f2a"
 
@@ -2471,7 +2471,14 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flickity@^2.0.10:
+flickity-imagesloaded@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/flickity-imagesloaded/-/flickity-imagesloaded-2.0.0.tgz#a2d1d6aae6c26369ef2fa44f3eb948ea474e976b"
+  dependencies:
+    flickity "^2.0.0"
+    imagesloaded "^4.1.0"
+
+flickity@^2.0.0, flickity@^2.0.10:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/flickity/-/flickity-2.0.10.tgz#ddbd7800006df44ae0e89b4feba4ce3b9cf67b64"
   dependencies:
@@ -3210,6 +3217,12 @@ imagemin@^5.2.0:
     p-pipe "^1.1.0"
     pify "^2.3.0"
     replace-ext "^1.0.0"
+
+imagesloaded@^4.1.0:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/imagesloaded/-/imagesloaded-4.1.3.tgz#94b82a069e532c9da112a4ea3960e58424a42be4"
+  dependencies:
+    ev-emitter "^1.0.0"
 
 img-loader@^2.0.0:
   version "2.0.0"
