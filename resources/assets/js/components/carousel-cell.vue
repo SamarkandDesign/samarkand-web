@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-cell" :style="{backgroundImage: `url('${image}')`}">
-  <div class="carousel-copy" v-if='headline || copy'>
+  <div class="carousel-copy" v-if='headline'>
       <h3 class="headline-text" v-if='headline'>{{headline}}</h3>
       <div class="body-text"><slot></slot></div>
     </div>
