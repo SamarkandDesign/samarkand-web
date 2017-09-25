@@ -10,3 +10,7 @@ mix
         includePaths: [ 'node_modules' ]
     })
    .copy('node_modules/admin-lte/dist/js/app.min.js', 'public/js/admin-lte.js')
+
+if (mix.inProduction()) {
+    mix.version();
+}

@@ -1,7 +1,7 @@
 {
-    "/js/admin.js": "/js/admin.js",
-    "/js/main.js": "/js/main.js",
-    "/css/main.css": "/css/main.css",
-    "/css/admin.css": "/css/admin.css",
-    "/js/admin-lte.js": "/js/admin-lte.js"
+    "/js/admin.js": "/js/admin.js?id=e2e6783323d10f6bddc5",
+    "/js/main.js": "/js/main.js?id=3493e9dbd9e2aa137b6b",
+    "/css/main.css": "/css/main.css?id=69a93d9658b67b912fb4",
+    "/css/admin.css": "/css/admin.css?id=e144b146019852c25a46",
+    "/js/admin-lte.js": "/js/admin-lte.js?id=c97edde005d18d707bcf"
 }
