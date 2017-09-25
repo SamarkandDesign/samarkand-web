@@ -1,6 +1,7 @@
 // Browserify Entry Point
 
 import Vue from 'vue'
+import 'flickity-imagesloaded'
 
 // Components
 import dropdown from './components/dropdown.vue'
@@ -14,16 +15,29 @@ import googleMap from './components/google-map.vue'
 import collapser from './components/collapser.vue'
 import flicker from './components/flicker.vue'
 import carouselCell from './components/carousel-cell.vue'
+import carouselCopy from './components/carousel-copy.vue'
 
 import eventHub from './eventHub'
 
 window.vm = new Vue({
-    el: '#app',
-    components: { dropdown, addressForm, customerForm, cardForm, navbar, alert, productSearch, googleMap, collapser, flicker, carouselCell },
-    methods: {
-    	initMaps () {
-    		console.log('Maps loading for the VM')
-    		eventHub.$emit('maps-api-loaded')
-    	}
-    }
+  el: '#app',
+  components: { dropdown,
+    addressForm,
+    customerForm,
+    cardForm,
+    navbar,
+    alert,
+    productSearch,
+    googleMap,
+    collapser,
+    flicker,
+    carouselCell,
+    carouselCopy
+  },
+  methods: {
+   initMaps () {
+    console.log('Maps loading for the VM')
+    eventHub.$emit('maps-api-loaded')
+  }
+}
 })

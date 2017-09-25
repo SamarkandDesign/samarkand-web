@@ -1,9 +1,6 @@
 <template>
   <div class="carousel-cell" :style="cellStyle">
-  <div class="carousel-copy" v-if='headline || true'>
-      <h3 class="headline-text" v-if='headline'>{{headline}}</h3>
-      <div class="body-text"><slot></slot></div>
-    </div>
+  <slot></slot>
   </div>
 </template>
 
@@ -11,42 +8,23 @@
   export default {
     props: {
       image: {type: String},
-      headline: {type: String},
-      cstyle: {type: Object, default: () => ({})},
+      cellHeight: {type: String, default: '320px'},
     },
     computed: {
       cellStyle () {
-        return Object.assign({}, {
+        return {
           backgroundImage: this.image ? `url('${this.image}')` : undefined,
-          height: '320px',
-         }, this.cstyle)
+          height: this.cellHeight,
+         }
         }
       }
   }
 </script>
 
 <style>
-
   .carousel-cell {
     width: 100%;
     background-position: left top;
     background-size: cover;
   }
-.carousel-cell .carousel-copy {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-
-}
-  .carousel-cell .headline-text {
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 50px;
-  }
-  .carousel-cell .body-text {
-    color: #fff;
-
-  }
-
 </style>

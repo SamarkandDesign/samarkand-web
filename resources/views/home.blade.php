@@ -9,18 +9,24 @@ Crossroads of Culture
 @endsection
 
 @section('content')
+<div class="fade-in">
 
 <flicker>
-	<carousel-cell image="/img/home/hero-2.jpg" headline='Lovely lampshades'>
-		<p>Hand-made silk lampshades from India</p>
-		<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop Lampshades</a>
+	<carousel-cell image="/img/home/hero-2.jpg">
+		<carousel-copy headline='Lovely lampshades'>
+			<p>Hand-made silk lampshades from India</p>
+			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop Lampshades</a>
+		</carousel-copy>
 	</carousel-cell>
 
-	<carousel-cell image="/img/home/hero-kanthas-lc.jpg" headline='Vintage Throws'>
-		<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
-		<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop Home Furnishings</a>
+	<carousel-cell image="/img/home/hero-kanthas-lc.jpg">
+		<carousel-copy headline='Vintage Throws'>
+			<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
+			<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop Home Furnishings</a>
+		</carousel-copy>
 	</carousel-cell>
 </flicker>
+</div>
 
 <div class="container" v-pre>
 	<div class="row">

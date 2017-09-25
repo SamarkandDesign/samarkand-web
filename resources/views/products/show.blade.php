@@ -24,12 +24,12 @@
 @include('partials.alerts._alert_block')
 
 <div itemscope itemtype="http://schema.org/Product">
-  <div itemprop="image">
-    @include('products._product_image')
-  </div>
 
 <div class="row" v-pre>
     <div class="col-sm-8">
+  <div itemprop="image">
+    @include('products._product_image')
+  </div>
         <div class="sections">
 
             <header>

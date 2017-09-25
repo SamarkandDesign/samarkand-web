@@ -16,6 +16,7 @@ export default {
       imagesLoaded: true,
       wrapAround: true,
       pageDots: false,
+      // setGallerySize: false,
     })
   }
 }
