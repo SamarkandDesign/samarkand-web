@@ -11,37 +11,37 @@ use App\Http\Requests\AddToCartRequest;
 class CartController extends Controller
 {
     /**
-   * Show a list of the cart contents.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-      return view('shop.cart');
-  }
+     * Show a list of the cart contents.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('shop.cart');
+    }
 
-  /**
-   * Put an item in the cart.
-   *
-   * @param Request $request
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function store(AddToCartRequest $request)
-  {
-      $product = Product::findOrFail($request->product_id);
-      $qty = (int) $request->quantity;
+    /**
+     * Put an item in the cart.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(AddToCartRequest $request)
+    {
+        $product = Product::findOrFail($request->product_id);
+        $qty = (int) $request->quantity;
 
-      Cart::add([
+        Cart::add([
       'id'    => $product->id,
       'qty'   => $qty,
       'name'  => $product->name,
       'price' => $product->getPrice()->asDecimal(),
     ])->associate(Product::class);
 
-      $request->session()->forget('order');
+        $request->session()->forget('order');
 
-      return redirect()->back()->with([
+        return redirect()->back()->with([
       'alert'       => new HtmlString(sprintf('%d %s added to cart. %s',
       $qty,
       str_plural($product->name, $qty),
@@ -49,29 +49,29 @@ class CartController extends Controller
     )),
     'alert-class' => 'success',
   ]);
-  }
+    }
 
-/**
- * Remove an item from the cart.
- *
- * @param Request $request
- * @param string  $rowid   The row id to remove
- *
- * @return \Illuminate\Http\Response
- */
-public function remove(Request $request, $rowid)
-{
-    $product = Cart::get($rowid)->model;
+    /**
+     * Remove an item from the cart.
+     *
+     * @param Request $request
+     * @param string  $rowid   The row id to remove
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function remove(Request $request, $rowid)
+    {
+        $product = Cart::get($rowid)->model;
 
-    Cart::remove($rowid);
+        Cart::remove($rowid);
 
-    $route = Cart::count() > 0 ? 'cart' : 'products.index';
+        $route = Cart::count() > 0 ? 'cart' : 'products.index';
 
-    $request->session()->forget('order');
+        $request->session()->forget('order');
 
-    return redirect()->route($route)->with([
+        return redirect()->route($route)->with([
     'alert'       => "{$product->name} removed from cart",
     'alert-class' => 'success',
   ]);
-}
+    }
 }

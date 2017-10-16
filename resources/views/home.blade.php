@@ -9,77 +9,76 @@ Crossroads of Culture
 @endsection
 
 @section('content')
+<div class="fade-in">
 
-<carousel>
-	<slider>
-		<img src="/img/home/hero-3.jpg">
-	</slider>
-	<slider>
-		<img src="/img/home/hero-kanthas.jpg">
-	</slider>
-	<slider>
-		<img src="/img/home/hero-2.jpg">
-	</slider>
-	<slider>
-		<img src="/img/home/hero-4.jpg">
-	</slider>
+<flicker>
+	<carousel-cell image="/img/home/hero-2.jpg">
+		<carousel-copy headline='Lovely lampshades'>
+			<p>Hand-made silk lampshades from India</p>
+			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop Lampshades</a>
+		</carousel-copy>
+	</carousel-cell>
 
-	<div slot="overlay" style="width:100%;">
-		<img src="/img/samarkand-logo-250.svg" class="home-page-logo" alt="Samarkand Design Logo">
-	</div>
-</carousel>
+	<carousel-cell image="/img/home/hero-kanthas-lc.jpg">
+		<carousel-copy headline='Vintage Throws'>
+			<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
+			<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop Home Furnishings</a>
+		</carousel-copy>
+	</carousel-cell>
+</flicker>
+</div>
 
-	<div class="container" v-pre>
-		<div class="row">
+<div class="container" v-pre>
+	<div class="row">
 
-			<div class="col-sm-4 top-buffer">
-				<a class="product-grid-element" href="/shop/home-furnishings">
-					<img src="/img/home/tile1.jpg" alt="Samarkand Home Furnishings" class="product-grid-image img-responsive">
-					<div class="product-flex">
-						<div class="product-description">
-						<h2>HOME FURNISHINGS</h2>
-						</div>
+		<div class="col-sm-4 top-buffer">
+			<a class="product-grid-element" href="/shop/home-furnishings">
+				<img src="/img/home/tile1.jpg" alt="Samarkand Home Furnishings" class="product-grid-image img-responsive">
+				<div class="product-flex">
+					<div class="product-description">
+						<h2 class='text-uppercase'>Home Furnishings</h2>
 					</div>
-				</a>		
-			</div>
-
-			<div class="col-sm-4 top-buffer">
-				<a class="product-grid-element" href="/shop/lighting">
-					<img src="/img/home/Shibori_2.jpg" alt="Samarkand Lighting" class="product-grid-image img-responsive">
-					<div class="product-flex">
-						<div class="product-description">
-							<h2>LIGHTING</h2>
-						</div>
-					</div>
-				</a>		
-			</div>
-
-			<div class="col-sm-4 top-buffer">
-				<a class="product-grid-element" href="/shop/accessories">
-					<img src="/img/home/tile3.jpg" alt="Samarkand Accessories" class="product-grid-image img-responsive">
-					<div class="product-flex">
-						<div class="product-description">
-							<h2>ACCESSORIES</h2>
-						</div>
-					</div>
-				</a>		
-			</div>
+				</div>
+			</a>
 		</div>
-		<div class="top-buffer"></div>
+
+		<div class="col-sm-4 top-buffer">
+			<a class="product-grid-element" href="/shop/lighting">
+				<img src="/img/home/Shibori_2.jpg" alt="Samarkand Lighting" class="product-grid-image img-responsive">
+				<div class="product-flex">
+					<div class="product-description">
+						<h2 class='text-uppercase'>Lighting</h2>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-sm-4 top-buffer">
+			<a class="product-grid-element" href="/shop/accessories">
+				<img src="/img/home/tile3.jpg" alt="Samarkand Accessories" class="product-grid-image img-responsive">
+				<div class="product-flex">
+					<div class="product-description">
+						<h2 class='text-uppercase'>Accessories</h2>
+					</div>
+				</div>
+			</a>
+		</div>
 	</div>
+	<div class="top-buffer"></div>
+</div>
 
-	@endsection
+@endsection
 
-	@section('scripts')
-		<style type="text/css">
-			.home-page-logo {
-				width: 20%; 
-				height: auto;
-			}
-		    @media (max-width: 767px) {
-		    	.home-page-logo {
-		      		width: 34%;	
-		    	}
-		    }
-		</style>
-	@endsection
+@section('scripts')
+<style type="text/css">
+.home-page-logo {
+	width: 20%;
+	height: auto;
+}
+@media (max-width: 767px) {
+	.home-page-logo {
+		width: 34%;
+	}
+}
+</style>
+@endsection

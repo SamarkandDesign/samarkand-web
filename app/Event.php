@@ -73,21 +73,21 @@ class Event extends Model implements HasMediaConversions
     'deleted_at',
     ];
 
-   /**
-    * Set the image sizes for product attachments.
-    *
-    * @return void
-    */
-   public function registerMediaConversions()
-   {
-       $this->addMediaConversion('thumb')
+    /**
+     * Set the image sizes for product attachments.
+     *
+     * @return void
+     */
+    public function registerMediaConversions()
+    {
+        $this->addMediaConversion('thumb')
     ->setManipulations(['w' => 500, 'h' => 500, 'fit' => 'crop'])
     ->performOnCollections('images');
 
-       $this->addMediaConversion('banner')
+        $this->addMediaConversion('banner')
     ->setManipulations(['w' => 1300, 'h' => 1300])
     ->performOnCollections('images');
-   }
+    }
 
     /**
      * Ensure the start date is parsed to a Carbon instance when being set.

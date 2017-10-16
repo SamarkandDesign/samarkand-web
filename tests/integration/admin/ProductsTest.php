@@ -19,37 +19,37 @@ class ProductsTest extends \TestCase
         $this->user = $this->logInAsAdmin();
     }
 
-  /** @test **/
-  public function it_can_view_a_list_of_products()
-  {
-      $product = factory(Product::class)->create();
+    /** @test **/
+    public function it_can_view_a_list_of_products()
+    {
+        $product = factory(Product::class)->create();
 
-      $response = $this->get('admin/products');
+        $response = $this->get('admin/products');
 
-      $this->assertContains($product->name, $response->getContent());
-  }
+        $this->assertContains($product->name, $response->getContent());
+    }
 
-  /** @test **/
-  public function it_searches_for_a_product_in_the_admin()
-  {
-      config(['scout.driver' => 'null']);
+    /** @test **/
+    public function it_searches_for_a_product_in_the_admin()
+    {
+        config(['scout.driver' => 'null']);
 
-      $product = factory(Product::class)->create();
-      $query = substr($product->description, 0, 4);
+        $product = factory(Product::class)->create();
+        $query = substr($product->description, 0, 4);
 
-      $response = $this->get("admin/products/search?query=$query");
-      $response->assertStatus(200);
-  }
+        $response = $this->get("admin/products/search?query=$query");
+        $response->assertStatus(200);
+    }
 
-  /** @test **/
-  public function it_can_create_a_product()
-  {
-      $response = $this->get('admin/products/create');
-      $this->assertContains('Create Product', $response->getContent());
+    /** @test **/
+    public function it_can_create_a_product()
+    {
+        $response = $this->get('admin/products/create');
+        $this->assertContains('Create Product', $response->getContent());
 
-      $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
+        $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
 
-      $this->post('admin/products', [
+        $this->post('admin/products', [
       'name'         => 'nice product',
       'slug'         => 'nice-product',
       'description'  => 'lorem ipsum',
@@ -66,10 +66,10 @@ class ProductsTest extends \TestCase
       '_token'       => csrf_token(),
     ]);
 
-    // dd($this->response->getContent());
-    // $response->assertRedirectRoute('admin.products.edit', 1);
+        // dd($this->response->getContent());
+        // $response->assertRedirectRoute('admin.products.edit', 1);
 
-    $this->assertDatabaseHas('products', [
+        $this->assertDatabaseHas('products', [
       'slug'       => 'nice-product',
       'price'      => 6250,
       'sale_price' => 3000,
@@ -77,16 +77,16 @@ class ProductsTest extends \TestCase
       'featured'   => true,
     ]);
 
-      $product = Product::whereSlug('nice-product')->first();
+        $product = Product::whereSlug('nice-product')->first();
 
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
-  }
+        $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
+        $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
+    }
 
-  /** @test **/
-  public function it_validates_the_price_of_a_product()
-  {
-      $this->post('admin/products', [
+    /** @test **/
+    public function it_validates_the_price_of_a_product()
+    {
+        $this->post('admin/products', [
       'name'         => 'nice product',
       'slug'         => 'nice-product',
       'description'  => 'lorem ipsum',
@@ -97,104 +97,104 @@ class ProductsTest extends \TestCase
       'published_at' => Carbon::now()->format('Y-m-d h:i:s'),
       'user_id'      => $this->user->id,
     ]);
-  }
+    }
 
-  /** @test **/
-  public function it_can_update_a_product()
-  {
-      $product = factory(Product::class)->create();
-      $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
+    /** @test **/
+    public function it_can_update_a_product()
+    {
+        $product = factory(Product::class)->create();
+        $terms = factory('App\Term', 2)->create(['taxonomy' => 'product_category']);
 
-      $response = $this->get("admin/products/{$product->id}/edit");
+        $response = $this->get("admin/products/{$product->id}/edit");
 
-      $this->assertContains('Edit Product', $response->getContent());
+        $this->assertContains('Edit Product', $response->getContent());
 
-      $response = $this->patch("admin/products/{$product->id}", [
+        $response = $this->patch("admin/products/{$product->id}", [
       'name'   => 'lorem ipsum',
       'terms'  => $terms->pluck('id')->toArray(),
       '_token' => csrf_token(),
     ]);
 
-      $this->assertDatabaseHas('products', ['id' => $product->id, 'name' => 'lorem ipsum']);
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
-      $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
+        $this->assertDatabaseHas('products', ['id' => $product->id, 'name' => 'lorem ipsum']);
+        $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[0]->id]);
+        $this->assertDatabaseHas('termables', ['termable_id' => $product->id, 'term_id' => $terms[1]->id]);
 
-    // Ensure the product has only 2 terms associated to it
-    $this->assertCount(2, $product->terms);
+        // Ensure the product has only 2 terms associated to it
+        $this->assertCount(2, $product->terms);
 
-      $response->assertRedirect("admin/products/{$product->id}/edit");
-      $response = $this->get('admin/products');
-      $this->assertContains('lorem ipsum', $response->getContent());
-  }
+        $response->assertRedirect("admin/products/{$product->id}/edit");
+        $response = $this->get('admin/products');
+        $this->assertContains('lorem ipsum', $response->getContent());
+    }
 
-  /** @test **/
-  public function it_can_delete_a_product()
-  {
-      $product = factory(Product::class)->create();
+    /** @test **/
+    public function it_can_delete_a_product()
+    {
+        $product = factory(Product::class)->create();
 
-      $response = $this->delete(route('admin.products.delete', $product));
+        $response = $this->delete(route('admin.products.delete', $product));
 
-      $response->assertRedirect('admin/products');
+        $response->assertRedirect('admin/products');
 
-    // assert that the product has been soft deleted
-    $this->assertTrue(Product::withTrashed()->find($product->id)->trashed());
+        // assert that the product has been soft deleted
+        $this->assertTrue(Product::withTrashed()->find($product->id)->trashed());
 
-      $response = $this->get('admin/products/trash');
+        $response = $this->get('admin/products/trash');
 
-      $this->assertContains($product->name, $response->getContent());
+        $this->assertContains($product->name, $response->getContent());
 
-    // hard delete the product
-    $this->delete("/admin/products/{$product->id}");
-      $this->assertDatabaseMissing('products', [
+        // hard delete the product
+        $this->delete("/admin/products/{$product->id}");
+        $this->assertDatabaseMissing('products', [
         'slug' => $product->slug,
         ]);
-  }
+    }
 
-  /** @test **/
-  public function it_restores_a_product()
-  {
-      $product = factory(Product::class)->create();
+    /** @test **/
+    public function it_restores_a_product()
+    {
+        $product = factory(Product::class)->create();
 
-      // move to trash
-      $this->delete("/admin/products/{$product->id}");
-      // restore
-      $this->put("/admin/products/{$product->id}/restore");
+        // move to trash
+        $this->delete("/admin/products/{$product->id}");
+        // restore
+        $this->put("/admin/products/{$product->id}/restore");
 
-      $response = $this->get('/admin/products');
+        $response = $this->get('/admin/products');
 
-      $this->assertContains($product->name, $response->getContent());
+        $this->assertContains($product->name, $response->getContent());
 
-      // $this->assertContains('Product restored', $response->getContent());
-  }
+        // $this->assertContains('Product restored', $response->getContent());
+    }
 
-  /** @test **/
-  public function it_can_upload_an_image_to_a_product()
-  {
-      // Make a post
-    $product = factory('App\Product')->create();
+    /** @test **/
+    public function it_can_upload_an_image_to_a_product()
+    {
+        // Make a post
+        $product = factory('App\Product')->create();
 
-    // And we need a file
-    $source_image = base_path('tests/resources/images/image-1.jpg');
-      $image = base_path(sprintf('tests/resources/images/image-%s-tmp.jpg', mt_rand(1, 999)));
-      copy($source_image, $image);
+        // And we need a file
+        $source_image = base_path('tests/resources/images/image-1.jpg');
+        $image = base_path(sprintf('tests/resources/images/image-%s-tmp.jpg', mt_rand(1, 999)));
+        copy($source_image, $image);
 
-      $file = new UploadedFile($image, basename($image), null, null, null, true);
+        $file = new UploadedFile($image, basename($image), null, null, null, true);
 
-    // Send off the request to upload the file
-    $response = $this->call('POST', route('api.products.media.store', $product->id), [], [], ['image' => $file]);
+        // Send off the request to upload the file
+        $response = $this->call('POST', route('api.products.media.store', $product->id), [], [], ['image' => $file]);
 
-    // Ensure the image has been saved in the db and attached to our post
-    $this->assertDatabaseHas('media', [
+        // Ensure the image has been saved in the db and attached to our post
+        $this->assertDatabaseHas('media', [
       'model_id'   => $product->id,
       'model_type' => 'App\Product',
       'file_name'  => basename($image),
     ]);
 
-      foreach ($product->getMedia() as $media_item) {
-          $this->assertFileExists($media_item->getPath());
-      }
+        foreach ($product->getMedia() as $media_item) {
+            $this->assertFileExists($media_item->getPath());
+        }
 
-    // Delete the post which should also delete its associated media
-    $product->delete();
-  }
+        // Delete the post which should also delete its associated media
+        $product->delete();
+    }
 }
