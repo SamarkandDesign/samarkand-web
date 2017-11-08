@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
 use App\Address;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Events\OrderWasCreated;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\Order\ViewOrderRequest;
+use App\Order;
+use App\OrderNote;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrdersController extends Controller
 {
@@ -43,9 +44,14 @@ class OrdersController extends Controller
         $order->delivery_note = $request->get('delivery_note', '');
         $order->save();
 
-        $order->syncWithCart();
+        OrderNote::create([
+            'order_id' => $order->id,
+            'key'      => 'status_changed',
+            'body'     => sprintf('Order created by IP %s', $request->getClientIp()),
+            'user_id'  => $customer->id,
+        ]);
 
-        event(new OrderWasCreated($order));
+        $order->syncWithCart();
 
         // replace the order in the session with the updated version
         $request->session()->put('order', $order->fresh());

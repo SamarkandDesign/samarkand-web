@@ -97,7 +97,7 @@ class DeriveUserForOrder
             'name'         => $data['name'],
             'email'        => $data['email'],
             'username'     => $data['email'],
-            'password'     => $data->get('password', $this->generateRandomPassword()),
+            'password'     => $data->get('password', str_random(15)),
             'last_seen_at' => $data->has('password') ? new \DateTime() : null,
         ]);
 
@@ -125,15 +125,5 @@ class DeriveUserForOrder
             $rules['password'] = 'required|confirmed|min:6';
         }
         $this->validate($this->request, $rules);
-    }
-
-    /**
-     * Auto-generate a password for the user.
-     *
-     * @return string
-     */
-    public function generateRandomPassword()
-    {
-        return bin2hex(openssl_random_pseudo_bytes(16));
     }
 }
