@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Address;
-use App\Events\OrderWasCreated;
-use App\Http\Requests\CreateOrderRequest;
-use App\Http\Requests\Order\ViewOrderRequest;
 use App\Order;
+use App\Address;
 use App\OrderNote;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Requests\CreateOrderRequest;
+use App\Http\Requests\Order\ViewOrderRequest;
 
 class OrdersController extends Controller
 {
