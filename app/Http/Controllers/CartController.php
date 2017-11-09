@@ -39,8 +39,6 @@ class CartController extends Controller
       'price' => $product->getPrice()->asDecimal(),
     ])->associate(Product::class);
 
-        $request->session()->forget('order');
-
         return redirect()->back()->with([
       'alert'       => new HtmlString(sprintf('%d %s added to cart. %s',
       $qty,
@@ -66,8 +64,6 @@ class CartController extends Controller
         Cart::remove($rowid);
 
         $route = Cart::count() > 0 ? 'cart' : 'products.index';
-
-        $request->session()->forget('order');
 
         return redirect()->route($route)->with([
     'alert'       => "{$product->name} removed from cart",
