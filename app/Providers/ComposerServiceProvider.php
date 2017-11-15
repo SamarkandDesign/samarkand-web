@@ -154,7 +154,7 @@ class ComposerServiceProvider extends ServiceProvider
     private function shareAttributes()
     {
         $this->app->view->composer(['shop._attribute_filter', 'admin.products.form.attributes'], function ($view) {
-            $view->with('product_attributes', \App\ProductAttribute::with(['attribute_properties' => function($query) {
+            $view->with('product_attributes', \App\ProductAttribute::with(['attribute_properties' => function ($query) {
                 $query->orderBy('order', 'ASC');
             }])->get());
         });
