@@ -36,3 +36,14 @@ jobs:
       # run tests!
       - run: phpunit
 
+      - restore_cache:
+          keys:
+          - frontend-dependencies-{{ checksum "yarn.lock" }}
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+          - ./node_modules
+          key: frontend-dependencies-{{ checksum "yarn.lock" }}
+
