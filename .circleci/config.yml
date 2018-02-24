@@ -38,7 +38,7 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       # run tests!
-      - run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/phpunit -d memory_limit=2048M
 
       - restore_cache:
           keys:
