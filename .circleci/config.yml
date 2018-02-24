@@ -51,3 +51,6 @@ jobs:
           - ./node_modules
           key: frontend-dependencies-{{ checksum "yarn.lock" }}
 
+      - run: yarn test
+      - run: yarn production
+
