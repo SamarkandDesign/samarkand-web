@@ -338,7 +338,7 @@ class Product extends Model implements HasMediaConversions, Termable
         if ($price) {
             $this->attributes['sale_price'] = intval(100 * $price);
         } else {
-            $this->attributes['sale_price'] = null
+            $this->attributes['sale_price'] = null;
         }
     }
 
