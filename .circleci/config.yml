@@ -76,10 +76,7 @@ jobs:
 
       # run tests!
       - run: ./vendor/bin/phpunit -d memory_limit=2048M
-      - persist_to_workspace:
-          root: ./
-          paths:
-            - vendor/*
+
 
 workflows:
   version: 2
