@@ -6,12 +6,12 @@ version: 2
 jobs:
   deploy:
     docker:
-      - image: wilson208/circleci-awscli
+      - image: lfglore/circleci-node-awscli:latest
 
     working_directory: ~/repo
 
     steps:
-      - run: sudo pip install awsebcli
+      - run: pip install awsebcli --upgrade --user
       - attach_workspace:
           at: ./
       - run: eb deploy
