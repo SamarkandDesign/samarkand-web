@@ -2,6 +2,10 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/healthz', function() {
+    return "200 OK";
+});
+
 Auth::routes();
 
 /*
