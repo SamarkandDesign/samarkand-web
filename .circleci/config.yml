@@ -6,7 +6,7 @@ version: 2
 jobs:
   deploy:
     docker:
-      - image: circleci/php:7.1-node-browsers
+      - image: wilson208/circleci-awscli
 
     working_directory: ~/repo
 
