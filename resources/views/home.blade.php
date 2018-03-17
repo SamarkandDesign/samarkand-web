@@ -12,17 +12,24 @@ Crossroads of Culture
 <div class="fade-in">
 
 <flicker>
-	<carousel-cell image="/img/home/hero-2.jpg">
+	<carousel-cell image="/img/home/lampshade1-2018.jpg">
 		<carousel-copy headline='Lovely lampshades'>
-			<p>Hand-made silk lampshades from India</p>
-			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop Lampshades</a>
+			<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
+			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop lampshades</a>
 		</carousel-copy>
 	</carousel-cell>
+
+	<carousel-cell image="/img/home/lampbase-banner2-2018.jpg">
+		<carousel-copy headline='Stunning lamp bases' style="text-align: right; right: 10%;">
+			<p>A range of unique vintage and contemporary lamp bases</p>
+			<a class='btn btn-primary btn-lg' href='/shop/lamp-bases'>Shop Lamp Bases</a>
+		</carousel-copy>
+	</carousel-cell>	
 
 	<carousel-cell image="/img/home/hero-kanthas-lc.jpg">
 		<carousel-copy headline='Vintage Throws'>
 			<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
-			<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop Home Furnishings</a>
+			<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop home furnishings</a>
 		</carousel-copy>
 	</carousel-cell>
 </flicker>
