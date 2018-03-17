@@ -40,7 +40,7 @@ Crossroads of Culture
 
 		<div class="col-sm-4 top-buffer">
 			<a class="product-grid-element" href="/shop/home-furnishings">
-				<img src="/img/home/tile1.jpg" alt="Samarkand Home Furnishings" class="product-grid-image img-responsive">
+				<img src="/img/home/tile1.jpg" alt="Samarkand Home Furnishings" class="product-grid-image img-responsive" style="width:100%;">
 				<div class="product-flex">
 					<div class="product-description">
 						<h2 class='text-uppercase'>Home Furnishings</h2>
@@ -51,7 +51,7 @@ Crossroads of Culture
 
 		<div class="col-sm-4 top-buffer">
 			<a class="product-grid-element" href="/shop/lighting">
-				<img src="/img/home/Shibori_2.jpg" alt="Samarkand Lighting" class="product-grid-image img-responsive">
+				<img src="/img/home/Shibori_2.jpg" alt="Samarkand Lighting" class="product-grid-image img-responsive" style="width:100%;">
 				<div class="product-flex">
 					<div class="product-description">
 						<h2 class='text-uppercase'>Lighting</h2>
@@ -62,7 +62,7 @@ Crossroads of Culture
 
 		<div class="col-sm-4 top-buffer">
 			<a class="product-grid-element" href="/shop/accessories">
-				<img src="/img/home/tile3.jpg" alt="Samarkand Accessories" class="product-grid-image img-responsive">
+				<img src="/img/home/tile3.jpg" alt="Samarkand Accessories" class="product-grid-image img-responsive" style="width:100%;">
 				<div class="product-flex">
 					<div class="product-description">
 						<h2 class='text-uppercase'>Accessories</h2>
