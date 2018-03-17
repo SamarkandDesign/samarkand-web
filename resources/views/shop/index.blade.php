@@ -19,7 +19,7 @@
 
 @section('section-header')
   @if($product_category->id)
-    <header class="section-header" style="background-image: url('/img/product-cat-bg.jpg')">
+    <header class="section-header" style="background-image: url('/img/product-cat-bg.jpg'); background-size: cover;">
     <div class="container">
     <h1 class="category-header">{{ $product_category->term }}</h1>
     </div>
