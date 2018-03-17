@@ -37,6 +37,7 @@
   }
   .carousel-copy .body-text {
     color: #fff;
+    font-size: 19px;
   }
 
 </style>
