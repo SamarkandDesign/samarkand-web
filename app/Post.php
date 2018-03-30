@@ -56,6 +56,16 @@ class Post extends Model implements HasMediaConversions, Termable
         'private'      => 'Private',
     ];
 
+    public function getDateForUrlAttribute()
+    {
+        return $this->created_at->format('Y/m');
+    }
+
+    public function getUrlAttribute()
+    {
+        return sprintf('/posts/%s/%s', $this->dateForUrl, $this->slug);
+    }
+
     /**
      * Sync an array of terms to the post.
      *

@@ -4,6 +4,8 @@ use Faker\Factory;
 use Illuminate\Foundation\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+ini_set("memory_limit", "2048M");
+
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     use DatabaseSetup;

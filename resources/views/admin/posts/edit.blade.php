@@ -10,6 +10,12 @@ Edit Post
 
 @section('admin.content')
 
+@if ($post->status === 'published')
+<p class="top-buffer clearfix">
+	<a href="{{ $post->url }}" class="btn btn-default pull-right">View Post</a>
+</p>
+@endif
+
 @include('partials.errors')
 
 <div class="post-form" id="postForm">
