@@ -13,13 +13,13 @@ Edit Post
 @include('partials.errors')
 
 <div class="post-form" id="postForm">
+  <div class="row">
+    {!! Form::model($post, ['route' => ['admin.posts.update', $post->id], 'method' => 'PATCH']) !!}
 
-  {!! Form::model($post, ['route' => ['admin.posts.update', $post->id], 'method' => 'PATCH']) !!}
+    @include('admin.posts.form', ['submitText' => 'Update'])
 
-  @include('admin.posts.form', ['submitText' => 'Update'])
-
-  {!! Form::close() !!}
-
+    {!! Form::close() !!}
+  </div>
 </div>
 
 @stop

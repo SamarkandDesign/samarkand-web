@@ -1,7 +1,8 @@
-<div class="row">
+
 
 <div class="col-md-8">
 @include('admin.posts.form.content')
+@include('admin.media._media_adder', ['model' => $post])
 </div>
 
 <div class="col-md-4"  id="postMeta">
@@ -13,7 +14,7 @@
     <div>@include('admin.posts.form.tags')</div>
 </div>
 
-</div>
+
 
 
    
