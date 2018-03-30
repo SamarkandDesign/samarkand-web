@@ -32,6 +32,12 @@ Route::post('payments', ['uses' => 'PaymentsController@store', 'as' => 'payments
 Route::get('order-completed', ['uses' => 'OrdersController@completed', 'as' => 'orders.completed']);
 
 /*
+ * Posts
+ */
+Route::get('posts/{month}/{year}/{post_slug}', ['uses' => 'PostsController@show', 'as' => 'posts.show']);
+Route::get('posts', ['uses' => 'PostsController@index', 'as' => 'posts.index']);
+
+/*
  * Contact
  */
 Route::get('contact', ['uses' => 'ContactsController@create', 'as' => 'contacts.create']);
