@@ -11,7 +11,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$featured_products = \App\Product::with('media')
+        $featured_products = \App\Product::with('media')
             ->listed()
             ->inStock()
             ->orderBy('featured', 'DESC')
