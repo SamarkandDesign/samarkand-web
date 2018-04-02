@@ -11,6 +11,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+    	$featured_products = \App\Product::with('media')
+            ->listed()
+            ->inStock()
+            ->orderBy('featured', 'DESC')
+            ->orderBy('published_at', 'DESC')
+            ->take(10)
+            ->get();
+
+        return view('home', compact('featured_products'));
     }
 }

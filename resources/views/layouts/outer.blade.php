@@ -22,6 +22,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     @include('partials._ga')
+
 </head>
 <body>
     <div id="app">
