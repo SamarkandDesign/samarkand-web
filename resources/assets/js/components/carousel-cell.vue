@@ -8,12 +8,13 @@
   export default {
     props: {
       image: {type: String},
-      cellHeight: {type: String, default: '320px'},
+      cellHeight: {type: String, default: undefined},
     },
     computed: {
       cellStyle () {
         return {
           backgroundImage: this.image ? `url('${this.image}')` : undefined,
+          height: this.cellHeight
          }
         }
       }
