@@ -1,0 +1,11 @@
+
+.home_featured_image {
+    height: 250px;
+    width: 250px;
+    margin: 0 15px;
+}
+@media (max-width: 768px) {
+	.flickity-prev-next-button {
+		display: none;
+	}
+}

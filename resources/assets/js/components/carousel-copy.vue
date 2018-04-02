@@ -39,5 +39,10 @@
     color: #fff;
     font-size: 19px;
   }
+  @media (max-width: 768px) {
+    .carousel-copy .headline-text {
+      font-size: 40px;
+    }
+  }
 
 </style>

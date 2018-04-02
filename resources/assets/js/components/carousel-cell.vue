@@ -14,7 +14,6 @@
       cellStyle () {
         return {
           backgroundImage: this.image ? `url('${this.image}')` : undefined,
-          height: this.cellHeight,
          }
         }
       }
@@ -26,5 +25,11 @@
     width: 100%;
     background-position: left top;
     background-size: cover;
+    height: 320px;
+  }
+  @media (max-width: 768px) {
+    .carousel-cell {
+      height: 360px;
+    }
   }
 </style>

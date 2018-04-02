@@ -16,6 +16,7 @@ Crossroads of Culture
 		<carousel-copy headline='Lovely lampshades'>
 			<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
 			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop lampshades</a>
+			<p class="top-buffer "><small>Free shipping to the UK</small></p>
 		</carousel-copy>
 	</carousel-cell>
 
