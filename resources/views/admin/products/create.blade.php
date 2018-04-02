@@ -17,9 +17,8 @@ Create Product
 </p>
 
 <div class="row post-form" id="postForm">
-	{!! Form::model($product, ['route' => 'admin.products.store', 'method' => 'POST']) !!}
-	
-	@include('admin.products.form')
+	{!! Form::model($product, ['route' => 'admin.products.store', 'method' => 'POST', 'novalidate' => true]) !!}
+		@include('admin.products.form')
 	{!! Form::close() !!}
 </div>
 @stop

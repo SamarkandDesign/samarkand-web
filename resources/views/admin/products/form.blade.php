@@ -2,9 +2,9 @@
 	<div class="box box-primary" id="postContent">
 		<div class="box-body">
 			<div class="form-group">
-				{!! Form::label('published_at', 'Publish At') !!}
+				<label for="published_at">Published at</label>
 				<div class="date">
-					{!! Form::input('datetime-local', 'published_at', old('published_at', isset($product->published_at) ? $product->published_at->format('Y-m-d\TH:i:s') : date('Y-m-d\TH:i:s')), ['class' => 'form-control']) !!}
+					<input type="datetime-local" id="published_at" name="published_at" class="form-control" value="{{ old('published_at', isset($product->published_at) ? $product->published_at->format('Y-m-d\TH:i:s') : date('Y-m-d\TH:i:s')) }}">
 				</div>
 			</div>
 
