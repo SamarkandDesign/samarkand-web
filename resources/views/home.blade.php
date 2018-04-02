@@ -71,7 +71,19 @@ Crossroads of Culture
 			</a>
 		</div>
 	</div>
-	<div class="top-buffer"></div>
+
+	<div class="top-buffer bottom-buffer">
+		<flicker>
+			@foreach($featured_products as $product)
+				<div class="home_featured_image">
+				@include('shop._product_tile', compact('product'))
+				</div>
+			@endforeach
+		</flicker>
+	</div>
+
+
+
 </div>
 
 @endsection

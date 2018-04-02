@@ -18,7 +18,9 @@ body {
 .top-buffer {
     padding-top:20px;
 }
-
+.bottom-buffer {
+    padding-bottom:20px;
+}
 .alert-block {
     border: 0;
     border-radius: 0;
@@ -123,4 +125,10 @@ h1, h2, h3, h4, h5, h6,
 
 .hint-text {
   color: $gray-light;
+}
+
+.home_featured_image {
+    height: 250px;
+    width: 250px;
+    margin: 0 15px;
 }
