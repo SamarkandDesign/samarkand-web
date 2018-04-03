@@ -44,41 +44,4 @@ class PostsTest extends TestCase
         $post = $this->posts->getBySlug($postDummy->slug);
         $this->assertEquals($post->slug, $postDummy->slug);
     }
-
-    /** @test **/
-    public function it_shows_a_list_of_posts()
-    {
-        $post1 = factory('App\Post')->create();
-        $post2 = factory('App\Post')->create();
-        $post3 = factory('App\Post')->create(['status' => 'draft']);
-
-        $response = $this->get('/posts');
-
-        $this->assertContains($post1->title, $response->getContent());
-        $this->assertContains($post2->title, $response->getContent());
-        $this->assertNotContains($post3->title, $response->getContent());
-    }
-
-    /** @test **/
-    public function it_shows_a_single_post()
-    {
-        $post = factory('App\Post')->create();
-        $postMY = $post->dateForUrl;
-
-        $response = $this->get("/posts/$postMY/{$post->slug}");
-
-        $this->assertContains($post->title, $response->getContent());
-        $this->assertContains($post->content, $response->getContent());
-    }
-
-    /** @test **/
-    public function it_does_not_show_a_draft_post()
-    {
-        $post = factory('App\Post')->create(['status' => 'draft']);
-        $postMY = $post->dateForUrl;
-
-        $response = $this->get("/posts/$postMY/{$post->slug}");
-
-        $this->assertNotContains($post->title, $response->getContent());
-    }
 }
