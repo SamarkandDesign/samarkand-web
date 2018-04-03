@@ -54,4 +54,9 @@ class Price
     {
         return $this->value / 100;
     }
+
+    public function symbol()
+    {
+        return $this->symbol;
+    }
 }

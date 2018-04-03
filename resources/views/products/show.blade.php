@@ -56,9 +56,8 @@
     <div class="sections pricing-bar">
         <section class="row">
             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="col-xs-6">
-                <span class="price" itemprop="price">
-                    {{ $product->present()->price() }}
-                </span>
+                <meta itemprop="priceCurrency" content="{{ config('shop.currency') }}" />
+                {{ $product->present()->price() }}
             </div>
 
             <div class="col-sm-6 text-right">
