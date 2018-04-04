@@ -4,9 +4,7 @@
 
 <div class="bg space-deck">
     <div class="container">
-@yield('breadcrumb')
-
-
+		@yield('breadcrumb')
         @yield('content')
     </div>
 </div>

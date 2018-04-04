@@ -33,14 +33,14 @@ class ProductPresenter extends ModelPresenter
     public function price()
     {
         if (! $this->model->sale_price->value()) {
-            return new HtmlString($this->model->price);
+            return new HtmlString(sprintf('%s<span itemprop="price">%s</span>', $this->model->price->symbol(), $this->model->price->asMoney()));
         }
 
         return new HtmlString(sprintf(
       '<del>%s</del> <ins>%s</ins>',
       $this->model->price,
-      $this->model->sale_price
-      ));
+      sprintf('%s<span itemprop="price">%s</span>', $this->model->sale_price->symbol(), $this->model->sale_price->asMoney()
+      )));
     }
 
     /**

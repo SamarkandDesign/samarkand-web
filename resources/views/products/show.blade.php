@@ -5,7 +5,7 @@
 @endsection
 
 @section('head')
-    <meta name="description" content="Name: {{ $product->name }}, Category: {{ $product->product_category->term }}, Price: {{ $product->present()->price() }}">
+    <meta name="description" content="{{ $product->name }} {{ $product->price->symbol().$product->price->asMoney() }}">
 @endsection
 
 @section('breadcrumb')
@@ -56,9 +56,8 @@
     <div class="sections pricing-bar">
         <section class="row">
             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="col-xs-6">
-                <span class="price" itemprop="price">
-                    {{ $product->present()->price() }}
-                </span>
+                <meta itemprop="priceCurrency" content="{{ config('shop.currency') }}" />
+                {{ $product->present()->price() }}
             </div>
 
             <div class="col-sm-6 text-right">
