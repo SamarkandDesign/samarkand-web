@@ -25,7 +25,7 @@
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="APP_URL" value="http://localhost"/>
+        <env name="APP_URL" value="http://samarkanddesign.com"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="CACHE_TIME" value="1"/>
         <env name="SESSION_DRIVER" value="array"/>

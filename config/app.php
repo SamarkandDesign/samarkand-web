@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://homestead.app'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
         App\Billing\BillingServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        NotificationChannels\Telegram\TelegramServiceProvider::class,
     ],
 
     /*
@@ -199,6 +200,7 @@ return [
         'Lang'          => 'Illuminate\Support\Facades\Lang',
         'Log'           => 'Illuminate\Support\Facades\Log',
         'Mail'          => 'Illuminate\Support\Facades\Mail',
+        'Notification'  => 'Illuminate\Support\Facades\Notification',
         'Paginator'     => 'Illuminate\Support\Facades\Paginator',
         'Password'      => 'Illuminate\Support\Facades\Password',
         'Queue'         => 'Illuminate\Support\Facades\Queue',

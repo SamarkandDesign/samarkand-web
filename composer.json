@@ -26,7 +26,8 @@
 		"calcinai/xero-php": "^1.4",
 		"laravel/dusk": "^1.1",
 		"laravel/tinker": "^1.0",
-		"sentry/sentry-laravel": "^0.7.0"
+		"sentry/sentry-laravel": "^0.7.0",
+		"laravel-notification-channels/telegram": "^0.0.4"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~5.7",
