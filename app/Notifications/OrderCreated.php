@@ -2,12 +2,11 @@
 
 namespace App\Notifications;
 
-use NotificationChannels\Telegram\TelegramChannel;
-use NotificationChannels\Telegram\TelegramMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use NotificationChannels\Telegram\TelegramChannel;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class OrderCreated extends Notification
 {
@@ -61,8 +60,9 @@ class OrderCreated extends Notification
             ->button('View Order', $url); // Inline Button
     }
 
-    protected function orderItems() {
-        return $this->order->items->map(function($item) {
+    protected function orderItems()
+    {
+        return $this->order->items->map(function ($item) {
             return sprintf('%sx %s', $item->quantity, $item->orderable->name);
         })->implode("\n");
     }

@@ -51,8 +51,8 @@ return [
         'payment_account' => env('XERO_PAYMENT_ACCOUNT', '090'),
 
     ],
-    
+
     'telegram-bot-api' => [
-        'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR BOT TOKEN HERE')
+        'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR BOT TOKEN HERE'),
     ],
 ];
