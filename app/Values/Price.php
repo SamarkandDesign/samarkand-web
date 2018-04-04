@@ -37,7 +37,7 @@ class Price
      */
     public function __toString()
     {
-        return $this->symbol.money_format('%i', $this->asDecimal());
+        return $this->symbol.$this->asMoney();
     }
 
     /**
@@ -53,6 +53,11 @@ class Price
     public function asDecimal()
     {
         return $this->value / 100;
+    }
+
+    public function asMoney()
+    {
+        return money_format('%i', $this->asDecimal());
     }
 
     public function symbol()

@@ -5,7 +5,7 @@
 @endsection
 
 @section('head')
-    <meta name="description" content="Name: {{ $product->name }}, Category: {{ $product->product_category->term }}, Price: {{ $product->present()->price() }}">
+    <meta name="description" content="{{ $product->name }} {{ $product->price->symbol().$product->price->asMoney() }}">
 @endsection
 
 @section('breadcrumb')
