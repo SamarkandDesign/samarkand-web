@@ -32,32 +32,26 @@ class OrderCreated extends Notification
      */
     public function via($notifiable)
     {
-        return [TelegramChannel::class];
+        return $notifiable->telegram_id ? ['mail', TelegramChannel::class] : ['mail'];
     }
 
     public function toTelegram($notifiable)
     {
         $url = url("/admin/orders/{$this->order->id}");
 
-        $template = '*New Order!*
+        $template = "*New Customer Order #{$this->order->id}*
 
-*Customer:* {{customer}}
-*Total:* £{{total}}
+*Customer:* {$this->order->user->name}
+*Total:* £{$this->order->amount->asDecimal()}
 
 *Items:*
-{{items}}
-';
-
-        $parts = [
-            '{{customer}}' => $this->order->user->name,
-            '{{total}}' => $this->order->amount->asDecimal(),
-            '{{items}}' => $this->orderItems(),
-        ];
+{$this->orderItems()}
+";
 
         return TelegramMessage::create()
             ->to($notifiable->telegram_id)
             ->content(strtr($template, $parts)) // Markdown supported.
-            ->button('View Order', $url); // Inline Button
+            ->button("View Order {$this->order->id}", $url); // Inline Button
     }
 
     protected function orderItems()
@@ -76,9 +70,8 @@ class OrderCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->view('emails.orders.admin_notification', ['order' => $this->order])
+            ->subject("New Customer Order #{$this->order->id}");
     }
 
     /**

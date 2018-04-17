@@ -2,9 +2,10 @@
 
 namespace App\Listeners;
 
-use App\User;
 use App\Events\OrderWasPaid;
 use App\Mail\OrderConfirmedForAdmin;
+use App\Notifications\OrderCreated;
+use App\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendAdminOrderEmail implements ShouldQueue
@@ -22,7 +23,8 @@ class SendAdminOrderEmail implements ShouldQueue
         $admins = User::shopAdmins()->get();
 
         foreach ($admins as $admin) {
-            \Mail::to($admin)->send(new OrderConfirmedForAdmin($order));
+            $admin->notify(new OrderCreated($order));
+            // \Mail::to($admin)->send(new OrderConfirmedForAdmin($order));
         }
     }
 }
