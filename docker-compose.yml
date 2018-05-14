@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  samarkand-app:
+    tty: true
+    image: 'bitnami/laravel:latest'
+    labels:
+      kompose.service.type: nodeport
+    environment:
+      - DB_HOST=samarkand-db
+      - DB_USERNAME=samarkand
+      - DB_DATABASE=samarkand
+      - DB_PASSWORD=secret
+    depends_on:
+      - samarkand-db
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+
+  samarkand-db:
+    image: mysql:5
+    environment:
+      - MYSQL_USER=samarkand
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=samarkand
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  appdata:
+  dbdata:
