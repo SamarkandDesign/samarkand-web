@@ -15,6 +15,9 @@ class OrdersTableSeeder extends Seeder
         $products = Product::all();
         $users = User::with('addresses')->get();
 
+        Address::flushEventListeners();
+        Order::flushEventListeners();
+
         $order_ids = array_map(function ($index) use ($shipping_methods, $products, $users) {
             $user = $users->random();
 
