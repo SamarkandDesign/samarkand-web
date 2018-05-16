@@ -1,22 +1,30 @@
 version: '3'
 
 services:
-  samarkand-app:
-    tty: true
-    image: 'bitnami/laravel:latest'
-    labels:
-      kompose.service.type: nodeport
-    environment:
-      - DB_HOST=samarkand-db
-      - DB_USERNAME=samarkand
-      - DB_DATABASE=samarkand
-      - DB_PASSWORD=secret
-    depends_on:
-      - samarkand-db
-    ports:
-      - 3000:3000
+  samarkand-web:
+    build:
+      context: ./
+      dockerfile: web.dockerfile
+    working_dir: /var/www
     volumes:
-      - ./:/app
+      - ./:/var/www
+    ports:
+    - 8080:80
+
+  samarkand-app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    environment:
+      - DB_PORT=3306
+      - DB_HOST=samarkand-db
+      - DB_DRIVER=mysql
+      - DB_DATABASE=samarkand
+      - DB_USERNAME=samarkand
+      - DB_PASSWORD=secret
 
   samarkand-db:
     image: mysql:5
