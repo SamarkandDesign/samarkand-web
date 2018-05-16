@@ -25,6 +25,12 @@ services:
       - DB_DATABASE=samarkand
       - DB_USERNAME=samarkand
       - DB_PASSWORD=secret
+      - CACHE_DRIVER=redis
+      - QUEUE_DRIVER=redis
+      - REDIS_HOST=samarkand-redis
+      - MAIL_DRIVER=smtp
+      - SMTP_HOST=samarkand-mail
+      - SMTP_PORT=1025
 
   samarkand-db:
     image: mysql:5
@@ -33,10 +39,21 @@ services:
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=samarkand
+      - MAIL_ENCRYPTION=null
     ports:
       - 3306:3306
     volumes:
       - dbdata:/var/lib/mysql
+
+  samarkand-redis:
+    image: redis:4-alpine
+    ports:
+      - 6379:6379
+
+  samarkand-mail:
+    image: mailhog/mailhog:latest
+    ports:
+      - 8025:8025
 
 volumes:
   appdata:
