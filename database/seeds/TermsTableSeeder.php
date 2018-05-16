@@ -11,23 +11,19 @@ class TermsTableSeeder extends Seeder
         $this->createUncategorisedCategories();
 
         $faker = Faker::create();
-        $taxonomies = ['category', 'tag', 'product_category'];
+        $taxonomies = ['category', 'tag'];
 
-        foreach (range(1, 30) as $index) {
-            factory(Term::class)->create([
-                'taxonomy' => $faker->randomElement($taxonomies),
-                ]);
-        }
+        collect(['Lampshades', 'Cushions', 'Kanthas', 'Home Furnishings', 'Lighting'])->map(function ($attr) {
+            return factory(Term::class)->create([
+              'term' => $attr,
+              'slug' => str_slug($attr),
+              'taxonomy' => 'product_category',
+            ]);
+        });
     }
 
     private function createUncategorisedCategories()
     {
-        // Term::create([
-        //     'taxonomy' => 'product_category',
-        //     'term'     => 'Uncategorised',
-        //     'slug'     => 'uncategorised',
-        //     ]);
-
         Term::create([
             'taxonomy' => 'category',
             'term'     => 'Uncategorised',
