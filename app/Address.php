@@ -40,7 +40,7 @@ class Address extends Model
         'line_1'    => 'required|max:255',
         'city'      => 'required|max:255',
         'postcode'  => 'required|max:255',
-        'country'   => 'required|alpha|size:2',
+        'country'   => 'required|size:2',
         'phone'     => 'max:24',
     ];
 
