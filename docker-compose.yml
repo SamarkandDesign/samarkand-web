@@ -26,7 +26,7 @@ services:
       - DB_USERNAME=samarkand
       - DB_PASSWORD=secret
       - CACHE_DRIVER=redis
-      - QUEUE_DRIVER=redis
+      - QUEUE_DRIVER=sync
       - REDIS_HOST=samarkand-redis
       - MAIL_DRIVER=smtp
       - SMTP_HOST=samarkand-mail
