@@ -16,7 +16,6 @@ Crossroads of Culture
 		<carousel-copy headline='Lovely lampshades'>
 			<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
 			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop lampshades</a>
-			<p class="top-buffer "><small>Free shipping to the UK</small></p>
 		</carousel-copy>
 	</carousel-cell>
 
@@ -24,7 +23,6 @@ Crossroads of Culture
 		<carousel-copy headline='Stunning lamp bases' style="text-align: right; right: 10%;">
 			<p>A range of unique vintage and contemporary lamp bases</p>
 			<a class='btn btn-primary btn-lg' href='/shop/lamp-bases'>Shop Lamp Bases</a>
-			<p class="top-buffer "><small>Free shipping to the UK</small></p>
 		</carousel-copy>
 	</carousel-cell>	
 
@@ -32,7 +30,6 @@ Crossroads of Culture
 		<carousel-copy headline='Vintage Throws'>
 			<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
 			<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop home furnishings</a>
-			<p class="top-buffer "><small>Free shipping to the UK</small></p>
 		</carousel-copy>
 	</carousel-cell>
 </flicker>
