@@ -91,7 +91,7 @@ class DeriveUserForOrder
         $billing_address = $this->request->get('billing_address');
 
         $data = collect($this->request->only($fields));
-        $data['name'] = $billing_address['name'];
+        $data['name'] = $billing_address['name'] ? $billing_address['name'] : 'unknown';
 
         $user = \App\User::create([
             'name'         => $data['name'],

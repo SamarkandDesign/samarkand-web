@@ -70,6 +70,7 @@ class CreateOrderRequest extends Request
         foreach (Address::$rules as $field => $rule) {
             $rules->put("{$type}_address.$field", $rule);
         }
+        $rules->put("{$type}_address.name", 'required|max:255');
 
         return $rules;
     }

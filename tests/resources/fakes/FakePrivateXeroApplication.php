@@ -1,6 +1,6 @@
 <?php
 
-use XeroPHP\Remote\Object;
+use XeroPHP\Remote\Model;
 use XeroPHP\Application\PrivateApplication;
 
 class FakePrivateXeroApplication extends PrivateApplication
@@ -11,7 +11,7 @@ class FakePrivateXeroApplication extends PrivateApplication
     {
     }
 
-    public function save(Object $object, $replace_data = false)
+    public function save(Model $object, $replace_data = false)
     {
         if (method_exists($object, 'setInvoiceId')) {
             $object->setInvoiceId(self::INVOICE_ID);
