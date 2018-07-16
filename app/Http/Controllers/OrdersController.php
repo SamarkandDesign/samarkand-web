@@ -114,6 +114,10 @@ class OrdersController extends Controller
 
         $customer->addresses()->save($billing_address);
 
+        if ($customer->name === 'unknown') {
+            $customer->update(['name' => $billing_address->name]);
+        }
+
         $addresses = [
                'billing_address_id'     => $billing_address->id,
                'shipping_address_id'    => $billing_address->id,

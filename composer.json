@@ -23,7 +23,7 @@
 		"guzzlehttp/guzzle": "^6.2",
 		"doctrine/dbal": "^2.5",
 		"laravel/scout": "^3.0",
-		"calcinai/xero-php": "^1.4",
+		"calcinai/xero-php": "^1.7",
 		"laravel/dusk": "^1.1",
 		"laravel/tinker": "^1.0",
 		"sentry/sentry-laravel": "^0.7.0"
