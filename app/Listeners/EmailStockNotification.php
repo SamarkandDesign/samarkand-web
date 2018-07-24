@@ -20,8 +20,9 @@ class EmailStockNotification implements ShouldQueue
      */
     public function handle(ProductStockChanged $event)
     {
-        if ($this->isLowInStock($event->product)) {
-            $mailable = $this->getStockMailable($event->product);
+        $product = $event->product->fresh();
+        if ($this->isLowInStock($product)) {
+            $mailable = $this->getStockMailable($product);
             foreach (User::shopAdmins()->get() as $admin) {
                 \Mail::to($admin)->send($mailable);
             }
