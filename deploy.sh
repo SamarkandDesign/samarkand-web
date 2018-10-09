@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Deploying to Heroku"
 
 # Ensure env variable is set
 [ -z "$HEROKU_APP" ] && echo "HEROKU_APP environment variable is not set" && exit 1 || echo "Using app ${HEROKU_APP}";
