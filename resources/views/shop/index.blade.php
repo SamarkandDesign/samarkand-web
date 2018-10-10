@@ -75,9 +75,12 @@
     </section>
 
     <aside class="shop-filters col-sm-3 col-sm-pull-9">
+    <!--
+      Hide search until quota resets
       <div class="xcol-md-6">
         @include('shop._product_search')
       </div>
+     -->
 
       <div class="xcol-md-6">
         @include('shop._category_filter')
