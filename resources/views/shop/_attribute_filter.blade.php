@@ -13,7 +13,7 @@
             <li>
                 <a href="/shop{{ $product_category->id ? "/{$product_category->slug}" : '' }}?{{ $queryFilter->getQueryString() }}">
                     {{ $property->name }}
-                </a> ({{ $property->products()->listed()->count() }})
+                </a> ({{ $property->products()->listed()->inStock()->count() }})
                 @if ($queryFilter->hasCurrentFilter($attribute->slug, $property->slug))
                     <span class="pull-right"><i class="fa fa-check"></i></span>
                 @endif
