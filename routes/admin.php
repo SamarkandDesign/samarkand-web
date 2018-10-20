@@ -7,6 +7,8 @@ Route::get('/', ['uses' => 'AdminController@dashboard', 'as' => 'admin.dashboard
     Route::get('orders/{order_status?}', ['uses' => 'OrdersController@index', 'as' => 'admin.orders.index']);
     Route::patch('orders/{order}', ['uses' => 'OrdersController@update', 'as' => 'admin.orders.update']);
 
+    Route::post('orders/{order}/dispatch_confirmations', ['uses' => 'DispatchConfirmationsController@create', 'as' => 'admin.dispatch_confirmations.create']);
+
     // Shipping Methods
     Route::group(['prefix' => 'shipping-methods'], function () {
         Route::get('/', ['uses' => 'ShippingMethodsController@index', 'as' => 'admin.shipping_methods.index']);

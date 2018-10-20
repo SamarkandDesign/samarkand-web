@@ -4,6 +4,7 @@ namespace Integration;
 
 use TestCase;
 use App\Order;
+use Illuminate\Support\Facades\Notification;
 
 class OrdersTest extends TestCase
 {
@@ -54,5 +55,29 @@ class OrdersTest extends TestCase
         $response = $this->get("admin/orders/{$order->id}");
         $this->assertContains("#{$order->id}", $response->getContent());
         $this->assertContains($item->description, $response->getContent());
+    }
+
+    /** @test **/
+    public function it_sends_a_dispatch_notification_for_an_order_with_tracking_link()
+    {
+        Notification::fake();
+        $this->logInAsAdmin();
+
+        $order = $this->createOrder(['status' => 'processing']);
+
+        $response = $this->get("admin/orders/{$order->id}");
+
+        $this->assertContains('Send Dispatch Confirmation', $response->getContent());
+
+        $response = $this->post("/admin/orders/{$order->id}/dispatch_confirmations", [
+            'tracking_link' => 'http://tracking-link',
+            ]);
+        $response->assertRedirect("admin/orders/{$order->id}");
+        $response = $this->followRedirects($response);
+
+        $content = $response->getContent();
+        $this->assertContains('Confirmation sent', $content);
+        $this->assertContains(sprintf('Dispatch confirmation sent to %s with tracking link http://tracking-link', $order->user->email), $content);
+        Notification::assertSentTo($order->user, \App\Notifications\OrderDispatched::class);
     }
 }
