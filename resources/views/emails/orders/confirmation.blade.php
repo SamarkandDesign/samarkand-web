@@ -7,7 +7,7 @@
 
     <ul>
     <li><strong>Order ID:</strong> #{{ $order->id }}</li>
-    <li><strong>Order Date:</strong> {{ $order->created_at }}</li>
+    <li><strong>Order Date:</strong> {{ $order->created_at->format('j M Y') }}</li>
     </ul>
 
     @include('orders._summary')

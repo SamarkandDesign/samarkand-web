@@ -17,12 +17,24 @@
 }
 
 .bottom-buffer {
-    padding-bottom:15px;
+  padding-bottom: 15px;
 }
 
 .select2 {
-  width: 100%!important;
+  width: 100% !important;
 }
 body {
-	font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+
+.box-header {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

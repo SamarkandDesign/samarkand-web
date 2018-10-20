@@ -10,17 +10,37 @@ Order #{{ $order->id }} Details
 
 @section('admin.content')
 
+@include('partials.errors')
+
+@if ($order->status === 'processing')
 <div class="box box-primary">
-	<div class="box-header">General Details</div>
+	<div class="box-header">
+		<h4>Send Dispatch Confirmation</h4>
+	</div>
+	<form action="{{ route('admin.dispatch_confirmations.create', $order) }}" method="POST" class="box-body">
+	{{ csrf_field() }}
+	<div class="row">
+	<div class="form-group col-sm-8">
+		<label for="tracking_link">Tracking link <small>(optional)</small></label>
+		<input type="text" class="form-control" name="tracking_link" value="{{ old('tracking_link') }}">
+	</div>
+	</div>
+	<button type="submit" class="btn btn-success">Confirm dispatch</button>
+	</form>
+</div>
+@endif
+
+<div class="box box-primary">
+	<div class="box-header"><h4>General Details</h4></div>
 
 		<table class="table">
 			<tbody>
 				<tr>
-					<th>Order Date</th>
+					<th>Order date</th>
 					<td>{{ $order->created_at }}</td>
 				</tr>
 				<tr>
-					<th>Order Status</th>
+					<th>Order status</th>
 					<td>
 					{{ $order->present()->status }}
 					@include('admin.orders.partials._status_switcher')
@@ -36,13 +56,13 @@ Order #{{ $order->id }} Details
 				</tr>
 				<tr>
 					<td>
-						<h4>Billing Address</h4>
+						<h4>Billing address</h4>
 						@include('partials.address', ['address' => $order->billing_address])
 
 						Phone: {{ $order->billing_address->phone }}
 					</td>
 					<td>
-						<h4>Shipping Address</h4>
+						<h4>Shipping address</h4>
 						@include('partials.address', ['address' => $order->shipping_address])
 					</td>
 				</tr>
@@ -59,7 +79,7 @@ Order #{{ $order->id }} Details
 </div>
 
 <div class="box box-primary">
-	<div class="box-header">Order Items</div>
+	<div class="box-header"><h4>Order Items</h4></div>
 	<table class="table">
 		<thead>
 			<tr>
@@ -125,7 +145,7 @@ Order #{{ $order->id }} Details
         <div class="timeline-item">
             <time class="time"><i class="fa fa-clock-o"></i> {{ $note->created_at }}</time>
 
-            <h3 class="timeline-header">{{ $order->user_id ? $order->user->name : ''}}</h3>
+            <h3 class="timeline-header">{{ $note->user ? $note->user->name : ''}}</h3>
 
             <div class="timeline-body">
                 {{ $note->body }}
