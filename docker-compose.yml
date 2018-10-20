@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   samarkand-web:
@@ -9,7 +9,7 @@ services:
     volumes:
       - ./:/var/www
     ports:
-    - 8080:80
+      - 8080:80
 
   samarkand-app:
     build:
@@ -18,19 +18,6 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www
-    environment:
-      - DB_PORT=3306
-      - DB_HOST=samarkand-db
-      - DB_DRIVER=mysql
-      - DB_DATABASE=samarkand
-      - DB_USERNAME=samarkand
-      - DB_PASSWORD=secret
-      - CACHE_DRIVER=redis
-      - QUEUE_DRIVER=sync
-      - REDIS_HOST=samarkand-redis
-      - MAIL_DRIVER=smtp
-      - SMTP_HOST=samarkand-mail
-      - SMTP_PORT=1025
 
   samarkand-db:
     image: mysql:5
@@ -56,5 +43,5 @@ services:
       - 8025:8025
 
 volumes:
-  appdata:
-  dbdata:
+  ? appdata
+  ? dbdata
