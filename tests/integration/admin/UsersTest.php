@@ -21,11 +21,13 @@ class UsersTest extends TestCase
              'email' => 'joe@bloggs.com',
              'password' => 'secret123',
              'password_confirmation' => 'secret123',
+             'trade_discount' => 10,
             ]));
 
         $this->assertDatabaseHas('users', [
             'username'    => 'joebloggs',
             'email'       => 'joe@bloggs.com',
+            'trade_discount'    => 10,
             ]);
 
         // Ensure the password has been saved and hashed correctly

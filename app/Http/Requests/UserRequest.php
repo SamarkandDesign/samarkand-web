@@ -23,5 +23,6 @@ class UserRequest extends Request
     protected $baseRules = [
         'telegram_id'       => 'alpha_dash|max:255',
         'is_shop_manager'   => 'boolean',
+        'trade_discount'    => 'integer|min:0|max:100',
     ];
 }

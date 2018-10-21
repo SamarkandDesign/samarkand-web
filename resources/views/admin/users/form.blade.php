@@ -6,17 +6,17 @@
 					<label for="name">Name</label>
 					{!! Form::text('name', null, ['class' => 'form-control']) !!}
 				</div>
-				
+
 				<div class="form-group">
 					<label for="username">Username</label>
 					{!! Form::text('username', null, ['class' => 'form-control']) !!}
 				</div>
-				
+
 				<div class="form-group">
 					<label for="email">Email</label>
 					{!! Form::email('email', null, ['class' => 'form-control']) !!}
 				</div>
-				
+
 				<div class="form-group">
 					<label for="telegram_id">Telegram ID <span class="help-text small text-muted">(For notifications)</span></label>
 					<div class="input-group">
@@ -35,7 +35,7 @@
 					@endif
 					{!! Form::password('password', ['class' => 'form-control']) !!}
 				</div>
-				
+
 				<div class="form-group">
 					<label for="password_confirmation">Confirm Password</label>
 					{!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
@@ -44,6 +44,16 @@
 				<div class="form-group ">
 					<label for="roles">Role</label>
 					{!! Form::select('role_id', $roles, $user->role_id, ['class' => 'form-control']) !!}
+				</div>
+
+				<div class="row">
+				<div class="form-group col-xs-4">
+					<label for="trade_discount">Trade discount</label>
+					<div class="input-group">
+					<input type="number" id="trade_discount" class="form-control" name="trade_discount" min="0" max="100" value="{{ old('trade_discount', $user->trade_discount ?? 0) }}" />
+					<span class="input-group-addon">%</span>
+					</div>
+				</div>
 				</div>
 
 				<div class="checkbox">
