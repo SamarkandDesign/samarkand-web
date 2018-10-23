@@ -27,14 +27,15 @@ class ProductAttributesTest extends \TestCase
     {
         $this->logInAsAdmin();
 
-        $property = factory('App\AttributeProperty')->create([
+        $property = factory('App\ProductAttribute')->create([
             'name' => 'Lampshade Size',
         ]);
 
-        $response = $this->get("admin/attributes/{$property->id}/edit");
+
+        $response = $this->get("/admin/attributes/{$property->id}/edit");
         $response->assertSee('Edit Attribute');
 
-        $response = $this->patch("admin/attributes/{$property->id}", array_merge($property->toArray(), [
+        $response = $this->patch("/admin/attributes/{$property->id}", array_merge($property->toArray(), [
             'order' => 3,
         ]));
         $response->assertRedirect("admin/attributes/{$property->id}/edit");
@@ -47,13 +48,13 @@ class ProductAttributesTest extends \TestCase
     {
         $this->logInAsAdmin();
 
-        $property = factory('App\AttributeProperty')->create([
+        $property = factory('App\ProductAttribute')->create([
             'name' => 'Lampshade Size',
             ]);
 
-        $response = $this->call('DELETE', "admin/attributes/{$property->id}");
+        $response = $this->call('DELETE', "/admin/attributes/{$property->id}");
 
-        $response->assertRedirect('admin/attributes');
+        $response->assertRedirect('/admin/attributes');
         $this->assertDatabaseMissing('product_attributes', ['slug' => 'lampshade_size']);
     }
 }

@@ -1,0 +1,107 @@
+version: 2
+
+jobs:
+  testjs:
+    docker:
+      - image: node:8
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - skd-node-dependencies-{{ checksum "yarn.lock" }}
+            - skd-node-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: skd-node-dependencies-{{ checksum "yarn.lock"}}
+
+      - run: npm rebuild node-sass
+      - run: yarn test
+      - run:
+          name: Build bundle
+          command: yarn production
+      - persist_to_workspace:
+          root: public
+          paths:
+            - js
+            - css
+            - fonts
+            - images
+            - mix-manifest.json
+  testphp:
+    docker:
+      - image: circleci/php:7.1-browsers
+        environment:
+          APP_ENV: testing
+          APP_DEBUG: true
+          DB_DRIVER: mysql
+          DB_HOST: 127.0.0.1
+          DB_DATABASE: samarkand_test
+          DB_USERNAME: root
+          DB_PASSWORD: secret
+      - image: mysql:5
+        environment:
+          MYSQL_DATABASE: samarkand_test
+          MYSQL_ROOT_PASSWORD: secret
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: install dockerize if not found in cache
+          environment:
+            DOCKERIZE_VERSION: v0.6.0
+          command: if \[ -f /usr/local/bin/dockerize \]; then
+            echo "dockerize found; skipping installation";
+            else wget   https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz;
+            fi
+
+      - run:
+          name: Install PHP Extensions
+          command: |
+            sudo apt-get update -y && sudo apt-get install -y libpng-dev;
+            sudo docker-php-ext-install gd exif pcntl pdo_mysql > /dev/null;
+
+      - attach_workspace:
+          at: public
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - skd-composer-dependencies-{{ checksum "composer.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - skd-composer-dependencies-
+
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: skd-composer-dependencies-{{ checksum "composer.lock" }}
+
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+
+      # run tests!
+      - run: ./vendor/bin/phpunit
+
+workflows:
+  version: 2
+  samarkand-workflow:
+    jobs:
+      - testjs
+      - testphp:
+          requires:
+            - testjs
