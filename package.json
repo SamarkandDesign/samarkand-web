@@ -1,9 +1,5 @@
 {
   "private": true,
-  "engines": {
-    "node": "8.x",
-    "yarn": "1.10.x"
-  },
   "browser": {
     "bootstrap": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"
   },
@@ -35,8 +31,7 @@
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dc:migrate": "docker-compose run samarkand-app 'php artisan migrate'",
-    "postinstall": "yarn production"
+    "dc:migrate": "docker-compose run samarkand-app 'php artisan migrate'"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
