@@ -31,7 +31,6 @@ class ProductAttributesTest extends \TestCase
             'name' => 'Lampshade Size',
         ]);
 
-
         $response = $this->get("/admin/attributes/{$property->id}/edit");
         $response->assertSee('Edit Attribute');
 
