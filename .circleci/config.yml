@@ -125,7 +125,7 @@ jobs:
       - run: git config user.email commiter@circleci.com && git config user.name $CIRCLE_USERNAME
       - run: git add --force public && git commit -m "Add built assets"
       - run: git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_PRODUCTION_APP_NAME.git
-      - run: git push heroku-staging master -f
+      - run: git push heroku master -f
 
 workflows:
   version: 2
