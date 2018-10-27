@@ -129,23 +129,48 @@ jobs:
 
 workflows:
   version: 2
-  samarkand-workflow:
+  release:
     jobs:
-      - testjs
+      - testjs:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
       - testphp:
           requires:
             - testjs
-      - deploy_to_staging:
-          type: approval
-          requires:
-            - testjs
-            - testphp
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
       - deploy_to_production:
           requires:
             - testjs
             - testphp
           filters:
             tags:
-              only: /^v.*/
+              only: /.*/
             branches:
+              ignore: /.*/
+  build-n-test:
+    jobs:
+      - testjs:
+          filters:
+            tags:
+              ignore: /.*/
+      - testphp:
+          requires:
+            - testjs
+          filters:
+            tags:
+              ignore: /.*/
+      - deploy_to_staging:
+          type: approval
+          requires:
+            - testjs
+            - testphp
+          filters:
+            tags:
               ignore: /.*/
