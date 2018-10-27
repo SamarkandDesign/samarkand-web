@@ -167,11 +167,19 @@ workflows:
           filters:
             tags:
               ignore: /.*/
-      - deploy_to_staging:
+      - hold:
           type: approval
           requires:
             - testjs
             - testphp
+          filters:
+            tags:
+              ignore: /.*/
+      - deploy_to_staging:
+          requires:
+            - testjs
+            - testphp
+            - hold
           filters:
             tags:
               ignore: /.*/

@@ -71,7 +71,7 @@
     <div class="sections">
       @if ($product->inStock())
       <section>
-          <form action="/cart" method="POST" class="form-">
+          <form action="/cart" method="POST" id="add-to-cart-form">
               {{ csrf_field() }}
               <input type="hidden" name="product_id" value="{{ $product->id }}">
               <div class="row">
@@ -80,7 +80,7 @@
                    <input type="number" name="quantity" value="1" min="1" step="1" max="{{ $product->stock_qty }}" class="form-control" required>
                  </div>
               </div>
-              <input type="submit" class="btn btn-success btn-block" value="Add To Cart">
+              <button type="submit" class="btn btn-success btn-block">Add To Cart</button>
           </form>
       </section>
       @endif
