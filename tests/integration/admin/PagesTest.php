@@ -35,7 +35,8 @@ class PagesTest extends \TestCase
             'published_at'  => '2016-03-14T16:36:15',
             ]);
 
-        $response->assertRedirect('admin/pages/2/edit');
+        $newlyCreatePage = Page::where('slug', 'my-first-title')->first();
+        $response->assertRedirect("admin/pages/{$newlyCreatePage->id}/edit");
 
         $this->assertDatabaseHas('pages', ['slug' => 'my-first-title']);
 

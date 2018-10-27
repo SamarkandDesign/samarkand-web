@@ -11,10 +11,11 @@ class OrderStatusChangedTest extends TestCase
     /** @test **/
     public function it_logs_an_order_note_when_an_order_status_changes()
     {
-        event(new OrderStatusChanged(22, Order::PAID, Order::CANCELLED));
+        $order = factory(Order::class)->create();
+        event(new OrderStatusChanged($order->id, Order::PAID, Order::CANCELLED));
 
         $this->assertDatabaseHas('order_notes', [
-            'order_id' => 22,
+            'order_id' => $order->id,
             'key'      => 'status_changed',
             ]);
     }
