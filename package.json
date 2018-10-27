@@ -25,18 +25,12 @@
     "vue-resource": "^1.0.3"
   },
   "scripts": {
-    "test":
-      "./node_modules/.bin/mocha ./resources/assets/js/tests --compilers js:babel-core/register",
-    "composer":
-      "docker run --rm -v $(pwd):/app composer/composer install --ignore-platform-reqs --no-scripts",
-    "dev":
-      "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch":
-      "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot":
-      "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production":
-      "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "test": "./node_modules/.bin/mocha ./resources/assets/js/tests --compilers js:babel-core/register",
+    "composer": "docker run --rm -v $(pwd):/app composer/composer install --ignore-platform-reqs --no-scripts",
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "dc:migrate": "docker-compose run samarkand-app 'php artisan migrate'"
   },
   "dependencies": {
