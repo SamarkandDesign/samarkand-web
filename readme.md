@@ -1,15 +1,31 @@
 # Samarkand Design
 
-This is the official web application of Samarkand Design. Built with Laravel 5.2.
+This is the official web application of Samarkand Design. Built with Laravel 5.4.
 
-## Usage
+## Run Locally
+
+To avoid having to install lots of dependencies on your machine there is a docker-compose configuration that provides the necessary services.
 
 1. Clone the repo to your working directory
-2. Run `composer install` to install dependencies
-3. Set your environment variables, including database config. (see `.env.example` for examples)
-4. Run `php artisan migrate` to set up the database
-5. Run `skd:init <email> <password>` to create a new admin user with those credentials
-6. Serve it up and enjoy
+2. Run `yarn composer`/`npm run composer` to install dependencies (or view `package.json` to see the full command if Yarn/npm is not installed).
+3. Start up the containers with `docker-compose up`.
+4. Run `docker-compose run samarkand-app sh -c 'php artisan migrate'` to migrate the db. (database container must be running).
+
+### Included containers
+
+The docker-compose configuration includes a number of services to make local development easier. The following are exposed to the host:
+
+- The app itself: http://localhost:8080.
+- MySQL database `localhost:3306.
+- Mailhog, a local mailserver that logs emails sent by the application: http://localhost:8025
+
+### Running commands
+
+To run a command just use the standard docker-compose syntax:
+
+```
+docker-compose run samarkand-app sh -c '<command here>'
+```
 
 ### Notes on environment variables
 
@@ -27,11 +43,8 @@ PSR-2 code style should be used throughout. This is auto-checked with StyleCI
 
 ### Front End
 
-The app uses npm modules with browserify for front-end scripts. Vue components are used and compiled with vueify. You should install the node dependencies with `npm install` before making changes.
+Vue components are used and compiled with Laravel mix. You should install the node dependencies with `yarn install` before making changes.
 
 Styles are compiled from SASS.
 
-The whole lot can then be recompiled by running `gulp`.
-
-
-[1]: https://almsaeedstudio.com/
+The whole lot can then be recompiled by running `yarn production`.
