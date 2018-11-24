@@ -19,9 +19,9 @@ Route::get('cart', ['uses' => 'CartController@index', 'as' => 'cart', 'middlewar
 Route::post('cart', ['uses' => 'CartController@store', 'as' => 'cart.store']);
 Route::delete('cart/{rowid}', ['uses' => 'CartController@remove', 'as' => 'cart.remove']);
 
-Route::get('checkout', ['uses' => 'CheckoutController@show', 'as' => 'checkout.show', 'middleware' => 'cart.empty']);
+Route::get('checkout', ['uses' => 'OrdersController@create', 'as' => 'checkout.show', 'middleware' => 'cart.empty']);
 Route::get('checkout/shipping', ['uses' => 'ShippingMethodsController@show', 'as' => 'checkout.shipping']);
-Route::get('checkout/pay', ['uses' => 'CheckoutController@pay', 'as' => 'checkout.pay']);
+Route::get('checkout/pay', ['uses' => 'PaymentsController@create', 'as' => 'checkout.pay']);
 
 Route::post('orders', ['uses' => 'OrdersController@store', 'as' => 'orders.store']);
 Route::post('orders/shipping', ['uses' => 'ShippingMethodsController@store', 'as' => 'orders.shipping']);

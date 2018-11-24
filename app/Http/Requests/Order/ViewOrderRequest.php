@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Order;
 
 use App\Http\Requests\Request;
+use App\Order;
 
 class ViewOrderRequest extends Request
 {

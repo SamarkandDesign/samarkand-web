@@ -8,6 +8,33 @@ use App\Billing\GatewayInterface;
 
 class PaymentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('order.session');
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the page for paying for an order.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $order = Order::find($request->session()->get('order_id'));
+
+        if (!$order->hasShipping()) {
+            return redirect()->route('checkout.shipping')->with([
+                'alert'       => 'Please select a shipping method',
+                'alert-class' => 'warning',
+                ]);
+        }
+
+        return view('orders.pay', ['order' => $order]);
+    }
+
     /**
      * Create a new payment for an order.
      *
@@ -19,13 +46,6 @@ class PaymentsController extends Controller
     {
         $this->validate($request, ['order_id' => 'required|numeric', 'stripe_token' => 'required']);
         $order = Order::find($request->order_id);
-
-        if ($order->status !== Order::PENDING) {
-            return redirect()->route('products.index')->with([
-            'alert'       => 'Oops, This order has either already been paid for or has been cancelled. Please create a new order to proceed.',
-            'alert-class' => 'danger',
-            ]);
-        }
 
         try {
             $charge = $gateway->charge([
@@ -44,7 +64,6 @@ class PaymentsController extends Controller
             ]);
         }
 
-        $request->session()->forget('order');
         event(new \App\Events\OrderWasPaid($order, $charge->id));
 
         \Cart::destroy();

@@ -33,22 +33,22 @@ class CartController extends Controller
         $qty = (int) $request->quantity;
 
         Cart::add([
-      'id'    => $product->id,
-      'qty'   => $qty,
-      'name'  => $product->name,
-      'price' => $product->getPrice()->asDecimal(),
-    ])->associate(Product::class);
+          'id'    => $product->id,
+          'qty'   => $qty,
+          'name'  => $product->name,
+          'price' => $product->getPrice()->asDecimal(),
+        ])->associate(Product::class);
 
-        $request->session()->forget('order');
+        $alert = new HtmlString(sprintf('%d %s added to cart. %s',
+          $qty,
+          str_plural($product->name, $qty),
+          '<a href="/checkout" class="btn btn-primary pull-right"><i class="fa fa-shopping-cart"></i> Checkout</a>'
+        ));
 
         return redirect()->back()->with([
-      'alert'       => new HtmlString(sprintf('%d %s added to cart. %s',
-      $qty,
-      str_plural($product->name, $qty),
-      '<a href="/checkout" class="btn btn-primary pull-right"><i class="fa fa-shopping-cart"></i> Checkout</a>'
-    )),
-    'alert-class' => 'success',
-  ]);
+          'alert'       => $alert,
+          'alert-class' => 'success',
+        ]);
     }
 
     /**
@@ -66,8 +66,6 @@ class CartController extends Controller
         Cart::remove($rowid);
 
         $route = Cart::count() > 0 ? 'cart' : 'products.index';
-
-        $request->session()->forget('order');
 
         return redirect()->route($route)->with([
     'alert'       => "{$product->name} removed from cart",

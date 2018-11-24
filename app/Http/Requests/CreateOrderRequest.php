@@ -46,11 +46,11 @@ class CreateOrderRequest extends Request
         $messages = collect([
             'billing_address_id.required'  => 'Please pick a billing address.',
             'shipping_address_id.required' => 'Please pick a shipping address.',
-            ]);
+        ]);
 
         foreach (Address::$rules as $field => $rule) {
-            $messages->put("billing_address.$field.required", sprintf('The billing address %s is required.', str_replace('_', ' ', $field)));
-            $messages->put("shipping_address.$field.required", sprintf('The shipping address %s is required.', str_replace('_', ' ', $field)));
+            $messages->put("address.billing.$field.required", sprintf('The billing address %s is required.', str_replace('_', ' ', $field)));
+            $messages->put("address.shipping.$field.required", sprintf('The shipping address %s is required.', str_replace('_', ' ', $field)));
         }
 
         return $messages->toArray();
@@ -68,9 +68,10 @@ class CreateOrderRequest extends Request
         $rules = collect([]);
 
         foreach (Address::$rules as $field => $rule) {
-            $rules->put("{$type}_address.$field", $rule);
+            $rules->put("address.{$type}.$field", $rule);
         }
-        $rules->put("{$type}_address.name", 'required|max:255');
+        // the name field is required in this case
+        $rules->put("address.{$type}.name", 'required|max:255');
 
         return $rules;
     }

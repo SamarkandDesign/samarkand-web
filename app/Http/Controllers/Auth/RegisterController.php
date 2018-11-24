@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -27,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -44,9 +45,12 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
-        abort(404);
+        if ($request->session()->has('url.intended')) {
+            $request->session()->flash('url.intended', $request->session()->get('url.intended'));
+        }
+        return view('auth.register');
     }
 
     /**
@@ -61,7 +65,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
     }
 
@@ -76,6 +80,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name'     => $data['name'],
+            'username' => $data['email'],
             'email'    => $data['email'],
             'password' => $data['password'],
         ]);
