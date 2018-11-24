@@ -2,54 +2,35 @@
 
 @section('content')
 
-<h1 class="text-center">Register</h1>
 @include('partials.errors')
-
-<form class="form-horizontal" role="form" method="POST" action="{{ route('auth.register') }}">
+<div class="row">
+<form class="col-sm-6 col-sm-offset-3" role="form" method="POST" action="{{ route('register') }}">
+	<h1>Create an account</h1>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="form-group">
-		<label class="col-md-4 control-label">Name</label>
-		<div class="col-md-6">
-			<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-		</div>
+		<label class="control-label">Your name</label>
+		<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+	</div>
+
+
+	<div class="form-group">
+		<label class="control-label">Email address</label>
+		<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 	</div>
 
 	<div class="form-group">
-		<label class="col-md-4 control-label">Username</label>
-		<div class="col-md-6">
-			<input type="text" class="form-control" name="username" value="{{ old('username') }}">
-		</div>
+		<label class="control-label">Password</label>
+		<input type="password" class="form-control" name="password">
 	</div>
 
 	<div class="form-group">
-		<label class="col-md-4 control-label">E-Mail Address</label>
-		<div class="col-md-6">
-			<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-md-4 control-label">Password</label>
-		<div class="col-md-6">
-			<input type="password" class="form-control" name="password">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-md-4 control-label">Confirm Password</label>
-		<div class="col-md-6">
-			<input type="password" class="form-control" name="password_confirmation">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<div class="col-md-6 col-md-offset-4">
+		<div class="">
 			<button type="submit" class="btn btn-primary">
-				Register
+				Create account
 			</button>
 		</div>
 	</div>
 </form>
-
+</div>
 @endsection

@@ -44,9 +44,8 @@ Checkout
 @include('partials.errors')
 
 <div id="checkout">
-  <form action="orders" method="POST" id="checkout-form">
+  <form action="/orders" method="POST" id="checkout-form">
     {{ csrf_field() }}
-
 
     @if (Auth::guest())
     <div class="row">
@@ -84,7 +83,7 @@ Checkout
         @foreach (Auth::user()->addresses as $address)
         <div class="radio">
           <label>
-            {!! Form::radio('billing_address_id', $address->id, $address->id == $order->billing_address_id, ['id' =>"billing_address_{$address->id}" ]) !!}
+            {!! Form::radio('billing_address_id', $address->id, $address->id === old('billing_address_id'), ['id' =>"billing_address_{$address->id}" ]) !!}
             @include('partials.address', compact('address'))
           </label>
         </div>
@@ -96,7 +95,7 @@ Checkout
         @foreach (Auth::user()->addresses as $address)
         <div class="radio">
           <label>
-            {!! Form::radio('shipping_address_id', $address->id, $address->id == $order->shipping_address_id, ['id' =>"shipping_address_{$address->id}" ]) !!}
+            {!! Form::radio('shipping_address_id', $address->id, $address->id === old('shipping_address_id'), ['id' => "shipping_address_{$address->id}" ]) !!}
             @include('partials.address', compact('address'))
           </label>
         </div>
@@ -118,10 +117,10 @@ Checkout
 
     <address-form :differentshipping="{{ old('different_shipping_address') ? 'true' : 'false' }}">
         <div slot="billing-address">
-            @include('partials.address_form', ['type' => 'billing'])
+            @include('partials.address_form', ['type' => 'billing', 'address' => old('address.billing')])
         </div>
         <div slot="shipping-address">
-            @include('partials.address_form', ['type' => 'shipping'])
+            @include('partials.address_form', ['type' => 'shipping', 'address' => old('address.shipping')])
 
         </div>
 

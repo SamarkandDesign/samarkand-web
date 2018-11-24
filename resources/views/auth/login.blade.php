@@ -6,45 +6,71 @@ Login
 
 @section('content')
 	@include('partials.errors')
-	<h1 class="text-center">Login</h1>
+	<div class="row">
+		<div class="col-sm-6">
+			<h2>Login</h2>
 
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<form role="form" method="POST" action="{{ route('login') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-		<div class="form-group">
-			<label class="col-md-4 control-label">E-Mail Address</label>
-			<div class="col-md-6">
-				<input type="text" class="form-control" name="email" value="{{ old('email', Request::get('email')) }}">
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="col-md-4 control-label">Password</label>
-			<div class="col-md-6">
-				<input type="password" class="form-control" name="password">
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="col-md-6 col-md-offset-4">
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" name="remember"> Remember Me
-					</label>
+				<div class="form-group">
+					<label class="control-label">E-Mail Address</label>
+					<input type="text" class="form-control" name="email" value="{{ old('email', Request::get('email')) }}">
 				</div>
-			</div>
+
+				<div class="form-group">
+					<label class="control-label">Password</label>
+					<input type="password" class="form-control" name="password">
+				</div>
+
+				<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="remember"> Remember Me
+							</label>
+						</div>
+				</div>
+
+				<div class="form-group">
+						<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
+							Login
+						</button>
+
+						<a href="/password/reset">Forgot Your Password?</a>
+				</div>
+			</form>
 		</div>
 
-		<div class="form-group">
-			<div class="col-md-6 col-md-offset-4">
-				<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
-					Login
-				</button>
+		<div class="col-sm-6">
+			<h2>Create an account</h2>
+			<form role="form" method="POST" action="{{ route('register') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-				<a href="/password/reset">Forgot Your Password?</a>
-			</div>
+				<div class="form-group">
+					<label class="control-label">Your name</label>
+					<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+				</div>
+
+
+				<div class="form-group">
+					<label class="control-label">Email address</label>
+					<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Password</label>
+					<input type="password" class="form-control" name="password">
+				</div>
+
+				<div class="form-group">
+					<div class="">
+						<button type="submit" class="btn btn-primary">
+							Create account
+						</button>
+					</div>
+				</div>
+			</form>
 		</div>
-	</form>
-
+	</div>
 
 @endsection
