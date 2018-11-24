@@ -23,6 +23,7 @@
     <![endif]-->
     @include('partials._ga')
     @include('partials._heap')
+    @include('partials._fullstory')
 </head>
 <body>
     <div id="app">

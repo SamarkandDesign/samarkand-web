@@ -67,5 +67,13 @@ My Account
     <a href="{{ route('addresses.index') }}" class="btn btn-default">Manage Addresses</a>
 </p>
 
+@if ($user->trade_discount > 0)
+    <div>
+        <h3>Trade Discount</h3>
+        <p>As a trade customer your discount will be automatically applied to each order on all products except sale products.</p>
+        <p>Your discount is {{$user->trade_discount}}%.</p>
+    </div>
+@endif
+
 
 @stop

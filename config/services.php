@@ -55,4 +55,8 @@ return [
     'heap' => [
         'key' => env('HEAP_KEY'),
     ],
+
+    'fullstory' => [
+        'org' => env('FULLSTORY_ORG'),
+    ],
 ];
