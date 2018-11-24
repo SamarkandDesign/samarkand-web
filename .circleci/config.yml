@@ -70,8 +70,8 @@ jobs:
       - run:
           name: Install PHP Extensions
           command: |
-            sudo apt-get update -y && sudo apt-get install -y libpng-dev;
-            sudo docker-php-ext-install gd exif pcntl pdo_mysql > /dev/null;
+            sudo -E apt-get update -y && sudo apt-get install -y libpng-dev;
+            sudo -E docker-php-ext-install gd exif pcntl pdo_mysql > /dev/null;
 
       - attach_workspace:
           at: public
