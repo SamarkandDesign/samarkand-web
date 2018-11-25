@@ -62,14 +62,14 @@
             </transition>
 
             <div class="row">
-                <div class="col-sm-4 col-md-2 col-sm-push-8 col-md-push-10">
+                <div class="col-sm-4 col-md-3 col-sm-push-8 col-md-push-9">
                     <button @click.prevent="submitForm" class="btn btn-lg btn-success btn-block" :disabled="isLoading">
                       <span v-show="isLoading"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading...</span>
                       <span v-show="!isLoading">Place Order</span>
                   </button>
               </div>
-              <div class="col-sm-8 col-md-10 col-sm-pull-4 col-md-pull-2">
-                <p class="top-buffer"><i class="fa fa-lock"></i> Your card details are securely encrypted and handled by our payment processor. You are safe.</p>
+              <div class="col-sm-8 col-md-9 col-sm-pull-4 col-md-pull-3">
+                <p class="top-buffer"><i class="fa fa-lock"></i> Your card details are securely encrypted and handled by our payment processor.</p>
                 <p class="accepted-cards">
                     <svg v-for="card in acceptedCards" :class="`svg svg-${card}`"><use :xlink:href="`/img/sprite.svg#svg-${card}`"></use></svg>
                 </p>
@@ -88,7 +88,11 @@
             'route': {type: String, required: true},
             'stripeKey': { type: String, required: true },
             'billingName': { type: String, required: true },
-            'billingAddress': { type: Object, required: true }
+            addressLine1: { type: String },
+            addressLine2: { type: String },
+            addressCity: { type: String },
+            addressZip: { type: String },
+            addressCountry: { type: String },
         },
         data () {
             return {
@@ -122,12 +126,19 @@
 
                 try {
                     // build the card object
-                    let card = Object.assign({}, this.card, this.billingAddress)
-                    card.name = this.billingName
+                    const address = {
+                        name: this.billingName,
+                        addressLine1: this.addressLine1,
+                        addressLine2: this.addressLine2,
+                        addressCity: this.addressCity,
+                        addressZip: this.addressZip,
+                        addressCountry: this.addressCountry,
+                    };
+                    const card = Object.assign({}, this.card, address);
 
-                    const exp = this.expiryString
-                    card.exp_year = exp.year
-                    card.exp_month = exp.month
+                    const exp = this.expiryString;
+                    card.exp_year = exp.year;
+                    card.exp_month = exp.month;
 
                     window.Stripe.card.createToken(card, this.stripeResponseHandler);
                 } catch (e) {
