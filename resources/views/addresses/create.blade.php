@@ -16,10 +16,10 @@ Add Address
 
 @section('content')
 
-<h1>Add New Address</h1>
 @include('partials.errors')
 
 <div class="col-md-offset-3 col-md-6">
+<h1>Add New Address</h1>
 {!! Form::model($address, ['route' => ['addresses.store'], 'method' => 'POST']) !!}
     @include('addresses.form')
     <input type="submit" class="btn btn-success" value="Save Address">

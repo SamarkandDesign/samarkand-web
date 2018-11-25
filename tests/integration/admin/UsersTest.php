@@ -100,7 +100,7 @@ class UsersTest extends TestCase
         $this->logInAsAdmin();
 
         $response = $this->get("admin/users/{$user->username}/orders");
-        $this->assertContains("#{$order_item->id}", $response->getContent());
+        $this->assertContains("#{$order_item->order->id}", $response->getContent());
     }
 
     /** @test **/

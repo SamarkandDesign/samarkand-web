@@ -112,6 +112,14 @@ class ShopTest extends TestCase
     }
 
     /** @test **/
+    public function it_handles_removing_a_non_existent_item_from_the_cart()
+    {
+        $response = $this->delete("/cart/fofooofoofo");
+
+        $response->assertRedirect('/shop');
+    }
+
+    /** @test **/
     public function it_shows_a_list_of_products_in_a_given_category()
     {
         $product_group_1 = factory(Product::class, 4)->create();

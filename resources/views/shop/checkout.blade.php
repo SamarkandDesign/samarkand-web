@@ -103,7 +103,7 @@ Checkout
 
         <div slot="delivery-note">
           <div class="form-group">
-            <label for="delivery_note">Delivery Notes</label>
+            <label for="delivery_note">Delivery notes</label>
             <textarea name="delivery_note" id="del" class="form-control"></textarea>
           </div>
         </div>

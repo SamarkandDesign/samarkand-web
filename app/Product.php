@@ -74,21 +74,21 @@ class Product extends Model implements HasMediaConversions, Termable
      * @var array
      */
     protected $fillable = [
-  'name',
-  'slug',
-  'description',
-  'user_id',
-  'media_id',
-  'status',
-  'price',
-  'sale_price',
-  'sku',
-  'stock_qty',
-  'published_at',
-  'listed',
-  'location',
-  'featured',
-  ];
+        'name',
+        'slug',
+        'description',
+        'user_id',
+        'media_id',
+        'status',
+        'price',
+        'sale_price',
+        'sku',
+        'stock_qty',
+        'published_at',
+        'listed',
+        'location',
+        'featured',
+    ];
 
     /**
      * The attributes that should be casted to native types.

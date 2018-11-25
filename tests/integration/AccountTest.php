@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use App\Address;
 use App\User;
 use TestCase;
 
@@ -20,16 +21,17 @@ class AccountTest extends TestCase
     /** @test **/
     public function it_can_view_an_order_summary_with_a_deleted_address()
     {
-        $this->createOrder();
+        $order = $this->createOrder();
 
         $this->be($this->customer);
 
-        $response = $this->get('/account/addresses');
-        // ->press('Delete')
-        // $this->assertContains('Address deleted', $response->getContent());
+        $address = Address::find($order->billing_address_id);
+
+        $this->delete("/addresses/{$order->billing_address_id}");
 
         $response = $this->get("/account/orders/{$this->order->id}");
-        $this->assertContains("Order #{$this->order->id}", $response->getContent());
+        $response->assertSee("Order #{$this->order->id}");
+        $response->assertSee($address->line_1);
     }
 
     /** @test **/
@@ -44,7 +46,8 @@ class AccountTest extends TestCase
         $this->be($this->customer);
 
         $response = $this->get("/account/orders/{$this->order->id}");
-        $this->assertContains("Order #{$this->order->id}", $response->getContent());
+        $response->assertSee("Order #{$this->order->id}");
+        $response->assertSee($product->name);
     }
 
     /** @test **/

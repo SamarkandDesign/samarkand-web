@@ -36,6 +36,6 @@
 </div>
 
 <div class="form-group {{ $errors->has("phone") ? 'has-error' : '' }}">
-    <label for="phone">Phone Number</label>
+    <label for="phone">Phone number</label>
     {!! Form::tel('phone', null, ['class' => 'form-control', 'id' => 'phone']) !!}
 </div>
