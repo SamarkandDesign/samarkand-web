@@ -6,7 +6,6 @@ Forgot Password
 
 @section('content')
 
-<h1 class="text-center">Reset Your Password</h1>
 	@if (session('status'))
 	<div class="alert alert-success">
 		{{ session('status') }}
@@ -14,12 +13,13 @@ Forgot Password
 	@endif
 
 	@include('partials.errors')
+	<h1 class="text-center">Reset Your Password</h1>
 
 	<form class="form-horizontal" role="form" method="POST" action="/password/email">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 		<div class="form-group">
-			<label class="col-md-4 control-label">E-Mail Address</label>
+			<label class="col-md-4 control-label">Email address</label>
 			<div class="col-md-6">
 				<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 			</div>
@@ -28,7 +28,7 @@ Forgot Password
 		<div class="form-group">
 			<div class="col-md-6 col-md-offset-4">
 				<button type="submit" class="btn btn-primary">
-					Send Password Reset Link
+					Send password reset link
 				</button>
 			</div>
 		</div>

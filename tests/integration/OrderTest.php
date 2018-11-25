@@ -2,10 +2,11 @@
 
 namespace Integration;
 
-use App\User;
 use TestCase;
+use App\Address;
 use App\Order;
 use App\Product;
+use App\User;
 
 class OrderTest extends TestCase
 {
@@ -18,294 +19,145 @@ class OrderTest extends TestCase
     }
 
     /** @test **/
-    public function it_redirects_to_login_if_email_is_recognised()
-    {
-        $user = factory(User::class)->create([
-      'password' => 'secret',
-    ]);
-        $product = $this->putProductInCart();
-
-        $response = $this->get('checkout');
-
-        $response = $this->post('/orders', [
-      'email' => $user->email,
-    ]);
-
-        $response->assertRedirect(sprintf('login?email=%s', urlencode($user->email)));
-    }
-
-    /** @test **/
-    public function it_auto_creates_a_user_for_the_order_when_not_logged_in()
+    public function it_prompts_for_registration_when_visiting_checkout()
     {
         $product = $this->putProductInCart();
-        $shipping_method = factory('App\ShippingMethod')->create()->allowCountries(['GB']);
+        $response = $this->get('/checkout');
 
-        $response = $this->get('checkout');
-
-        $response = $this->post('/orders', array_merge($this->getAddressFields(), [
-        'email' => 'booboo@tempuser.com',
-        'delivery_note' => 'Leave in the barn',
-      ]));
-
-        $response->assertRedirect('/checkout/shipping');
-
-        // $expectedTotal = $product->getPrice()->value() + $shipping_method->getPrice()->value();
-
-        $this->assertDatabaseHas('orders', [
-        // 'amount' => $expectedTotal,
-        'status' => 'pending',
-        'delivery_note' => 'Leave in the barn',
-      ]);
-
-        $this->assertTrue(User::where('email', 'booboo@tempuser.com')->first()->autoCreated());
-        $this->assertDatabaseHas('addresses', ['city' => 'London']);
-    }
-
-    /** @test **/
-    public function it_creates_an_order_from_a_logged_in_user()
-    {
-        $user = $this->loginWithUser([], 'customer');
-        $product = $this->putProductInCart();
-        $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
-        $shipping_method = factory('App\ShippingMethod')->create()->allowCountries(['GB']);
-
-        $current_stock = $product->stock_qty;
-
-        $response = $this->get('checkout');
-
-        $response = $this->followRedirects($this->post('/orders', [
-        'delivery_note' => 'Leave in the barn',
-        'billing_address_id' => $address->id,
-        'shipping_address_id' => $address->id,
-      ]));
-
-        $response->assertSee('<h1>Pay</h1>');
-
-        $order = \App\Order::where('user_id', $user->id)->first();
-        $this->assertDatabaseHas('orders', [
-        'status' => 'pending',
-        'delivery_note' => 'Leave in the barn',
-        'amount' => $shipping_method->getPrice()->value() + $product->getPrice()->value(),
-      ]);
-
-        $this->assertEquals($address->id, $order->billing_address_id);
-        $this->assertEquals($address->id, $order->shipping_address_id);
-
-        $this->assertEquals($current_stock, $product->fresh()->stock_qty);
-    }
-
-    /** @test **/
-    public function it_asks_for_a_shipping_method_if_more_than_one_is_available()
-    {
-        $user = $this->loginWithUser([], 'customer');
-        $product = $this->putProductInCart();
-        $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
-
-        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 550])->allowCountries(['GB']);
-        $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 650])->allowCountries(['GB']);
-        $this->get('checkout');
-        $response = $this->post('/orders', [
-        'billing_address_id' => $address->id,
-        'shipping_address_id' => $address->id,
-      ]);
-
-        $response = $this->get('/checkout/shipping');
-        $response->assertSee($shipping_method->description);
-        $response->assertSee($shipping_method_2->description);
-
-        $response = $this->post('/orders/shipping', [
-        'shipping_method_id' => $shipping_method_2->id,
+        $response->assertRedirect('/login');
+        $response = $this->post('/register', [
+            'name' => 'Jimmy',
+            'email' => 'jimmy@example.com',
+            'password' => 'secret',
         ]);
 
-        $response->assertRedirect('checkout/pay');
-    }
+        $response->assertRedirect('/checkout');
+        $response =  $this->followRedirects($response);
 
-    /** @test **/
-    public function it_auto_assigns_shipping_if_only_one_method_available()
-    {
-        $user = $this->loginWithUser([], 'customer');
-        $product = $this->putProductInCart();
-        $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
-        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 500]);
-        $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 600]);
-
-        $shipping_method->allowCountries(['GB']);
-        $shipping_method_2->allowCountries(['US']);
-
-        $this->get('checkout');
-        $response = $this->followRedirects($this->post('/orders', [
-        'billing_address_id' => $address->id,
-        'shipping_address_id' => $address->id,
-      ]));
-        $response->assertSee($shipping_method->description);
-        $response->assertSee('Order Details');
-    }
-
-    /** @test **/
-    public function it_does_not_allow_selecting_a_shipping_method_for_the_wrong_country()
-    {
-        $user = $this->loginWithUser([], 'customer');
-        $product = $this->putProductInCart();
-        $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'GB']);
-
-        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 500]);
-        $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 600]);
-        $shipping_method_3 = factory('App\ShippingMethod')->create(['base_rate' => 200]);
-
-        $shipping_method->allowCountries(['GB']);
-        $shipping_method_2->allowCountries(['GB']);
-
-        $response = $this->get('checkout');
-        $response = $this->followRedirects($this->post('/orders', [
-        'billing_address_id' => $address->id,
-        'shipping_address_id' => $address->id,
-      ]));
-        // // simulate a post request as if the user maliciously changed
-        // // the form on the page to choose shipping method 3
-        $response = $this->post('/orders/shipping', [
-        'shipping_method_id' => $shipping_method_3->id,
-      ]);
-
-        $response->assertRedirect('/checkout/shipping');
-    }
-
-    /** @test **/
-    public function it_redirects_if_no_shipping_is_available()
-    {
-        $user = $this->loginWithUser([], 'customer');
-        $product = $this->putProductInCart();
-        $address = factory(\App\Address::class)->create(['addressable_id' => $user->id, 'country' => 'FR']);
-        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 500]);
-
-        $shipping_method->allowCountries(['GB']);
-
-        $response = $this->get('checkout');
-        $response = $this->followRedirects($this->post('/orders', [
-        'billing_address_id' => $address->id,
-        'shipping_address_id' => $address->id,
-      ]));
-        $response->assertSee('choose a different shipping address');
-    }
-
-    /** @test **/
-    public function it_creates_a_user_for_the_order_when_they_select_to_make_new_account()
-    {
-        $product = $this->putProductInCart();
-        factory('App\ShippingMethod')->create(['base_rate' => 500])->allowCountries(['GB']);
-
-        $response = $this->get('checkout');
-        $request = array_merge($this->getAddressFields(), [
-        'email' => 'booboo@tempuser.com',
-        'create_account' => '1',
-        'password' => 'smoomoo',
-        'password_confirmation' => 'smoomoo',
+        $response->assertSee($product->name);
+        $this->assertDatabaseHas('users', [
+            'name' => 'Jimmy',
+            'email' => 'jimmy@example.com',
         ]);
-
-        $response = $this->followRedirects($this->post('orders', $request));
-        // $response->dump();
-
-        $this->assertDatabaseHas('addresses', ['city' => 'London']);
-        $user = User::where('email', 'booboo@tempuser.com')->first();
-        $this->assertFalse($user->autoCreated());
-
-        $this->assertDatabaseHas('orders', ['user_id' => $user->id, 'status' => \App\Order::PENDING]);
-        $this->assertTrue(\Auth::check());
     }
 
     /** @test **/
-    public function it_prompts_login_if_user_exists_but_is_signed_out()
+    public function it_prompts_for_login_when_visiting_checkout()
     {
+        $user = factory('App\User')->create(['password' => 'secret']);
+
         $product = $this->putProductInCart();
-        $user = factory(User::class)->create([
-        'password' => 'password',
-      ]);
+        $response = $this->get('/checkout');
 
-        $response = $this->get('checkout');
-
-        $request = array_merge($this->getAddressFields(), [
-        'email' => $user->email,
-        ]);
-
-        $response = $this->followRedirects($this->post('orders', $request));
-        $response->assertSee('This email has an account here');
-
+        $response->assertRedirect('/login');
         $response = $this->post('/login', [
-      'email' => $user->email,
-      'password' => 'password',
-      ]);
-
-        $response->assertRedirect('/checkout');
-    }
-
-    /** @test **/
-    public function it_validates_invalid_user_input()
-    {
-        $product = $this->putProductInCart();
-        $request = array_merge($this->getAddressFields(), [
-        'email' => 'tempuser.com',
+            'email' => $user->email,
+            'password' => 'secret',
         ]);
 
-        $response = $this->get('checkout');
-        $response = $this->post('orders', $request);
-
-        $response->assertSessionHasErrors(['email']);
         $response->assertRedirect('/checkout');
+        $response =  $this->followRedirects($response);
+
+        $response->assertSee($product->name);
+    }
+
+     /** @test **/
+     public function it_completes_an_order_using_a_new_address()
+     {
+        $user = $this->loginWithUser();
+        $shippingMethod = factory('App\ShippingCountry')->create()->shipping_method;
+
+        $product = $this->putProductInCart();
+        $response = $this->get('/checkout');
+
+        $response->assertSee($product->name);
+
+        $addressFields = factory(Address::class)->make([
+            'addressable_id' => $user->id,
+            'country' => 'gb',
+        ]);
+
+        // Submit the checkout form
+        $response = $this->post('/orders', [
+            // no 'different_shipping_address' field is sent
+            'address' => ['billing' => $addressFields->toArray()],
+            'delivery_note' => 'Leave in safe place',
+        ]);
+        $response->assertRedirect('/checkout/shipping');
+
+        $order = Order::where(['delivery_note' => 'Leave in safe place', 'status' => 'pending'])->first();
+        $address = Address::where(['line_1' => $addressFields['line_1']])->first();
+
+        $this->assertEquals($order->billing_address_id, $address->id);
+        $this->assertEquals($order->shipping_address_id, $address->id);
+
+        // Go straight to the payment page (shipping method should be auto-selected)
+        $response = $this->followRedirects($response);
+
+        $response->assertSee($product->name);
+        $response->assertSee($shippingMethod->description);
+
+        // Pay for the order
+        $response = $this->post(route('payments.store'), [
+            'order_id'     => $order->id,
+            'stripe_token' => 'tok_cardsuccesstoken',
+        ]);
+
+        $response->assertRedirect('/order-completed');
+        $response = $this->followRedirects($response);
+        $response->assertSee('Order Completed');
+
+        $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
+     }
+
+    /** @test **/
+    public function it_creates_an_order_with_different_new_addresses()
+    {
+        $user = $this->loginWithUser();
+
+        $product = $this->putProductInCart();
+        $response = $this->get('/checkout');
+
+        $billingAddressFields = factory(Address::class)->make(['addressable_id' => $user->id]);
+        $shippingAddressFields = factory(Address::class)->make(['addressable_id' => $user->id]);
+
+        $response = $this->post('/orders', [
+            'different_shipping_address' => '1',
+            'address' => [
+                'billing' => $billingAddressFields->toArray(),
+                'shipping' => $shippingAddressFields->toArray(),
+            ],
+            'delivery_note' => 'post to my special place',
+        ]);
+        $response->assertRedirect('/checkout/shipping');
+
+        $order = Order::where(['delivery_note' => 'post to my special place', 'status' => 'pending'])->first();
+        $billingAddress = Address::where(['line_1' => $billingAddressFields['line_1']])->first();
+        $shippingAddress = Address::where(['line_1' => $shippingAddressFields['line_1']])->first();
+
+        $this->assertEquals($order->billing_address_id, $billingAddress->id);
+        $this->assertEquals($order->shipping_address_id, $shippingAddress->id);
     }
 
     /** @test **/
-    public function it_views_an_order_summary()
+    public function it_creates_an_order_with_an_existing_address()
     {
-        $this->createOrder();
+        $user = $this->loginWithUser();
+        $address = factory(Address::class)->create(['addressable_id' => $user->id]);
 
-        $this->be($this->customer);
-        $order = $this->order;
+        $product = $this->putProductInCart();
+        $response = $this->get('/checkout');
 
-        $response = $this->get("account/orders/{$order->id}");
+        $response = $this->post('/orders', [
+            'billing_address_id' => $address->id,
+            'shipping_address_id' => $address->id,
+            'delivery_note' => 'Hey!',
+        ]);
+        $response->assertRedirect('/checkout/shipping');
 
-        $this->assertContains("{$order->amount->asDecimal()}", $response->getContent());
-    }
+        $order = Order::where(['delivery_note' => 'Hey!', 'status' => 'pending'])->first();
 
-    /** @test **/
-    public function it_does_not_allow_viewing_another_users_order_summary()
-    {
-        $this->createOrder();
-
-        // Login with a different user
-        $this->loginWithUser();
-
-        $response = $this->get("account/orders/{$this->order->id}");
-        $response->assertStatus(403);
-    }
-
-    /** @test */
-    public function it_allows_paying_for_a_previously_unpaid_order()
-    {
-        $order = $this->createOrder([
-      'status' => Order::PENDING,
-    ]);
-        $shipping_method = factory('App\ShippingMethod')->create(['base_rate' => 500]);
-        $shipping_method->allowCountries([$order->shipping_address->country]);
-
-        $order->setShipping($shipping_method->id);
-
-        $this->be($order->user);
-
-        $response = $this->followRedirects($this->get(route('orders.pay', $order)));
-
-        $this->assertContains($order->order_items->first()->description, $response->getContent());
-    }
-
-    protected function getAddressFields($type = 'billing')
-    {
-        return [
-      "{$type}_address" => [
-        'name' => 'Joe',
-        'line_1' => '10 Downing Street',
-        'city' => 'London',
-        'country' => 'GB',
-        'postcode' => 'SW1A 2AA',
-        'phone' => '01234567891',
-      ],
-    ];
+        $this->assertEquals($order->billing_address_id, $address->id);
+        $this->assertEquals($order->shipping_address_id, $address->id);
     }
 }

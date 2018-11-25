@@ -16,18 +16,18 @@ class PaymentTest extends TestCase
     public function it_completes_an_order_upon_payment()
     {
         \Mail::fake();
-
+        $user = $this->loginWithUser();
         $shop_admin = factory(User::class)->create(['is_shop_manager' => true]);
-        $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay']);
+        $order = $this->createOrder(['status' => 'pending', 'delivery_note' => 'leave in the linhay', 'user_id' => $user->id]);
 
-        \Session::put('order', $this->order);
+        \Session::put('order_id', $order->id);
 
         $response = $this->get('checkout/pay');
 
         $token = $this->getFakeToken();
 
         $response = $this->post(route('payments.store'), [
-            'order_id'     => $this->order->id,
+            'order_id'     => $order->id,
             'stripe_token' => $token,
             '_token'       => csrf_token(),
             ]);
@@ -59,10 +59,12 @@ class PaymentTest extends TestCase
     {
         Mail::fake();
 
-        $shop_admin = factory(User::class)->create();
-        $this->createOrder(['status' => 'completed']);
+        $user = $this->loginWithUser();
 
-        \Session::put('order', $this->order);
+        $shop_admin = factory(User::class)->create();
+        $order = $this->createOrder(['status' => 'completed', 'user_id' => $user->id]);
+
+        \Session::put('order_id', $order->id);
 
         $response = $this->get('checkout/pay');
 
@@ -72,22 +74,23 @@ class PaymentTest extends TestCase
           'order_id'     => $this->order->id,
           'stripe_token' => $token,
           '_token'       => csrf_token(),
-          ]);
+        ]);
 
         $response->assertRedirect('shop');
-        $this->assertContains('order has either already been paid for', \Session::get('alert'));
+        $this->assertContains('No order exists or your order has expired', \Session::get('alert'));
     }
 
     /** @test **/
     public function it_returns_to_the_pay_page_if_there_is_a_payment_error()
     {
         Mail::fake();
+        $user = $this->loginWithUser();
 
-        $this->createOrder(['status' => 'pending']);
+        $order = $this->createOrder(['status' => 'pending', 'user_id' => $user->id]);
 
-        $this->order->setShipping(factory(\App\ShippingMethod::class)->create()->id);
+        $order->setShipping(factory(\App\ShippingMethod::class)->create()->id);
 
-        \Session::put('order', $this->order);
+        \Session::put('order_id', $order->id);
 
         $response = $this->get('checkout/pay');
 
@@ -106,39 +109,6 @@ class PaymentTest extends TestCase
 
         // ensure an order note was logged
         $this->assertDatabaseHas('order_notes', ['order_id' => $this->order->id]);
-    }
-
-    /**
-     * Get a stripe token for creating a charge.
-     *
-     * @param bool $card_failure Whether the token should result in a payment error (e.g. card denied)
-     *
-     * @return string
-     */
-    protected function getToken($card_failure = false)
-    {
-        $address = factory('App\Address')->create();
-
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
-
-        $card_number = $card_failure ? '4000000000000002' : '4242424242424242';
-
-        $token = \Stripe\Token::create([
-            'card' => [
-            'number'          => $card_number,
-            'exp_month'       => 1,
-            'exp_year'        => date('Y') + 1,
-            'cvc'             => '314',
-            'name'            => $address->full_name,
-            'address_line1'   => $address->line_1,
-            'address_line2'   => $address->line_2,
-            'address_city'    => $address->city,
-            'address_zip'     => $address->postcode,
-            'address_country' => $address->country,
-            ],
-            ]);
-
-        return $token->id;
     }
 
     /**

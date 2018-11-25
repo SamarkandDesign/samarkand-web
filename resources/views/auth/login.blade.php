@@ -14,7 +14,7 @@ Login
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 				<div class="form-group">
-					<label class="control-label">E-Mail Address</label>
+					<label class="control-label">Email address</label>
 					<input type="text" class="form-control" name="email" value="{{ old('email', Request::get('email')) }}">
 				</div>
 
@@ -26,7 +26,7 @@ Login
 				<div class="form-group">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="remember"> Remember Me
+								<input type="checkbox" name="remember"> Remember me
 							</label>
 						</div>
 				</div>
@@ -36,7 +36,7 @@ Login
 							Login
 						</button>
 
-						<a href="/password/reset">Forgot Your Password?</a>
+						<a href="/password/reset">Don't know your password?</a>
 				</div>
 			</form>
 		</div>

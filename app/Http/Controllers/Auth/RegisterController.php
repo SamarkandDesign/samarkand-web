@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,7 +29,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    public function redirectTo()
+    {
+        $intended = Session::get('url.intended');
+        if (!empty($intended)) {
+            Session::forget('url.intended');
+            return $intended;
+        }
+
+        return '/';
+    }
 
     /**
      * Create a new controller instance.
