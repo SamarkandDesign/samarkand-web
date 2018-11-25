@@ -1,62 +1,79 @@
 <div class="product-search">
   <form class="form" action="/admin/products/search" method="get">
-
     <div class="input-group">
-      <input type="search"
-      name="query"
-      v-bind:value="query"
-      class="form-control"
-      placeholder="Search Products"
-      v-model="query"
-      autocomplete="off"
-      @keyup="searchProducts"
-      >
+      <input
+        type="search"
+        name="query"
+        class="form-control"
+        placeholder="Search Products"
+        v-model="query"
+        autocomplete="off"
+        @keyup="searchProducts"
+      />
       <span class="input-group-btn">
-        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+        <button class="btn btn-default" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
       </span>
-    </div><!-- /input-group -->
-
+    </div>
+    <!-- /input-group -->
   </form>
 
   <div class="hits" v-show="query.length">
-  <div class="hit-summary">
-  <p v-show="searching"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Searching ...</p>
-  <p v-show="!searching">{{ numberOfHits }} results</p>
-  </div>
+    <div class="hit-summary">
+      <p v-show="searching">
+        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Searching ...
+      </p>
+      <p v-show="!searching">{{ numberOfHits }} results</p>
+    </div>
     <div v-show="hits.length">
-
-    <button type="button" class="close clear-hits" aria-label="Close" @click.prevent="query = ''"><span aria-hidden="true">&times;</span></button>
+      <button
+        type="button"
+        class="close clear-hits"
+        aria-label="Close"
+        @click.prevent="query = ''"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
 
       <transition-group name="fade">
-      <div v-for="hit in hits" :key="hit.id" class="product-search-result">
-        <a v-bind:href="`/admin/products/${hit.id}/edit`" class="media">
-          <div class="media-left image-search-thumb">
-            <img :src="hit.thumbnail" clas="img-responsive" />
-          </div>
-
-          <div class="media-body">
-            <h4 class="media-heading">{{ hit.name }} <small v-html="displayPrice(hit)"></small></h4>
-
-            <p class="text-muted">
-              <i class="fa fa-fw fa-tags"></i> {{ hit.categories.join(', ')}}
-            </p>
-            <div class="text-small text-muted">
-              <i class="fa fa-fw fa-map-marker"></i> {{ hit.location }} |
-              <i class="fa fa-fw" v-bind:class="hit.listed ? 'fa-eye' : 'fa-eye-slash'"></i> |
-              Stock: {{ hit.stock_qty }}
+        <div v-for="hit in hits" :key="hit.id" class="product-search-result">
+          <a v-bind:href="`/admin/products/${hit.id}/edit`" class="media">
+            <div class="media-left image-search-thumb">
+              <img :src="hit.thumbnail" clas="img-responsive" />
             </div>
 
-            <div class="clearfix"> </div>
-          </div>
-        </a>
-      </div>
+            <div class="media-body">
+              <h4 class="media-heading">
+                {{ hit.name }} <small v-html="displayPrice(hit)"></small>
+              </h4>
+
+              <p class="text-muted">
+                <i class="fa fa-fw fa-tags"></i> {{ hit.categories.join(", ") }}
+              </p>
+              <div class="text-small text-muted">
+                <i class="fa fa-fw fa-map-marker"></i> {{ hit.location }} |
+                <i
+                  class="fa fa-fw"
+                  v-bind:class="hit.listed ? 'fa-eye' : 'fa-eye-slash'"
+                ></i>
+                | Stock: {{ hit.stock_qty }}
+              </div>
+
+              <div class="clearfix"></div>
+            </div>
+          </a>
+        </div>
       </transition-group>
 
       <div class="alogia-logo">
-        Powered by <a href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link" target="_blank"><img src="/img/Algolia_logo_bg-white.svg" alt="Powered by Algolia" /></a>
+        Powered by
+        <a
+          href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link"
+          target="_blank"
+          ><img src="/img/Algolia_logo_bg-white.svg" alt="Powered by Algolia"
+        /></a>
       </div>
     </div>
-
-
   </div>
 </div>
