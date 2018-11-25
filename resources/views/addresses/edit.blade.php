@@ -7,16 +7,15 @@ Edit Address
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="/account">My Account</a></li>
+  <li><a href="/account">My account</a></li>
   <li><a href="/account/addresses">Addresses</a></li>
-  <li class="active">Edit Address</li>
+  <li class="active">Edit address</li>
 </ol>
-
-<h1>Edit Address</h1>
 
 @include('partials.errors')
 
 <div class="col-md-offset-3 col-md-6">
+<h1>Edit Address</h1>
 {!! Form::model($address, ['route' => ['addresses.update', $address->id], 'method' => 'PATCH']) !!}
     @include('addresses.form')
     <input type="submit" class="btn btn-success" value="Update Address">

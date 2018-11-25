@@ -61,15 +61,20 @@ class CartController extends Controller
      */
     public function remove(Request $request, $rowid)
     {
-        $product = Cart::get($rowid)->model;
+        try {
+          $product = Cart::get($rowid)->model;
+        } catch (\Exception $e) {
+          \Log::notice('Tried to remove item from cart that does not exist', ['message' => $e->getMessage()]);
+          return redirect(route('products.index'));
+        }
 
         Cart::remove($rowid);
 
         $route = Cart::count() > 0 ? 'cart' : 'products.index';
 
         return redirect()->route($route)->with([
-    'alert'       => "{$product->name} removed from cart",
-    'alert-class' => 'success',
-  ]);
+          'alert'       => "{$product->name} removed from cart",
+          'alert-class' => 'success',
+        ]);
     }
 }
