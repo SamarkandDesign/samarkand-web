@@ -24,8 +24,8 @@ class SetShippingMethodRequest extends Request
     public function rules()
     {
         $shipping_methods = \App::make(ShippingMethodRepository::class);
-
-        $available_methods = $shipping_methods->forCountry($this->session()->get('order')->shipping_address->country);
+        $order = \App\Order::find($this->session()->get('order_id'));
+        $available_methods = $shipping_methods->forCountry($order->shipping_address->country);
 
         return [
             'shipping_method_id'    => 'required|integer|in:'.$available_methods->implode('id', ','),
