@@ -74,7 +74,7 @@ class OrderTest extends TestCase
 
         $addressFields = factory(Address::class)->make([
             'addressable_id' => $user->id,
-            'country' => 'gb',
+            'country' => 'GB',
         ]);
 
         // Submit the checkout form
@@ -109,6 +109,33 @@ class OrderTest extends TestCase
 
         $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
      }
+
+    /** @test **/
+    public function it_creates_an_order_when_there_are_multiple_shipping_methods()
+    {
+        $user = $this->loginWithUser();
+        $shippingMethod1 = factory('App\ShippingCountry')->create()->shipping_method;
+        $shippingMethod2 = factory('App\ShippingCountry')->create()->shipping_method;
+
+        $product = $this->putProductInCart();
+        $response = $this->get('/checkout');
+
+        $billingAddressFields = factory(Address::class)->make(['addressable_id' => $user->id, 'country' => 'GB']);
+
+        $response = $this->post('/orders', [
+            'address' => [
+                'billing' => $billingAddressFields->toArray(),
+            ],
+            'delivery_note' => 'post to my special place',
+        ]);
+        $response->assertRedirect('/checkout/shipping');
+        $response = $this->followRedirects($response);
+        $response->assertSee($shippingMethod1->description);
+
+        $response = $this->post('/orders/shipping', ['shipping_method_id' => $shippingMethod1->id]);
+
+        $response->assertRedirect('/checkout/pay');
+    }
 
     /** @test **/
     public function it_creates_an_order_with_different_new_addresses()
