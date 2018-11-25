@@ -207,6 +207,15 @@ $factory->define('App\MenuItem', function ($faker) {
 $factory->define('App\ShippingMethod', function ($faker) {
     return [
     'description'   => $faker->sentence,
-    'base_rate'     => $faker->numberBetween(100, 600) / 100,
+    'base_rate'     => $faker->numberBetween(100, 600),
+    ];
+});
+
+$factory->define('App\ShippingCountry', function ($faker) {
+    return [
+        'country_id'   => 'GB',
+        'shipping_method_id' => function() {
+            return factory('App\ShippingMethod')->create();
+        },
     ];
 });

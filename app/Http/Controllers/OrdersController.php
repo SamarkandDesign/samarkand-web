@@ -95,6 +95,9 @@ class OrdersController extends Controller
         return view('orders.show', compact('order'));
     }
 
+    /**
+     * Show the page for paying for a pending order
+     */
     public function pay(ViewOrderRequest $request, Order $order)
     {
         $request->session()->put('order_id', $order->id);

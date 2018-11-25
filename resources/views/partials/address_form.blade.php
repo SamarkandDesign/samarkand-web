@@ -60,7 +60,7 @@
 </div>
 
 <div class="form-group {{ $errors->has("address.{$type}.phone") ? 'has-error' : '' }}">
-    <label class="control-label" for="{{ $type }}_address_phone">Phone Number</label>
+    <label class="control-label" for="{{ $type }}_address_phone">Phone number</label>
 
     <input type="tel" name="address[{{ $type }}][phone]" value="{{ $address['phone'] }}" class="form-control"
     id="{{ $type }}_address_phone"

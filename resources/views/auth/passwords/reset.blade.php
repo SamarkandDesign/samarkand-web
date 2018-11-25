@@ -14,7 +14,7 @@ Reset Password
 		<input type="hidden" name="token" value="{{ $token }}">
 
 		<div class="form-group">
-			<label class="col-md-4 control-label">E-Mail Address</label>
+			<label class="col-md-4 control-label">Email address</label>
 			<div class="col-md-6">
 				<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 			</div>
@@ -28,7 +28,7 @@ Reset Password
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-4 control-label">Confirm Password</label>
+			<label class="col-md-4 control-label">Confirm password</label>
 			<div class="col-md-6">
 				<input type="password" class="form-control" name="password_confirmation">
 			</div>
@@ -37,7 +37,7 @@ Reset Password
 		<div class="form-group">
 			<div class="col-md-6 col-md-offset-4">
 				<button type="submit" class="btn btn-primary">
-					Reset Password
+					Reset password
 				</button>
 			</div>
 		</div>

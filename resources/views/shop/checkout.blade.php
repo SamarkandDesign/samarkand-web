@@ -22,11 +22,13 @@ Checkout
 <h2>Order Summary</h2>
 
 <table class="table">
+<thead>
   <th></th>
   <th>Product</th>
   <th>Total Price</th>
 </tr>
-
+</thead>
+<tbody>
 @foreach (Cart::content() as $item)
 <tr>
   <td class="td-thumbnail">{{ $item->model->present()->thumbnail(45) }}</td>
@@ -34,11 +36,13 @@ Checkout
   <td>{{ new App\Values\Price($item->model->getPrice()->value() * $item->qty) }}</td>
 </tr>
 @endforeach
-
+</tbody>
+<tfoot>
 <tr>
   <th colspan="2"></th>
   <th>{{ config('shop.currency_symbol') }}{{ Cart::total() }}</th>
 </tr>
+</tfoot>
 </table>
 
 @include('partials.errors')
@@ -46,33 +50,6 @@ Checkout
 <div id="checkout">
   <form action="/orders" method="POST" id="checkout-form">
     {{ csrf_field() }}
-
-    @if (Auth::guest())
-    <div class="row">
-    <customer-form createNewAccount="{{ old('create_account') ? 'true' : 'false' }}" class="col-md-6">
-        <div slot="emailsection">
-            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-              <label class="control-label" for="email">Email</label>
-              <input type="email" name="email" value="{{ old('email', $order->email) }}" class="form-control" placeholder="you@example.com">
-            </div>
-        </div>
-
-        <div slot="passwordsection">
-            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-              <label class="control-label" for="password">Password</label>
-              <input type="password" name="password" class="form-control">
-            </div>
-
-            <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
-              <label class="control-label" for="password_confirmation">Password Confirmation</label>
-              <input type="password" name="password_confirmation" class="form-control">
-            </div>
-        </div>
-    </customer-form>
-    </div>
-
-    <p>Already registered? <a href="login">Login</a></p>
-    @endif
 
     {{-- Saved Addresses --}}
     @if (Auth::check() and Auth::user()->addresses->count())
@@ -136,11 +113,10 @@ Checkout
 
     <div class="row top-buffer">
     <p class="col-sm-4 col-sm-offset-8 col-md-2 col-md-offset-10">
-      <input type="submit" class="btn btn-success btn-lg btn-block" value="Continue">
+      <button type="submit" class="btn btn-success btn-lg btn-block">Continue</button>
     </p>
     </div>
 
   </form>
 </div>
-
 @stop

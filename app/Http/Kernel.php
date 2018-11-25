@@ -26,7 +26,6 @@ class Kernel extends HttpKernel
         'auth.basic'     => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest'          => 'App\Http\Middleware\RedirectIfAuthenticated',
         'admin'          => 'App\Http\Middleware\ForbidIfNotAdmin',
-        'order.customer' => 'App\Http\Middleware\DeriveUserForOrder',
         'bindings'       => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'order.session'  => \App\Http\Middleware\OrderMustBeInSession::class,
