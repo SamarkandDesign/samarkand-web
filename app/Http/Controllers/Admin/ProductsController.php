@@ -13,137 +13,145 @@ use App\Http\Requests\Product\UpdateProductRequest;
 
 class ProductsController extends Controller
 {
-    use \App\Traits\TrashesModels;
+  use \App\Traits\TrashesModels;
 
-    /**
-     * @var \App\Repositories\Product\ProductRepository
-     */
-    private $products;
+  /**
+   * @var \App\Repositories\Product\ProductRepository
+   */
+  private $products;
 
-    private $tokenGenerator;
+  private $tokenGenerator;
 
-    /**
-     * Create a new ProductsController instance.
-     *
-     * @param ProductRepository $products
-     */
-    public function __construct(ProductRepository $products, TokenGenerator $tokenGenerator)
-    {
-        $this->products = $products;
-        $this->tokenGenerator = $tokenGenerator;
-    }
+  /**
+   * Create a new ProductsController instance.
+   *
+   * @param ProductRepository $products
+   */
+  public function __construct(ProductRepository $products, TokenGenerator $tokenGenerator)
+  {
+    $this->products = $products;
+    $this->tokenGenerator = $tokenGenerator;
+  }
 
-    /**
-     * Show a list of all the products.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $products = Product::with(['media', 'product_categories'])->orderBy('updated_at', 'desc')->paginate();
+  /**
+   * Show a list of all the products.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $products = Product::with(['media', 'product_categories'])
+      ->orderBy('updated_at', 'desc')
+      ->paginate();
 
-        return view('admin.products.index', [
-            'products'     => $products,
-            'productCount' => $this->products->count(),
-        ]);
-    }
+    return view('admin.products.index', [
+      'products' => $products,
+      'productCount' => $this->products->count(),
+    ]);
+  }
 
-    /**
-     * Perform a search for products and display the results.
-     *
-     * @param Request $request
-     *
-     * @return Illuminate\Http\Response
-     */
-    public function search(Request $request)
-    {
-        $query = $request->get('query');
+  /**
+   * Perform a search for products and display the results.
+   *
+   * @param Request $request
+   *
+   * @return Illuminate\Http\Response
+   */
+  public function search(Request $request)
+  {
+    $query = $request->get('query');
 
-        $products = (new Paginator($request))->make($this->products->search($query));
+    $products = (new Paginator($request))->make($this->products->search($query));
 
-        return view('admin.products.index')->with([
-            'products'     => $products,
-            'productCount' => $products->count(),
-            'title'        => sprintf('Product search results for "%s"', $query),
-            ]);
-    }
+    return view('admin.products.index')->with([
+      'products' => $products,
+      'productCount' => $products->count(),
+      'title' => sprintf('Product search results for "%s"', $query),
+    ]);
+  }
 
-    /**
-     * Show the page for creating a new product.
-     *
-     * @param Product $product
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Product $product)
-    {
-        return view('admin.products.create')->with(compact('product'));
-    }
+  /**
+   * Show the page for creating a new product.
+   *
+   * @param Product $product
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create(Product $product)
+  {
+    return view('admin.products.create')->with(compact('product'));
+  }
 
-    /**
-     * Create a product in storage.
-     *
-     * @param CreateProductRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateProductRequest $request)
-    {
-        $product = Product::create($request->all());
+  /**
+   * Create a product in storage.
+   *
+   * @param CreateProductRequest $request
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function store(CreateProductRequest $request)
+  {
+    $product = Product::create($request->all());
 
-        $product->syncTerms($request->get('terms', []));
-        $product->syncAttributes($request->get('attributes', []));
+    $product->syncTerms($request->get('terms', []));
+    $product->syncAttributes($request->get('attributes', []));
 
-        return redirect()->route('admin.products.edit', $product)
-                         ->withAlert('Product Saved')
-                         ->with('alert-class', 'success');
-    }
+    return redirect()
+      ->route('admin.products.edit', $product)
+      ->withAlert('Product Saved')
+      ->with('alert-class', 'success');
+  }
 
-    /**
-     * Show the page for editing a product.
-     *
-     * @param Product $product
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        $selected_product_categories = $product->product_categories->pluck('id');
+  /**
+   * Show the page for editing a product.
+   *
+   * @param Product $product
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(Product $product)
+  {
+    $selected_product_categories = $product->product_categories->pluck('id');
 
-        return view('admin.products.edit')->with(compact('product', 'selected_product_categories', 'attributes'));
-    }
+    return view('admin.products.edit')->with(
+      compact('product', 'selected_product_categories', 'attributes')
+    );
+  }
 
-    /**
-     * Update a product in storage.
-     *
-     * @param Product              $product
-     * @param UpdateProductRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Product $product, UpdateProductRequest $request)
-    {
-        $product->update($request->all());
+  /**
+   * Update a product in storage.
+   *
+   * @param Product              $product
+   * @param UpdateProductRequest $request
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Product $product, UpdateProductRequest $request)
+  {
+    $product->update($request->all());
 
-        $product->syncTerms($request->get('terms', []));
-        $product->syncAttributes($request->get('attributes', []));
+    $product->syncTerms($request->get('terms', []));
+    $product->syncAttributes($request->get('attributes', []));
 
-        return redirect()->route('admin.products.edit', $product)
-                         ->withAlert('Product Updated')
-                         ->with('alert-class', 'success');
-    }
+    return redirect()
+      ->route('admin.products.edit', $product)
+      ->withAlert('Product Updated')
+      ->with('alert-class', 'success');
+  }
 
-    /**
-     * Show the trash page for products.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function trash()
-    {
-        $title = 'Trashed Products';
-        $products = Product::onlyTrashed()->latest()->paginate(10);
-        $productCount = $this->products->count();
+  /**
+   * Show the trash page for products.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function trash()
+  {
+    $title = 'Trashed Products';
+    $products = Product::onlyTrashed()
+      ->latest()
+      ->paginate(10);
+    $productCount = $this->products->count();
 
-        return view('admin.products.index')->with(compact('products', 'title', 'productCount'));
-    }
+    return view('admin.products.index')->with(compact('products', 'title', 'productCount'));
+  }
 }

@@ -4,64 +4,66 @@ namespace App\Values;
 
 class Price
 {
-    protected $value;
-    protected $symbol;
+  protected $value;
+  protected $symbol;
 
-    /**
-     * Create a new Price instance.
-     *
-     * @param int $value The lowest denomination value
-     */
-    public function __construct($value)
-    {
-        // DEBT: shouldn't have to do this
-        $value = intval($value);
+  /**
+   * Create a new Price instance.
+   *
+   * @param int $value The lowest denomination value
+   */
+  public function __construct($value)
+  {
+    // DEBT: shouldn't have to do this
+    $value = intval($value);
 
-        // DEBT: Null object needed here
-        if (! $value) {
-            $value = 0;
-        }
-
-        if (! is_int($value)) {
-            throw new \InvalidArgumentException(sprintf('A price must be instantiated with an integer. %s given', gettype($value)));
-        }
-
-        $this->value = $value;
-        $this->symbol = config('shop.currency_symbol');
+    // DEBT: Null object needed here
+    if (!$value) {
+      $value = 0;
     }
 
-    /**
-     * Get the string representation of the price.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->symbol.$this->asMoney();
+    if (!is_int($value)) {
+      throw new \InvalidArgumentException(
+        sprintf('A price must be instantiated with an integer. %s given', gettype($value))
+      );
     }
 
-    /**
-     * Get the value of the price.
-     *
-     * @return int
-     */
-    public function value()
-    {
-        return $this->value;
-    }
+    $this->value = $value;
+    $this->symbol = config('shop.currency_symbol');
+  }
 
-    public function asDecimal()
-    {
-        return $this->value / 100;
-    }
+  /**
+   * Get the string representation of the price.
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->symbol . $this->asMoney();
+  }
 
-    public function asMoney()
-    {
-        return money_format('%i', $this->asDecimal());
-    }
+  /**
+   * Get the value of the price.
+   *
+   * @return int
+   */
+  public function value()
+  {
+    return $this->value;
+  }
 
-    public function symbol()
-    {
-        return $this->symbol;
-    }
+  public function asDecimal()
+  {
+    return $this->value / 100;
+  }
+
+  public function asMoney()
+  {
+    return money_format('%i', $this->asDecimal());
+  }
+
+  public function symbol()
+  {
+    return $this->symbol;
+  }
 }

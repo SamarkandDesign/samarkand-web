@@ -6,5 +6,5 @@ use App\Address;
 
 interface Geocoder
 {
-    public function getCoordinates(Address $address);
+  public function getCoordinates(Address $address);
 }

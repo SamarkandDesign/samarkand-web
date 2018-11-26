@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -19,36 +19,36 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+  use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
+  /**
+   * Where to redirect users after login / registration.
+   *
+   * @var string
+   */
+  protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'logout']);
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest', ['except' => 'logout']);
+  }
+
+  /**
+   * Show the application's login form.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function showLoginForm(Request $request)
+  {
+    if ($request->session()->has('url.intended')) {
+      $request->session()->flash('url.intended', $request->session()->get('url.intended'));
     }
 
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showLoginForm(Request $request)
-    {
-        if ($request->session()->has('url.intended')) {
-            $request->session()->flash('url.intended', $request->session()->get('url.intended'));
-        }
-
-        return view('auth.login');
-    }
+    return view('auth.login');
+  }
 }

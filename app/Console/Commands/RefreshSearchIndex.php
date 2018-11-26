@@ -7,56 +7,56 @@ use Spatie\SearchIndex\Searchable;
 
 class RefreshSearchIndex extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'search:refresh-index {model : The type of entity to refresh. e.g. "\App\Product"}';
+  /**
+   * The name and signature of the console command.
+   *
+   * @var string
+   */
+  protected $signature = 'search:refresh-index {model : The type of entity to refresh. e.g. "\App\Product"}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Delete and re-index the entities for searching';
+  /**
+   * The console command description.
+   *
+   * @var string
+   */
+  protected $description = 'Delete and re-index the entities for searching';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
+  /**
+   * Create a new command instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    parent::__construct();
+  }
+
+  /**
+   * Execute the console command.
+   *
+   * @return mixed
+   */
+  public function handle()
+  {
+    $modelName = $this->argument('model');
+
+    if (!class_exists($modelName) or !($model = new $modelName()) instanceof Searchable) {
+      $this->error(sprintf('%s is not a searchable model.', $modelName));
+
+      return;
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        $modelName = $this->argument('model');
+    $this->info('Updating models in the index...');
 
-        if (! class_exists($modelName) or ! ($model = new $modelName()) instanceof Searchable) {
-            $this->error(sprintf('%s is not a searchable model.', $modelName));
+    $models = $model::all();
+    $bar = $this->output->createProgressBar($models->count());
 
-            return;
-        }
+    $models->each(function ($entity) use ($bar) {
+      \SearchIndex::upsertToIndex($entity);
 
-        $this->info('Updating models in the index...');
+      $bar->advance();
+    });
 
-        $models = $model::all();
-        $bar = $this->output->createProgressBar($models->count());
-
-        $models->each(function ($entity) use ($bar) {
-            \SearchIndex::upsertToIndex($entity);
-
-            $bar->advance();
-        });
-
-        $this->info(sprintf(PHP_EOL.'%s entities refreshed.', $models->count()));
-    }
+    $this->info(sprintf(PHP_EOL . '%s entities refreshed.', $models->count()));
+  }
 }

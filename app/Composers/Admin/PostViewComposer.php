@@ -7,18 +7,18 @@ use App\Repositories\Post\PostRepository;
 
 class PostViewComposer
 {
-    private $posts;
+  private $posts;
 
-    public function __construct(PostRepository $posts)
-    {
-        $this->posts = $posts;
-    }
+  public function __construct(PostRepository $posts)
+  {
+    $this->posts = $posts;
+  }
 
-    public function postCount(View $view)
-    {
-        $view->with([
-            'postCount'    => $this->posts->count(),
-            'trashedCount' => $this->posts->trashedCount(),
-            ]);
-    }
+  public function postCount(View $view)
+  {
+    $view->with([
+      'postCount' => $this->posts->count(),
+      'trashedCount' => $this->posts->trashedCount(),
+    ]);
+  }
 }

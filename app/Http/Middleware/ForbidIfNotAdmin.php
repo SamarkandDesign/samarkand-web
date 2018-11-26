@@ -8,57 +8,57 @@ use Illuminate\Http\Exception\HttpResponseException;
 
 class ForbidIfNotAdmin
 {
-    /**
-     * The Guard implementation.
-     *
-     * @var Guard
-     */
-    protected $auth;
+  /**
+   * The Guard implementation.
+   *
+   * @var Guard
+   */
+  protected $auth;
 
-    /**
-     * Create a new filter instance.
-     *
-     * @param Guard $auth
-     *
-     * @return void
-     */
-    public function __construct(Guard $auth)
-    {
-        $this->auth = $auth;
+  /**
+   * Create a new filter instance.
+   *
+   * @param Guard $auth
+   *
+   * @return void
+   */
+  public function __construct(Guard $auth)
+  {
+    $this->auth = $auth;
+  }
+
+  /**
+   * Handle an incoming request.
+   *
+   * @param \Illuminate\Http\Request $request
+   * @param \Closure                 $next
+   *
+   * @return mixed
+   */
+  public function handle($request, Closure $next)
+  {
+    if ($this->auth->guest()) {
+      if ($request->ajax()) {
+        return response('Unauthorized.', 401);
+      }
+
+      return redirect()->guest('/admin/login');
     }
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            }
-
-            return redirect()->guest('/admin/login');
-        }
-
-        if (! $this->auth->user()->hasRole('admin')) {
-            return response('Unauthorized.', 401);
-        }
-
-        return $next($request);
+    if (!$this->auth->user()->hasRole('admin')) {
+      return response('Unauthorized.', 401);
     }
 
-    /**
-     * Handle a failed authorization attempt.
-     *
-     * @return mixed
-     */
-    protected function failedAuthorization($request)
-    {
-        throw new HttpResponseException();
-    }
+    return $next($request);
+  }
+
+  /**
+   * Handle a failed authorization attempt.
+   *
+   * @return mixed
+   */
+  protected function failedAuthorization($request)
+  {
+    throw new HttpResponseException();
+  }
 }

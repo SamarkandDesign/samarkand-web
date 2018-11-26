@@ -21,51 +21,41 @@ use App\Repositories\ShippingMethod\CacheShippingMethodRepository;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
+  /**
+   * Bootstrap the application services.
+   *
+   * @return void
+   */
+  public function boot()
+  {
+    //
+  }
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app->singleton(PostRepository::class, function () {
-            return new CachePostRepository(
-                $this->app->make(DbPostRepository::class)
-            );
-        });
+  /**
+   * Register the application services.
+   *
+   * @return void
+   */
+  public function register()
+  {
+    $this->app->singleton(PostRepository::class, function () {
+      return new CachePostRepository($this->app->make(DbPostRepository::class));
+    });
 
-        $this->app->singleton(TermRepository::class, function () {
-            return new CacheTermRepository(
-            $this->app->make(DbTermRepository::class)
-          );
-        });
+    $this->app->singleton(TermRepository::class, function () {
+      return new CacheTermRepository($this->app->make(DbTermRepository::class));
+    });
 
-        $this->app->singleton(ProductRepository::class, function () {
-            return new CacheProductRepository(
-                $this->app->make(DbProductRepository::class)
-            );
-        });
+    $this->app->singleton(ProductRepository::class, function () {
+      return new CacheProductRepository($this->app->make(DbProductRepository::class));
+    });
 
-        $this->app->singleton(OrderRepository::class, function () {
-            return new CacheOrderRepository(
-                $this->app->make(DbOrderRepository::class)
-            );
-        });
+    $this->app->singleton(OrderRepository::class, function () {
+      return new CacheOrderRepository($this->app->make(DbOrderRepository::class));
+    });
 
-        $this->app->singleton(ShippingMethodRepository::class, function () {
-            return new CacheShippingMethodRepository(
-                $this->app->make(DbShippingMethodRepository::class)
-            );
-        });
-    }
+    $this->app->singleton(ShippingMethodRepository::class, function () {
+      return new CacheShippingMethodRepository($this->app->make(DbShippingMethodRepository::class));
+    });
+  }
 }

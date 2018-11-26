@@ -1,8 +1,7 @@
 <?php
 
 return [
-
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Default Cache Store
     |--------------------------------------------------------------------------
@@ -13,9 +12,9 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'array'),
+  'default' => env('CACHE_DRIVER', 'array'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Cache Stores
     |--------------------------------------------------------------------------
@@ -26,44 +25,44 @@ return [
     |
     */
 
-    'stores' => [
-
-        'apc' => [
-            'driver' => 'apc',
-        ],
-
-        'array' => [
-            'driver' => 'array',
-        ],
-
-        'database' => [
-            'driver'     => 'database',
-            'table'      => 'cache',
-            'connection' => null,
-        ],
-
-        'file' => [
-            'driver' => 'file',
-            'path'   => storage_path().'/framework/cache',
-        ],
-
-        'memcached' => [
-            'driver'  => 'memcached',
-            'servers' => [
-                [
-                    'host' => '127.0.0.1', 'port' => 11211, 'weight' => 100,
-                ],
-            ],
-        ],
-
-        'redis' => [
-            'driver'     => 'redis',
-            'connection' => 'default',
-        ],
-
+  'stores' => [
+    'apc' => [
+      'driver' => 'apc',
     ],
 
-    /*
+    'array' => [
+      'driver' => 'array',
+    ],
+
+    'database' => [
+      'driver' => 'database',
+      'table' => 'cache',
+      'connection' => null,
+    ],
+
+    'file' => [
+      'driver' => 'file',
+      'path' => storage_path() . '/framework/cache',
+    ],
+
+    'memcached' => [
+      'driver' => 'memcached',
+      'servers' => [
+        [
+          'host' => '127.0.0.1',
+          'port' => 11211,
+          'weight' => 100,
+        ],
+      ],
+    ],
+
+    'redis' => [
+      'driver' => 'redis',
+      'connection' => 'default',
+    ],
+  ],
+
+  /*
     |--------------------------------------------------------------------------
     | Cache Key Prefix
     |--------------------------------------------------------------------------
@@ -74,13 +73,12 @@ return [
     |
     */
 
-    'prefix' => 'smkd',
+  'prefix' => 'smkd',
 
-    /*
+  /*
     |
     | The default time to hold something in the cache for
     |
      */
-    'time' => env('CACHE_TIME', 10),
-
+  'time' => env('CACHE_TIME', 10),
 ];

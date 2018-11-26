@@ -4,21 +4,21 @@ namespace App\Countries;
 
 interface CountryRepository
 {
-    /**
-     * Get a list of all the countries.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function pluck($value = 'name', $key = 'alpha2Code');
+  /**
+   * Get a list of all the countries.
+   *
+   * @return \Illuminate\Support\Collection
+   */
+  public function pluck($value = 'name', $key = 'alpha2Code');
 
-    /**
-     * Get a country name by its Alpha2 code.
-     *
-     * @param string $code The alpha2 code
-     *
-     * @return string The country name
-     */
-    public function getByCode($code);
+  /**
+   * Get a country name by its Alpha2 code.
+   *
+   * @param string $code The alpha2 code
+   *
+   * @return string The country name
+   */
+  public function getByCode($code);
 
-    public function group();
+  public function group();
 }

@@ -8,20 +8,20 @@ use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
-    public function __construct()
-    {
-    }
+  public function __construct()
+  {
+  }
 
-    public function show(Request $request, $id = null)
-    {
-        if (! $id) {
-            $id = $request->get('id');
-        }
-        var_dump($id);
+  public function show(Request $request, $id = null)
+  {
+    if (!$id) {
+      $id = $request->get('id');
     }
+    var_dump($id);
+  }
 
-    public function images(Post $post)
-    {
-        return $post->images;
-    }
+  public function images(Post $post)
+  {
+    return $post->images;
+  }
 }

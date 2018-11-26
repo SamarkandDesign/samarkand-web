@@ -6,20 +6,20 @@ use TestCase;
 
 class TermRepositoryTest extends TestCase
 {
-    private $terms;
+  private $terms;
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->terms = \App::make(TermRepository::class);
-    }
+  public function setUp()
+  {
+    parent::setUp();
+    $this->terms = \App::make(TermRepository::class);
+  }
 
-    /** @test **/
-    public function it_gets_terms_by_taxonomy()
-    {
-        $categories = factory(\App\Term::class, 3)->create(['taxonomy' => 'category']);
+  /** @test **/
+  public function it_gets_terms_by_taxonomy()
+  {
+    $categories = factory(\App\Term::class, 3)->create(['taxonomy' => 'category']);
 
-        $this->assertCount(3, $this->terms->getCategories());
-        $this->assertEmpty($this->terms->getTags());
-    }
+    $this->assertCount(3, $this->terms->getCategories());
+    $this->assertEmpty($this->terms->getTags());
+  }
 }

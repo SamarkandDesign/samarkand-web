@@ -7,5 +7,5 @@ namespace App\Contracts;
  */
 interface Termable
 {
-    public function terms();
+  public function terms();
 }

@@ -9,103 +9,104 @@ use Illuminate\Auth\Notifications\ResetPassword;
 
 class AuthTest extends TestCase
 {
-    /** @test **/
-    public function it_allows_resetting_a_users_password()
-    {
-        Notification::fake();
+  /** @test **/
+  public function it_allows_resetting_a_users_password()
+  {
+    Notification::fake();
 
-        $user = factory(User::class)->create();
+    $user = factory(User::class)->create();
 
-        $response = $this->get('/password/reset');
-        $response->assertStatus(200);
+    $response = $this->get('/password/reset');
+    $response->assertStatus(200);
 
-        $response = $this->post('password/email', [
-            'email' => $user->email,
-            ]);
+    $response = $this->post('password/email', [
+      'email' => $user->email,
+    ]);
 
-        $response->assertRedirect('/password/reset');
+    $response->assertRedirect('/password/reset');
 
-        $token = '';
+    $token = '';
 
-        Notification::assertSentTo(
-            $user,
-            ResetPassword::class,
-            function ($notification) use (&$token) {
-                $token = $notification->token;
+    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use (&$token) {
+      $token = $notification->token;
 
-                return true;
-            });
+      return true;
+    });
 
-        $response = $this->get("/password/reset/{$token}");
+    $response = $this->get("/password/reset/{$token}");
 
-        $response->assertStatus(200);
+    $response->assertStatus(200);
 
-        $response = $this->post('/password/reset', [
-             'token' => $token,
-             'email' => $user->email,
-             'password' => 'secret',
-             'password_confirmation' => 'secret',
-            ]);
+    $response = $this->post('/password/reset', [
+      'token' => $token,
+      'email' => $user->email,
+      'password' => 'secret',
+      'password_confirmation' => 'secret',
+    ]);
 
-        \Auth::logout();
+    \Auth::logout();
 
-        // Ensure the newly reset password works to login with
-        $this->assertTrue(\Auth::attempt([
-            'email'    => $user->email,
-            'password' => 'secret',
-            ]));
-    }
+    // Ensure the newly reset password works to login with
+    $this->assertTrue(
+      \Auth::attempt([
+        'email' => $user->email,
+        'password' => 'secret',
+      ])
+    );
+  }
 
-    /** @test **/
-    public function it_marks_a_user_as_not_auto_created_if_they_log_in_successfully()
-    {
-        $email = 'jb@email.com';
-        $user = factory(User::class)->create([
-            'password' => 'password',
-            'email'    => $email,
-            ]);
+  /** @test **/
+  public function it_marks_a_user_as_not_auto_created_if_they_log_in_successfully()
+  {
+    $email = 'jb@email.com';
+    $user = factory(User::class)->create([
+      'password' => 'password',
+      'email' => $email,
+    ]);
 
-        $response = $this->get('/login');
-        $response->assertStatus(200);
+    $response = $this->get('/login');
+    $response->assertStatus(200);
 
-        $this->post('/login', [
-            'email' => $email,
-            'password' => 'password',
-        ]);
+    $this->post('/login', [
+      'email' => $email,
+      'password' => 'password',
+    ]);
 
-        $this->assertTrue(\Auth::check());
+    $this->assertTrue(\Auth::check());
 
-        $this->assertFalse($user->fresh()->autoCreated());
-    }
+    $this->assertFalse($user->fresh()->autoCreated());
+  }
 
-    /** @test **/
-    public function it_cannot_login_with_invalid_credentials()
-    {
-        $response = $this->get('login');
+  /** @test **/
+  public function it_cannot_login_with_invalid_credentials()
+  {
+    $response = $this->get('login');
 
-        $response = $this->post('/login', [
-            'email' => 'fakename@noone.com',
-            'password' => 'password',
-        ]);
+    $response = $this->post('/login', [
+      'email' => 'fakename@noone.com',
+      'password' => 'password',
+    ]);
 
-        $response->assertRedirect('/login');
-        $response->assertSessionHasErrors(['email']);
-        $this->assertTrue(\Auth::guest());
-    }
+    $response->assertRedirect('/login');
+    $response->assertSessionHasErrors(['email']);
+    $this->assertTrue(\Auth::guest());
+  }
 
-    /** @test **/
-    public function it_throttles_invalid_logins()
-    {
-        array_reduce(range(0, 5), function () {
-            return $this->post('/login', [
-                'email' => 'fakename@noone.com',
-                'password' => 'password',
-            ]);
-        });
+  /** @test **/
+  public function it_throttles_invalid_logins()
+  {
+    array_reduce(range(0, 5), function () {
+      return $this->post('/login', [
+        'email' => 'fakename@noone.com',
+        'password' => 'password',
+      ]);
+    });
 
-        $this->assertContains(
-            'Too many login attempts. Please try again in 60 seconds.',
-            session()->get('errors')->get('email')
-            );
-    }
+    $this->assertContains(
+      'Too many login attempts. Please try again in 60 seconds.',
+      session()
+        ->get('errors')
+        ->get('email')
+    );
+  }
 }

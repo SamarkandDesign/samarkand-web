@@ -1,8 +1,7 @@
 <?php
 
 return [
-
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
     |--------------------------------------------------------------------------
@@ -15,9 +14,9 @@ return [
     |
     */
 
-    'default' => env('DEFAULT_FILESYSTEM', 'local'),
+  'default' => env('DEFAULT_FILESYSTEM', 'local'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Default Cloud Filesystem Disk
     |--------------------------------------------------------------------------
@@ -28,9 +27,9 @@ return [
     |
     */
 
-    'cloud' => 's3',
+  'cloud' => 's3',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
@@ -41,42 +40,39 @@ return [
     |
     */
 
-    'disks' => [
-
-        'local' => [
-            'driver' => 'local',
-            'root'   => public_path(),
-        ],
-
-        'media' => [
-            'driver' => 'local',
-            'root'   => public_path().'/media',
-        ],
-
-        'testmedia' => [
-            'driver' => 'local',
-            'root'   => public_path().'/testmedia',
-        ],
-
-        's3' => [
-            'driver' => 's3',
-            'key'    => env('AWS_KEY'),
-            'secret' => env('AWS_SECRET'),
-            'bucket' => env('S3_BUCKET'),
-            'region' => env('S3_REGION'),
-        ],
-
-        'rackspace' => [
-            'driver'    => 'rackspace',
-            'username'  => 'your-username',
-            'key'       => 'your-key',
-            'container' => 'your-container',
-            'endpoint'  => 'https://identity.api.rackspacecloud.com/v2.0/',
-            'region'    => 'IAD',
-        ],
-
+  'disks' => [
+    'local' => [
+      'driver' => 'local',
+      'root' => public_path(),
     ],
 
-    'images_location' => 'uploads/images',
+    'media' => [
+      'driver' => 'local',
+      'root' => public_path() . '/media',
+    ],
 
+    'testmedia' => [
+      'driver' => 'local',
+      'root' => public_path() . '/testmedia',
+    ],
+
+    's3' => [
+      'driver' => 's3',
+      'key' => env('AWS_KEY'),
+      'secret' => env('AWS_SECRET'),
+      'bucket' => env('S3_BUCKET'),
+      'region' => env('S3_REGION'),
+    ],
+
+    'rackspace' => [
+      'driver' => 'rackspace',
+      'username' => 'your-username',
+      'key' => 'your-key',
+      'container' => 'your-container',
+      'endpoint' => 'https://identity.api.rackspacecloud.com/v2.0/',
+      'region' => 'IAD',
+    ],
+  ],
+
+  'images_location' => 'uploads/images',
 ];

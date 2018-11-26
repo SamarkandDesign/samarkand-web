@@ -7,46 +7,41 @@ use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
-    public function run()
-    {
-        $faker = Faker::create();
+  public function run()
+  {
+    $faker = Faker::create();
 
-        $roles = $this->seedRoles();
+    $roles = $this->seedRoles();
 
-        // Make a pre-defined user so we can log into the application and play around
-        $admin = User::create([
-            'name'        => 'Harry G',
-            'username'    => 'harryg',
-            'email'       => 'harry@laravel.com',
-            'password'    => 'secret',
-            ]);
+    // Make a pre-defined user so we can log into the application and play around
+    $admin = User::create([
+      'name' => 'Harry G',
+      'username' => 'harryg',
+      'email' => 'harry@laravel.com',
+      'password' => 'secret',
+    ]);
 
-        $admin->assignRole('admin');
+    $admin->assignRole('admin');
 
-        // Make some auto-generated users for extra usage
-        $users = array_map(function ($i) use ($roles) {
-            $user = factory('App\User')->create();
+    // Make some auto-generated users for extra usage
+    $users = array_map(function ($i) use ($roles) {
+      $user = factory('App\User')->create();
 
-            $role = $roles[array_rand($roles)];
+      $role = $roles[array_rand($roles)];
 
-            return $user->assignRole($role->name);
-        }, range(1, 8));
-    }
+      return $user->assignRole($role->name);
+    }, range(1, 8));
+  }
 
-    private function seedRoles()
-    {
-        $roles = [
-            'customer',
-            'subscriber',
-            'contributor',
-            'admin',
-        ];
+  private function seedRoles()
+  {
+    $roles = ['customer', 'subscriber', 'contributor', 'admin'];
 
-        return array_map(function ($role) {
-            return factory(Role::class)->create([
-            'name'         => $role,
-            'display_name' => ucwords($role),
-            ]);
-        }, $roles);
-    }
+    return array_map(function ($role) {
+      return factory(Role::class)->create([
+        'name' => $role,
+        'display_name' => ucwords($role),
+      ]);
+    }, $roles);
+  }
 }

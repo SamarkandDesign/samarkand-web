@@ -8,51 +8,52 @@ use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
-    /**
-     * Show a list of orders.
-     *
-     * @param string $status The order status to filter by
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($status = null)
-    {
-        $orders = Order::with(['items', 'shipping_address', 'user'])->latest();
+  /**
+   * Show a list of orders.
+   *
+   * @param string $status The order status to filter by
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index($status = null)
+  {
+    $orders = Order::with(['items', 'shipping_address', 'user'])->latest();
 
-        if ($status) {
-            $orders = $orders->where('status', $status);
-        }
-
-        return view('admin.orders.index')->with([
-            'orders' => $orders->paginate(),
-            ]);
+    if ($status) {
+      $orders = $orders->where('status', $status);
     }
 
-    /**
-     * Show a single order's details.
-     *
-     * @param Order $order
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        return view('admin.orders.show')->with(compact('order'));
-    }
+    return view('admin.orders.index')->with([
+      'orders' => $orders->paginate(),
+    ]);
+  }
 
-    /**
-     * Update an order in storage.
-     *
-     * @param Order $order
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Order $order, Request $request)
-    {
-        $order->update($request->all());
+  /**
+   * Show a single order's details.
+   *
+   * @param Order $order
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function show(Order $order)
+  {
+    return view('admin.orders.show')->with(compact('order'));
+  }
 
-        return redirect()->back()
-                         ->withAlert('Order Updated')
-                         ->with('alert-class', 'success');
-    }
+  /**
+   * Update an order in storage.
+   *
+   * @param Order $order
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Order $order, Request $request)
+  {
+    $order->update($request->all());
+
+    return redirect()
+      ->back()
+      ->withAlert('Order Updated')
+      ->with('alert-class', 'success');
+  }
 }

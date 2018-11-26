@@ -7,17 +7,17 @@ use Illuminate\Database\Seeder;
 
 class AddressesTableSeeder extends Seeder
 {
-    public function run()
-    {
-        $faker = Faker::create();
-        $userIds = User::pluck('id')->toArray();
+  public function run()
+  {
+    $faker = Faker::create();
+    $userIds = User::pluck('id')->toArray();
 
-        Address::flushEventListeners();
+    Address::flushEventListeners();
 
-        foreach (range(1, 15) as $i) {
-            factory(Address::class)->create([
-                'addressable_id' => $faker->randomElement($userIds),
-                ]);
-        }
+    foreach (range(1, 15) as $i) {
+      factory(Address::class)->create([
+        'addressable_id' => $faker->randomElement($userIds),
+      ]);
     }
+  }
 }

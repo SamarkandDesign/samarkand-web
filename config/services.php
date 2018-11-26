@@ -1,8 +1,7 @@
 <?php
 
 return [
-
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Third Party Services
     |--------------------------------------------------------------------------
@@ -14,49 +13,48 @@ return [
     |
     */
 
-    'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
-    ],
+  'mailgun' => [
+    'domain' => env('MAILGUN_DOMAIN'),
+    'secret' => env('MAILGUN_SECRET'),
+  ],
 
-    'mandrill' => [
-        'secret' => '',
-    ],
+  'mandrill' => [
+    'secret' => '',
+  ],
 
-    'ses' => [
-        'key'    => '',
-        'secret' => '',
-        'region' => 'us-east-1',
-    ],
+  'ses' => [
+    'key' => '',
+    'secret' => '',
+    'region' => 'us-east-1',
+  ],
 
-    'stripe' => [
-        'model'       => 'User',
-        'publishable' => env('STRIPE_PUBLISHABLE_KEY'),
-        'secret'      => env('STRIPE_SECRET_KEY'),
-    ],
+  'stripe' => [
+    'model' => 'User',
+    'publishable' => env('STRIPE_PUBLISHABLE_KEY'),
+    'secret' => env('STRIPE_SECRET_KEY'),
+  ],
 
-    'google' => [
-        'ga_tracking_id'         => env('GA_TRACKING_ID'),
-        'server_key'             => env('GOOGLE_SERVER_KEY'),
-        'browser_key'            => env('GOOGLE_BROWSER_KEY'),
-    ],
+  'google' => [
+    'ga_tracking_id' => env('GA_TRACKING_ID'),
+    'server_key' => env('GOOGLE_SERVER_KEY'),
+    'browser_key' => env('GOOGLE_BROWSER_KEY'),
+  ],
 
-    'xero' => [
-        'key'     => env('XERO_KEY'),
-        'secret'  => env('XERO_SECRET'),
-        // The contents of the .pem file should be base64 encoded and stored as an environment variable
-        'rsa_key' => env('XERO_RSA_KEY') ? base64_decode(env('XERO_RSA_KEY')) : '',
+  'xero' => [
+    'key' => env('XERO_KEY'),
+    'secret' => env('XERO_SECRET'),
+    // The contents of the .pem file should be base64 encoded and stored as an environment variable
+    'rsa_key' => env('XERO_RSA_KEY') ? base64_decode(env('XERO_RSA_KEY')) : '',
 
-        'invoice_account' => env('XERO_INVOICE_ACCOUNT', '200'),
-        'payment_account' => env('XERO_PAYMENT_ACCOUNT', '090'),
+    'invoice_account' => env('XERO_INVOICE_ACCOUNT', '200'),
+    'payment_account' => env('XERO_PAYMENT_ACCOUNT', '090'),
+  ],
 
-    ],
+  'heap' => [
+    'key' => env('HEAP_KEY'),
+  ],
 
-    'heap' => [
-        'key' => env('HEAP_KEY'),
-    ],
-
-    'fullstory' => [
-        'org' => env('FULLSTORY_ORG'),
-    ],
+  'fullstory' => [
+    'org' => env('FULLSTORY_ORG'),
+  ],
 ];

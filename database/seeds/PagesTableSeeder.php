@@ -7,19 +7,19 @@ use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {
-    public function run()
-    {
-        $faker = Faker::create();
+  public function run()
+  {
+    $faker = Faker::create();
 
-        $userIds = User::pluck('id')->toArray();
-        $pages = ['About', 'FAQ'];
+    $userIds = User::pluck('id')->toArray();
+    $pages = ['About', 'FAQ'];
 
-        collect($pages)->map(function ($page) use ($faker, $userIds) {
-            factory(Page::class)->create([
-                'title' => $page,
-                'slug' => str_slug($page),
-                'user_id' => $faker->randomElement($userIds),
-            ]);
-        });
-    }
+    collect($pages)->map(function ($page) use ($faker, $userIds) {
+      factory(Page::class)->create([
+        'title' => $page,
+        'slug' => str_slug($page),
+        'user_id' => $faker->randomElement($userIds),
+      ]);
+    });
+  }
 }

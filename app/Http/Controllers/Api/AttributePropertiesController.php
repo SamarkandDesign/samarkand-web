@@ -10,40 +10,44 @@ use App\Http\Requests\AttributeProperty\UpdateAttributePropertyRequest;
 
 class AttributePropertiesController extends Controller
 {
-    /**
-     * Get all properties for a given attribute.
-     *
-     * @param string $slug The slug of the attribute
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(ProductAttribute $product_attribute = null)
-    {
-        if ($product_attribute) {
-            return $product_attribute->attribute_properties;
-        }
-
-        return AttributeProperty::all();
+  /**
+   * Get all properties for a given attribute.
+   *
+   * @param string $slug The slug of the attribute
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index(ProductAttribute $product_attribute = null)
+  {
+    if ($product_attribute) {
+      return $product_attribute->attribute_properties;
     }
 
-    public function store(CreateAttributePropertyRequest $request, ProductAttribute $product_attribute)
-    {
-        $attribute_property = new AttributeProperty($request->all());
+    return AttributeProperty::all();
+  }
 
-        return $product_attribute->attribute_properties()->save($attribute_property);
-    }
+  public function store(
+    CreateAttributePropertyRequest $request,
+    ProductAttribute $product_attribute
+  ) {
+    $attribute_property = new AttributeProperty($request->all());
 
-    public function update(UpdateAttributePropertyRequest $request, AttributeProperty $attribute_property)
-    {
-        $attribute_property->update($request->all());
+    return $product_attribute->attribute_properties()->save($attribute_property);
+  }
 
-        return $attribute_property;
-    }
+  public function update(
+    UpdateAttributePropertyRequest $request,
+    AttributeProperty $attribute_property
+  ) {
+    $attribute_property->update($request->all());
 
-    public function destroy(AttributeProperty $attribute_property)
-    {
-        $attribute_property->delete();
+    return $attribute_property;
+  }
 
-        return 'success';
-    }
+  public function destroy(AttributeProperty $attribute_property)
+  {
+    $attribute_property->delete();
+
+    return 'success';
+  }
 }
