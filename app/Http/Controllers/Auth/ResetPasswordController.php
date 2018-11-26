@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
     |--------------------------------------------------------------------------
@@ -18,34 +18,34 @@ class ResetPasswordController extends Controller
     |
     */
 
-    use ResetsPasswords;
+  use ResetsPasswords;
 
-    protected $redirectTo = '/';
+  protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest');
+  }
 
-    /**
-     * Reset the given user's password.
-     *
-     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @param string                                      $password
-     *
-     * @return void
-     */
-    protected function resetPassword($user, $password)
-    {
-        $user->password = $password;
+  /**
+   * Reset the given user's password.
+   *
+   * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+   * @param string                                      $password
+   *
+   * @return void
+   */
+  protected function resetPassword($user, $password)
+  {
+    $user->password = $password;
 
-        $user->save();
+    $user->save();
 
-        $this->guard()->login($user);
-    }
+    $this->guard()->login($user);
+  }
 }

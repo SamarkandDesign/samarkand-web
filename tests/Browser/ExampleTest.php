@@ -8,18 +8,17 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ExampleTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+  use DatabaseMigrations;
 
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
-    public function testBasicExample()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->assertSee('Samarkand Design');
-        });
-    }
+  /**
+   * A basic browser test example.
+   *
+   * @return void
+   */
+  public function testBasicExample()
+  {
+    $this->browse(function (Browser $browser) {
+      $browser->visit('/')->assertSee('Samarkand Design');
+    });
+  }
 }

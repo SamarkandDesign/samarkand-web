@@ -6,17 +6,17 @@ use Illuminate\Queue\SerializesModels;
 
 class ModelWasChanged extends Event
 {
-    use SerializesModels;
+  use SerializesModels;
 
-    public $tag;
+  public $tag;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct($tag)
-    {
-        $this->tag = $tag;
-    }
+  /**
+   * Create a new event instance.
+   *
+   * @return void
+   */
+  public function __construct($tag)
+  {
+    $this->tag = $tag;
+  }
 }

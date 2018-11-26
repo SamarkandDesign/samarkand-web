@@ -6,5 +6,5 @@ use App\Order;
 
 interface InvoiceCreator
 {
-    public function createInvoice(Order $order);
+  public function createInvoice(Order $order);
 }

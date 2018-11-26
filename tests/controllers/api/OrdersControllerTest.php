@@ -6,15 +6,15 @@ use App\Order;
 
 class OrdersControllerTest extends \TestCase
 {
-    /** @test **/
-    public function it_updates_an_order()
-    {
-        $order = factory(Order::class)->create(['status' => Order::PAID]);
+  /** @test **/
+  public function it_updates_an_order()
+  {
+    $order = factory(Order::class)->create(['status' => Order::PAID]);
 
-        $this->logInAsAdmin();
+    $this->logInAsAdmin();
 
-        $response = $this->patch(route('api.orders.update', $order), ['status' => Order::COMPLETED]);
+    $response = $this->patch(route('api.orders.update', $order), ['status' => Order::COMPLETED]);
 
-        $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => Order::COMPLETED]);
-    }
+    $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => Order::COMPLETED]);
+  }
 }

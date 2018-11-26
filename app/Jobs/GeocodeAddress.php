@@ -11,34 +11,34 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GeocodeAddress implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable, SerializesModels;
+  use InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $address;
+  protected $address;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct(Address $address)
-    {
-        $this->address = $address;
-    }
+  /**
+   * Create a new job instance.
+   *
+   * @return void
+   */
+  public function __construct(Address $address)
+  {
+    $this->address = $address;
+  }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle(Geocoder $geocoder)
-    {
-        $location = $geocoder->getCoordinates($this->address);
+  /**
+   * Execute the job.
+   *
+   * @return void
+   */
+  public function handle(Geocoder $geocoder)
+  {
+    $location = $geocoder->getCoordinates($this->address);
 
-        \DB::table('addresses')
-            ->where('id', $this->address->id)
-            ->update([
-                'lat' => $location->lat,
-                'lng' => $location->lng,
-                ]);
-    }
+    \DB::table('addresses')
+      ->where('id', $this->address->id)
+      ->update([
+        'lat' => $location->lat,
+        'lng' => $location->lng,
+      ]);
+  }
 }

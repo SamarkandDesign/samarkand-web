@@ -6,181 +6,195 @@ use TestCase;
 
 class OrderTest extends TestCase
 {
-    use \UsesCart, \FlushesProductEvents;
+  use \UsesCart, \FlushesProductEvents;
 
-    /** @test **/
-    public function it_adds_a_product_to_an_order()
-    {
-        $product = factory(Product::class)->create();
-        $order = factory(Order::class)->create();
+  /** @test **/
+  public function it_adds_a_product_to_an_order()
+  {
+    $product = factory(Product::class)->create();
+    $order = factory(Order::class)->create();
 
-        $order->addProduct($product);
+    $order->addProduct($product);
 
-        $this->assertEquals(1, $order->product_items->count());
-        $this->assertEquals($product->name, $order->product_items->first()->description);
+    $this->assertEquals(1, $order->product_items->count());
+    $this->assertEquals($product->name, $order->product_items->first()->description);
 
-        // If we add the same product again we expect just the quantity to be increased
-        $order->addProduct($product, 2);
-        $order = $order->fresh();
-        $this->assertEquals(1, $order->product_items->count());
-        $this->assertEquals(3, $order->product_items->first()->quantity);
+    // If we add the same product again we expect just the quantity to be increased
+    $order->addProduct($product, 2);
+    $order = $order->fresh();
+    $this->assertEquals(1, $order->product_items->count());
+    $this->assertEquals(3, $order->product_items->first()->quantity);
 
-        // And now we add a different product
-        $product_2 = factory(Product::class)->create();
-        $order->addProduct($product_2, 4);
-        $order = $order->fresh();
-        $this->assertEquals(2, $order->product_items->count());
-        $this->assertEquals(4, $order->product_items->last()->quantity);
-    }
+    // And now we add a different product
+    $product_2 = factory(Product::class)->create();
+    $order->addProduct($product_2, 4);
+    $order = $order->fresh();
+    $this->assertEquals(2, $order->product_items->count());
+    $this->assertEquals(4, $order->product_items->last()->quantity);
+  }
 
-    /** @test **/
-    public function it_updates_the_shipping_method_for_an_order()
-    {
-        $order_items = factory(OrderItem::class, 3)->create();
+  /** @test **/
+  public function it_updates_the_shipping_method_for_an_order()
+  {
+    $order_items = factory(OrderItem::class, 3)->create();
 
-        $order = factory(Order::class)->create();
+    $order = factory(Order::class)->create();
 
-        $order->order_items()->saveMany($order_items);
+    $order->order_items()->saveMany($order_items);
 
-        $this->assertFalse($order->hasShipping());
+    $this->assertFalse($order->hasShipping());
 
-        $shipping_method = factory(ShippingMethod::class)->create(['base_rate' => 5]);
+    $shipping_method = factory(ShippingMethod::class)->create(['base_rate' => 5]);
 
-        $order->setShipping($shipping_method->id);
+    $order->setShipping($shipping_method->id);
 
-        $this->assertTrue($order->fresh()->hasShipping());
-        $this->assertEquals($order->shipping_method->id, $shipping_method->id);
+    $this->assertTrue($order->fresh()->hasShipping());
+    $this->assertEquals($order->shipping_method->id, $shipping_method->id);
 
-        // Adding a new shipping method should replace the one currently there
+    // Adding a new shipping method should replace the one currently there
 
-        $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 6]);
+    $shipping_method_2 = factory('App\ShippingMethod')->create(['base_rate' => 6]);
 
-        $order->setShipping($shipping_method_2->id);
+    $order->setShipping($shipping_method_2->id);
 
-        $this->assertDatabaseHas('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method_2->base_rate->value()]);
-        $this->assertDatabaseMissing('order_items', ['orderable_type' => ShippingMethod::class, 'order_id' => $order->id, 'price_paid' => $shipping_method->base_rate->value()]);
-        $this->assertEquals($order->shipping_method->id, $shipping_method_2->id);
-    }
+    $this->assertDatabaseHas('order_items', [
+      'orderable_type' => ShippingMethod::class,
+      'order_id' => $order->id,
+      'price_paid' => $shipping_method_2->base_rate->value(),
+    ]);
+    $this->assertDatabaseMissing('order_items', [
+      'orderable_type' => ShippingMethod::class,
+      'order_id' => $order->id,
+      'price_paid' => $shipping_method->base_rate->value(),
+    ]);
+    $this->assertEquals($order->shipping_method->id, $shipping_method_2->id);
+  }
 
-    /** @test **/
-    public function it_refreshes_the_order_amount()
-    {
-        $order = factory(Order::class)->create();
-        OrderItem::unguard();
+  /** @test **/
+  public function it_refreshes_the_order_amount()
+  {
+    $order = factory(Order::class)->create();
+    OrderItem::unguard();
 
-        OrderItem::create([
-            'order_id'          => $order->id,
-            'description'       => 'A product',
-            'price_paid'        => 8920,
-            'quantity'          => 2,
-            'orderable_type'    => Product::class,
-            'orderable_id'      => 1,
-            ]);
+    OrderItem::create([
+      'order_id' => $order->id,
+      'description' => 'A product',
+      'price_paid' => 8920,
+      'quantity' => 2,
+      'orderable_type' => Product::class,
+      'orderable_id' => 1,
+    ]);
 
-        OrderItem::create([
-            'order_id'          => $order->id,
-            'description'       => 'A shipping method',
-            'price_paid'        => 500,
-            'quantity'          => 1,
-            'orderable_type'    => ShippingMethod::class,
-            'orderable_id'      => 1,
-            ]);
+    OrderItem::create([
+      'order_id' => $order->id,
+      'description' => 'A shipping method',
+      'price_paid' => 500,
+      'quantity' => 1,
+      'orderable_type' => ShippingMethod::class,
+      'orderable_id' => 1,
+    ]);
 
-        $order->refreshAmount();
-        $this->assertEquals(183.4, $order->amount->asDecimal());
-    }
+    $order->refreshAmount();
+    $this->assertEquals(183.4, $order->amount->asDecimal());
+  }
 
-    /** @test **/
-    public function it_creates_an_order_with_items()
-    {
-        $order = factory(Order::class)->create();
-        $order_items = factory(OrderItem::class, 3)->create(['order_id' => $order->id]);
+  /** @test **/
+  public function it_creates_an_order_with_items()
+  {
+    $order = factory(Order::class)->create();
+    $order_items = factory(OrderItem::class, 3)->create(['order_id' => $order->id]);
 
-        $this->assertCount(3, $order->order_items);
-        $this->assertInstanceOf(User::class, $order->customer);
-    }
+    $this->assertCount(3, $order->order_items);
+    $this->assertInstanceOf(User::class, $order->customer);
+  }
 
-    /** @test **/
-    public function it_gets_the_vat_amount_of_an_order()
-    {
-        $order = factory(Order::class)->create();
-        $item = factory(OrderItem::class)->create(['order_id' => $order->id]);
-        $order = $order->refreshAmount();
+  /** @test **/
+  public function it_gets_the_vat_amount_of_an_order()
+  {
+    $order = factory(Order::class)->create();
+    $item = factory(OrderItem::class)->create(['order_id' => $order->id]);
+    $order = $order->refreshAmount();
 
-        $this->assertEquals($order->vatAmount->value(), intval($order->amount->value() * (config('shop.vat_rate') / 100)));
-    }
+    $this->assertEquals(
+      $order->vatAmount->value(),
+      intval($order->amount->value() * (config('shop.vat_rate') / 100))
+    );
+  }
 
-    /** @test **/
-    public function it_syncs_an_order_with_the_cart()
-    {
-        // Given I have an order with an item in it already...
-        $order = factory(Order::class)->create();
+  /** @test **/
+  public function it_syncs_an_order_with_the_cart()
+  {
+    // Given I have an order with an item in it already...
+    $order = factory(Order::class)->create();
 
-        $order_item = factory(OrderItem::class)->create(['order_id' => $order->id]);
+    $order_item = factory(OrderItem::class)->create(['order_id' => $order->id]);
 
-        // And I have a product in the cart...
-        $product = $this->putProductInCart();
+    // And I have a product in the cart...
+    $product = $this->putProductInCart();
 
-        // If I sync the cart contents to the order...
-        $order->syncWithCart();
+    // If I sync the cart contents to the order...
+    $order->syncWithCart();
 
-        // The order items should correspond to the cart
-        $this->assertEquals($product->getPrice(), $order->fresh()->amount);
-        $this->assertDatabaseHas('order_items', ['orderable_id' => $product->id, 'order_id' => $order->id]);
+    // The order items should correspond to the cart
+    $this->assertEquals($product->getPrice(), $order->fresh()->amount);
+    $this->assertDatabaseHas('order_items', [
+      'orderable_id' => $product->id,
+      'order_id' => $order->id,
+    ]);
 
-        // And I shouldn't have the old item in the order anymore
-        $this->assertDatabaseMissing('order_items', ['description' => $order_item->description]);
-    }
+    // And I shouldn't have the old item in the order anymore
+    $this->assertDatabaseMissing('order_items', ['description' => $order_item->description]);
+  }
 
-    /** @test **/
-    public function it_determines_if_the_billing_and_shipping_address_are_the_same()
-    {
-        $order = new Order();
+  /** @test **/
+  public function it_determines_if_the_billing_and_shipping_address_are_the_same()
+  {
+    $order = new Order();
 
-        // The billing and shipping addresses are unset so it should return false
-        $this->assertFalse($order->shippingSameAsBilling());
+    // The billing and shipping addresses are unset so it should return false
+    $this->assertFalse($order->shippingSameAsBilling());
 
-        $order->billing_address_id = 1;
-        $this->assertFalse($order->shippingSameAsBilling());
+    $order->billing_address_id = 1;
+    $this->assertFalse($order->shippingSameAsBilling());
 
-        $order->shipping_address_id = 1;
-        $this->assertTrue($order->shippingSameAsBilling());
-    }
+    $order->shipping_address_id = 1;
+    $this->assertTrue($order->shippingSameAsBilling());
+  }
 
-    /** @test **/
-    public function it_gets_abandoned_orders()
-    {
-        $abandoned_orders = factory(Order::class, 2)->create([
-            'status'     => Order::PENDING,
-            'updated_at' => \Carbon\Carbon::parse('10 hours ago'),
-            ]);
+  /** @test **/
+  public function it_gets_abandoned_orders()
+  {
+    $abandoned_orders = factory(Order::class, 2)->create([
+      'status' => Order::PENDING,
+      'updated_at' => \Carbon\Carbon::parse('10 hours ago'),
+    ]);
 
-        $completed_order = factory(Order::class)->create([
-            'status'     => Order::COMPLETED,
-            'updated_at' => \Carbon\Carbon::parse('13 hours ago'),
-            ]);
+    $completed_order = factory(Order::class)->create([
+      'status' => Order::COMPLETED,
+      'updated_at' => \Carbon\Carbon::parse('13 hours ago'),
+    ]);
 
-        $in_progress_order = factory(Order::class)->create([
-            'status'     => Order::PENDING,
-            'updated_at' => \Carbon\Carbon::parse('1 minute ago'),
-            ]);
+    $in_progress_order = factory(Order::class)->create([
+      'status' => Order::PENDING,
+      'updated_at' => \Carbon\Carbon::parse('1 minute ago'),
+    ]);
 
-        $abandoned = Order::abandoned()->get();
+    $abandoned = Order::abandoned()->get();
 
-        $this->assertCount(2, $abandoned);
-    }
+    $this->assertCount(2, $abandoned);
+  }
 
-    /** @test **/
-    public function it_fires_an_event_when_the_order_status_changes()
-    {
-        $order = factory(Order::class)->create([
-            'status'     => Order::PENDING,
-            ]);
+  /** @test **/
+  public function it_fires_an_event_when_the_order_status_changes()
+  {
+    $order = factory(Order::class)->create([
+      'status' => Order::PENDING,
+    ]);
 
-        $this->expectsEvents(\App\Events\OrderStatusChanged::class);
+    $this->expectsEvents(\App\Events\OrderStatusChanged::class);
 
-        $order->update([
-            'status' => ORDER::PAID,
-            ]);
-    }
+    $order->update([
+      'status' => ORDER::PAID,
+    ]);
+  }
 }

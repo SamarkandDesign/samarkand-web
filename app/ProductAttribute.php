@@ -7,38 +7,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductAttribute extends Model
 {
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
+  /**
+   * The "booting" method of the model.
+   *
+   * @return void
+   */
+  protected static function boot()
+  {
+    parent::boot();
 
-        static::addGlobalScope(new SortTermScope());
-
-        /**
-         * Set a slug on the attribute if it's not passed in.
-         */
-        static::creating(function ($attribute) {
-            if (! $attribute->slug) {
-                $attribute->slug = str_slug($attribute->name);
-            }
-        });
-    }
-
-    protected $table = 'product_attributes';
+    static::addGlobalScope(new SortTermScope());
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Set a slug on the attribute if it's not passed in.
      */
-    protected $fillable = ['name', 'slug', 'order'];
+    static::creating(function ($attribute) {
+      if (!$attribute->slug) {
+        $attribute->slug = str_slug($attribute->name);
+      }
+    });
+  }
 
-    public function attribute_properties()
-    {
-        return $this->hasMany(AttributeProperty::class);
-    }
+  protected $table = 'product_attributes';
+
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = ['name', 'slug', 'order'];
+
+  public function attribute_properties()
+  {
+    return $this->hasMany(AttributeProperty::class);
+  }
 }

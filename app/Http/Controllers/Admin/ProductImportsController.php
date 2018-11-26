@@ -8,22 +8,24 @@ use App\Http\Controllers\Controller;
 
 class ProductImportsController extends Controller
 {
-    public function show()
-    {
-        return view('admin.products.upload');
-    }
+  public function show()
+  {
+    return view('admin.products.upload');
+  }
 
-    public function create(Request $request)
-    {
-        $this->validate($request, ['file' => 'required|file|mimes:csv,txt']);
+  public function create(Request $request)
+  {
+    $this->validate($request, ['file' => 'required|file|mimes:csv,txt']);
 
-        $importer = new ProductImporter();
-        $products = $importer->run($request->file('file'));
+    $importer = new ProductImporter();
+    $products = $importer->run($request->file('file'));
 
-        return redirect()->route('admin.products.upload')->with([
-        'alert'       => sprintf('%s products imported', $products->count()),
+    return redirect()
+      ->route('admin.products.upload')
+      ->with([
+        'alert' => sprintf('%s products imported', $products->count()),
         'alert-class' => $products->count() ? 'success' : 'warning',
-        'failures'    => $importer->getFailures(),
-        ]);
-    }
+        'failures' => $importer->getFailures(),
+      ]);
+  }
 }

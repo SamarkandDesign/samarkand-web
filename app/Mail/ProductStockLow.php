@@ -9,28 +9,29 @@ use Illuminate\Queue\SerializesModels;
 
 class ProductStockLow extends Mailable
 {
-    use Queueable, SerializesModels;
+  use Queueable, SerializesModels;
 
-    public $product;
+  public $product;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct(Product $product)
-    {
-        $this->product = $product;
-    }
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  public function __construct(Product $product)
+  {
+    $this->product = $product;
+  }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('emails.products.low_stock')
-                    ->subject("Product stock low: {$this->product->sku}");
-    }
+  /**
+   * Build the message.
+   *
+   * @return $this
+   */
+  public function build()
+  {
+    return $this->view('emails.products.low_stock')->subject(
+      "Product stock low: {$this->product->sku}"
+    );
+  }
 }

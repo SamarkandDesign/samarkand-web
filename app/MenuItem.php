@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Builder;
 
 class MenuItem extends Model
 {
-    protected static function boot()
-    {
-        parent::boot();
+  protected static function boot()
+  {
+    parent::boot();
 
-        static::addGlobalScope('orderByOrder', function (Builder $query) {
-            $query->orderBy('menu', 'ASC')->orderBy('order', 'ASC');
-        });
-    }
+    static::addGlobalScope('orderByOrder', function (Builder $query) {
+      $query->orderBy('menu', 'ASC')->orderBy('order', 'ASC');
+    });
+  }
 
-    protected $table = 'menu_items';
+  protected $table = 'menu_items';
 
-    public $timestamps = false;
+  public $timestamps = false;
 
-    protected $fillable = ['menu', 'label', 'link', 'order'];
+  protected $fillable = ['menu', 'label', 'link', 'order'];
 }

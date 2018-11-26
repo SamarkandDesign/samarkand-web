@@ -6,53 +6,53 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShippingCountry extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    public $table = 'shipping_countries';
+  /**
+   * The database table used by the model.
+   *
+   * @var string
+   */
+  public $table = 'shipping_countries';
 
-    /**
-     * Disable timestamps.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
+  /**
+   * Disable timestamps.
+   *
+   * @var bool
+   */
+  public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public $fillable = ['country_id'];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  public $fillable = ['country_id'];
 
-    protected $touches = ['shipping_method'];
+  protected $touches = ['shipping_method'];
 
-    public function shipping_method()
-    {
-        return $this->belongsTo(ShippingMethod::class);
-    }
+  public function shipping_method()
+  {
+    return $this->belongsTo(ShippingMethod::class);
+  }
 
-    /**
-     * Ensure the country ID is stored in uppercase.
-     *
-     * @param string $country_id
-     */
-    public function setCountryIdAttribute($country_id)
-    {
-        $this->attributes['country_id'] = strtoupper($country_id);
-    }
+  /**
+   * Ensure the country ID is stored in uppercase.
+   *
+   * @param string $country_id
+   */
+  public function setCountryIdAttribute($country_id)
+  {
+    $this->attributes['country_id'] = strtoupper($country_id);
+  }
 
-    /**
-     * Ensure the country ID is always uppercase.
-     *
-     * @param string $country_id
-     *
-     * @return string
-     */
-    public function getCountryIdAttribute($country_id)
-    {
-        return strtoupper($country_id);
-    }
+  /**
+   * Ensure the country ID is always uppercase.
+   *
+   * @param string $country_id
+   *
+   * @return string
+   */
+  public function getCountryIdAttribute($country_id)
+  {
+    return strtoupper($country_id);
+  }
 }

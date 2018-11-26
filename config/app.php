@@ -1,12 +1,11 @@
 <?php
 
 return [
+  'env' => env('APP_ENV', 'production'),
 
-    'env' => env('APP_ENV', 'production'),
+  'name' => env('APP_NAME', 'Samarkand Design'),
 
-    'name' => env('APP_NAME', 'Samarkand Design'),
-
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
@@ -17,9 +16,9 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG'),
+  'debug' => env('APP_DEBUG'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
@@ -30,9 +29,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://homestead.app'),
+  'url' => env('APP_URL', 'http://homestead.app'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
@@ -43,9 +42,9 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+  'timezone' => env('APP_TIMEZONE', 'UTC'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
@@ -56,9 +55,9 @@ return [
     |
     */
 
-    'locale' => 'en',
+  'locale' => 'en',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
     |--------------------------------------------------------------------------
@@ -69,9 +68,9 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+  'fallback_locale' => 'en',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
@@ -82,11 +81,11 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', '664fa76df43aec3c1c23c4f17730f021'),
+  'key' => env('APP_KEY', '664fa76df43aec3c1c23c4f17730f021'),
 
-    'cipher' => 'AES-256-CBC',
+  'cipher' => 'AES-256-CBC',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Logging Configuration
     |--------------------------------------------------------------------------
@@ -99,9 +98,9 @@ return [
     |
     */
 
-    'log' => env('LOG_TYPE', 'daily'),
+  'log' => env('LOG_TYPE', 'daily'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
@@ -112,64 +111,63 @@ return [
     |
     */
 
-    'providers' => [
-
-        /*
-         * Laravel Framework Service Providers...
-         */
-        'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Bus\BusServiceProvider',
-        'Illuminate\Cache\CacheServiceProvider',
-        'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-        'Illuminate\Cookie\CookieServiceProvider',
-        'Illuminate\Database\DatabaseServiceProvider',
-        'Illuminate\Encryption\EncryptionServiceProvider',
-        'Illuminate\Filesystem\FilesystemServiceProvider',
-        'Illuminate\Foundation\Providers\FoundationServiceProvider',
-        'Illuminate\Hashing\HashServiceProvider',
-        'Illuminate\Mail\MailServiceProvider',
-        'Illuminate\Pagination\PaginationServiceProvider',
-        'Illuminate\Pipeline\PipelineServiceProvider',
-        'Illuminate\Queue\QueueServiceProvider',
-        'Illuminate\Redis\RedisServiceProvider',
-        'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
-        'Illuminate\Session\SessionServiceProvider',
-        'Illuminate\Translation\TranslationServiceProvider',
-        'Illuminate\Validation\ValidationServiceProvider',
-        'Illuminate\View\ViewServiceProvider',
-        Illuminate\Notifications\NotificationServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
-        'App\Providers\AppServiceProvider',
-        'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider',
-        'App\Providers\RouteServiceProvider',
-        'App\Providers\DatabaseServiceProvider',
-        'App\Providers\ComposerServiceProvider',
-        'App\Providers\AuthServiceProvider',
-        'App\Providers\CountriesServiceProvider',
-        'App\Providers\CacheServiceProvider',
-        'App\Providers\XeroServiceProvider',
-
-        /*
-         * 3rd Party Service Providers
-         */
-        Collective\Html\HtmlServiceProvider::class,
-        Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
-        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-        Baum\Providers\BaumServiceProvider::class,
-        Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
-        // Laravel\Tinker\TinkerServiceProvider::class,
-        App\Billing\BillingServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class,
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
-    ],
+  'providers' => [
+    /*
+     * Laravel Framework Service Providers...
+     */
+    'Illuminate\Auth\AuthServiceProvider',
+    'Illuminate\Bus\BusServiceProvider',
+    'Illuminate\Cache\CacheServiceProvider',
+    'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
+    'Illuminate\Cookie\CookieServiceProvider',
+    'Illuminate\Database\DatabaseServiceProvider',
+    'Illuminate\Encryption\EncryptionServiceProvider',
+    'Illuminate\Filesystem\FilesystemServiceProvider',
+    'Illuminate\Foundation\Providers\FoundationServiceProvider',
+    'Illuminate\Hashing\HashServiceProvider',
+    'Illuminate\Mail\MailServiceProvider',
+    'Illuminate\Pagination\PaginationServiceProvider',
+    'Illuminate\Pipeline\PipelineServiceProvider',
+    'Illuminate\Queue\QueueServiceProvider',
+    'Illuminate\Redis\RedisServiceProvider',
+    'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
+    'Illuminate\Session\SessionServiceProvider',
+    'Illuminate\Translation\TranslationServiceProvider',
+    'Illuminate\Validation\ValidationServiceProvider',
+    'Illuminate\View\ViewServiceProvider',
+    Illuminate\Notifications\NotificationServiceProvider::class,
 
     /*
+     * Application Service Providers...
+     */
+    'App\Providers\AppServiceProvider',
+    'App\Providers\EventServiceProvider',
+    'App\Providers\RouteServiceProvider',
+    'App\Providers\RouteServiceProvider',
+    'App\Providers\DatabaseServiceProvider',
+    'App\Providers\ComposerServiceProvider',
+    'App\Providers\AuthServiceProvider',
+    'App\Providers\CountriesServiceProvider',
+    'App\Providers\CacheServiceProvider',
+    'App\Providers\XeroServiceProvider',
+
+    /*
+     * 3rd Party Service Providers
+     */
+    Collective\Html\HtmlServiceProvider::class,
+    Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+    Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+    GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+    Baum\Providers\BaumServiceProvider::class,
+    Fideloper\Proxy\TrustedProxyServiceProvider::class,
+    Laravel\Scout\ScoutServiceProvider::class,
+    // Laravel\Tinker\TinkerServiceProvider::class,
+    App\Billing\BillingServiceProvider::class,
+    Laravel\Tinker\TinkerServiceProvider::class,
+    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+  ],
+
+  /*
     |--------------------------------------------------------------------------
     | Class Aliases
     |--------------------------------------------------------------------------
@@ -180,47 +178,44 @@ return [
     |
     */
 
-    'aliases' => [
-
-        'App'           => 'Illuminate\Support\Facades\App',
-        'Artisan'       => 'Illuminate\Support\Facades\Artisan',
-        'Auth'          => 'Illuminate\Support\Facades\Auth',
-        'Blade'         => 'Illuminate\Support\Facades\Blade',
-        'Cache'         => 'Illuminate\Support\Facades\Cache',
-        'Config'        => 'Illuminate\Support\Facades\Config',
-        'Cookie'        => 'Illuminate\Support\Facades\Cookie',
-        'Crypt'         => 'Illuminate\Support\Facades\Crypt',
-        'DB'            => 'Illuminate\Support\Facades\DB',
-        'Event'         => 'Illuminate\Support\Facades\Event',
-        'File'          => 'Illuminate\Support\Facades\File',
-        'Hash'          => 'Illuminate\Support\Facades\Hash',
-        'Input'         => 'Illuminate\Support\Facades\Input',
-        'Inspiring'     => 'Illuminate\Foundation\Inspiring',
-        'Lang'          => 'Illuminate\Support\Facades\Lang',
-        'Log'           => 'Illuminate\Support\Facades\Log',
-        'Mail'          => 'Illuminate\Support\Facades\Mail',
-        'Paginator'     => 'Illuminate\Support\Facades\Paginator',
-        'Password'      => 'Illuminate\Support\Facades\Password',
-        'Queue'         => 'Illuminate\Support\Facades\Queue',
-        'Redirect'      => 'Illuminate\Support\Facades\Redirect',
-        'Redis'         => 'Illuminate\Support\Facades\Redis',
-        'Request'       => 'Illuminate\Support\Facades\Request',
-        'Response'      => 'Illuminate\Support\Facades\Response',
-        'Route'         => 'Illuminate\Support\Facades\Route',
-        'Schema'        => 'Illuminate\Support\Facades\Schema',
-        'Session'       => 'Illuminate\Support\Facades\Session',
-        'URL'           => 'Illuminate\Support\Facades\URL',
-        'Validator'     => 'Illuminate\Support\Facades\Validator',
-        'View'          => 'Illuminate\Support\Facades\View',
-        'Form'          => 'Collective\Html\FormFacade',
-        'HTML'          => 'Collective\Html\HtmlFacade',
-        'Str'           => 'Illuminate\Support\Str',
-        'Gate'          => Illuminate\Support\Facades\Gate::class,
-        'Cart'          => 'Gloudemans\Shoppingcart\Facades\Cart',
-        'Markdown'      => 'GrahamCampbell\Markdown\Facades\Markdown',
-        'Present'       => 'App\Presenters\Presenter',
-        'Sentry'        => Sentry\SentryLaravel\SentryFacade::class,
-
-    ],
-
+  'aliases' => [
+    'App' => 'Illuminate\Support\Facades\App',
+    'Artisan' => 'Illuminate\Support\Facades\Artisan',
+    'Auth' => 'Illuminate\Support\Facades\Auth',
+    'Blade' => 'Illuminate\Support\Facades\Blade',
+    'Cache' => 'Illuminate\Support\Facades\Cache',
+    'Config' => 'Illuminate\Support\Facades\Config',
+    'Cookie' => 'Illuminate\Support\Facades\Cookie',
+    'Crypt' => 'Illuminate\Support\Facades\Crypt',
+    'DB' => 'Illuminate\Support\Facades\DB',
+    'Event' => 'Illuminate\Support\Facades\Event',
+    'File' => 'Illuminate\Support\Facades\File',
+    'Hash' => 'Illuminate\Support\Facades\Hash',
+    'Input' => 'Illuminate\Support\Facades\Input',
+    'Inspiring' => 'Illuminate\Foundation\Inspiring',
+    'Lang' => 'Illuminate\Support\Facades\Lang',
+    'Log' => 'Illuminate\Support\Facades\Log',
+    'Mail' => 'Illuminate\Support\Facades\Mail',
+    'Paginator' => 'Illuminate\Support\Facades\Paginator',
+    'Password' => 'Illuminate\Support\Facades\Password',
+    'Queue' => 'Illuminate\Support\Facades\Queue',
+    'Redirect' => 'Illuminate\Support\Facades\Redirect',
+    'Redis' => 'Illuminate\Support\Facades\Redis',
+    'Request' => 'Illuminate\Support\Facades\Request',
+    'Response' => 'Illuminate\Support\Facades\Response',
+    'Route' => 'Illuminate\Support\Facades\Route',
+    'Schema' => 'Illuminate\Support\Facades\Schema',
+    'Session' => 'Illuminate\Support\Facades\Session',
+    'URL' => 'Illuminate\Support\Facades\URL',
+    'Validator' => 'Illuminate\Support\Facades\Validator',
+    'View' => 'Illuminate\Support\Facades\View',
+    'Form' => 'Collective\Html\FormFacade',
+    'HTML' => 'Collective\Html\HtmlFacade',
+    'Str' => 'Illuminate\Support\Str',
+    'Gate' => Illuminate\Support\Facades\Gate::class,
+    'Cart' => 'Gloudemans\Shoppingcart\Facades\Cart',
+    'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
+    'Present' => 'App\Presenters\Presenter',
+    'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+  ],
 ];

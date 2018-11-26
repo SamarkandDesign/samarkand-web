@@ -6,40 +6,40 @@ use App\Http\Requests\Request;
 
 class ProductRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
+  /**
+   * Determine if the user is authorized to make this request.
+   *
+   * @return bool
+   */
+  public function authorize()
+  {
+    return true;
+  }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function defaultRules()
-    {
-        $price = $this->get('price', 9999999);
+  /**
+   * Get the validation rules that apply to the request.
+   *
+   * @return array
+   */
+  public function defaultRules()
+  {
+    $price = $this->get('price', 9999999);
 
-        return [
-            'name'       => 'required|string',
-            'slug'       => 'required|alpha_dash|unique:products,slug',
-            'sku'        => 'required|unique:products,sku',
-            'price'      => 'numeric|min:0',
-            'sale_price' => sprintf('numeric|min:0|max:%f', $price),
-            'stock_qty'  => 'integer',
-            'user_id'    => 'required|integer',
-        ];
-    }
+    return [
+      'name' => 'required|string',
+      'slug' => 'required|alpha_dash|unique:products,slug',
+      'sku' => 'required|unique:products,sku',
+      'price' => 'numeric|min:0',
+      'sale_price' => sprintf('numeric|min:0|max:%f', $price),
+      'stock_qty' => 'integer',
+      'user_id' => 'required|integer',
+    ];
+  }
 
-    public function messages()
-    {
-        return [
-            'sale_price.max'      => 'The sale price should be less than the normal price',
-            ];
-    }
+  public function messages()
+  {
+    return [
+      'sale_price.max' => 'The sale price should be less than the normal price',
+    ];
+  }
 }

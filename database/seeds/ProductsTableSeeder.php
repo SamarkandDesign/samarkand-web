@@ -7,18 +7,18 @@ use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
 {
-    public function run()
-    {
-        $faker = Faker::create();
+  public function run()
+  {
+    $faker = Faker::create();
 
-        $userIds = User::pluck('id')->toArray();
+    $userIds = User::pluck('id')->toArray();
 
-        Product::flushEventListeners();
+    Product::flushEventListeners();
 
-        foreach (range(1, 15) as $index) {
-            factory(Product::class)->create([
-                'user_id' => $faker->randomElement($userIds),
-                ]);
-        }
+    foreach (range(1, 15) as $index) {
+      factory(Product::class)->create([
+        'user_id' => $faker->randomElement($userIds),
+      ]);
     }
+  }
 }

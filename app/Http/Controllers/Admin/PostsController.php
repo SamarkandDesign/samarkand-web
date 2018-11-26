@@ -15,152 +15,150 @@ use App\Http\Requests\Post\UpdatePostRequest;
  */
 class PostsController extends Controller
 {
-    use \App\Traits\TrashesModels;
+  use \App\Traits\TrashesModels;
 
-    /**
-     * @var PostRepository
-     */
-    private $posts;
+  /**
+   * @var PostRepository
+   */
+  private $posts;
 
-    /**
-     * @var TermRepository
-     */
-    private $terms;
+  /**
+   * @var TermRepository
+   */
+  private $terms;
 
-    /**
-     * Create a new PostsController instance.
-     *
-     * @param PostRepository $posts PostRepository
-     * @param TermRepository $terms TermRepository
-     */
-    public function __construct(PostRepository $posts, TermRepository $terms)
-    {
-        $this->posts = $posts;
-        $this->terms = $terms;
-    }
+  /**
+   * Create a new PostsController instance.
+   *
+   * @param PostRepository $posts PostRepository
+   * @param TermRepository $terms TermRepository
+   */
+  public function __construct(PostRepository $posts, TermRepository $terms)
+  {
+    $this->posts = $posts;
+    $this->terms = $terms;
+  }
 
-    /**
-     * Show a listing of posts.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $posts = $this->posts->getPaginated(['categories', 'author']);
+  /**
+   * Show a listing of posts.
+   *
+   * @return Response
+   */
+  public function index()
+  {
+    $posts = $this->posts->getPaginated(['categories', 'author']);
 
-        return view('admin.posts.index')->with(compact('posts'));
-    }
+    return view('admin.posts.index')->with(compact('posts'));
+  }
 
-    /**
-     * Show a page of trashed posts.
-     *
-     * @return Response
-     */
-    public function trash()
-    {
-        $posts = Post::onlyTrashed()->latest()->paginate(10);
-        $title = 'Trash';
+  /**
+   * Show a page of trashed posts.
+   *
+   * @return Response
+   */
+  public function trash()
+  {
+    $posts = Post::onlyTrashed()
+      ->latest()
+      ->paginate(10);
+    $title = 'Trash';
 
-        return view('admin.posts.index')->with(compact('posts', 'title'));
-    }
+    return view('admin.posts.index')->with(compact('posts', 'title'));
+  }
 
-    /**
-     * Show the form for creating a new post.
-     *
-     * @param DbTermRepository $terms
-     * @param Post             $post
-     *
-     * @return Response
-     */
-    public function create(TermRepository $terms, Post $post)
-    {
-        $selectedCategories = [];
-        $categoryList = $terms->getCategoryList();
-        $tagList = $terms->getTagList();
+  /**
+   * Show the form for creating a new post.
+   *
+   * @param DbTermRepository $terms
+   * @param Post             $post
+   *
+   * @return Response
+   */
+  public function create(TermRepository $terms, Post $post)
+  {
+    $selectedCategories = [];
+    $categoryList = $terms->getCategoryList();
+    $tagList = $terms->getTagList();
 
-        return view('admin.posts.create')->with(compact(
-            'categoryList',
-            'selectedCategories',
-            'tagList',
-            'post'
-        ));
-    }
+    return view('admin.posts.create')->with(
+      compact('categoryList', 'selectedCategories', 'tagList', 'post')
+    );
+  }
 
-    /**
-     * Store a newly created post in storage.
-     *
-     * @param CreatePostRequest $request
-     *
-     * @return Response
-     */
-    public function store(CreatePostRequest $request)
-    {
-        $post = Post::create($request->all());
-        $post->syncTerms($request->get('terms', []));
+  /**
+   * Store a newly created post in storage.
+   *
+   * @param CreatePostRequest $request
+   *
+   * @return Response
+   */
+  public function store(CreatePostRequest $request)
+  {
+    $post = Post::create($request->all());
+    $post->syncTerms($request->get('terms', []));
 
-        return redirect()->route('admin.posts.edit', $post)
-            ->with([
-                'alert'       => 'Post saved',
-                'alert-class' => 'success',
-                ]);
-    }
+    return redirect()
+      ->route('admin.posts.edit', $post)
+      ->with([
+        'alert' => 'Post saved',
+        'alert-class' => 'success',
+      ]);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Post             $post
-     * @param DbTermRepository $terms
-     *
-     * @return Response
-     */
-    public function edit(Post $post, TermRepository $terms)
-    {
-        $post->load('categories', 'tags');
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param Post             $post
+   * @param DbTermRepository $terms
+   *
+   * @return Response
+   */
+  public function edit(Post $post, TermRepository $terms)
+  {
+    $post->load('categories', 'tags');
 
-        $selectedCategories = $post->categories->pluck('id')->toArray();
+    $selectedCategories = $post->categories->pluck('id')->toArray();
 
-        $categoryList = $terms->getCategoryList($post);
-        $tagList = $terms->getTagList();
+    $categoryList = $terms->getCategoryList($post);
+    $tagList = $terms->getTagList();
 
-        return view('admin.posts.edit')->with(compact(
-            'post',
-            'categoryList',
-            'selectedCategories',
-            'tagList'
-        ));
-    }
+    return view('admin.posts.edit')->with(
+      compact('post', 'categoryList', 'selectedCategories', 'tagList')
+    );
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Post              $post
-     * @param UpdatePostRequest $request
-     *
-     * @return Response
-     *
-     * @internal param int $id
-     */
-    public function update(Post $post, UpdatePostRequest $request)
-    {
-        $post->update($request->all());
-        $post->syncTerms($request->get('terms', []));
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param Post              $post
+   * @param UpdatePostRequest $request
+   *
+   * @return Response
+   *
+   * @internal param int $id
+   */
+  public function update(Post $post, UpdatePostRequest $request)
+  {
+    $post->update($request->all());
+    $post->syncTerms($request->get('terms', []));
 
-        return redirect()->route('admin.posts.edit', $post)
-            ->with([
-                'alert'       => 'Post Updated!',
-                'alert-class' => 'success',
-                ]);
-    }
+    return redirect()
+      ->route('admin.posts.edit', $post)
+      ->with([
+        'alert' => 'Post Updated!',
+        'alert-class' => 'success',
+      ]);
+  }
 
-    /**
-     * Show a page of attached images.
-     *
-     * @param Post $post
-     *
-     * @return Response
-     */
-    public function images(Post $post)
-    {
-        return view('admin.posts.images')->with(compact('post'));
-    }
+  /**
+   * Show a page of attached images.
+   *
+   * @param Post $post
+   *
+   * @return Response
+   */
+  public function images(Post $post)
+  {
+    return view('admin.posts.images')->with(compact('post'));
+  }
 }
