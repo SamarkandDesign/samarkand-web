@@ -4,6 +4,7 @@
     "bootstrap": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"
   },
   "devDependencies": {
+    "@prettier/plugin-php": "^0.9.0",
     "admin-lte": "^2.3.6",
     "algoliasearch": "^3.17.0",
     "bootstrap-sass": "^3.0.0",
@@ -19,6 +20,7 @@
     "mocha": "^3.1.2",
     "node-sass": "^4.5.0",
     "payform": "^1.2.0",
+    "prettier": "^1.15.2",
     "raw-loader": "^0.5.1",
     "select2": "^4.0.1",
     "vue": "^2.0.1",
@@ -31,12 +33,20 @@
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dc:migrate": "docker-compose run samarkand-app 'php artisan migrate'"
+    "dc:migrate": "docker-compose run samarkand-app 'php artisan migrate'",
+    "prettier": "prettier '{app,tests,routes,config,database}/**/*.php' --write"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "flickity": "^2.0.10",
     "flickity-imagesloaded": "^2.0.0",
     "webpack": "^3.3.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
