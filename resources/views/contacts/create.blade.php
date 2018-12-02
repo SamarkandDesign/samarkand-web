@@ -18,6 +18,7 @@ Contact Us
       @include('partials.alerts._errors_block')
       {!! Form::model(App\Contact::class, ['route' => 'contacts.store', 'method' => 'post', 'class' => 'top-buffer']) !!}
 
+      <input type="text" name="website" class="hidden" value="" />
       <div class="row">
 
         <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : '' }}">

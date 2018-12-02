@@ -22,6 +22,7 @@ class ContactTest extends TestCase
       'email' => 'joe@example.com',
       'subject' => 'This is an email',
       'message' => 'Lorem Ipsum',
+      'website' => '',
     ]);
 
     \Mail::assertSent(ContactSubmitted::class, function ($m) {
@@ -43,8 +44,9 @@ class ContactTest extends TestCase
       'email' => '',
       'subject' => '',
       'message' => '',
+      'website' => 'http://badsite.com',
     ]);
 
-    $response->assertSessionHasErrors(['name']);
+    $response->assertSessionHasErrors(['name', 'website']);
   }
 }

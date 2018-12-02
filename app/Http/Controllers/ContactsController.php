@@ -20,6 +20,7 @@ class ContactsController extends Controller
       'email' => 'required|email',
       'subject' => 'required',
       'message' => 'required',
+      'website' => 'size:0',
     ]);
 
     $contact = Contact::create($request->all());
