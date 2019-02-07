@@ -11,7 +11,9 @@ Contact Us
   <p>Our products are available to view at our headquarters in Devon.</p>
 
   <p>Feel free to get in touch using the contact form below, or directly via email or social media.</p>
-
+  <alert type="info">
+  The Samarkand Design team are currently away in India. If getting in touch please use email or WhatsApp to ensure you can reach us.
+  </alert>
 
   <div class="row">
     <div class="col-sm-8">
