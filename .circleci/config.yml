@@ -43,7 +43,7 @@ jobs:
             - mix-manifest.json
   testphp:
     docker:
-      - image: circleci/php:7.1-browsers
+      - image: circleci/php:7.2-browsers
         environment:
           APP_ENV: testing
           APP_DEBUG: true
