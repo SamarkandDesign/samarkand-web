@@ -50,10 +50,6 @@ return [
     'payment_account' => env('XERO_PAYMENT_ACCOUNT', '090'),
   ],
 
-  'heap' => [
-    'key' => env('HEAP_KEY'),
-  ],
-
   'fullstory' => [
     'org' => env('FULLSTORY_ORG'),
   ],
