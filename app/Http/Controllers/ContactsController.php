@@ -24,7 +24,12 @@ class ContactsController extends Controller
     ]);
 
     $contact = Contact::create($request->all());
-    \Mail::to(config('mail.recipients.contact'))->send(new ContactSubmitted($contact));
+    $recipient = config('mail.recipients.contact');
+    if ($recipient) {
+      \Mail::to($recipient)->send(new ContactSubmitted($contact));
+    } else {
+      \Log::warning('Not sending contact email as recipient not set', ['contact' => $contact->toArray()]);
+    }
 
     return redirect('/contact')->with([
       'alert' => 'Thanks, your message has been sent',
