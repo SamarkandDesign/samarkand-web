@@ -25,6 +25,7 @@ class ContactTest extends TestCase
       'website' => '',
     ]);
 
+
     \Mail::assertSent(ContactSubmitted::class, function ($m) {
       return $m->hasTo('foo@example.com');
     });

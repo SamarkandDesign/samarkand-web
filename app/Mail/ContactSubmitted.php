@@ -33,6 +33,7 @@ class ContactSubmitted extends Mailable
     return $this->text('emails.plaintext')
       ->with(['text' => $this->contact->message])
       ->subject($this->contact->subject)
-      ->from($this->contact->email, $this->contact->name);
+      ->replyTo($this->contact->email, $this->contact->name)
+      ->from(config('mail.from.address'), 'Samarkand contact form');
   }
 }
