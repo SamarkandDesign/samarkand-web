@@ -38,16 +38,19 @@ class ContactTest extends TestCase
   }
 
   /** @test */
-  public function it_validates_the_contact_form()
+  public function it_prevents_spam_submissions()
   {
+    \Mail::fake();
     $response = $this->post('/contact', [
-      'name' => '',
-      'email' => '',
-      'subject' => '',
-      'message' => '',
+      'name' => 'Bad',
+      'email' => 'spammer@botfarm.com',
+      'subject' => 'Some spammy subject',
+      'message' => 'Some spammy subject',
       'website' => 'http://badsite.com',
     ]);
 
-    $response->assertSessionHasErrors(['name', 'website']);
+
+    \Mail::assertNotSent(ContactSubmitted::class);
+    $response->assertRedirect('/contact');
   }
 }

@@ -20,10 +20,19 @@ class ContactsController extends Controller
       'email' => 'required|email',
       'subject' => 'required',
       'message' => 'required',
-      'website' => 'size:0',
     ]);
 
+    if (strlen($request->website) > 0) {
+      \Log::info('Possible spam contact submission detected. Not sending email', ['request' => $request->all()]);
+      return redirect('/contact')->with([
+        'alert' => 'Thanks, your message has been sent',
+        'alert-class' => 'success',
+      ]);
+    }
+
     $contact = Contact::create($request->all());
+
+
     $recipient = config('mail.recipients.contact');
     if ($recipient) {
       \Mail::to($recipient)->send(new ContactSubmitted($contact));
