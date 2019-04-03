@@ -53,4 +53,8 @@ return [
   'fullstory' => [
     'org' => env('FULLSTORY_ORG'),
   ],
+
+  'segment' => [
+    'key' => env('SEGMENT_KEY'),
+  ],
 ];
