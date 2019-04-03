@@ -1,4 +1,5 @@
 <script>
+	if (ga) {
 	ga('require', 'ecommerce');
 
 	ga('ecommerce:addTransaction', {
@@ -23,4 +24,5 @@
 	@endforeach
 
 	ga('ecommerce:send');
+	}
 </script>
