@@ -51,6 +51,8 @@ Route::post('payments', ['uses' => 'PaymentsController@store', 'as' => 'payments
 
 Route::get('order-completed', ['uses' => 'OrdersController@completed', 'as' => 'orders.completed']);
 
+Route::post('feedbacks', ['uses' => 'FeedbacksController@store', 'as' => 'feedbacks.store']);
+
 /*
  * Contact
  */

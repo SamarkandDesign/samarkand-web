@@ -25,7 +25,6 @@ class ContactTest extends TestCase
       'website' => '',
     ]);
 
-
     \Mail::assertSent(ContactSubmitted::class, function ($m) {
       return $m->hasTo('foo@example.com');
     });
@@ -48,7 +47,6 @@ class ContactTest extends TestCase
       'message' => 'Some spammy subject',
       'website' => 'http://badsite.com',
     ]);
-
 
     \Mail::assertNotSent(ContactSubmitted::class);
     $response->assertRedirect('/contact');

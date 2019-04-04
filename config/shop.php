@@ -43,5 +43,5 @@ return [
   /*
    * Available options are 'xero' and 'fake'
    */
-  'invoice_driver' => env('INVOICE_DRIVER', 'xero'),
+  'invoice_driver' => env('INVOICE_DRIVER', 'fake'),
 ];
