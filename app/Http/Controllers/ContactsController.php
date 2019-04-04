@@ -23,7 +23,9 @@ class ContactsController extends Controller
     ]);
 
     if (strlen($request->website) > 0) {
-      \Log::info('Possible spam contact submission detected. Not sending email', ['request' => $request->all()]);
+      \Log::info('Possible spam contact submission detected. Not sending email', [
+        'request' => $request->all(),
+      ]);
       return redirect('/contact')->with([
         'alert' => 'Thanks, your message has been sent',
         'alert-class' => 'success',
@@ -32,12 +34,13 @@ class ContactsController extends Controller
 
     $contact = Contact::create($request->all());
 
-
     $recipient = config('mail.recipients.contact');
     if ($recipient) {
       \Mail::to($recipient)->send(new ContactSubmitted($contact));
     } else {
-      \Log::warning('Not sending contact email as recipient not set', ['contact' => $contact->toArray()]);
+      \Log::warning('Not sending contact email as recipient not set', [
+        'contact' => $contact->toArray(),
+      ]);
     }
 
     return redirect('/contact')->with([

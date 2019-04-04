@@ -80,6 +80,7 @@ class OrdersController extends Controller
   public function completed(Request $request)
   {
     if (!$request->session()->has('order_id')) {
+      \Log::warning('Tried to access order completed page with no order in session');
       abort(Response::HTTP_BAD_REQUEST);
     }
     $order = Order::findOrFail($request->session()->get('order_id'));

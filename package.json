@@ -33,7 +33,7 @@
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dc:migrate": "docker-compose run samarkand-app 'php artisan migrate'",
+    "dc:migrate": "docker-compose run samarkand-app sh -c 'php artisan migrate'",
     "prettier": "prettier '{app,tests,routes,config,database}/**/*.php' --write"
   },
   "dependencies": {
