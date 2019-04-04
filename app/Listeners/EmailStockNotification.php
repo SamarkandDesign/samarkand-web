@@ -24,6 +24,10 @@ class EmailStockNotification implements ShouldQueue
     if ($this->isLowInStock($product)) {
       $mailable = $this->getStockMailable($product);
       foreach (User::shopAdmins()->get() as $admin) {
+        \Log::info('Emailing low stock notification', [
+          'recipient' => $admin->email,
+          'product' => $product->slug,
+        ]);
         \Mail::to($admin)->send($mailable);
       }
     }
