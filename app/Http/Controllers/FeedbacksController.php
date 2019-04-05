@@ -11,7 +11,7 @@ class FeedbacksController extends Controller
 
   public function store(Request $request)
   {
-    // if we need to redirect back we need an order ID in session
+    // if we need to redirect back due to failed validation we need an order ID in session
     if ($request->has('order_id')) {
       $request->session()->put('order_id', $request->get('order_id'));
     }
@@ -20,7 +20,7 @@ class FeedbacksController extends Controller
       'message' => 'required|max:255',
     ]);
 
-    // we passed validation so we have to need for the order ID
+    // we passed validation so we have no need for the order ID
     $request->session()->forget('order_id');
 
     $feeback = Feedback::create([
