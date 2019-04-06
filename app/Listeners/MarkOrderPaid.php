@@ -17,6 +17,7 @@ class MarkOrderPaid implements ShouldQueue
    */
   public function handle(OrderWasPaid $event)
   {
+    \Log::info('Marking order paid', ['order_id' => $event->order->id]);
     $event->order->update([
       'payment_id' => $event->payment_id,
       'status' => Order::PAID,

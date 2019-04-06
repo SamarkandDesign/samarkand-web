@@ -31,11 +31,9 @@ class FeedbackTest extends TestCase
     $feedbackResponse = $this->post('/feedbacks', ['message' => $message]);
     $feedbackResponse->assertRedirect('/');
 
-
     $this->assertDatabaseHas('feedbacks', [
       'message' => $message,
       'user_id' => $user->id,
     ]);
   }
-
 }

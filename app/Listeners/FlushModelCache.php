@@ -16,6 +16,7 @@ class FlushModelCache implements ShouldQueue
    */
   public function handle(ModelWasChanged $event)
   {
+    \Log::info('Flushing model cache', ['tag' => $event->tag]);
     \Cache::tags($event->tag)->flush();
   }
 }

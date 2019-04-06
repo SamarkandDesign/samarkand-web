@@ -22,6 +22,11 @@ class SendAdminOrderEmail implements ShouldQueue
     $admins = User::shopAdmins()->get();
 
     foreach ($admins as $admin) {
+      \Log::info('Emailing admin order notification', [
+        'recipient' => $admin->email,
+        'order_id' => $order->id,
+      ]);
+
       \Mail::to($admin)->send(new OrderConfirmedForAdmin($order));
     }
   }

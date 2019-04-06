@@ -17,6 +17,9 @@ class CreateOrderInvoice implements ShouldQueue
    */
   public function handle(OrderWasPaid $event)
   {
+    \Log::info('Creating invoice for order', [
+      'order_id' => $event->order->id,
+    ]);
     dispatch(new CreateInvoiceForOrder($event->order));
   }
 }
