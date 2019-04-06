@@ -39,7 +39,7 @@ class CartController extends Controller
       'price' => $product->getPrice()->asDecimal(),
     ])->associate(Product::class);
 
-    \Log::info('Item added to cart', ['product_id' => $product->id,'qty' => $qty,]);
+    \Log::info('Item added to cart', ['product_id' => $product->id, 'qty' => $qty]);
 
     $alert = new HtmlString(
       sprintf(

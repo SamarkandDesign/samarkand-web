@@ -8,7 +8,6 @@ use App\Mail\ContactSubmitted;
 
 class FeedbacksController extends Controller
 {
-
   public function store(Request $request)
   {
     // if we need to redirect back due to failed validation we need an order ID in session
@@ -28,10 +27,9 @@ class FeedbacksController extends Controller
       'user_id' => $request->user()->id,
     ]);
 
-    return redirect('/')
-      ->with([
-        'alert' => 'Thanks for your feedback',
-        'alert-class' => 'success',
-      ]);
+    return redirect('/')->with([
+      'alert' => 'Thanks for your feedback',
+      'alert-class' => 'success',
+    ]);
   }
 }

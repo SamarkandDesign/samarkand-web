@@ -19,10 +19,10 @@ class SendCustomerOrderEmail implements ShouldQueue
   {
     $order = $event->order;
 
-            \Log::info('Emailing customer order notification', [
-          'recipient' => $order->customer->email,
-          'order_id' => $order->id,
-        ]);
+    \Log::info('Emailing customer order notification', [
+      'recipient' => $order->customer->email,
+      'order_id' => $order->id,
+    ]);
     \Mail::to($order->customer)->send(new OrderConfirmed($order));
   }
 }
