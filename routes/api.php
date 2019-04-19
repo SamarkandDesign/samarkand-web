@@ -2,6 +2,8 @@
 
 Route::get('terms/{taxonomy}', ['uses' => 'TermsController@terms', 'as' => 'api.terms']);
 
+Route::post('feedbacks', ['uses' => 'FeedbacksController@store']);
+
 // Attributes
 Route::get('product_attributes/{slug?}', [
   'uses' => 'ProductAttributesController@index',
