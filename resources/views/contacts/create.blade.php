@@ -10,57 +10,31 @@ Contact Us
 
   <p>Our products are available to view at our headquarters in Devon.</p>
 
-  <p>Feel free to get in touch using the contact form below, or directly via email or social media.</p>
+  <p>If you need some advice or suggestions feel free to get in touch with any enquiries.</p>
 
-  <div class="row">
-    <div class="col-sm-8">
-      @include('partials.alerts._errors_block')
-      {!! Form::model(App\Contact::class, ['route' => 'contacts.store', 'method' => 'post', 'class' => 'top-buffer']) !!}
 
-      <input type="text" name="website" class="hidden" value="" />
-      <div class="row">
 
-        <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : '' }}">
-          <label class="control-label" for="name">Your Name</label>
-          {!! Form::text('name', null, ['class' => 'form-control']) !!}
-        </div>
-
-        <div class="form-group col-md-6 {{ $errors->has('email') ? 'has-error' : '' }}">
-          <label class="control-label" for="email">Your Email</label>
-          {!! Form::email('email', null, ['class' => 'form-control']) !!}
-        </div>
-      </div>
-      <div class="form-group {{ $errors->has('subject') ? 'has-error' : '' }}">
-        <label class="control-label" for="subject">Subject</label>
-        {!! Form::text('subject', null, ['class' => 'form-control']) !!}
-      </div>
-
-      <div class="form-group {{ $errors->has('message') ? 'has-error' : '' }}">
-        <label class="control-label" for="message">Message</label>
-        {!! Form::textarea('message', null, ['class' => 'form-control']) !!}
-      </div>
-
-      <button type="submit" class="btn btn-primary" id="send">Send Message</button>
-
-      {!! Form::close() !!}
-    </div>
-
-    <div class="col-sm-4">
-      <hr class="visible-xs">
       <ul class="fa-ul">
         <li>
-          <i class="fa-li fa fa-home"></i>Higher Queen Dart,<br>
-          Rackenford,<br>
-          Tiverton,<br>
-          Devon EX16 8EA
+          <i class="fa-li fa fa-home"></i>
+          <address>
+            Higher Queen Dart<br>
+            Rackenford<br>
+            Tiverton<br>
+            Devon EX16 8EA
+          </address>
         </li>
-        <li><i class="fa-li fa fa-envelope"></i>info@sam<span class="hidden">lpd</span>arkanddesign.com</li>
-        <li><i class="fa-li fa fa-phone"></i>+44 7973 922943</li>
-        <li><i class="fa-li fa fa-twitter"></i><a title="Samarkand Design Twitter" href="http://twitter.com/samarkanddesign" target="_blank">@SamarkandDesign</a></li>
-        <li><i class="fa-li fa fa-facebook-official"></i><a title="Samarkand Design Facebook" href="https://www.facebook.com/samarkanddesign" target="_blank">Samarkand Design</a></li>
-        <li><i class="fa fa-li fa-instagram"></i><a title="Samarkand Design Instagram" href="https://www.instagram.com/samarkanddesign/" target="_blank">@samarkanddesign</a></li>
+        <li><p><i class="fa-li fa fa-envelope"></i>info@samarkanddesign.com</p></li>
+        <li><p><i class="fa-li fa fa-phone"></i>+44 7973 922943</p></li>
       </ul>
-    </div>
+
+      <h2>Find us on social media</h2>
+      <p class="margin-bottom:1.5rem">
+        <a  style="margin-right: 0.7rem" title="Samarkand Design Instagram" href="https://www.instagram.com/samarkanddesign/" target="_blank"><i class="fa fa-2x fa-instagram"></i></a>&nbsp;
+        <a  style="margin-right: 0.7rem" title="Samarkand Design Twitter" href="http://twitter.com/samarkanddesign" target="_blank"><i class="fa fa-2x fa-twitter"></i></a>&nbsp;
+        <a title="Samarkand Design Facebook" href="https://www.facebook.com/samarkanddesign" target="_blank"><i class="fa fa-2x fa-facebook"></i></a>&nbsp;
+      </p>
+
   </div>
 
 @stop
