@@ -56,8 +56,8 @@ Route::post('feedbacks', ['uses' => 'FeedbacksController@store', 'as' => 'feedba
 /*
  * Contact
  */
-Route::get('contact', ['uses' => 'ContactsController@create', 'as' => 'contacts.create']);
-Route::post('contact', ['uses' => 'ContactsController@store', 'as' => 'contacts.store']);
+Route::get('contact', ['uses' => 'ContactsController@index', 'as' => 'contacts.index']);
+
 
 Route::get('events', ['uses' => 'EventsController@index', 'as' => 'events.index']);
 Route::get('event/{event_slug}', ['uses' => 'EventsController@show', 'as' => 'events.show']);
