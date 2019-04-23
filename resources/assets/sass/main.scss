@@ -1,31 +1,30 @@
 @import 'main/variables';
 @import 'shared/utils';
-@import "main/bootstrap";
+@import 'main/bootstrap';
 @import 'main/catalogue';
 @import 'main/footer';
 @import 'main/transitions';
-@import "shared/product_search";
-@import "main/social";
-@import "main/event";
-@import "main/svg";
-@import "flickity/css/flickity";
-@import "main/home";
+@import 'shared/product_search';
+@import 'main/social';
+@import 'main/event';
+@import 'main/svg';
+@import 'flickity/css/flickity';
+@import 'main/home';
 
 body {
-    background-color: $gray-accent;
-    margin-top: 50px;
-    font-weight: 300;
+  background-color: $gray-accent;
+  margin-top: 50px;
 }
 .top-buffer {
-    padding-top:20px;
+  padding-top: 20px;
 }
 .bottom-buffer {
-    padding-bottom:20px;
+  padding-bottom: 20px;
 }
 .alert-block {
-    border: 0;
-    border-radius: 0;
-    margin:0;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
 }
 .alert a:not(.btn) {
   color: $brand4;
@@ -38,23 +37,33 @@ body {
   color: $brand5;
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   text-transform: uppercase;
 }
 
 .bg {
-    background-color: #fff;
+  background-color: #fff;
 }
 .space-deck {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .auth-dropdown {
   @media (max-width: $screen-xs-max) {
-  border-radius: 0;
-  border-style: none;
-  width: 100%;
+    border-radius: 0;
+    border-style: none;
+    width: 100%;
   }
 }
 
@@ -68,19 +77,18 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .navbar-login {
-    width: 305px;
-    padding: 10px;
-    padding-bottom: 0px;
-    @media (max-width: $screen-xs-max) {
-      width: 100%;
-    }
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
+  @media (max-width: $screen-xs-max) {
+    width: 100%;
+  }
 }
 
-.navbar-login-session
-{
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+.navbar-login-session {
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .form-control {
@@ -91,9 +99,6 @@ h1, h2, h3, h4, h5, h6,
   border-radius: 2px;
   border-width: $btn-border-width;
   // padding: $padding-base-vertical + $btn-border-width $padding-base-horizontal;
-}
-.btn-default {
-
 }
 
 .input-group-addon {
@@ -122,7 +127,6 @@ h1, h2, h3, h4, h5, h6,
     }
   }
 }
-
 
 .hint-text {
   color: $gray-light;
