@@ -11,6 +11,7 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:300,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ mix('css/main.css') }}">
 
+
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     @yield('head')
