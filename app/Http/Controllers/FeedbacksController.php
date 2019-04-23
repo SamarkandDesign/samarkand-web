@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Feedback;
 use Illuminate\Http\Request;
-use App\Mail\ContactSubmitted;
 
 class FeedbacksController extends Controller
 {
