@@ -12,5 +12,4 @@ class ContactsController extends Controller
   {
     return view('contacts.index');
   }
-
 }
