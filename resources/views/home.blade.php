@@ -24,7 +24,7 @@ Crossroads of Culture
 			<p>A range of unique vintage and contemporary lamp bases</p>
 			<a class='btn btn-primary btn-lg' href='/shop/lamp-bases'>Shop Lamp Bases</a>
 		</carousel-copy>
-	</carousel-cell>	
+	</carousel-cell>
 
 	<carousel-cell image="/img/home/hero-kanthas-lc.jpg">
 		<carousel-copy headline='Vintage Throws'>
@@ -35,11 +35,26 @@ Crossroads of Culture
 </flicker>
 </div>
 
-<div class="container" v-pre>
-	<div class="row">
+<div class="container mx-auto px-4" v-pre>
+	<div class="flex md:mt-4 mt-2">
 
-		<div class="col-sm-4 top-buffer">
-			<a class="product-grid-element" href="/shop/home-furnishings">
+		@foreach ([
+			['title' => 'Home Furnishings', 'img' => '/img/home/tile1.jpg', 'link' => '/shop/home-furnishings'],
+			['title' => 'Lighting', 'img' => '/img/home/Shibori_2.jpg', 'link' => '/shop/lighting'],
+			['title' => 'Accessories', 'img' => '/img/home/tile3.jpg', 'link' => '/shop/accessories'],
+		] as $item)
+			<div class="md:mr-2 mr-1">
+					<a class="block relative text-white bg-black" href="{{ $item['link'] }}">
+						<img src="{{ $item['img'] }}" alt="Samarkand Home Furnishings hover:opacity-75" class="w-100">
+							<div class="absolute text-center pin flex justify-center items-center">
+							<h2 class='text-uppercase'>{{ $item['title'] }}</h2>
+							</div>
+					</a>
+				</div>
+		@endforeach
+
+		{{-- <div class="md:mr-2 mr-1">
+			<a class="block" href="/shop/home-furnishings">
 				<img src="/img/home/tile1.jpg" alt="Samarkand Home Furnishings" class="product-grid-image img-responsive" style="width:100%;">
 				<div class="product-flex">
 					<div class="product-description">
@@ -49,8 +64,8 @@ Crossroads of Culture
 			</a>
 		</div>
 
-		<div class="col-sm-4 top-buffer">
-			<a class="product-grid-element" href="/shop/lighting">
+		<div class="md:mx-2 mx-1">
+			<a class="block" href="/shop/lighting">
 				<img src="/img/home/Shibori_2.jpg" alt="Samarkand Lighting" class="product-grid-image img-responsive" style="width:100%;">
 				<div class="product-flex">
 					<div class="product-description">
@@ -60,8 +75,8 @@ Crossroads of Culture
 			</a>
 		</div>
 
-		<div class="col-sm-4 top-buffer">
-			<a class="product-grid-element" href="/shop/accessories">
+		<div class="md:ml-2 ml-1">
+			<a class="block" href="/shop/accessories">
 				<img src="/img/home/tile3.jpg" alt="Samarkand Accessories" class="product-grid-image img-responsive" style="width:100%;">
 				<div class="product-flex">
 					<div class="product-description">
@@ -69,10 +84,10 @@ Crossroads of Culture
 					</div>
 				</div>
 			</a>
-		</div>
+		</div> --}}
 	</div>
 
-	<div class="top-buffer bottom-buffer">
+	<div class="md:mt-4 mt-2 pb-4">
 		<flicker>
 			@foreach($featured_products as $product)
 				<div class="home_featured_image">
