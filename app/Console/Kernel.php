@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
     \App\Console\Commands\InitialiseApp::class,
     \App\Console\Commands\CreateXeroInvoice::class,
     \App\Console\Commands\CheckXeroAccess::class,
+    \App\Console\Commands\GenerateProductFeed::class,
   ];
 
   /**
