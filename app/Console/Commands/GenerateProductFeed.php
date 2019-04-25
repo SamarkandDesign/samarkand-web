@@ -6,6 +6,31 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use App\Product;
 
+/**
+ * Convert a multi-dimensional, associative array to CSV data
+ * @param  array $data the array of data
+ * @return string       CSV text
+ */
+function str_putcsv($data)
+{
+  # Generate CSV data from array
+  $fh = fopen('php://temp', 'rw'); # don't create a file, attempt
+  # to use memory instead
+
+  # write out the headers
+  fputcsv($fh, array_keys(current($data)));
+
+  # write out the data
+  foreach ($data as $row) {
+    fputcsv($fh, $row);
+  }
+  rewind($fh);
+  $csv = stream_get_contents($fh);
+  fclose($fh);
+
+  return $csv;
+}
+
 class GenerateProductFeed extends Command
 {
   /**
@@ -13,7 +38,7 @@ class GenerateProductFeed extends Command
    *
    * @var string
    */
-  protected $signature = 'product_feed:generate';
+  protected $signature = 'product-feed:generate';
 
   /**
    * The console command description.
@@ -82,14 +107,15 @@ class GenerateProductFeed extends Command
           $this->getProductProperties($p, 'size'),
         ]);
       })
-      ->toJson();
+      ->toArray();
 
-    $filename = 'public/product_feed.json';
+    $data = str_putcsv($products);
 
-    Storage::put($filename, $products);
+    $filename = 'public/product_feed.csv';
+
+    Storage::put($filename, $data);
     $url = Storage::url($filename);
     $this->info("Product feed saved to $url");
-    // $text = $this->generateFeedText($products);
   }
 
   protected function getProductProperties($product, $attribute_slug)
