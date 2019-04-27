@@ -80,4 +80,17 @@ class ProductRepositoryTest extends TestCase
     $this->assertContains('My House', $locations);
     $this->assertCount(2, $locations);
   }
+
+  /** @test **/
+  public function it_handles_the_cache_being_unavailable()
+  {
+    $product = factory(Product::class)->create();
+    \Cache::shouldReceive('tags')
+      ->once()
+      ->andThrow(new \Exception('cache be broken 😭'));
+    \Log::shouldReceive('warning')->with("Error fetching cached resource", \Mockery::any());
+
+    $result = $this->products->fetch($product->id);
+    $this->assertEquals($result->title, $product->title);
+  }
 }
