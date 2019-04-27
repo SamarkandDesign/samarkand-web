@@ -26,14 +26,18 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
   public function inCategory(Term $product_category)
   {
     $tags = array_merge([$this->tag], ['terms']);
+    $tag = "{$this->tag}.inCategory.{$product_category->slug}";
 
-    return \Cache::tags($tags)->remember(
-      "{$this->tag}.inCategory.{$product_category->slug}",
-      config('cache.time'),
-      function () use ($product_category) {
+    try {
+      return \Cache::tags($tags)->remember($tag, config('cache.time'), function () use (
+        $product_category
+      ) {
         return $this->repository->inCategory($product_category);
-      }
-    );
+      });
+    } catch (\Exception $e) {
+      \Log::warning('Error fetching cached resource', ['error' => $e, 'tag' => $tag]);
+      return $this->repository->inCategory($product_category);
+    }
   }
 
   protected function setModifier()
@@ -82,11 +86,18 @@ class CacheProductRepository extends CacheRepository implements ProductRepositor
     $cacheString =
       "shopProducts.{$this->modifier}" . (!$productCategory->slug ? '' : $productCategory->slug);
 
-    return \Cache::tags($this->tag)->remember($cacheString, config('cache.time'), function () use (
-      $productCategory
-    ) {
+    try {
+      return \Cache::tags($this->tag)->remember(
+        $cacheString,
+        config('cache.time'),
+        function () use ($productCategory) {
+          return $this->repository->shopProducts($productCategory);
+        }
+      );
+    } catch (\Exception $e) {
+      \Log::warning('Error fetching cached resource', ['error' => $e, 'tag' => $cacheString]);
       return $this->repository->shopProducts($productCategory);
-    });
+    }
   }
 
   /**
