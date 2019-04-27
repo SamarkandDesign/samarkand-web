@@ -1,3 +1,3 @@
 name,slug,description,price,sale_price,sku,stock_qty,listed,location
-Some Product,some-product,A really nice item,22.55,,SP123,3,1,HQD
+Some Product,some-product,A really nice item,22.55,0,SP123,3,1,HQD
 Some Invalid Product,,You want this,-7.04,-10,SO99,1,0,
