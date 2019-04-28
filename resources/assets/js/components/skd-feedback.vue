@@ -22,7 +22,7 @@
           @submit.prevent="submitForm"
           v-if="!submitted"
         >
-          <div class="form-group" v-bind:class="{'has-error': errors.message}">
+          <div class="form-group" v-bind:class="{'has-error': errors.message && errors.message[0]}">
             <label class="control-label" for="message">Where did you hear about us?</label>
             <textarea
               id="message"
@@ -37,7 +37,7 @@
             >{{ errors.message ? errors.message[0] : '' }}</span>
           </div>
 
-          <button type="submit" class="btn btn-primary" id="send">
+          <button type="submit" class="btn btn-primary" id="send" v-bind:disabled="loading">
             <span v-show="loading">
               <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading...
             </span>
@@ -77,6 +77,9 @@ export default {
   },
   methods: {
     submitForm() {
+      if (this.loading) {
+        return;
+      }
       this.errorMessage = '';
       this.loading = true;
       this.errors = {};
@@ -96,8 +99,6 @@ export default {
             this.errorMessage =
               'Oops, it looks like something went wrong saving your submission. Please try again.';
           }
-
-          console.log(this.errors);
         });
     },
   },

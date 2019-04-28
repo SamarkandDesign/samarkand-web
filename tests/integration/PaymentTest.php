@@ -6,6 +6,7 @@ use App\User;
 use TestCase;
 use App\OrderNote;
 use App\Mail\OrderConfirmed;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentTest extends TestCase
@@ -22,6 +23,7 @@ class PaymentTest extends TestCase
       'status' => 'pending',
       'delivery_note' => 'leave in the linhay',
       'user_id' => $user->id,
+      'created_at' => Carbon::parse('2019-12-21T16:55:23Z'),
     ]);
 
     \Session::put('order_id', $order->id);
@@ -38,9 +40,9 @@ class PaymentTest extends TestCase
 
     $response->assertRedirect('order-completed');
 
-    $this->followRedirects($response)->assertSee(
-      sprintf("'revenue': '%s'", $this->order->amount->asDecimal())
-    );
+    $orderCompletedPage = $this->followRedirects($response);
+    $orderCompletedPage->assertSee(sprintf("'revenue': '%s'", $this->order->amount->asDecimal()));
+    $orderCompletedPage->assertSee('Date: 21 Dec 2019 16:55');
 
     $this->assertDatabaseHas('orders', ['id' => $this->order->id, 'status' => \App\Order::PAID]);
 
@@ -56,8 +58,6 @@ class PaymentTest extends TestCase
     Mail::assertSent(OrderConfirmed::class, function ($mail) {
       return $mail->order->id === $this->order->id;
     });
-
-    $admin_users = User::shopAdmins()->get();
   }
 
   /** @test */
