@@ -26,11 +26,14 @@ class FeedbackTest extends TestCase
     $message = 'I heard about you at a trade fair';
 
     $orderSummaryResponse = $this->get('/order-completed');
-    $orderSummaryResponse->assertSee('Where did you hear about us');
+    $orderSummaryResponse->assertSee('skd-feedback');
 
-    $feedbackResponse = $this->post('/feedbacks', ['message' => $message]);
-    $feedbackResponse->assertRedirect('/');
+    $feedbackResponse = $this->post('api/feedbacks', [
+      'message' => $message,
+      'order_id' => $order->id,
+    ]);
 
+    $feedbackResponse->assertStatus(201);
     $this->assertDatabaseHas('feedbacks', [
       'message' => $message,
       'user_id' => $user->id,
