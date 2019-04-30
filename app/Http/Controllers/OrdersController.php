@@ -77,15 +77,15 @@ class OrdersController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function completed(Request $request)
+  public function completed(Request $request, Order $order)
   {
-    if (!$request->session()->has('order_id')) {
-      \Log::warning('Tried to access order completed page with no order in session');
-      abort(Response::HTTP_BAD_REQUEST);
-    }
-    $order = Order::findOrFail($request->session()->get('order_id'));
+    $user = $request->user();
 
-    $request->session()->forget('order_id');
+    if (!$user || !$user->owns($order)) {
+      \Log::warning('Unauthorised attempt to access order completed page', ['order_id' => $order->id]);
+      abort(Response::HTTP_FORBIDDEN);
+    }
+
     return view('shop.order_completed')->with([
       'order' => $order,
     ]);

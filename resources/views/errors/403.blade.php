@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
 @section('title')
-  403 Unauthorised
+  403 Forbidden
 @endsection
 
 @section('content')
 <h1>403 Error</h1>
-<p>You are not allowed to access this resource. You can try logging out and logging in as the correct user.</p>
+<p>You are not allowed to access this page. The information here might've expired or you may have tried to access the wrong page.</p>
 @stop
