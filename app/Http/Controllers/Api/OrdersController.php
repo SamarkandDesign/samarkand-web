@@ -33,13 +33,17 @@ class OrdersController extends Controller
       abort(401);
     }
     try {
-      $order_info = $gateway->getOrderInfoFromEvent($payload, $sig_header);
-      $order = Order::findOrFail($order_info['order_id']);
-      \Log::info(sprintf("Gateway webhook recieved for order %s", $order_info['order_id']), [
-        'order_id' => $order_info['order_id'],
+      $session = $gateway->getSessionFromEvent($payload, $sig_header);
+      $order = Order::findOrFail($session->client_reference_id);
+      \Log::info(sprintf("Gateway webhook recieved for order %s", $session->client_reference_id), [
+        'order_id' => $session->client_reference_id,
       ]);
 
-      event(new \App\Events\OrderWasPaid($order, $order_info['payment_id']));
+      event(new \App\Events\OrderWasPaid($order, $session->payment_intent));
+      if ($session->customer && !$order->user->billing_id) {
+        $order->user->billing_id = $session->customer;
+        $order->user->save();
+      }
     } catch (\Exception $e) {
       \Log::warning('Order completion webhook failed', ['error' => $e]);
 

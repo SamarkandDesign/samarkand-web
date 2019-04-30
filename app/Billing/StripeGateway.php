@@ -2,7 +2,7 @@
 
 namespace App\Billing;
 
-use Stripe\Charge;
+use Stripe\Event;
 use Stripe\Stripe;
 
 class StripeGateway implements GatewayInterface
@@ -43,28 +43,27 @@ class StripeGateway implements GatewayInterface
       'success_url' => "$site_url/order-completed/$order->id",
       'cancel_url' => "$site_url/cart",
       'client_reference_id' => $order->id,
-      'customer_email' => $user->email,
+      'customer_email' => $user->billing_id ? null : $user->email,
+      'customer' => $user->billing_id ?: null,
       'payment_intent_data' => [
         'description' => "Order #$order->id"
-      ]
+      ],
     ]);
 
     return $session->id;
   }
 
-  public function getOrderInfoFromEvent(string $payload, string $sig_header)
+  /**
+   * @return \Stripe\Event the Event instance
+   */
+  public function getSessionFromEvent(string $payload, string $sig_header)
   {
     $endpoint_secret = config('services.stripe.webhook_secret');
 
     $event = \Stripe\Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
 
     if ($event->type == 'checkout.session.completed') {
-      $session = $event->data->object;
-
-      return [
-        'order_id' => $session->client_reference_id,
-        'payment_id' => $session->payment_intent,
-      ];
+      return $event->data->object;
     }
 
     return null;

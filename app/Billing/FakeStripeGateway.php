@@ -3,7 +3,6 @@
 namespace App\Billing;
 
 use Mockery;
-use Stripe\Charge;
 use Stripe\Stripe;
 
 class FakeStripeGateway implements GatewayInterface
@@ -13,7 +12,10 @@ class FakeStripeGateway implements GatewayInterface
     return 'payment_session_123';
   }
 
-  public function getOrderInfoFromEvent(string $payload, string $sig_header)
+  /**
+   * @return \Stripe\Event the Event instance
+   */
+  public function getSessionFromEvent(string $payload, string $sig_header)
   {
     if ($sig_header === 'invalid_sig') {
       throw new \Stripe\Error\SignatureVerification('Invalid signature');
@@ -25,9 +27,11 @@ class FakeStripeGateway implements GatewayInterface
       throw new \UnexpectedValueException('Payload is not parseable to a session');
     }
 
-    return [
-      'order_id' => $event['client_reference_id'],
-      'payment_id' => "pi_1EUmyo2x6R10KRrhUuJXu9m0",
-    ];
+    $fakeSession = Mockery::mock();
+    $fakeSession->client_reference_id = $event['client_reference_id'];
+    $fakeSession->payment_intent = 'pi_1EUmyo2x6R10KRrhUuJXu9m0';
+    $fakeSession->customer = "cus_Eyyxi4JhhB6wQF";
+
+    return $fakeSession;
   }
 }
