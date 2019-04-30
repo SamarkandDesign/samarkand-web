@@ -43,11 +43,11 @@
     </tfoot>
 </table>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-xs-6">
         <h3>Billing Address</h3>
         @include('partials.address', ['address' => $order->billing_address])
     </div>
-    <div class="col-sm-6">
+    <div class="col-xs-6">
         <h3>Shipping Address</h3>
         @include('partials.address', ['address' => $order->shipping_address])
     </div>

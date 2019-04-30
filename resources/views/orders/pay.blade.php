@@ -23,8 +23,10 @@
 
     @include('orders._summary')
 
-    <form action="" id="pay-now-form">
-    <button type="submit" class="btn btn-success btn-lg">Pay now</button>
+    <form action="" id="pay-now-form" class="row">
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Pay now</button>
+        </div>
     </form>
 @stop
 

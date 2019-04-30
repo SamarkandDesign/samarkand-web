@@ -49,7 +49,7 @@ class StripeGateway implements GatewayInterface
     return $session->id;
   }
 
-  public function getOrderInfoFromEvent($payload, $sig_header)
+  public function getOrderInfoFromEvent(string $payload, string $sig_header)
   {
     $endpoint_secret = config('services.stripe.webhook_secret');
 
