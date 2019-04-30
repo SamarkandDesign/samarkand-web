@@ -12,4 +12,6 @@ interface GatewayInterface
    * @return \Stripe\Charge
    */
   public function charge(array $data, array $meta = []);
+
+  public function createSession(\App\Order $order, \App\User $user);
 }

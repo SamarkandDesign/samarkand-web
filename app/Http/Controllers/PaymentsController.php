@@ -21,20 +21,22 @@ class PaymentsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create(Request $request)
+  public function create(Request $request, GatewayInterface $gateway)
   {
     $order = Order::find($request->session()->get('order_id'));
 
     if (!$order->hasShipping()) {
       return redirect()
-        ->route('checkout.shipping')
-        ->with([
-          'alert' => 'Please select a shipping method',
-          'alert-class' => 'warning',
+      ->route('checkout.shipping')
+      ->with([
+        'alert' => 'Please select a shipping method',
+        'alert-class' => 'warning',
         ]);
-    }
+      }
 
-    return view('orders.pay', ['order' => $order]);
+    $user = $request->user();
+    $session_id = $gateway->createSession($order, $user);
+    return view('orders.pay', ['order' => $order, 'session_id' => $session_id]);
   }
 
   /**

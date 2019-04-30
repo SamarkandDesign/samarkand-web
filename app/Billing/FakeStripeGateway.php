@@ -29,4 +29,8 @@ class FakeStripeGateway implements GatewayInterface
 
     return $fakeCharge;
   }
+
+  public function createSession(\App\Order $order) {
+    return 'payment_session_123';
+  }
 }
