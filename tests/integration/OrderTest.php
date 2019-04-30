@@ -99,18 +99,6 @@ class OrderTest extends TestCase
 
     $response->assertSee($product->name);
     $response->assertSee($shippingMethod->description);
-
-    // Pay for the order
-    $response = $this->post(route('payments.store'), [
-      'order_id' => $order->id,
-      'stripe_token' => 'tok_cardsuccesstoken',
-    ]);
-
-    $response->assertRedirect('/order-completed');
-    $response = $this->followRedirects($response);
-    $response->assertSee('Order Completed');
-
-    $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
   }
 
   /** @test **/
