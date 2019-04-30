@@ -27,12 +27,12 @@ class PaymentsController extends Controller
 
     if (!$order->hasShipping()) {
       return redirect()
-      ->route('checkout.shipping')
-      ->with([
-        'alert' => 'Please select a shipping method',
-        'alert-class' => 'warning',
+        ->route('checkout.shipping')
+        ->with([
+          'alert' => 'Please select a shipping method',
+          'alert-class' => 'warning',
         ]);
-      }
+    }
 
     $user = $request->user();
     $session_id = $gateway->createSession($order, $user);

@@ -82,7 +82,9 @@ class OrdersController extends Controller
     $user = $request->user();
 
     if (!$user || !$user->owns($order)) {
-      \Log::warning('Unauthorised attempt to access order completed page', ['order_id' => $order->id]);
+      \Log::warning('Unauthorised attempt to access order completed page', [
+        'order_id' => $order->id,
+      ]);
       abort(Response::HTTP_FORBIDDEN);
     }
 

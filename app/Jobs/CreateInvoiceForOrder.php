@@ -36,7 +36,10 @@ class CreateInvoiceForOrder implements ShouldQueue
     $invoiceId = $invoiceCreator->createInvoice($this->order);
 
     $this->order->update(['invoice_id' => $invoiceId]);
-    \Log::info(sprintf('Created invoice %s', $invoiceId), ['invoice_id' => $invoiceId,'order_id' => $this->order->id]);
+    \Log::info(sprintf('Created invoice %s', $invoiceId), [
+      'invoice_id' => $invoiceId,
+      'order_id' => $this->order->id,
+    ]);
 
     OrderNote::create([
       'order_id' => $this->order->id,

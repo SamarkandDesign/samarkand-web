@@ -14,4 +14,6 @@ interface GatewayInterface
   public function charge(array $data, array $meta = []);
 
   public function createSession(\App\Order $order, \App\User $user);
+
+  public function getOrderInfoFromEvent(string $payload, string $sig_header);
 }

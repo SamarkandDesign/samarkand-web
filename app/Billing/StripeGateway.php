@@ -29,25 +29,26 @@ class StripeGateway implements GatewayInterface
     }
   }
 
-  public function createSession(\App\Order $order, \App\User $user) {
-    $shipping_item = $order->shipping_items->map(function($item) {
+  public function createSession(\App\Order $order, \App\User $user)
+  {
+    $shipping_item = $order->shipping_items->map(function ($item) {
       return [
         'name' => $item->description,
         'amount' => $item->price_paid->value(),
         'currency' => 'gbp',
         'quantity' => 1,
-    ];
+      ];
     });
 
-    $product_items = $order->product_items->map(function($item) {
-      $images = $item->orderable && $item->orderable->thumbnail ? [$item->orderable->thumbnail] : [];
+    $product_items = $order->product_items->map(function ($item) {
+      $images =
+        $item->orderable && $item->orderable->thumbnail ? [$item->orderable->thumbnail] : [];
       return [
-          'name' => $item->description,
-          'images' => $images,
-          'amount' => $item->price_paid->value(),
-          'currency' => 'gbp',
-          'quantity' => $item->quantity,
-
+        'name' => $item->description,
+        'images' => $images,
+        'amount' => $item->price_paid->value(),
+        'currency' => 'gbp',
+        'quantity' => $item->quantity,
       ];
     });
     $site_url = config('app.url');
@@ -65,7 +66,21 @@ class StripeGateway implements GatewayInterface
     return $session->id;
   }
 
-  protected function getCustomer(\App\User $user) {
+  public function getOrderInfoFromEvent($payload, $sig_header)
+  {
+    $endpoint_secret = config('services.stripe.webhook_secret');
 
+    $event = \Stripe\Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
+
+    if ($event->type == 'checkout.session.completed') {
+      $session = $event->data->object;
+
+      return [
+        'order_id' => $session->client_reference_id,
+        'payment_id' => $session->payment_intent,
+      ];
+    }
+
+    return null;
   }
 }

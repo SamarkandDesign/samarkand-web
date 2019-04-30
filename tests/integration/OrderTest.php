@@ -196,4 +196,23 @@ class OrderTest extends TestCase
     $this->assertEquals($order->billing_address_id, $address->id);
     $this->assertEquals($order->shipping_address_id, $address->id);
   }
+
+  /** @test **/
+  public function it_completes_an_order_when_the_webhook_endpoint_is_hit()
+  {
+    $order = $this->createOrder();
+    $payload = sprintf('{"client_reference_id": %s', $order->id);
+
+    $response = $this->json(
+      'POST',
+      '/api/orders/complete',
+      ['client_reference_id' => $order->id],
+      ['HTTP_STRIPE_SIGNATURE' => 'supersecret']
+    );
+
+    $response->assertStatus(200);
+    $response->assertSee('Received');
+
+    $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
+  }
 }
