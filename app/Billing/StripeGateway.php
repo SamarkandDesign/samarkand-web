@@ -44,6 +44,9 @@ class StripeGateway implements GatewayInterface
       'cancel_url' => "$site_url/cart",
       'client_reference_id' => $order->id,
       'customer_email' => $user->email,
+      'payment_intent_data' => [
+        'description' => "Order #$order->id"
+      ]
     ]);
 
     return $session->id;

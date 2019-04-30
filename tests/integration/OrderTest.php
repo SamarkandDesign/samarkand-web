@@ -202,5 +202,10 @@ class OrderTest extends TestCase
     $response->assertSee('Received');
 
     $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
+
+    // simulate navigating to the order completed page
+    $this->be($order->user);
+    $response = $this->get("/order-completed/$order->id");
+    $response->assertSee($order->items->first()->description);
   }
 }
