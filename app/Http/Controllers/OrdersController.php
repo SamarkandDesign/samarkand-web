@@ -89,7 +89,7 @@ class OrdersController extends Controller
     }
 
     // If the order has been marked completed we shouldn't show this page
-    if ($order->status  === Order::COMPLETED) {
+    if ($order->status === Order::COMPLETED) {
       \Log::warning('Tried to access order completed page for a completed order');
       abort(Response::HTTP_BAD_REQUEST);
     }

@@ -44,10 +44,18 @@ class OrdersController extends Controller
         $order->user->billing_id = $session->customer;
         $order->user->save();
       }
-    } catch (\Exception $e) {
-      \Log::warning('Order completion webhook failed', ['error' => $e]);
-
-      return response()->json('Failed to handle webhook request', 400);
+    } catch (\UnexpectedValueException $e) {
+      \Log::warning("Gateway webhook failed due to invalid payload", [
+        'order_id' => $session->client_reference_id,
+        'error' => $e,
+      ]);
+      return response()->json('Invalid payload', 400);
+    } catch (\Stripe\Error\SignatureVerification $e) {
+      \Log::warning("Gateway webhook failed due to invalid signature", [
+        'order_id' => $session->client_reference_id,
+        'error' => $e,
+      ]);
+      return response()->json('Invalid signature', 400);
     }
 
     return response()->json('Received', 200);

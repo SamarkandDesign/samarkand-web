@@ -46,7 +46,7 @@ class StripeGateway implements GatewayInterface
       'customer_email' => $user->billing_id ? null : $user->email,
       'customer' => $user->billing_id ?: null,
       'payment_intent_data' => [
-        'description' => "Order #$order->id"
+        'description' => "Order #$order->id",
       ],
     ]);
 
