@@ -7,7 +7,7 @@ use Stripe\Stripe;
 
 class FakeStripeGateway implements GatewayInterface
 {
-  public function createSession(\App\Order $order, \App\User $user)
+  public function createSession(\App\Order $order)
   {
     return 'payment_session_123';
   }
