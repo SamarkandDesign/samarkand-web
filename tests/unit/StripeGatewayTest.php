@@ -3,7 +3,6 @@
 use App\Billing\StripeGateway;
 use App\Order;
 use App\OrderItem;
-use Mockery;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -12,7 +11,7 @@ class StripeGatewayTest extends TestCase
   /** @test **/
   public function it_creates_a_checkout_session_with_stripe()
   {
-    $stripeMock = Mockery::mock(Stripe::class);
+    $stripeMock = \Mockery::mock(Stripe::class);
 
     $order = factory(Order::class)->create();
     $order_item = factory(OrderItem::class)->create([
@@ -25,7 +24,7 @@ class StripeGatewayTest extends TestCase
     $mockSession = new stdClass();
     $mockSession->id = '123';
 
-    Mockery::mock('alias:' . Session::class)
+    \Mockery::mock('alias:' . Session::class)
       ->shouldReceive('create')
       ->with([
         'payment_method_types' => ['card'],
