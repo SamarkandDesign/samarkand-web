@@ -36,7 +36,7 @@
             const stripe = Stripe('{{ config('services.stripe.publishable') }}');
             const sessionId = '{{ $session_id }}';
 
-            document.querySelector('#pay-now-form').addEventListener('submit', e => {
+            document.querySelector('#pay-now-form').addEventListener('submit', function(e) {
                 e && e.preventDefault();
 
                 stripe.redirectToCheckout({ sessionId }).then(function (result) {
