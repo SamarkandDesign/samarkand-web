@@ -12,8 +12,14 @@ class StripeGateway implements GatewayInterface
     Stripe::setApiKey(config('services.stripe.secret'));
   }
 
-  public function createSession(\App\Order $order, \App\User $user)
+  public function createSession(\App\Order $order)
   {
+    $user = $order->user;
+
+    if (!$user) {
+      throw new \InvalidArgumentException('Order must have a customer attached');
+    }
+
     $shipping_item = $order->shipping_items->map(function ($item) {
       return [
         'name' => $item->description,
@@ -36,10 +42,18 @@ class StripeGateway implements GatewayInterface
     });
     $site_url = config('app.url');
 
+    $lineItems = $product_items
+      ->concat($shipping_item)
+      ->filter(function($item) {
+        // we cannot charge for items priced at 0
+        return $item['amount'] > 0;
+      })
+      ->toArray();
+
     // create a payment session and pass it to the view
     $session = \Stripe\Checkout\Session::create([
       'payment_method_types' => ['card'],
-      'line_items' => $product_items->concat($shipping_item)->toArray(),
+      'line_items' => $lineItems,
       'success_url' => "$site_url/order-completed/$order->id",
       'cancel_url' => "$site_url/cart",
       'client_reference_id' => $order->id,
