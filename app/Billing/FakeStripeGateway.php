@@ -3,30 +3,35 @@
 namespace App\Billing;
 
 use Mockery;
-use Stripe\Charge;
 use Stripe\Stripe;
 
 class FakeStripeGateway implements GatewayInterface
 {
-  /**
-   * Simulate a call to the Stripe api to perform a charge.
-   *
-   * @param array $data The charge data
-   * @param array $meta Meta info
-   *
-   * @throws \App\Billing\CardException
-   *
-   * @return \Stripe\Charge
-   */
-  public function charge(array $data, array $meta = [])
+  public function createSession(\App\Order $order, \App\User $user)
   {
-    if ($data['card'] === 'tok_cardfailuretoken') {
-      throw new CardException('Card declined');
+    return 'payment_session_123';
+  }
+
+  /**
+   * @return \Stripe\Event the Event instance
+   */
+  public function getSessionFromEvent(string $payload, string $sig_header)
+  {
+    if ($sig_header === 'invalid_sig') {
+      throw new \Stripe\Error\SignatureVerification('Invalid signature');
     }
 
-    $fakeCharge = Mockery::mock(Charge::class);
-    $fakeCharge->id = 'ch_18bE2t4C5r3jEhospTyyfba5';
+    $event = json_decode($payload, true);
 
-    return $fakeCharge;
+    if (!$event['client_reference_id']) {
+      throw new \UnexpectedValueException('Payload is not parseable to a session');
+    }
+
+    $fakeSession = Mockery::mock();
+    $fakeSession->client_reference_id = $event['client_reference_id'];
+    $fakeSession->payment_intent = 'pi_1EUmyo2x6R10KRrhUuJXu9m0';
+    $fakeSession->customer = "cus_Eyyxi4JhhB6wQF";
+
+    return $fakeSession;
   }
 }

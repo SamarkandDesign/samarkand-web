@@ -3,12 +3,10 @@
 import Vue from 'vue';
 import 'flickity-imagesloaded';
 
-
 // Components
 import dropdown from './components/dropdown.vue';
 import addressForm from './components/address-form.vue';
 import customerForm from './components/customer-form.vue';
-import cardForm from './components/card-form.vue';
 import navbar from './components/navbar.vue';
 import alert from './components/alert.vue';
 import { ProductSearchVisitor as productSearch } from './components/product-search.js';
@@ -27,7 +25,6 @@ window.vm = new Vue({
     dropdown,
     addressForm,
     customerForm,
-    cardForm,
     navbar,
     alert,
     productSearch,

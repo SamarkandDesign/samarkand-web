@@ -32,6 +32,7 @@ class GeocodeAddress implements ShouldQueue
    */
   public function handle(Geocoder $geocoder)
   {
+    \Log::info(sprintf('Geocoding address %s', $this->address));
     $location = $geocoder->getCoordinates($this->address);
 
     \DB::table('addresses')

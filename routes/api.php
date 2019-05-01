@@ -60,6 +60,11 @@ Route::get('media/{media}', ['uses' => 'MediaController@show', 'as' => 'api.medi
 );
 Route::get('media/{collection?}', ['uses' => 'MediaController@index', 'as' => 'api.media.index']);
 
+Route::post('/orders/complete', [
+  'uses' => 'OrdersController@complete',
+  'as' => 'api.orders.complete',
+]);
+
 // Protected API routes
 Route::group(['middleware' => 'can:access-admin'], function () {
   // Attach media to models

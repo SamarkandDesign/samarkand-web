@@ -99,18 +99,6 @@ class OrderTest extends TestCase
 
     $response->assertSee($product->name);
     $response->assertSee($shippingMethod->description);
-
-    // Pay for the order
-    $response = $this->post(route('payments.store'), [
-      'order_id' => $order->id,
-      'stripe_token' => 'tok_cardsuccesstoken',
-    ]);
-
-    $response->assertRedirect('/order-completed');
-    $response = $this->followRedirects($response);
-    $response->assertSee('Order Completed');
-
-    $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
   }
 
   /** @test **/
@@ -195,5 +183,29 @@ class OrderTest extends TestCase
 
     $this->assertEquals($order->billing_address_id, $address->id);
     $this->assertEquals($order->shipping_address_id, $address->id);
+  }
+
+  /** @test **/
+  public function it_completes_an_order_when_the_webhook_endpoint_is_hit()
+  {
+    $order = $this->createOrder();
+    $payload = sprintf('{"client_reference_id": %s', $order->id);
+
+    $response = $this->json(
+      'POST',
+      '/api/orders/complete',
+      ['client_reference_id' => $order->id],
+      ['HTTP_STRIPE_SIGNATURE' => 'supersecret']
+    );
+
+    $response->assertStatus(200);
+    $response->assertSee('Received');
+
+    $this->assertDatabaseHas('orders', ['id' => $order->id, 'status' => \App\Order::PAID]);
+
+    // simulate navigating to the order completed page
+    $this->be($order->user);
+    $response = $this->get("/order-completed/$order->id");
+    $response->assertSee($order->items->first()->description);
   }
 }

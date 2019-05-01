@@ -49,7 +49,10 @@ Route::get('orders/{order}/pay', ['uses' => 'OrdersController@pay', 'as' => 'ord
 
 Route::post('payments', ['uses' => 'PaymentsController@store', 'as' => 'payments.store']);
 
-Route::get('order-completed', ['uses' => 'OrdersController@completed', 'as' => 'orders.completed']);
+Route::get('order-completed/{order}', [
+  'uses' => 'OrdersController@completed',
+  'as' => 'orders.completed',
+]);
 
 Route::post('feedbacks', ['uses' => 'FeedbacksController@store', 'as' => 'feedbacks.store']);
 
