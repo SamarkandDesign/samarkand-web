@@ -35,7 +35,7 @@ class OrdersController extends Controller
     try {
       $session = $gateway->getSessionFromEvent($payload, $sig_header);
       $order = Order::findOrFail($session->client_reference_id);
-      \Log::info(sprintf("Gateway webhook recieved for order %s", $session->client_reference_id), [
+      \Log::info(sprintf("Gateway webhook received for order %s", $session->client_reference_id), [
         'order_id' => $session->client_reference_id,
       ]);
 
@@ -46,13 +46,11 @@ class OrdersController extends Controller
       }
     } catch (\UnexpectedValueException $e) {
       \Log::warning("Gateway webhook failed due to invalid payload", [
-        'order_id' => $session->client_reference_id,
         'error' => $e,
       ]);
       return response()->json('Invalid payload', 400);
     } catch (\Stripe\Error\SignatureVerification $e) {
       \Log::warning("Gateway webhook failed due to invalid signature", [
-        'order_id' => $session->client_reference_id,
         'error' => $e,
       ]);
       return response()->json('Invalid signature', 400);
