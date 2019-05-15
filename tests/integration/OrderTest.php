@@ -188,8 +188,7 @@ class OrderTest extends TestCase
   /** @test **/
   public function it_completes_an_order_when_the_webhook_endpoint_is_hit()
   {
-    $order = $this->createOrder();
-    $payload = sprintf('{"client_reference_id": %s', $order->id);
+    $order = $this->createOrder(['status' => \App\Order::PENDING]);
 
     $response = $this->json(
       'POST',

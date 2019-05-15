@@ -54,7 +54,7 @@ class OrdersTest extends TestCase
 
     $response = $this->get("admin/orders/{$order->id}");
     $this->assertContains("#{$order->id}", $response->getContent());
-    $this->assertContains($item->description, $response->getContent());
+    $this->assertContains(htmlentities($item->description), $response->getContent());
   }
 
   /** @test **/

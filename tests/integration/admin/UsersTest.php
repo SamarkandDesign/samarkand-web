@@ -122,7 +122,7 @@ class UsersTest extends TestCase
     $this->logInAsAdmin();
 
     $response = $this->get("admin/users/{$user->username}/addresses");
-    $this->assertContains($address->line_1, $response->getContent());
+    $this->assertContains(htmlentities($address->line_1), $response->getContent());
   }
 
   /** @test **/

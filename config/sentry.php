@@ -1,14 +1,19 @@
 <?php
 
 return [
-  'dsn' => env('SENTRY_DSN'),
+  'dsn' => env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
 
   // capture release as git sha
-  // 'release' => trim(exec('git log --pretty="%h" -n1 HEAD')),
+  // 'release' => trim(exec('git --git-dir ' . base_path('.git') . ' log --pretty="%h" -n1 HEAD')),
 
-  // Capture bindings on SQL queries
-  'breadcrumbs.sql_bindings' => true,
+  'release' => sprintf("samarkand@%s", env('HEROKU_SLUG_COMMIT', 'unknown')),
 
-  // Capture default user context
-  'user_context' => true,
+  'environment' => env('SENTRY_ENVIRONMENT', 'production'),
+
+  'breadcrumbs' => [
+    // Capture bindings on SQL queries logged in breadcrumbs
+    'sql_bindings' => true,
+  ],
+
+  "send_default_pii" => true,
 ];

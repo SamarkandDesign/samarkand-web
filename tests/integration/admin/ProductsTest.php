@@ -26,7 +26,7 @@ class ProductsTest extends \TestCase
 
     $response = $this->get('admin/products');
 
-    $this->assertContains($product->name, $response->getContent());
+    $this->assertContains(htmlentities($product->name), $response->getContent());
   }
 
   /** @test **/
@@ -178,7 +178,7 @@ class ProductsTest extends \TestCase
 
     $response = $this->get('/admin/products');
 
-    $this->assertContains($product->name, $response->getContent());
+    $this->assertContains(htmlentities($product->name), $response->getContent());
 
     // $this->assertContains('Product restored', $response->getContent());
   }

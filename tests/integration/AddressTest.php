@@ -16,7 +16,7 @@ class AddressTest extends TestCase
       'addressable_id' => $user->id,
     ]);
     $response = $this->get('account/addresses');
-    $this->assertContains($address->line_1, $response->getContent());
+    $this->assertContains(htmlentities($address->line_1), $response->getContent());
   }
 
   /** @test **/
