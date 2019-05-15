@@ -35,6 +35,15 @@ class OrdersController extends Controller
     try {
       $session = $gateway->getSessionFromEvent($payload, $sig_header);
       $order = Order::findOrFail($session->client_reference_id);
+
+      if ($order->status === Order::PAID || $order->status === Order::COMPLETED) {
+        \Log::warning("Cannot complete order that is in $order->status state", [
+          'status' => $order->status,
+          'order_id' => $order->id,
+        ]);
+        return response()->json(sprintf('Cannot complete order marked as %s', $order->status), 400);
+      }
+
       \Log::info(sprintf("Gateway webhook received for order %s", $session->client_reference_id), [
         'order_id' => $session->client_reference_id,
       ]);

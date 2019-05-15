@@ -164,7 +164,7 @@ return [
     // Laravel\Tinker\TinkerServiceProvider::class,
     App\Billing\BillingServiceProvider::class,
     Laravel\Tinker\TinkerServiceProvider::class,
-    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+    Sentry\Laravel\ServiceProvider::class,
   ],
 
   /*
@@ -216,6 +216,6 @@ return [
     'Cart' => 'Gloudemans\Shoppingcart\Facades\Cart',
     'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
     'Present' => 'App\Presenters\Presenter',
-    'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+    'Sentry' => Sentry\Laravel\Facade::class,
   ],
 ];

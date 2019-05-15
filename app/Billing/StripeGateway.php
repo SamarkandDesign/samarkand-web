@@ -42,13 +42,14 @@ class StripeGateway implements GatewayInterface
     });
     $site_url = config('app.url');
 
-    $lineItems = $product_items
-      ->concat($shipping_item)
-      ->filter(function($item) {
-        // we cannot charge for items priced at 0
-        return $item['amount'] > 0;
-      })
-      ->toArray();
+    $lineItems =
+      // we cannot charge for items priced at 0
+      $product_items
+        ->concat($shipping_item)
+        ->filter(function ($item) {
+          return $item['amount'] > 0;
+        })
+        ->toArray();
 
     // create a payment session and pass it to the view
     $session = \Stripe\Checkout\Session::create([

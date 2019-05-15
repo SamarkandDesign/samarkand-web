@@ -14,7 +14,7 @@ class ProductsControllerTest extends \TestCase
     $products = factory(Product::class, 4)->create();
 
     $response = $this->get('/shop');
-    $this->assertContains($products->first()->name, $response->getContent());
+    $this->assertContains(htmlentities($products->first()->name), $response->getContent());
   }
 
   /** @test **/
@@ -25,7 +25,7 @@ class ProductsControllerTest extends \TestCase
     $response = $this->get("/shop/{$product->product_category->slug}/{$product->slug}");
 
     $content = $response->getContent();
-    $this->assertContains($product->name, $content);
-    $this->assertContains($product->description, $content);
+    $this->assertContains(htmlentities($product->name), $content);
+    $this->assertContains(htmlentities($product->description), $content);
   }
 }

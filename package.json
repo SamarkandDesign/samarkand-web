@@ -27,7 +27,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha ./resources/assets/js/tests --compilers js:babel-core/register",
-    "composer": "docker run --rm -v $(pwd):/app composer/composer install --ignore-platform-reqs --no-scripts",
+    "composer": "docker run --rm -v $(pwd):/app composer install --ignore-platform-reqs --no-scripts",
     "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
