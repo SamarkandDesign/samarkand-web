@@ -6,7 +6,9 @@ return [
   // capture release as git sha
   // 'release' => trim(exec('git --git-dir ' . base_path('.git') . ' log --pretty="%h" -n1 HEAD')),
 
-  'release' => sprintf("samarkand@%s", env('HEROKU_RELEASE_VERSION', 'unknown')),
+  'release' => sprintf("samarkand@%s", env('HEROKU_SLUG_COMMIT', 'unknown')),
+
+  'environment' => env('SENTRY_ENVIRONMENT', 'production'),
 
   'breadcrumbs' => [
     // Capture bindings on SQL queries logged in breadcrumbs
