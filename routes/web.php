@@ -6,6 +6,10 @@ Route::get('/healthz', function () {
   return '200 OK';
 });
 
+Route::get('/test-error/7cf8e', function () {
+  throw new \Exception('This is a test error');
+});
+
 Auth::routes();
 
 /*
