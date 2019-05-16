@@ -4,8 +4,8 @@
 
 <div class="bg">
 	@yield('section-header')
-    @yield('breadcrumb')
     <div class="container top-buffer mx-auto px-4">
+        @yield('breadcrumb')
         @include('partials.alert')
         @yield('content')
     </div>

@@ -11,39 +11,34 @@ Crossroads of Culture
 @section('content')
 <div class="fade-in">
 
-<flicker>
-	<carousel-cell image="/img/home/lampshade1-2018.jpg">
-		<carousel-copy headline='Lovely lampshades'>
-			<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
-			<a class='btn btn-primary btn-lg' href='/shop/lampshades'>Shop lampshades</a>
-		</carousel-copy>
-	</carousel-cell>
+<flicker  class="overflow-hidden h-72
+">
+	@component('components/carousel-cell', ['title' => 'Lovely Lampshades', 'image' => '/img/home/lampshade1-2018.jpg'])
+	<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
+	<a class='btn btn-primary btn-lg mt-4' href='/shop/lampshades'>Shop lampshades</a>
+	@endcomponent
 
-	<carousel-cell image="/img/home/lampbase-banner2-2018.jpg">
-		<carousel-copy headline='Stunning lamp bases' style="text-align: right; right: 10%;">
+	@component('components/carousel-cell', ['title' => 'Stunning Lamp Bases', 'image' => '/img/home/lampbase-banner2-2018.jpg'])
 			<p>A range of unique vintage and contemporary lamp bases</p>
-			<a class='btn btn-primary btn-lg' href='/shop/lamp-bases'>Shop Lamp Bases</a>
-		</carousel-copy>
-	</carousel-cell>
+			<a class='btn btn-primary btn-lg mt-4' href='/shop/lamp-bases'>Shop Lamp Bases</a>
+	@endcomponent
 
-	<carousel-cell image="/img/home/hero-kanthas-lc.jpg">
-		<carousel-copy headline='Vintage Throws'>
+	@component('components/carousel-cell', ['title' => 'Vintage Throws', 'image' => '/img/home/hero-kanthas-lc.jpg'])
 			<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
-			<a class='btn btn-primary btn-lg' href='/shop/home-furnishings'>Shop home furnishings</a>
-		</carousel-copy>
-	</carousel-cell>
+			<a class='btn btn-primary btn-lg mt-4' href='/shop/home-furnishings'>Shop home furnishings</a>
+	@endcomponent
 </flicker>
 </div>
 
-<div class="container mx-auto px-4" v-pre>
-	<div class="flex md:mt-4 mt-2">
+<div class="container mx-auto px-4" >
+	<div class="flex md:mt-4 mt-2 -mx-1 md:-mx-2" v-pre>
 
 		@foreach ([
 			['title' => 'Home Furnishings', 'img' => '/img/home/tile1.jpg', 'link' => '/shop/home-furnishings'],
 			['title' => 'Lighting', 'img' => '/img/home/Shibori_2.jpg', 'link' => '/shop/lighting'],
 			['title' => 'Accessories', 'img' => '/img/home/tile3.jpg', 'link' => '/shop/accessories'],
 		] as $item)
-			<div class="md:mr-2 mr-1">
+			<div class="md:mx-2 mx-1">
 					<a class="block relative text-white bg-black" href="{{ $item['link'] }}">
 						<img src="{{ $item['img'] }}" alt="Samarkand Home Furnishings hover:opacity-75" class="w-100">
 							<div class="absolute text-center pin flex justify-center items-center">
@@ -86,16 +81,17 @@ Crossroads of Culture
 			</a>
 		</div> --}}
 	</div>
-
 	<div class="md:mt-4 mt-2 pb-4">
 		<flicker>
 			@foreach($featured_products as $product)
-				<div class="home_featured_image">
+				<div class="home_featured_image w-1/2 md:w-1/4 mx-2">
 				@include('shop._product_tile', compact('product'))
 				</div>
 			@endforeach
 		</flicker>
 	</div>
+	</div>
+
 
 
 

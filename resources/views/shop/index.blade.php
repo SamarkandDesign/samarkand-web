@@ -19,9 +19,9 @@
 
 @section('section-header')
   @if($product_category->id)
-    <header class="section-header" style="background-image: url('/img/product-cat-bg.jpg'); background-size: cover;">
-    <div class="container">
-    <h1 class="category-header">{{ $product_category->term }}</h1>
+    <header class="h-56 flex items-end" style="background-image: url('/img/product-cat-bg.jpg'); background-size: cover;">
+    <div class="container mx-auto p-4">
+      <h1 class="text-white text-5xl font-serif italic ">{{ $product_category->term }}</h1>
     </div>
     </header>
   @endif
@@ -29,9 +29,9 @@
 
 @section('breadcrumb')
     @if ($product_category->id or 'uncategorised' == $product_category->slug)
-  <ol class="breadcrumb">
-      <li><a href="/shop">Shop</a></li>
-      <li class="active">{{ $product_category->term }}</li>
+  <ol class="list-none list-reset">
+      <li class="inline-block"><a href="/shop">Shop</a></li>
+      <li class="inline-block">{{ $product_category->term }}</li>
   </ol>
     @endif
 @endsection
@@ -53,16 +53,16 @@
       @endif
 
       @foreach ($products->chunk($products_per_row) as $product_group)
-        <div class="row">
+        <div class="flex flex-wrap -mx-2">
 
           @foreach ($product_group as $i => $product)
-            <div class="product col-md-{{ (int) 12 / $products_per_row }} col-xs-{{ (int) 24 / $products_per_row }} top-buffer">
+            <div class="flex-shrink-0 mt-4 w-1/2 sm:w-1/4 px-2">
               @include('shop._product_tile', compact('product'))
             </div>
 
-            @if( ($i + 1) % ($products_per_row / 2) === 0 )
+            {{-- @if( ($i + 1) % ($products_per_row / 2) === 0 )
               <div class="clearfix visible-xs-block"></div>
-            @endif
+            @endif --}}
 
           @endforeach
 

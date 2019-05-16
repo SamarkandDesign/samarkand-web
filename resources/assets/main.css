@@ -1,0 +1,33 @@
+@import 'flickity/css/flickity';
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@responsive {
+  .h-72 {
+    height: 18rem;
+  }
+}
+
+a {
+  @apply text-orange-400;
+}
+a:hover {
+  @apply text-orange-600;
+}
+
+.btn {
+  @apply py-2 px-4 rounded inline-block;
+}
+.btn-lg {
+  @apply py-4 px-8;
+}
+.btn-primary {
+  @apply bg-orange-500 text-white;
+}
+.btn-primary:hover {
+  @apply bg-orange-700;
+}

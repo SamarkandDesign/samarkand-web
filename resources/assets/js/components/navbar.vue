@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center justify-between flex-wrap p-6 bg-white">
+  <nav class="flex items-center justify-between flex-wrap p-6 bg-teal-800 text-white">
     <div class="flex items-center flex-no-shrink mr-6">
       <slot name="image"></slot>
     </div>
