@@ -23,7 +23,7 @@
 
 	<h4>Update Property Details</h4>
 
-	@include('partials.alerts._errors_block')
+	@include('partials.errors')
 		{!! Form::model($product_attribute, ['route' => ['admin.attributes.update', $product_attribute],'method' => 'patch']) !!}
 		<div class="row">
 			<div class="form-group col-md-4">

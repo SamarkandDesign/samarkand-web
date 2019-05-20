@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.gateway')
 
 @section('title')
 Forgot Password
@@ -6,16 +6,16 @@ Forgot Password
 
 @section('content')
 
-	@if (session('status'))
-	<div class="alert alert-success">
-		{{ session('status') }}
-	</div>
-	@endif
+@if (session('status'))
+<alert type="success" dismissible="false">
+	{{ session('status') }}
+</alert>
+@endif
 
-	@include('partials.errors')
+
 	<h1 class="text-center">Reset Your Password</h1>
 
-	<form class="form-horizontal" role="form" method="POST" action="/password/email">
+	<form role="form" method="POST" action="/password/email"  class="vspace-5">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 		<div class="form-group">

@@ -2,13 +2,12 @@
 
 @section('body')
 
-<div class="bg">
-	@yield('section-header')
-    <div class="container top-buffer mx-auto px-4">
-        @yield('breadcrumb')
+@yield('section-header')
+@yield('breadcrumb')
+<div class="px-2 md:px-4 flex-auto">
+    <div class="container mx-auto">
         @include('partials.alert')
         @yield('content')
     </div>
-<div class="top-buffer"></div>
 </div>
 @stop

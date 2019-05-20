@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.gateway')
 
 @section('title')
 Reset Password
@@ -7,11 +7,9 @@ Reset Password
 @section('content')
 <h1 class="text-center">Reset Password</h1>
 
-	@include('partials.errors')
 
-	<form class="form-horizontal" role="form" method="POST" action="/password/reset">
+	<form  role="form" method="POST" action="/password/reset"  class="vspace-5">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<input type="hidden" name="token" value="{{ $token }}">
 
 		<div class="form-group">
 			<label class="col-md-4 control-label">Email address</label>

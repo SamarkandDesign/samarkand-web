@@ -1,4 +1,4 @@
-@extends('layouts.single_product')
+@extends('layouts.main')
 
 @section('title')
 {{ $product->name }} | {{ $product->product_category->term }}
@@ -20,8 +20,7 @@
 
 @section('content')
 
-@include('partials.alerts._errors_block')
-@include('partials.alerts._alert_block')
+@include('partials.errors')
 
 <div itemscope itemtype="http://schema.org/Product">
   <div class="md:flex -mx-2" v-pre>

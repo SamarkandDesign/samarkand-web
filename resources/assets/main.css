@@ -38,3 +38,23 @@ a:hover {
 .btn-success:hover {
   @apply bg-green-700;
 }
+
+.control-label {
+  @apply block text-gray-700 text-sm font-bold mb-2;
+}
+.form-control {
+  @apply appearance-none border rounded block w-full py-2 px-3 text-gray-700 leading-tight;
+}
+.form-control:focus {
+  @apply outline-none shadow-outline;
+}
+
+.vspace-4 > :not(:first-child) + *:not(.hidden) {
+  @apply mt-4;
+}
+.vspace-5 > :not(:first-child) + *:not(.hidden) {
+  @apply mt-5;
+}
+.vspace-6 > :not(:first-child) + *:not(.hidden) {
+  @apply mt-6;
+}

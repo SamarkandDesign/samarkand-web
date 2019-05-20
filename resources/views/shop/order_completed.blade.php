@@ -5,7 +5,7 @@ Order Completed
 @endsection
 
 @section('content')
-@include('partials.alerts._errors_block')
+@include('partials.errors')
 <h1>Order Completed</h1>
 
 <p>Your order details are below. We'll email you an order confirmation shortly.</p>

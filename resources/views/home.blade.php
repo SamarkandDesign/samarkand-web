@@ -9,30 +9,32 @@ Crossroads of Culture
 	content="Unique and distinctive lampshades, lighting and home accessories sourced from vintage textiles from around the world">
 @endsection
 
-@section('content')
+@section('section-header')
 <div class="fade-in">
+		<flicker class="overflow-hidden h-72">
+			@component('components/carousel-cell', ['title' => 'Lovely Lampshades', 'image' => '/img/home/lampshade1-2018.jpg'])
+			<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
+			<a class='btn btn-primary btn-lg mt-4' href='/shop/lampshades'>Shop lampshades</a>
+			@endcomponent
 
-	<flicker class="overflow-hidden h-72">
-		@component('components/carousel-cell', ['title' => 'Lovely Lampshades', 'image' => '/img/home/lampshade1-2018.jpg'])
-		<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
-		<a class='btn btn-primary btn-lg mt-4' href='/shop/lampshades'>Shop lampshades</a>
-		@endcomponent
+			@component('components/carousel-cell', ['title' => 'Stunning Lamp Bases', 'image' =>
+			'/img/home/lampbase-banner2-2018.jpg'])
+			<p>A range of unique vintage and contemporary lamp bases</p>
+			<a class='btn btn-primary btn-lg mt-4' href='/shop/lamp-bases'>Shop Lamp Bases</a>
+			@endcomponent
 
-		@component('components/carousel-cell', ['title' => 'Stunning Lamp Bases', 'image' =>
-		'/img/home/lampbase-banner2-2018.jpg'])
-		<p>A range of unique vintage and contemporary lamp bases</p>
-		<a class='btn btn-primary btn-lg mt-4' href='/shop/lamp-bases'>Shop Lamp Bases</a>
-		@endcomponent
+			@component('components/carousel-cell', ['title' => 'Vintage Throws', 'image' => '/img/home/hero-kanthas-lc.jpg'])
+			<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
+			<a class='btn btn-primary btn-lg mt-4' href='/shop/home-furnishings'>Shop home furnishings</a>
+			@endcomponent
+		</flicker>
+	</div>
+@endsection
 
-		@component('components/carousel-cell', ['title' => 'Vintage Throws', 'image' => '/img/home/hero-kanthas-lc.jpg'])
-		<p>Throws, kanthas, cushions and more made from vintage fabrics</p>
-		<a class='btn btn-primary btn-lg mt-4' href='/shop/home-furnishings'>Shop home furnishings</a>
-		@endcomponent
-	</flicker>
-</div>
+@section('content')
 
-<div class="container mx-auto px-4">
-
+<div class="px-2 md:px-4">
+<div class="container mx-auto">
 	<div class="flex md:mt-4 mt-2 -mx-1 md:-mx-2" v-pre>
 		@foreach ([
 		['title' => 'Home Furnishings', 'img' => '/img/home/tile1.jpg', 'link' => '/shop/home-furnishings'],
@@ -59,7 +61,7 @@ Crossroads of Culture
 			@endforeach
 		</flicker>
 	</div>
-
+</div>
 </div>
 
 @endsection
