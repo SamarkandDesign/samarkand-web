@@ -31,3 +31,10 @@ a:hover {
 .btn-primary:hover {
   @apply bg-orange-700;
 }
+
+.btn-success {
+  @apply bg-green-500 text-white;
+}
+.btn-success:hover {
+  @apply bg-green-700;
+}

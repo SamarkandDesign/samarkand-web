@@ -2,11 +2,11 @@
 
 @section('body')
 
-<div class="bg space-deck">
-    <div class="container">
-		@yield('breadcrumb')
-        @yield('content')
-    </div>
+
+<div class="container mx-auto">
+    @yield('breadcrumb')
+    @yield('content')
 </div>
+
 
 @stop
