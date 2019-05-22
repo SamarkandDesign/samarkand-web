@@ -1,5 +1,5 @@
 <navbar>
-  <a slot="image"  href="/">
+  <a slot="image" href="/">
     <img src="/img/leaf-white.svg" alt="Samarkand Logo" class="h-8 w-8 mr-2" />
   </a>
 
@@ -13,27 +13,33 @@
   </ul>
   @endif
 
+  <div slot="search" class="mx-4 md:mx-8 flex-1">
+    @include('shop._product_search')
+  </div>
+
   <div slot="right-items">
     <ul class="list-reset w-full block flex-grow lg:flex lg:items-center lg:w-auto">
       <li class="block mt-4 lg:inline-block lg:mt-0 mr-4">
         <a href="/cart" class="no-underline text-grey-darkest hover:text-grey-darker">
           <i class="fa fa-shopping-cart"></i>
-          {{ config('shop.currency_symbol') }}{{ Cart::total() }} ({{ Cart::count() }} {{ str_plural('Item', Cart::count()) }})
+          {{ config('shop.currency_symbol') }}{{ Cart::total() }} ({{ Cart::count() }}
+          {{ str_plural('Item', Cart::count()) }})
         </a>
       </li>
       @if (Auth::check())
       <li class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-          <a href="/account" class="no-underline text-grey-darkest hover:text-grey-darker">My Account</a>
+        <a href="/account" class="no-underline text-grey-darkest hover:text-grey-darker">My Account</a>
       </li>
       <li class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-          <form method="post" action="/logout">
-            {!! csrf_field() !!}
-            <button type="submit" class="font-light no-underline text-grey-darkest hover:text-grey-darker">Sign out</button>
-            </form>
+        <form method="post" action="/logout">
+          {!! csrf_field() !!}
+          <button type="submit" class="font-light no-underline text-grey-darkest hover:text-grey-darker">Sign
+            out</button>
+        </form>
       </li>
       @else
       <li class="block mt-4 lg:inline-block lg:mt-0 mr-4">
-          <a href="/login" class="no-underline text-grey-darkest hover:text-grey-darker">Login</a>
+        <a href="/login" class="no-underline text-grey-darkest hover:text-grey-darker">Login</a>
       </li>
       @endif
     </ul>
