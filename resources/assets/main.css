@@ -13,10 +13,10 @@
 }
 
 a {
-  @apply text-orange-400;
+  @apply text-orange-900;
 }
 a:hover {
-  @apply text-orange-600;
+  @apply text-orange-800;
 }
 
 .btn {
@@ -26,10 +26,10 @@ a:hover {
   @apply py-4 px-8;
 }
 .btn-primary {
-  @apply bg-orange-500 text-white;
+  @apply bg-orange-900 text-white;
 }
 .btn-primary:hover {
-  @apply bg-orange-700;
+  @apply bg-orange-800;
 }
 
 .btn-success {
@@ -58,6 +58,14 @@ a:hover {
 .vspace-6 > * + *:not(.hidden) {
   @apply mt-6;
 }
+
+.vspace-10 > * + *:not(.hidden) {
+  @apply mt-10;
+}
+.vspace-12 > * + *:not(.hidden) {
+  @apply mt-12;
+}
+
 .hspace-4 > * + *:not(.hidden) {
   @apply ml-4;
 }
@@ -66,4 +74,8 @@ a:hover {
 }
 .hspace-6 > * + *:not(.hidden) {
   @apply ml-6;
+}
+
+.trans {
+  transition: all 0.25s;
 }

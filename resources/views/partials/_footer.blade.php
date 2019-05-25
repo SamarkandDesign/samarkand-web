@@ -1,4 +1,4 @@
-<footer class="px-4 py-6 bg-teal-800 text-white">
+<footer class="px-4 py-6 bg-gray-200 border-t border-gray-400">
     <div class="container mx-auto md:flex justify-between">
         <div class="flex mb-4">
             <div class="mr-10 hidden md:block">
@@ -24,8 +24,7 @@
                     </li>
                     @if (isset($menuItems['footer_right']))
                     @foreach($menuItems['footer_right'] as $item)
-                    <li><a class="no-underline text-white hover:text-grey-light"
-                            href="{{ $item->link }}">{{ $item->label }}</a></li>
+                    <li><a class="no-underline " href="{{ $item->link }}">{{ $item->label }}</a></li>
                     @endforeach
                     @endif
                 </ul>
@@ -42,8 +41,7 @@
                 ['url' => 'https://pinterest.com/samarkanddesign', 'icon' => 'pinterest'],
                 ] as $socialLink)
                 <li class="inline-block">
-                    <a target="_blank"
-                        class="flex h-8 w-8 border justify-center items-center no-underline text-white hover:text-grey-light"
+                    <a target="_blank" class="flex h-8 w-8 border justify-center items-center no-underline "
                         rel="nofollow" href="{{ $socialLink['url'] }}"><i class="fa fa-{{ $socialLink['icon'] }}"></i>
                     </a>
                 </li>

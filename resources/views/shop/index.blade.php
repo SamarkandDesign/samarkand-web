@@ -38,12 +38,10 @@ Shop
 
 @section('content')
 
-<div class="row">
-  <section class="products col-sm-9 col-sm-push-3" v-pre>
+<div class="block sm:flex flex-row-reverse -mx-2 md:-mx-4">
+  <section class="px-2 md:px-4 w-full sm:w-4/5" v-pre>
     @if(Request::has('query'))
     <h2>Results for "{{ Request::get('query') }}"</h2>
-    @elseif($product_category->id)
-    <h2>{{ $product_category->term }}</h2>
     @endif
 
     @if($products->total() > 0)
@@ -69,7 +67,7 @@ Shop
     </div>
   </section>
 
-  <aside class="shop-filters col-sm-3 col-sm-pull-9">
+  <aside class="px-2 md:px-4 flex-1">
     <div class="xcol-md-6">
       @include('shop._category_filter')
       @include('shop._attribute_filter')

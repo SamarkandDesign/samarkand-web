@@ -26,7 +26,7 @@
 
     <ul>
       <li v-for="hit in hits" :key="hit.id" class="product-search-result ">
-        <a v-bind:href="hit.url" class="flex hover:bg-gray-200 p-2">
+        <a v-bind:href="hit.url" class="flex hover:bg-gray-200 p-2 trans">
           <div class="image-search-thumb w-12 md:w-20 flex-shrink-0 mr-2 md:mr-4">
             <img :src="hit.thumbnail" />
           </div>

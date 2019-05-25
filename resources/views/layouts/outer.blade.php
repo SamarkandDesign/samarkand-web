@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,8 +27,9 @@
     <![endif]-->
     @include('partials._gtm')
 </head>
+
 <body>
-    <div id="app" class="font-light">
+    <div id="app" class="font-light font-body tracking-wide">
         @include('partials._navbar')
         @yield('body')
 
@@ -36,4 +38,5 @@
     @include('partials._scripts')
     @yield('scripts')
 </body>
+
 </html>
