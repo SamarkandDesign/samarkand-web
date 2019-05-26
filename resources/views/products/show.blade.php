@@ -23,9 +23,9 @@
 @section('content')
 
 @include('partials.errors')
-
+@include('partials.alert')
 <div itemscope itemtype="http://schema.org/Product" class="vspace-5">
-  <div class="md:flex" v-pre>
+  <div class="md:flex">
     <div class="md:w-1/2 w-full bg-gray-100">
 
       <div itemprop="image">
@@ -34,12 +34,11 @@
 
     </div>
 
-    <div class="md:w-1/2 w-full px-10 md:px-12 lg:px-24 vspace-12 py-8">
+    <div v-pre class="md:w-1/2 w-full px-10 md:px-12 lg:px-24 vspace-12 py-8">
       <section>
 
-        <header class="serif text-3xl uppercase font-normal tracking-wider">
-          <h1 itemprop="name">{{ $product->name }}</h1>
-        </header>
+        <h1 itemprop="name" class="page-heading">{{ $product->name }}</h1>
+
 
         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="text-xl">
           <meta itemprop="priceCurrency" content="{{ config('shop.currency') }}" />
@@ -58,6 +57,7 @@
         <div itemprop="description" class="vspace-4 text-sm">
           {!! $product->getDescriptionHtml() !!}
         </div>
+
 
         @if ($product->inStock())
         <section>
@@ -78,7 +78,7 @@
 
               </div>
             </div>
-            <button type="submit" class="btn btn-success w-full md:w-1/2">Add To basket</button>
+            <button type="submit" class="btn btn-success btn-lg w-full sm:w-auto">Add to basket</button>
           </form>
         </section>
         @endif

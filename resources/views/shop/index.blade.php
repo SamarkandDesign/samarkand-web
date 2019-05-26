@@ -38,8 +38,8 @@ Shop
 
 @section('content')
 
-<div class="block sm:flex flex-row-reverse -mx-2 md:-mx-4">
-  <section class="px-2 md:px-4 w-full sm:w-4/5" v-pre>
+<div class="block sm:flex flex-row-reverse -mx-4 md:-mx-8">
+  <section class="px-4 md:px-8 w-full sm:w-4/5" v-pre>
     @if(Request::has('query'))
     <h2>Results for "{{ Request::get('query') }}"</h2>
     @endif
@@ -51,10 +51,10 @@ Shop
     @endif
 
     @foreach ($products->chunk($products_per_row) as $product_group)
-    <div class="flex flex-wrap -mx-2">
+    <div class="flex flex-wrap -mx-4">
 
       @foreach ($product_group as $i => $product)
-      <div class="flex-shrink-0 mt-4 w-1/2 sm:w-1/4 px-2">
+      <div class="flex-shrink-0 mt-10 w-1/2 md:w-1/4 px-4">
         @include('shop._product_tile', compact('product'))
       </div>
       @endforeach
@@ -62,16 +62,16 @@ Shop
     </div>
     @endforeach
 
-    <div class="text-center">
+    <div class="mt-8">
       {!! $products->appends(Request::query())->links() !!}
     </div>
   </section>
 
-  <aside class="px-2 md:px-4 flex-1">
-    <div class="xcol-md-6">
-      @include('shop._category_filter')
-      @include('shop._attribute_filter')
-    </div>
+  <aside class="px-4 md:px-8 flex-1 vspace-5">
+
+    @include('shop._category_filter')
+    @include('shop._attribute_filter')
+
   </aside>
 </div>
 

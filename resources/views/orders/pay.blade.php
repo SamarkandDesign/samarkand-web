@@ -1,38 +1,38 @@
 @extends('layouts.main')
 
 @section('title')
-  Payment
+Payment
 @endsection
 
 @section('breadcrumb')
 
-    <ol class="breadcrumb">
-        <li><a href="/shop">Shop</a></li>
-        <li><a href="/cart">Cart</a></li>
-        <li><a href="/checkout">Checkout</a></li>
-        <li class="active">Pay</li>
-    </ol>
+<ol class="breadcrumb">
+    <li><a href="/shop">Shop</a></li>
+    <li><a href="/cart">Cart</a></li>
+    <li><a href="/checkout">Checkout</a></li>
+    <li class="active">Pay</li>
+</ol>
 
 @endsection
 
 @section('content')
 
-    <h1>Pay</h1>
+<h1 class="page-heading">Payment</h1>
 
-    <h2>Order Details</h2>
+<h2 class="text-2xl">Order Details</h2>
 
-    @include('orders._summary')
+@include('orders._summary')
 
-    <form action="" id="pay-now-form" class="row">
-        <div class="col-sm-12 col-md-4 col-lg-3">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Pay now</button>
-        </div>
-    </form>
+<form action="" id="pay-now-form" class="row">
+    <div class="col-sm-12 col-md-4 col-lg-3">
+        <button type="submit" class="btn btn-success btn-lg btn-block">Pay now</button>
+    </div>
+</form>
 @stop
 
 @section('scripts')
-    <script>
-        (function() {
+<script>
+    (function() {
             const stripe = Stripe('{{ config('services.stripe.publishable') }}');
             const sessionId = '{{ $session_id }}';
 
@@ -46,5 +46,5 @@
                 });
             });
         })();
-    </script>
+</script>
 @stop

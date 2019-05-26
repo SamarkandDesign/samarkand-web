@@ -47,10 +47,6 @@
                 </li>
                 @endforeach
             </ul>
-
-
-
-
             <div class="md:text-right text-center text-grey mt-4">
                 <p>
                     <small>&copy; {{ date('Y') }} {{ config('shop.name') }}. ALL RIGHTS RESERVED<br>
@@ -58,8 +54,5 @@
                 </p>
             </div>
         </div>
-
     </div>
-    </div>
-
 </footer>

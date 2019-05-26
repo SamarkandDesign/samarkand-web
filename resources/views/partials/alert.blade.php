@@ -1,14 +1,13 @@
 @if ( Session::has('alert') )
 @php
 $alertClasses = [
-'info' =>'bg-blue-500',
-'danger' =>'bg-red-500',
-'success' =>'bg-green-500',
-'warning' =>'bg-orange-500',
+'info' =>'bg-blue-700',
+'danger' =>'bg-red-700',
+'success' =>'bg-green-700',
+'warning' =>'bg-orange-700',
 ];
 @endphp
-<div
-	class="text-white text-sm font-bold px-4 py-3 mb-4 clearfix {{ $alertClasses[Session::get('alert-class', 'info')] }}"
+<div class="text-white text-sm font-bold px-4 py-3 clearfix {{ $alertClasses[Session::get('alert-class', 'info')] }}"
 	role="alert">
 	{{ Session::get('alert') }}
 </div>

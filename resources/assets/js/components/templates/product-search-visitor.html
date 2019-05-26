@@ -19,7 +19,13 @@
     <div class="hit-summary flex justify-between">
       <p v-show="searching"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Searching ...</p>
       <p v-show="!searching">{{ numberOfHits }} results</p>
-      <button type="button" class="text-xl" aria-label="Close" @click.prevent="query = ''">
+      <button
+        type="button"
+        class="text-xl"
+        aria-label="Close"
+        title="close"
+        @click.prevent="query = ''"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -38,7 +44,7 @@
       </li>
     </ul>
 
-    <div class="alogia-logo text-xs text-right mt-2">
+    <div class="alogia-logo text-xs text-right mt-2 opacity-25">
       Powered by
       <a href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link" target="_blank"
         ><img

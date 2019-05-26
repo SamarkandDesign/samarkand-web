@@ -5,43 +5,47 @@ Login
 @endsection
 
 @section('content')
+<div>
 
+	<choice-selector question="Do you have a password?"
+		v-bind:choices="[{name: 'signin', label: 'Yes, I\'ve been here before'}, {name: 'register', label: 'No, I\'m a new customer'}]">
+		<div slot="signin">
+			<form role="form" method="POST" action="{{ route('login') }}" class="vspace-5 mt-5">
+				<h2 class="text-xl">Sign in</h2>
+				<input type="hidden" class="hidden" name="_token" value="{{ csrf_token() }}">
+				<div class="form-group">
+					<label class="control-label" for="email">Email address</label>
+					<input type="email" class="form-control" name="email" id="email"
+						value="{{ old('email', Request::get('email')) }}">
+				</div>
 
-<form role="form" method="POST" action="{{ route('login') }}" class="vspace-5">
-		<h2>Login</h2>
-		<input type="hidden" class="hidden" name="_token" value="{{ csrf_token() }}">
-					<div class="form-group">
-						<label class="control-label" for="email">Email address</label>
-						<input type="email" class="form-control" name="email" id="email" value="{{ old('email', Request::get('email')) }}">
+				<div class="form-group">
+					<label class="control-label" for="password">Password</label>
+					<input type="password" class="form-control" name="password" id="password">
+				</div>
+
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="remember"> Remember me
+						</label>
 					</div>
+				</div>
 
-					<div class="form-group">
-						<label class="control-label" for="password">Password</label>
-						<input type="password" class="form-control" name="password" id="password">
-					</div>
+				<div class="form-group">
 
-					<div class="form-group">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" name="remember"> Remember me
-							</label>
-						</div>
-					</div>
+					<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
+						Sign in
+					</button>
 
-					<div class="form-group">
-
-						<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
-							Login
-						</button>
-
-						<a href="/password/reset">Don't know your password?</a>
+					<a href="/password/reset">Forgot your password?</a>
 				</div>
 			</form>
+		</div>
 
-
-		{{-- <div class="col-sm-6">
-			<h2>Create an account</h2>
-			<form role="form" method="POST" action="{{ route('register') }}">
+		<div slot="register">
+			<form role="form" method="POST" action="{{ route('register') }}" class="vspace-5 mt-5">
+				<h2 class="text-xl">Create an account</h2>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 				<div class="form-group">
@@ -67,8 +71,15 @@ Login
 						</button>
 					</div>
 				</div>
+
+				<p>Already have an account? <a href="/login">Login</a>.
 			</form>
-		</div> --}}
+		</div>
+	</choice-selector>
+</div>
+
+
+
 
 
 @endsection

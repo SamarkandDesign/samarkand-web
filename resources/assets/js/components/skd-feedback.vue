@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-sm-8 top-buffer">
+      <div class="col-sm-8 vspace-4">
         <div role="alert" class="alert alert-danger" v-if="this.errorMessage">
           <p>{{ this.errorMessage }}</p>
         </div>
@@ -18,7 +18,7 @@
         <form
           v-bind:action="route"
           method="POST"
-          class="top-buffer"
+          class="vspace-4"
           @submit.prevent="submitForm"
           v-if="!submitted"
         >

@@ -11,9 +11,8 @@
 @endsection
 
 @section('content')
-
-<h1>{{ $page->title }}</h1>
-
-{!! $page->getContentHtml() !!}
-
+<h1 class="page-heading">{{ $page->title }}</h1>
+<div class="vspace-4">
+  {!! $page->getContentHtml() !!}
+</div>
 @stop

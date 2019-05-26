@@ -1,6 +1,6 @@
-<a href="{{ $product->url }}" class="product-grid-element">
-  <img src="{{ $product->present()->thumbnail_url() }}" alt="" class="product-grid-image img-responsive">
-  <div class="text-center">
+<a href="{{ $product->url }}">
+  <img src="{{ $product->present()->thumbnail_url() }}" alt="{{ $product->name }}">
+  <div class="text-center py-2 text-gray-800">
     <div class="product-description">
 
       <h3>{{ $product->name }}</h3>
