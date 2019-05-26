@@ -29,17 +29,17 @@ Shop
 
 @section('breadcrumb')
 @if ($product_category->id or 'uncategorised' == $product_category->slug)
-<ol class="list-none list-reset">
-  <li class="inline-block"><a href="/shop">Shop</a></li>
-  <li class="inline-block">{{ $product_category->term }}</li>
+<ol class="breadcrumb">
+  <li><a href="/shop">Shop</a></li>
+  <li>{{ $product_category->term }}</li>
 </ol>
 @endif
 @endsection
 
 @section('content')
 
-<div class="block sm:flex flex-row-reverse -mx-4 md:-mx-8">
-  <section class="px-4 md:px-8 w-full sm:w-4/5" v-pre>
+<div class="block sm:flex flex-row-reverse -mx-4">
+  <section class="px-4  w-full sm:w-4/5" v-pre>
     @if(Request::has('query'))
     <h2>Results for "{{ Request::get('query') }}"</h2>
     @endif
@@ -67,10 +67,13 @@ Shop
     </div>
   </section>
 
-  <aside class="px-4 md:px-8 flex-1 vspace-5">
-
-    @include('shop._category_filter')
-    @include('shop._attribute_filter')
+  <aside class="flex-1 flex sm:block">
+    <div class="w-1/2 sm:w-full px-4 mb-5">
+      @include('shop._category_filter')
+    </div>
+    <div class="w-1/2 sm:w-full px-4 mb-5">
+      @include('shop._attribute_filter')
+    </div>
 
   </aside>
 </div>

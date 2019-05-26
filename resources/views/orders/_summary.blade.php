@@ -33,7 +33,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th class="text-right py-2 pl-2 text-right">Total</th>
+            <th class="text-right py-2 pl-2 "></th>
             <th class="py-2 pl-2 text-right">
                 <p>{{ $order->amount }}</p>
                 @if(config('shop.vat_rate'))

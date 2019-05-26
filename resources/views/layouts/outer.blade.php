@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <div id="app" class="font-light font-body tracking-wide">
+    <div id="app" class="font-light font-body tracking-wide min-h-screen bg-gray-200">
         @include('partials._navbar')
         @yield('body')
 

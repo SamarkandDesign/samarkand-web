@@ -1,4 +1,4 @@
-<footer class="px-4 py-6 bg-gray-200 border-t border-gray-400">
+<footer class="px-4 py-6 border-t border-gray-400 text-gray-500">
     <div class="container mx-auto md:flex justify-between">
         <div class="flex mb-4">
             <div class="mr-10 hidden md:block">
@@ -41,7 +41,8 @@
                 ['url' => 'https://pinterest.com/samarkanddesign', 'icon' => 'pinterest'],
                 ] as $socialLink)
                 <li class="inline-block">
-                    <a target="_blank" class="flex h-8 w-8 border justify-center items-center no-underline "
+                    <a target="_blank"
+                        class="flex h-8 w-8 border justify-center items-center no-underline text-gray-400 border-gray-400"
                         rel="nofollow" href="{{ $socialLink['url'] }}"><i class="fa fa-{{ $socialLink['icon'] }}"></i>
                     </a>
                 </li>

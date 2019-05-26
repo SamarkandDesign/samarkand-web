@@ -53,4 +53,5 @@
         <input type="tel" name="address[{{ $type }}][phone]" value="{{ $address['phone'] }}" class="form-control"
             id="{{ $type }}_address_phone" />
     </div>
+
 </div>
