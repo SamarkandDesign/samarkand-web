@@ -29,6 +29,13 @@ a:hover {
 .btn-lg {
   @apply py-4 px-8;
 }
+.btn-default {
+  @apply border border-gray-400 text-gray-800;
+}
+.btn-default:hover {
+  @apply bg-gray-100  text-gray-800;
+}
+
 .btn-primary {
   @apply bg-orange-900 text-white;
 }

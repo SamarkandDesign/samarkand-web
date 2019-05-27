@@ -1,7 +1,9 @@
 <template>
   <nav class="p-4 border-b border-gray-300 bg-white">
     <div class="flex items-center justify-between">
-      <div class="flex items-center">
+      <div
+        class="flex items-center uppercase font-light no-underline text-grey-darkest hover:text-grey-darker font-normal text-sm"
+      >
         <div class="flex items-center flex-no-shrink">
           <slot name="image"></slot>
         </div>
@@ -10,10 +12,14 @@
         </div>
       </div>
       <slot name="search"></slot>
-      <div class="hidden lg:block">
+      <div
+        class="hidden lg:block uppercase font-light no-underline text-grey-darkest hover:text-grey-darker font-normal text-sm"
+      >
         <slot name="right-items"></slot>
       </div>
-      <div class="block lg:hidden">
+      <div
+        class="block lg:hidden uppercase font-light no-underline text-grey-darkest hover:text-grey-darker font-normal text-sm"
+      >
         <button
           type="button"
           @click="collapsed = !collapsed"
@@ -28,7 +34,7 @@
       </div>
     </div>
     <div
-      class="w-full block lg:flex lg:items-center lg:w-auto lg:hidden"
+      class="w-full block lg:flex lg:items-center lg:w-auto lg:hidden uppercase font-light no-underline text-grey-darkest hover:text-grey-darker font-normal text-sm"
       v-bind:class="{hidden: collapsed}"
     >
       <slot name="items"></slot>

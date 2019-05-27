@@ -4,6 +4,7 @@
     "bootstrap": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"
   },
   "devDependencies": {
+    "@babel/register": "^7.4.4",
     "@prettier/plugin-php": "^0.9.0",
     "admin-lte": "^2.3.6",
     "algoliasearch": "^3.17.0",
@@ -27,7 +28,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./resources/assets/js/tests --compilers js:babel-core/register",
+    "test": "./node_modules/.bin/mocha ./resources/assets/js/tests --require @babel/register",
     "composer": "docker run --rm -v $(pwd):/app composer install --ignore-platform-reqs --no-scripts",
     "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
