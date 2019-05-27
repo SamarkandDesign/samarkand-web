@@ -12,20 +12,21 @@ Product Images
 
 
 <div class="top-buffer">
-<cr-imageable-gallery imageable-url="{{ route('api.posts.images', $post->id) }}" v-ref:gallery></cr-imageable-gallery>
+  <cr-imageable-gallery imageable-url="{{ route('api.posts.images', $post->id) }}" v-ref:gallery></cr-imageable-gallery>
 </div>
 
-@include('partials.errors')
+@include('admin.partials.errors')
 
 <div class="post-form" id="postForm">
 
-    <div class="box box-primary">
-      <div class="box-body">
-        {!! Form::open(['route' => ['api.posts.media.store', $post], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'attachImagesForm']) !!}
-        {{ csrf_field() }}
-        {!! Form::close() !!}
-      </div>
+  <div class="box box-primary">
+    <div class="box-body">
+      {!! Form::open(['route' => ['api.posts.media.store', $post], 'method' => 'POST', 'enctype' =>
+      'multipart/form-data', 'class' => 'dropzone', 'id' => 'attachImagesForm']) !!}
+      {{ csrf_field() }}
+      {!! Form::close() !!}
     </div>
+  </div>
 
 </div>
 
@@ -41,10 +42,10 @@ Product Images
     acceptedFiles: '.jpeg, .jpg, .png, .bmp, .gif, .svg',
     init: function()
     {
-      this.on("complete", function(file) 
-      { 
+      this.on("complete", function(file)
+      {
         this.removeFile(file);
-        vm.$refs.gallery.fetchImages(); 
+        vm.$refs.gallery.fetchImages();
 
       });
     }

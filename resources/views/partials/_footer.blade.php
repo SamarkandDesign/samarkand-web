@@ -1,4 +1,4 @@
-<footer class="px-4 py-6 border-t border-gray-400 text-gray-500">
+<footer class="px-4 py-6 border-t border-gray-400 text-gray-600">
     <div class="container mx-auto md:flex justify-between">
         <div class="flex mb-4">
             <div class="mr-10 hidden md:block">
@@ -11,8 +11,9 @@
                     </li>
                     @if (isset($menuItems['footer_left']))
                     @foreach($menuItems['footer_left'] as $item)
-                    <li><a class="no-underline text-white hover:text-grey-light"
-                            href="{{ $item->link }}">{{ $item->label }}</a></li>
+                    <li><a class="no-underline text-gray-500 hover:text-gray-400"
+                            href="{{ $item->link }}">{{ $item->label }}</a>
+                    </li>
                     @endforeach
                     @endif
                 </ul>
@@ -24,7 +25,8 @@
                     </li>
                     @if (isset($menuItems['footer_right']))
                     @foreach($menuItems['footer_right'] as $item)
-                    <li><a class="no-underline " href="{{ $item->link }}">{{ $item->label }}</a></li>
+                    <li><a class="no-underline text-gray-500 hover:text-gray-400"
+                            href="{{ $item->link }}">{{ $item->label }}</a></li>
                     @endforeach
                     @endif
                 </ul>

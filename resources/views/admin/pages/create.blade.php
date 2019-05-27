@@ -10,16 +10,16 @@ Create Page
 
 @section('admin.content')
 
-@include('partials.errors')
-    <div class="row">
+@include('admin.partials.errors')
+<div class="row">
 
 
-<div class="post-form" id="postForm">
-    {!! Form::model($page, ['route' => 'admin.pages.store', 'method' => 'POST']) !!}
+    <div class="post-form" id="postForm">
+        {!! Form::model($page, ['route' => 'admin.pages.store', 'method' => 'POST']) !!}
 
         @include('admin.pages.form', ['submitText' => 'Create Page'])
 
-    {!! Form::close() !!}
-</div>
+        {!! Form::close() !!}
     </div>
+</div>
 @stop

@@ -14,7 +14,7 @@ Users
 	<a href="{{route('admin.users.create')}}" class="btn btn-success pull-right">New User</a>
 </p>
 <p class="clearfix"></p>
-@include('partials.errors')
+@include('admin.partials.errors')
 
 
 <div class="box box-primary">

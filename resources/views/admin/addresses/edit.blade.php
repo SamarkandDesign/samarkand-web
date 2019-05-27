@@ -10,7 +10,7 @@ Edit Address
 
 @section('admin.content')
 
-@include('partials.errors')
+@include('admin.partials.errors')
 
 <div class="post-form row" id="postForm">
 	{!! Form::model($address, ['route' => ['addresses.update', $address], 'method' => 'PATCH']) !!}
@@ -38,7 +38,7 @@ Edit Address
 						{!! Form::number('lng', null, ['class' => 'form-control', 'id' => 'lng', 'step' => 'any', 'disabled']) !!}
 					</div>
 				</div>
-				
+
 				<button type="submit" class="btn btn-success btn-block">Submit</button>
 
 			</div>
