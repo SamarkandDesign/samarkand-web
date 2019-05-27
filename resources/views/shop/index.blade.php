@@ -19,7 +19,7 @@ Shop
 
 @section('section-header')
 @if($product_category->id)
-<header class="h-56 flex items-end" style="background-image: url('/img/product-cat-bg.jpg'); background-size: cover;">
+<header class="h-56 flex items-end bg-cover" style="background-image: url('/img/product-cat-bg.jpg');">
   <div class="container mx-auto p-4">
     <h1 class="text-white text-5xl font-serif italic ">{{ $product_category->term }}</h1>
   </div>
@@ -39,7 +39,7 @@ Shop
 @section('content')
 
 <div class="block sm:flex flex-row-reverse -mx-4">
-  <section class="px-4  w-full sm:w-4/5" v-pre>
+  <section class="px-4 w-full sm:w-4/5" v-pre>
     @if(Request::has('query'))
     <h2>Results for "{{ Request::get('query') }}"</h2>
     @endif

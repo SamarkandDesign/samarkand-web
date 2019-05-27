@@ -13,8 +13,8 @@ Pages
 <p class="clearfix"><a href="{{route('admin.pages.create')}}" class="btn btn-success pull-right">New Page</a></p>
 
 <p><a href="{{ route('admin.pages.index') }}">All</a> | <a href="{{ route('admin.pages.trash') }}">Trash</a></p>
-	<div class="box box-primary clearfix">
-		<div class="box-body">
+<div class="box box-primary clearfix">
+	<div class="box-body">
 
 		<table class="table table-striped">
 			<thead>
@@ -25,10 +25,10 @@ Pages
 				</tr>
 			</thead>
 			<tbody>
-			@foreach ($pages as $page)
+				@foreach ($pages as $page)
 				<tr>
 					<td>
-					{{ str_repeat('- ', $page->getDepth()) }}
+						{{ str_repeat('- ', $page->getDepth()) }}
 						<strong>{{ $page->title }}</strong> {{ $page->present()->statusLabel() }}
 						<div class="row-actions">
 							{{ $page->present()->indexLinks() }}
@@ -37,14 +37,14 @@ Pages
 					<td>{{ $page->author->name }}</td>
 					<td>{{ $page->created_at }}</td>
 				</tr>
-			@endforeach
+				@endforeach
 			</tbody>
 		</table>
 
 		<!-- Pagination -->
-		{!! $pages->render() !!}
-		</div>
+		{!! $pages->render('vendor.pagination.admin') !!}
 	</div>
+</div>
 
 
 @stop

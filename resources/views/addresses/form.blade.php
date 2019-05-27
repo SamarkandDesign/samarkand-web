@@ -42,5 +42,5 @@
         <label for="phone">Phone number</label>
         {!! Form::tel('phone', null, ['class' => 'form-control', 'id' => 'phone']) !!}
     </div>
-    <button type="submit" class="btn btn-success">{{ $submitText }}</button>
+    <button type="submit" class="btn btn-success">{{ isset($submitText) ? $submitText : 'Submit' }}</button>
 </div>

@@ -13,32 +13,33 @@
 <div class="box box-primary">
     <div class="box-body">
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Order</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($terms as $term)
-            <tr>
-                <td>
-                    <strong>{{ $term->term }}</strong>
-                    <div class="row-actions">
-                        <a href="{{ route('admin.terms.edit', [$term->id]) }}">Edit</a> |
-                        <a href="{{ route('admin.terms.delete', [$term->id]) }}" id="delete-{{ $term->id }}" data-method="delete" data-confirm="Are you sure?" class="text-danger" rel="nofollow">Trash</a>
-                    </div>
-                </td>
-                <td>{{ $term->slug }}</td>
-                <td>{{ $term->order }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-    {{--!! $posts->render() !!--}}
-</div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Order</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($terms as $term)
+                <tr>
+                    <td>
+                        <strong>{{ $term->term }}</strong>
+                        <div class="row-actions">
+                            <a href="{{ route('admin.terms.edit', [$term->id]) }}">Edit</a> |
+                            <a href="{{ route('admin.terms.delete', [$term->id]) }}" id="delete-{{ $term->id }}"
+                                data-method="delete" data-confirm="Are you sure?" class="text-danger"
+                                rel="nofollow">Trash</a>
+                        </div>
+                    </td>
+                    <td>{{ $term->slug }}</td>
+                    <td>{{ $term->order }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @stop

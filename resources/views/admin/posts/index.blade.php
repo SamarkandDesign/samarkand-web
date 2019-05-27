@@ -12,10 +12,11 @@ Posts
 
 <p class="clearfix"><a href="{{route('admin.posts.create')}}" class="btn btn-success pull-right">New Post</a></p>
 
-	<p><a href="{{ route('admin.posts.index') }}">All</a> ({{ $postCount }}) | <a href="{{ route('admin.posts.trash') }}">Trash</a> ({{ $trashedCount }})</p>
+<p><a href="{{ route('admin.posts.index') }}">All</a> ({{ $postCount }}) | <a
+		href="{{ route('admin.posts.trash') }}">Trash</a> ({{ $trashedCount }})</p>
 
-	<div class="box box-primary">
-		<div class="box-body">
+<div class="box box-primary">
+	<div class="box-body">
 
 		<table class="table table-striped">
 			<thead>
@@ -27,7 +28,7 @@ Posts
 				</tr>
 			</thead>
 			<tbody>
-			@foreach ($posts as $post)
+				@foreach ($posts as $post)
 				<tr>
 					<td>
 						<strong>{{ $post->title }}</strong> {{ $post->present()->statusLabel() }}
@@ -39,14 +40,14 @@ Posts
 					<td>{!! $post->present()->categoryList() !!}</td>
 					<td>{{ $post->created_at }}</td>
 				</tr>
-			@endforeach
+				@endforeach
 			</tbody>
 		</table>
 
 		<!-- Pagination -->
-		{!! $posts->render() !!}
-		</div>
+		{!! $posts->render('vendor.pagination.admin') !!}
 	</div>
+</div>
 
 
 @stop
