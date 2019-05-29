@@ -51,10 +51,10 @@ Shop
     @endif
 
     @foreach ($products->chunk($products_per_row) as $product_group)
-    <div class="flex flex-wrap -mx-4">
+    <div class="flex flex-wrap -mx-2 lg:-mx-4">
 
       @foreach ($product_group as $i => $product)
-      <div class="flex-shrink-0 mt-10 w-1/2 md:w-1/4 px-4">
+      <div class="flex-shrink-0 mt-10 w-1/2 md:w-1/4 px-2 lg:px-4">
         @include('shop._product_tile', compact('product'))
       </div>
       @endforeach

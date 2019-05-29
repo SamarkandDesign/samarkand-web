@@ -60,7 +60,7 @@ Login
 				</div>
 
 				<div class="form-group">
-					<label class="control-label">Password</label>
+					<label class="control-label">Create password</label>
 					<input type="password" class="form-control" name="password">
 				</div>
 
@@ -71,8 +71,6 @@ Login
 						</button>
 					</div>
 				</div>
-
-				<p>Already have an account? <a href="/login">Login</a>.
 			</form>
 		</div>
 	</choice-selector>

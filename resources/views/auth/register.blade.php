@@ -4,13 +4,10 @@
 Sign up
 @endsection
 
-
-
-
 @section('content')
-<form  role="form" method="POST" action="{{ route('register') }}" class="vspace-5">
-		<h1>Create an account</h1>
-		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+<form role="form" method="POST" action="{{ route('register') }}" class="vspace-5">
+	<h1>Create an account</h1>
+	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="form-group">
 		<label class="control-label">Your name</label>
@@ -24,7 +21,7 @@ Sign up
 	</div>
 
 	<div class="form-group">
-		<label class="control-label">Password</label>
+		<label class="control-label">Create password</label>
 		<input type="password" class="form-control" name="password">
 	</div>
 
@@ -35,8 +32,8 @@ Sign up
 			</button>
 		</div>
 	</div>
-
 	<p>Already have an account? <a href="/login">Login</a>.
+
 </form>
 
 @endsection

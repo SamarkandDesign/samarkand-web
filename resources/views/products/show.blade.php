@@ -54,7 +54,7 @@
       </section>
 
       <div class="vspace-10">
-        <div itemprop="description" class="vspace-4 text-sm">
+        <div itemprop="description" class="vspace-4 text-sm text-gray-700">
           {!! $product->getDescriptionHtml() !!}
         </div>
 

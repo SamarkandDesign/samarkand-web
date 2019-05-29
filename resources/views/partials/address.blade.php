@@ -1,4 +1,4 @@
-<address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="not-italic ">
+<address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="not-italic text-gray-700">
     @if($address->name)
     {{ $address->name }}<br>
     @endif

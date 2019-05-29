@@ -12,7 +12,7 @@
 
 @section('content')
 <h1 class="page-heading">{{ $page->title }}</h1>
-<div class="vspace-4">
+<div class="vspace-4 text-gray-700">
   {!! $page->getContentHtml() !!}
 </div>
 @stop

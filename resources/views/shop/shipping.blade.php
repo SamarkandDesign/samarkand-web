@@ -14,18 +14,19 @@ Shipping
   <li class="active">Checkout</li>
 </ol>
 
-<h2>Shipping Method</h2>
+<h1 class="page-heading">Shipping Method</h1>
 
 @include('partials.errors')
 
-<form action="/orders/shipping" method="POST" id="shipping-form">
+<form action="/orders/shipping" method="POST" id="shipping-form" class="vspace-5">
   {{ csrf_field() }}
-  <div class="form-group">
+  <div class="form-group vspace-4">
 
     @foreach ($shipping_methods as $shipping_method)
     <div class="radio">
       <label>
-        {!! Form::radio('shipping_method_id', $shipping_method->id, $shipping_method->id == old('shipping_method_id'), ['id' =>"shipping_method_{$shipping_method->id}" ]) !!}
+        {!! Form::radio('shipping_method_id', $shipping_method->id, $shipping_method->id == old('shipping_method_id'),
+        ['id' =>"shipping_method_{$shipping_method->id}" ]) !!}
         {{ $shipping_method->description }}: {{ $shipping_method->getPrice() }}
       </label>
     </div>
@@ -33,7 +34,7 @@ Shipping
 
   </div>
 
-  <button type="submit" class="btn btn-success">Proceed to Payment</button>
+  <button type="submit" class="btn btn-success">Proceed to payment</button>
 
 </form>
 

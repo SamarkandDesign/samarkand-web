@@ -42,10 +42,14 @@
 
     <div class="form-group {{ $errors->has("address.{$type}.country") ? 'has-error' : '' }}">
         <label class="control-label" for="{{ $type }}_address_country">Country</label>
-        {!! Form::select("address[$type][country]", $countries->pluck(), $address['country'], [
-        'class' => 'form-control',
-        'id' => "{$type}_address_country",
-        ]) !!}
+        <div class="relative">
+
+            {!! Form::select("address[$type][country]", $countries->pluck(), $address['country'], [
+            'class' => 'form-control',
+            'id' => "{$type}_address_country",
+            ]) !!}
+            @include('partials.select_arrow')
+        </div>
     </div>
 
     <div class="form-group {{ $errors->has("address.{$type}.phone") ? 'has-error' : '' }}">

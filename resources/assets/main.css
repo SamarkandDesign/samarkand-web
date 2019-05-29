@@ -51,7 +51,7 @@ a:hover {
 }
 
 .control-label {
-  @apply block text-gray-700 text-sm font-bold mb-2;
+  @apply block text-gray-700 text-sm font-bold mb-1;
 }
 .form-control {
   @apply appearance-none border  block w-full py-2 px-3 text-gray-700 leading-tight border-gray-400;
@@ -59,6 +59,10 @@ a:hover {
 .form-control:focus {
   @apply outline-none  border-gray-600;
 }
+select.form-control {
+  @apply pr-8;
+}
+
 .vspace-2 > * + *:not(.hidden) {
   @apply mt-2;
 }
@@ -94,11 +98,15 @@ a:hover {
 }
 
 input.radio-panel:checked + label {
-  @apply bg-gray-200 border-gray-400;
+  @apply bg-gray-300 border-gray-500;
+}
+
+.breadcrumb {
+  @apply flex flex-wrap;
 }
 
 .breadcrumb li {
-  @apply inline-block;
+  @apply block;
 }
 .breadcrumb li:not(:last-child) {
   @apply pr-2;

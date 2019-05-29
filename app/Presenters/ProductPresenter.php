@@ -111,6 +111,6 @@ class ProductPresenter extends ModelPresenter
       return '';
     }
 
-    return $stock > 0 ? sprintf('%s in stock', $stock) : 'Out of stock';
+    return $stock > 0 ? sprintf('%s in stock', $stock) : 'Sold out';
   }
 }
