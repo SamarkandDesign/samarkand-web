@@ -16,7 +16,7 @@ class AddressTest extends TestCase
       'addressable_id' => $user->id,
     ]);
     $response = $this->get('account/addresses');
-    $this->assertContains(htmlentities($address->line_1), $response->getContent());
+    $response->assertSee(htmlentities($address->line_1));
   }
 
   /** @test **/
@@ -48,7 +48,7 @@ class AddressTest extends TestCase
     $this->assertCount(1, $user->fresh()->addresses);
 
     $response = $this->get('account/addresses');
-    $this->assertContains($address->postcode, $response->getContent());
+    $response->assertSee(htmlentities($address->postcode));
     //  ->press('Delete')
     //  ->seePageIs('account/addresses')
     //  ->see('Address Deleted');
