@@ -11,7 +11,7 @@
                     </li>
                     @if (isset($menuItems['footer_left']))
                     @foreach($menuItems['footer_left'] as $item)
-                    <li><a class="no-underline text-gray-500 hover:text-gray-400"
+                    <li><a class="no-underline text-gray-500 hover:text-gray-600 trans-fast"
                             href="{{ $item->link }}">{{ $item->label }}</a>
                     </li>
                     @endforeach
@@ -25,7 +25,7 @@
                     </li>
                     @if (isset($menuItems['footer_right']))
                     @foreach($menuItems['footer_right'] as $item)
-                    <li><a class="no-underline text-gray-500 hover:text-gray-400"
+                    <li><a class="no-underline text-gray-500 hover:text-gray-600 trans-fast"
                             href="{{ $item->link }}">{{ $item->label }}</a></li>
                     @endforeach
                     @endif
@@ -44,7 +44,7 @@
                 ] as $socialLink)
                 <li class="inline-block">
                     <a target="_blank"
-                        class="flex h-8 w-8 border justify-center items-center no-underline text-gray-400 border-gray-400"
+                        class="flex h-8 w-8 border justify-center items-center no-underline text-gray-400 border-gray-400 hover:text-gray-600 trans-fast"
                         rel="nofollow" href="{{ $socialLink['url'] }}"><i class="fa fa-{{ $socialLink['icon'] }}"></i>
                     </a>
                 </li>

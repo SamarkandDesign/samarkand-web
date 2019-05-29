@@ -13,10 +13,10 @@
 }
 
 a {
-  @apply text-orange-900;
+  @apply text-orange-500;
 }
 a:hover {
-  @apply text-orange-800;
+  @apply text-orange-700;
 }
 
 .page-heading {
@@ -37,10 +37,10 @@ a:hover {
 }
 
 .btn-primary {
-  @apply bg-orange-900 text-white;
+  @apply bg-orange-500 text-white;
 }
 .btn-primary:hover {
-  @apply bg-orange-800 text-white;
+  @apply bg-orange-600 text-white;
 }
 
 .btn-success {
@@ -95,6 +95,9 @@ select.form-control {
 
 .trans {
   transition: all 0.25s;
+}
+.trans-fast {
+  transition: all 0.1s;
 }
 
 input.radio-panel:checked + label {

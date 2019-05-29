@@ -78,7 +78,7 @@
 
               </div>
             </div>
-            <button type="submit" class="btn btn-success btn-lg w-full sm:w-auto">Add to basket</button>
+            <button type="submit" class="btn btn-primary   btn-lg w-full sm:w-auto">Add to basket</button>
           </form>
         </section>
         @endif
