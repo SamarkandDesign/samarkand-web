@@ -8,17 +8,6 @@
 <meta name="description" content="{{ $product->name }} {{ $product->price->symbol().$product->price->asMoney() }}">
 @endsection
 
-@section('breadcrumb')
-@component('components.breadcrumbs', [
-'breadcrumbs' => [
-['url' => '/shop', 'label' => 'Shop'],
-['url' => "/shop/$product->product_category->slug", 'label' => $product->product_category->term],
-['label' => $product->name],
-]
-])
-@endcomponent
-
-@endsection
 
 @section('content')
 
