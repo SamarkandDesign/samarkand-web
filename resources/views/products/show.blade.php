@@ -78,23 +78,23 @@
 
               </div>
             </div>
-            <button type="submit" class="btn btn-primary   btn-lg w-full sm:w-auto">Add to basket</button>
+            <button type="submit" class="btn btn-primary btn-lg w-full sm:w-auto">Add to basket</button>
           </form>
         </section>
         @endif
 
       </div>
 
-      <section class="text-xs text-gray-500">
-        <strong>Categories:</strong>
-        @foreach ($product->product_categories as $index => $category)
-        <a href="/shop/{{$category->slug}}">{{ $category->term }}</a>@if ($index+1 !==
+      <section class="text-xs text-gray-500 vspace-4">
+        <div>
+          <strong>Categories:</strong>
+          @foreach ($product->product_categories as $index => $category)
+          <a href="/shop/{{$category->slug}}">{{ $category->term }}</a>@if ($index+1 !==
         $product->product_categories->count() ), @endif
         @endforeach
-      </section>
+      </div>
 
-      <section class="share-links">
-        <p class="text-center">
+        <p class="text-xs text-gray-500">
           Share this product
           <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank"><i
               class="fa fa-fw fa-facebook"></i></a>

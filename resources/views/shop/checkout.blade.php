@@ -120,10 +120,8 @@ Checkout
     </div>
 
 
-    <div class="row top-buffer">
-      <p class="col-sm-4 col-sm-offset-8 col-md-2 col-md-offset-10">
-        <button type="submit" class="btn btn-success btn-lg btn-block">Continue</button>
-      </p>
+    <div class="flex justify-end">
+        <button type="submit" class="btn btn-success btn-lg w-full sm:w-auto text-center">Continue</button>
     </div>
 
   </form>

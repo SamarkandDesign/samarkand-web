@@ -24,8 +24,8 @@ Payment
 @include('orders._summary')
 
 <form action="" id="pay-now-form" class="row">
-    <div class="col-sm-12 col-md-4 col-lg-3">
-        <button type="submit" class="btn btn-success btn-lg btn-block">Pay now</button>
+    <div class="flex justify-end">
+        <button type="submit" class="btn btn-success btn-lg w-full sm:w-auto text-center">Pay now</button>
     </div>
 </form>
 @stop

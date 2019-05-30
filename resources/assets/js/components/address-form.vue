@@ -5,7 +5,7 @@
       <slot name="billing-address"></slot>
     </div>
 
-    <div class="sm:w-1/2 px-4">
+    <div class="sm:w-1/2 px-4 sm:mt-0 mt-8">
       <div class="flex">
         <div class="w-1/2">
           <h3 class="mb-5 text-xl">Shipping Address</h3>

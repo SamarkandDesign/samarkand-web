@@ -1,4 +1,4 @@
-<footer class="px-4 py-6 border-t border-gray-400 text-gray-600">
+<footer class="px-4 sm:px-10 py-6 border-t border-gray-400 text-gray-600">
     <div class="container mx-auto md:flex justify-between">
         <div class="flex mb-4">
             <div class="mr-10 hidden md:block">
@@ -18,7 +18,7 @@
                     @endif
                 </ul>
             </div>
-            <div class="w-1/2 md:w-auto">
+            <div class="w-1/2 md:w-auto md:ml-10">
                 <ul class="footer-list">
                     <li>
                         <h6 class="footer-heading">Company</h6>

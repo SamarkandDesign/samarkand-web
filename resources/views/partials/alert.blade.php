@@ -7,7 +7,7 @@ $alertClasses = [
 'warning' =>'bg-orange-800',
 ];
 @endphp
-<div class="text-white text-sm font-bold px-4 py-3 clearfix {{ $alertClasses[Session::get('alert-class', 'info')] }}"
+<div class="text-white text-sm font-normal px-4 py-3 clearfix {{ $alertClasses[Session::get('alert-class', 'info')] }}"
 	role="alert">
 	{{ Session::get('alert') }}
 </div>

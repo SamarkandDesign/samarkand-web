@@ -14,18 +14,16 @@ Cart
 @section('content')
 
 <h1 class="page-heading">Shopping Basket</h1>
-<div class="row">
-
-    <div class="col-sm-8 col-md-9">
-        <table class="w-full">
+<div class="vspace-4">
+        <table class="w-full text-sm sm:text-base">
             <thead>
                 <tr class="border-b border-gray-300">
                     <th></th>
                     <th class="p-2 text-left"></th>
                     <th class="p-2 text-left">Product</th>
                     <th class="p-2 text-right">Unit Price</th>
-                    <th class="p-2 text-right">Quantity</th>
-                    <th class="py-2 pl-2 text-right">Total Price</th>
+                    <th class="p-2 text-right overflow-hidden whitespace-no-wrap" style="text-overflow:ellipsis;max-width:72px;">Quantity</th>
+                    <th class="py-2 pl-2 text-right">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,11 +53,10 @@ Cart
                 </tr>
             </tfoot>
         </table>
-    </div>
 
-    <div class="col-sm-4 col-md-3">
-        <a href="/checkout" class="btn btn-success btn-block btn-lg">Proceed to checkout</a>
 
+    <div class="flex justify-end">
+        <a href="/checkout" class="btn btn-success btn-lg w-full sm:w-auto text-center">Proceed to checkout</a>
     </div>
 
 </div>
