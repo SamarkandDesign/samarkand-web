@@ -6,62 +6,57 @@ Cart
 
 @section('breadcrumb')
 <ol class="breadcrumb">
-  <li><a href="/shop">Shop</a></li>
-  <li class="active">Cart</li>
+    <li><a href="/shop">Shop</a></li>
+    <li class="active">Cart</li>
 </ol>
 @endsection
 
 @section('content')
 
-<h1>Shopping Cart</h1>
-<div class="row">
-
-    <div class="col-sm-8 col-md-9">
-        <table class="table">
+<h1 class="page-heading">Shopping Basket</h1>
+<div class="vspace-4">
+        <table class="w-full text-sm sm:text-base">
             <thead>
-                <tr>
+                <tr class="border-b border-gray-300">
                     <th></th>
-                    <th></th>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
+                    <th class="p-2 text-left"></th>
+                    <th class="p-2 text-left">Product</th>
+                    <th class="p-2 text-right">Unit Price</th>
+                    <th class="p-2 text-right overflow-hidden whitespace-no-wrap" style="text-overflow:ellipsis;max-width:72px;">Quantity</th>
+                    <th class="py-2 pl-2 text-right">Total</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (Cart::content() as $item)
-                <tr>
-                    <td>
-                        <form action="{{ route('cart.remove', $item->rowId) }}" method="POST" style="display:inline-block;">
+                <tr class="border-b border-gray-300">
+                    <td class="py-2 pr-2 text-left">
+                        <form action="{{ route('cart.remove', $item->rowId) }}" method="POST" class="inline-block">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
-                            <button type="submit" class="btn btn-link text-danger" name="remove"><i class="fa fa-times text-danger"></i></button>
+                            <button type="submit" class="btn btn-link text-red-800" name="remove"><i
+                                    class="fa fa-times "></i></button>
                         </form>
                     </td>
                     <td class="td-thumbnail">{{ $item->model->present()->thumbnail(45) }}</td>
-                    <td><a href="{{ $item->model->url }}">{{ $item->name }}</a></td>
-                    <td>{{ $item->model->present()->price() }}</td>
-                    <td>{{ $item->qty }}</td>
-                    <td>{{ Present::money($item->model->getPrice()->asDecimal() * $item->qty) }}</td>
+                    <td class="p-2 text-left"><a href="{{ $item->model->url }}">{{ $item->name }}</a></td>
+                    <td class="p-2 text-right">{{ $item->model->present()->price() }}</td>
+                    <td class="p-2 text-right">{{ $item->qty }}</td>
+                    <td class="py-2 pl-2 text-right">
+                        {{ Present::money($item->model->getPrice()->asDecimal() * $item->qty) }}</td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="5"></th>
-                    <th>{{ config('shop.currency_symbol') }}{{ Cart::total() }}</th>
+                    <th class="py-2 pl-2 text-right">{{ config('shop.currency_symbol') }}{{ Cart::total() }}</th>
                 </tr>
             </tfoot>
         </table>
-    </div>
 
-    <div class="col-sm-4 col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <p class="text-center">Subtototal ({{ Cart::count() }} {{ str_plural('Item', Cart::count()) }}):{{ config('shop.currency_symbol') }}{{ Cart::total() }}</p>
-                <a href="/checkout" class="btn btn-success btn-block">Proceed to Checkout</a>
-            </div>
-        </div>
+
+    <div class="flex justify-end">
+        <a href="/checkout" class="btn btn-success btn-lg w-full sm:w-auto text-center">Proceed to checkout</a>
     </div>
 
 </div>

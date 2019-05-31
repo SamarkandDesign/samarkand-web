@@ -10,7 +10,7 @@ Profile for {{ $user->name }}
 
 @section('admin.content')
 
-@include('partials.errors')
+@include('admin.partials.errors')
 
 
 <div class="row">

@@ -12,11 +12,11 @@ Edit Post
 
 @if ($post->status === 'published')
 <p class="top-buffer clearfix">
-	<a href="{{ $post->url }}" class="btn btn-default pull-right">View Post</a>
+  <a href="{{ $post->url }}" class="btn btn-default pull-right">View Post</a>
 </p>
 @endif
 
-@include('partials.errors')
+@include('admin.partials.errors')
 
 <div class="post-form" id="postForm">
   <div class="row">

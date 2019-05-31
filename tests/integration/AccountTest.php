@@ -31,7 +31,7 @@ class AccountTest extends TestCase
 
     $response = $this->get("/account/orders/{$this->order->id}");
     $response->assertSee("Order #{$this->order->id}");
-    $response->assertSee($address->line_1);
+    $response->assertSee(htmlentities($address->line_1));
   }
 
   /** @test **/

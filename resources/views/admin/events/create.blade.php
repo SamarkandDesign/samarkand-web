@@ -10,7 +10,7 @@ Create Event
 
 @section('admin.content')
 
-@include('partials.errors')
+@include('admin.partials.errors')
 <div class="row">
 
 

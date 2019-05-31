@@ -14,7 +14,7 @@ Addresses
     <a href="#" class="btn btn-success pull-right">New Address</a>
 </p>
 <p class="clearfix"></p>
-@include('partials.errors')
+@include('admin.partials.errors')
 
 
 <div class="box box-primary">
@@ -23,11 +23,11 @@ Addresses
         <div class="row">
             @foreach($user->addresses as $address)
             <div class="col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    @include('partials.address', compact('address'))
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        @include('partials.address', compact('address'))
+                    </div>
                 </div>
-            </div>
             </div>
             @endforeach
         </div>

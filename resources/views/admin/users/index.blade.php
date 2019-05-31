@@ -14,13 +14,12 @@ Users
 	<a href="{{route('admin.users.create')}}" class="btn btn-success pull-right">New User</a>
 </p>
 <p class="clearfix"></p>
-@include('partials.errors')
+@include('admin.partials.errors')
 
 
 <div class="box box-primary">
 	<div class="box-body">
-
-		{{ $users->render() }}
+		{{ $users->render('vendor.pagination.admin') }}
 
 		<table class="table table-striped">
 			<thead>
@@ -39,7 +38,8 @@ Users
 					<td>
 						<strong>{{ $user->username }}</strong>
 						<br>
-						<small class="text-muted">Last seen: {{ $user->last_seen_at ? $user->last_seen_at->diffForHumans() : "never" }}</small>
+						<small class="text-muted">Last seen:
+							{{ $user->last_seen_at ? $user->last_seen_at->diffForHumans() : "never" }}</small>
 
 						<div class="row-actions">
 							<a href="{{ route('admin.users.edit', $user->username) }}">Edit</a>
@@ -55,12 +55,8 @@ Users
 			</tbody>
 		</table>
 
-		{{ $users->render() }}
+		{{ $users->render('vendor.pagination.admin') }}
 
 	</div>
 </div>
-
-
-
-
 @stop

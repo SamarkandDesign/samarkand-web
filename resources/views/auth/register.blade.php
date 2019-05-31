@@ -1,10 +1,11 @@
-@extends('layouts.main')
+@extends('layouts.gateway')
+
+@section('title')
+Sign up
+@endsection
 
 @section('content')
-
-@include('partials.errors')
-<div class="row">
-<form class="col-sm-6 col-sm-offset-3" role="form" method="POST" action="{{ route('register') }}">
+<form role="form" method="POST" action="{{ route('register') }}" class="vspace-5">
 	<h1>Create an account</h1>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -20,7 +21,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="control-label">Password</label>
+		<label class="control-label">Create password</label>
 		<input type="password" class="form-control" name="password">
 	</div>
 
@@ -31,6 +32,8 @@
 			</button>
 		</div>
 	</div>
+	<p>Already have an account? <a href="/login">Login</a>.
+
 </form>
-</div>
+
 @endsection

@@ -1,7 +1,10 @@
 @if ($product->media->count() === 1)
-<img src="{{ $product->media->first()->getUrl('wide') }}" alt="{{ $product->media->first()->getCustomProperty('title') }}" style="width:100%;" class="img-responsive">
+<a href="{{ $product->media->first()->getUrl() }}" target="_blank">
+<img src="{{ $product->media->first()->getUrl('wide') }}"
+  alt="{{ $product->media->first()->getCustomProperty('title') }}" class="h-auto w-full">
+</a>
 @elseif ($product->media->count() === 0)
-<img src="/img/placeholder-landscape.png" alt="Placeholder image" style="width:100%;" class="img-responsive">
+<img src="/img/placeholder-landscape.png" alt="Placeholder image" class="h-auto w-full">
 @else
 <flicker>
   @foreach($product->media as $key => $media)

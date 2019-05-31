@@ -35,7 +35,7 @@ Venues
 		</table>
 
 		<!-- Pagination -->
-		{!! $addresses->render() !!}
+		{!! $addresses->render('vendor.pagination.admin') !!}
 	</div>
 </div>
 

@@ -15,7 +15,7 @@ Edit Event
 	<a href="/event/{{ $event->slug }}" class="btn btn-default pull-right">View Event</a>
 </p>
 
-@include('partials.errors')
+@include('admin.partials.errors')
 <div class="row">
 
 
@@ -27,8 +27,8 @@ Edit Event
 		{!! Form::close() !!}
 
 	</div>
-		<div class="col-md-8">
-			@include('admin.media._media_adder', ['model' => $event])
-		</div>
+	<div class="col-md-8">
+		@include('admin.media._media_adder', ['model' => $event])
+	</div>
 </div>
 @stop

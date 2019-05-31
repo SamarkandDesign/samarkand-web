@@ -16,6 +16,7 @@ import flicker from './components/flicker.vue';
 import carouselCell from './components/carousel-cell.vue';
 import carouselCopy from './components/carousel-copy.vue';
 import skdFeedback from './components/skd-feedback.vue';
+import choiceSelector from './components/choice-selector.vue';
 
 import eventHub from './eventHub';
 
@@ -34,6 +35,7 @@ window.vm = new Vue({
     carouselCell,
     carouselCopy,
     skdFeedback,
+    choiceSelector,
   },
   methods: {
     initMaps() {

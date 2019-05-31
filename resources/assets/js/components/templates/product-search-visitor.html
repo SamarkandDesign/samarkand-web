@@ -1,62 +1,56 @@
-<div class="product-search">
+<div class="product-search relative">
   <form class="form" action="/shop/search" method="get">
-    <div class="input-group">
-      <input
-        type="search"
-        name="query"
-        class="form-control"
-        placeholder="Search"
-        v-model="query"
-        autocomplete="off"
-        @keyup="searchProducts"
-      />
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">
-          <i class="fa fa-search"></i>
-        </button>
-      </span>
-    </div>
-    <!-- /input-group -->
+    <input
+      type="search"
+      name="query"
+      class="form-control"
+      placeholder="Search for products"
+      aria-label="Search for products"
+      v-model="query"
+      autocomplete="off"
+      @keyup="searchProducts"
+    />
   </form>
 
-  <div class="hits" v-show="query.length">
-    <div class="hit-summary">
-      <p v-show="searching">
-        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Searching ...
-      </p>
+  <div
+    class="hits absolute left-0 right-0 bg-white shadow-md p-4 mt-4 z-50 sm:mx-0 -mx-12"
+    v-show="query.length"
+  >
+    <div class="hit-summary flex justify-between">
+      <p v-show="searching"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Searching ...</p>
       <p v-show="!searching">{{ numberOfHits }} results</p>
+      <button
+        type="button"
+        class="text-xl"
+        aria-label="Close"
+        title="close"
+        @click.prevent="query = ''"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <button
-      type="button"
-      class="close clear-hits"
-      aria-label="Close"
-      @click.prevent="query = ''"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
 
-    <transition-group name="fade">
-      <div v-for="hit in hits" :key="hit.id" class="product-search-result">
-        <a v-bind:href="hit.url">
-          <div class="image-search-thumb">
-            <img :src="hit.thumbnail" clas="img-responsive" />
+    <ul>
+      <li v-for="hit in hits" :key="hit.id" class="product-search-result ">
+        <a v-bind:href="hit.url" class="flex hover:bg-gray-200 p-2 trans">
+          <div class="image-search-thumb w-12 md:w-20 flex-shrink-0 mr-2 md:mr-4">
+            <img :src="hit.thumbnail" />
           </div>
           <div class="">
-            <h4>{{ hit.name }}</h4>
-
-            <p class="text-muted">{{ hit.categories.join(", ") }}</p>
-
-            <div class="clearfix"></div>
+            <h4 class="text-gray-800">{{ hit.name }}</h4>
+            <p class="text-gray-500 text-xs">{{ hit.categories.join(', ') }}</p>
           </div>
         </a>
-      </div>
-    </transition-group>
-    <div class="alogia-logo">
+      </li>
+    </ul>
+
+    <div class="alogia-logo text-xs text-right mt-2 opacity-25">
       Powered by
-      <a
-        href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link"
-        target="_blank"
-        ><img src="/img/Algolia_logo_bg-white.svg" alt="Powered by Algolia"
+      <a href="http://www.algolia.com/?utm_source=samarkand&utm_medium=link" target="_blank"
+        ><img
+          src="/img/Algolia_logo_bg-white.svg"
+          alt="Powered by Algolia"
+          class="w-12 h-auto inline"
       /></a>
     </div>
   </div>

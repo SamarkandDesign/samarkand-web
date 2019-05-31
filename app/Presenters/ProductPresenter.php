@@ -51,7 +51,7 @@ class ProductPresenter extends ModelPresenter
 
     return new HtmlString(
       sprintf(
-        '<del>%s</del> <ins>%s</ins>',
+        '<del>%s</del> <ins class="no-underline">%s</ins>',
         $this->model->price,
         sprintf(
           '%s<span itemprop="price">%s</span>',
@@ -76,7 +76,7 @@ class ProductPresenter extends ModelPresenter
 
     return new HtmlString(
       sprintf(
-        '<img src="%s" alt="%s" width="%s" height="%s" class="img-responsive">',
+        '<img src="%s" alt="%s" width="%s" height="%s">',
         $this->thumbnail_url($w, $h),
         htmlentities($this->model->name),
         $w,
@@ -111,6 +111,6 @@ class ProductPresenter extends ModelPresenter
       return '';
     }
 
-    return $stock > 0 ? sprintf('%s in stock', $stock) : 'Out of stock';
+    return $stock > 0 ? sprintf('%s in stock', $stock) : 'Sold out';
   }
 }

@@ -13,11 +13,8 @@
 
 <div class="row">
 	<div class="col-md-9 bottom-buffer">
-		<product-search
-		api-key="{{ $searchKey }}"
-		app-id="{{ config('scout.algolia.id') }}"
-		index-name="{{ $searchIndex }}"
-		></product-search>
+		<product-search api-key="{{ $searchKey }}" app-id="{{ config('scout.algolia.id') }}"
+			index-name="{{ $searchIndex }}"></product-search>
 	</div>
 
 	<div class="col-md-3 bottom-buffer">
@@ -25,8 +22,9 @@
 	</div>
 </div>
 <p>
-	<a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a href="{{ route('admin.products.trash') }}">Trash</a> ({{ $trashedCount }})
-	
+	<a href="{{ route('admin.products.index') }}">All</a> ({{ $productCount }}) | <a
+		href="{{ route('admin.products.trash') }}">Trash</a> ({{ $trashedCount }})
+
 </p>
 
 <div class="box box-primary">
@@ -65,7 +63,8 @@
 					<td>{{ $product->present()->price() }}</td>
 					<td>{{ $product->present()->categoryList() }}</td>
 					<td>
-						<i class="fa {{ $product->listed ? 'fa-eye' : 'fa-eye-slash text-muted' }}" title="{{ $product->listed ? 'Listed in online store' : 'Unlisted' }}"></i>
+						<i class="fa {{ $product->listed ? 'fa-eye' : 'fa-eye-slash text-muted' }}"
+							title="{{ $product->listed ? 'Listed in online store' : 'Unlisted' }}"></i>
 						@if ($product->featured)
 						<i class="fa fa-star" title="Featured"></i>
 						@endif
@@ -76,7 +75,7 @@
 		</table>
 
 		<!-- Pagination -->
-		{!! $products->render() !!}
+		{!! $products->render('vendor.pagination.admin') !!}
 	</div>
 </div>
 
