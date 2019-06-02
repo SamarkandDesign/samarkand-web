@@ -1,3 +1,4 @@
+
 @extends('layouts.main')
 
 @section('title')
@@ -20,12 +21,12 @@ Events
 <p>No events for this period.</p>
 @endif
 
-<div class="flex -mx-4">
+<div class="grid grid-columns-1 sm:grid-columns-2 md:grid-columns-4 grid-gap-8">
 	@foreach ($events as $event)
 
 
-	<a href="/event/{{ $event->slug }}" class="sm:w-1/2 md:w-1/3 block px-4 ">
-		<div class="border border-gray-400 rounded overflow-hidden text-gray-800">
+	<a href="/event/{{ $event->slug }}" class="block border border-gray-400 rounded overflow-hidden text-gray-800">
+
 
 			<div class="event-tile-image">
 				<img src="{{ $event->featured_image }}" alt="" class="w-100 h-auto">
@@ -36,7 +37,7 @@ Events
 					{{ $event->present()->startDate() }}
 				</p>
 				<small class="text-sm text-gray-500">{{ $event->venue->toOneLineString() }}</small>
-			</div>
+
 		</div>
 	</a>
 

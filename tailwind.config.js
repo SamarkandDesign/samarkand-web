@@ -2,7 +2,19 @@ const {
   colors: { pink, teal, purple, yellow, ...colors },
 } = require('tailwindcss/defaultTheme');
 
+const cssGrid = require('tailwindcss-grid');
+
+const gridConfig = {
+  grids: [1, 2, 4],
+  gaps: {
+    0: '0',
+    4: '1rem',
+    8: '2rem',
+  },
+};
+
 module.exports = {
+  plugins: [cssGrid(gridConfig)],
   theme: {
     fontFamily: {
       body: 'Muli, sans-serif',
