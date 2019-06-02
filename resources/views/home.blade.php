@@ -11,7 +11,7 @@ Crossroads of Culture
 
 @section('section-header')
 <div class="fade-in">
-	<flicker class="overflow-hidden h-72">
+	<flicker class="overflow-hidden md:h-72 sm:h-80 h-96">
 		@component('components/carousel-cell', ['title' => 'Lovely Lampshades', 'image' => '/img/home/lampshade1-2018.jpg'])
 		<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
 		<a class='btn btn-primary btn-lg mt-4' href='/shop/lampshades'>Shop lampshades</a>
@@ -35,13 +35,13 @@ Crossroads of Culture
 
 <div class="px-2 md:px-4">
 	<div class="container mx-auto">
-		<div class="flex md:mt-4 mt-2 -mx-1 md:-mx-2" v-pre>
+		<div class="md:flex mt-4 md:-mx-2" v-pre>
 			@foreach ([
 			['title' => 'Home Furnishings', 'img' => '/img/home/tile1.jpg', 'link' => '/shop/home-furnishings'],
 			['title' => 'Lighting', 'img' => '/img/home/Shibori_2.jpg', 'link' => '/shop/lighting'],
 			['title' => 'Accessories', 'img' => '/img/home/tile3.jpg', 'link' => '/shop/accessories'],
 			] as $item)
-			<div class="md:mx-2 mx-1 flex-1">
+			<div class="mx-2 flex-1 mb-4 md:mb-0">
 				<a class="block relative text-white hover:text-white bg-black" href="{{ $item['link'] }}">
 					<img src="{{ $item['img'] }}" alt="Samarkand Home Furnishings" class="w-full trans hover:opacity-75">
 					<div class="absolute text-center inset-0 flex justify-center items-center">
