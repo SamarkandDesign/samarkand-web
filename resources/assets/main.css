@@ -127,3 +127,16 @@ input.radio-panel:checked + label {
 .breadcrumb li:first-child {
   @apply pl-0;
 }
+
+.page-content h2 {
+  @apply text-2xl;
+}
+.page-content h3 {
+  @apply text-xl;
+}
+.page-content h4 {
+  @apply text-lg;
+}
+.page-content hr {
+  @apply border-gray-300 border-b;
+}
