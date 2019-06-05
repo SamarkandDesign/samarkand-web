@@ -6,6 +6,13 @@
 
 @tailwind utilities;
 
+.flickity-prev-next-button {
+  @apply bg-transparent;
+}
+.flickity-prev-next-button:hover {
+  @apply bg-transparent;
+}
+
 @responsive {
   .h-72 {
     height: 18rem;

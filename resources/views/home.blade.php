@@ -12,15 +12,23 @@ Crossroads of Culture
 @section('section-header')
 <div class="fade-in">
 	<flicker class="overflow-hidden md:h-72 sm:h-80 h-96">
-		@component('components/carousel-cell', ['title' => 'Lovely Lampshades', 'image' => '/img/home/lampshade1-2018.jpg'])
-		<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
-		<a class='btn btn-primary btn-lg mt-4' href='/shop/lampshades'>Shop lampshades</a>
-		@endcomponent
+
+		<div class="w-full h-full bg-cover bg-left-top" style="background-image: url('/img/home/lampshade1-2018.jpg');">
+			<div class="py-10 mx-auto flex justify-center mx-auto h-full">
+				<img src="/img/samarkand-logo-250.svg" alt="Samarkand Design logo" />
+
+			</div>
+		</div>
 
 		@component('components/carousel-cell', ['title' => 'Stunning Lamp Bases', 'image' =>
 		'/img/home/lampbase-banner2-2018.jpg'])
 		<p>A range of unique vintage and contemporary lamp bases</p>
 		<a class='btn btn-primary btn-lg mt-4' href='/shop/lamp-bases'>Shop Lamp Bases</a>
+		@endcomponent
+
+		@component('components/carousel-cell', ['title' => 'Lovely Lampshades', 'image' => '/img/home/lampshade1-2018.jpg'])
+		<p>Hand-made lampshades in vintage sarees and artisan dyed fabrics</p>
+		<a class='btn btn-primary btn-lg mt-4' href='/shop/lampshades'>Shop lampshades</a>
 		@endcomponent
 
 		@component('components/carousel-cell', ['title' => 'Vintage Throws', 'image' => '/img/home/hero-kanthas-lc.jpg'])
