@@ -15,6 +15,7 @@ class EventsController extends Controller
 
   public function index(Request $request)
   {
+    $this->validate($request, ['before' => 'date']);
     $before = $request->get('before');
     $events = $before
       ? Event::before(Carbon::parse($before))->get()
