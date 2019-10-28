@@ -25,7 +25,7 @@ Contact Us
       <p><i class="fa-li fa fa-envelope"></i>info@samarkanddesign.com</p>
     </li>
     <li>
-      <p><i class="fa-li fa fa-phone"></i>+44 7973 922943</p>
+      <p><i class="fa-li fa fa-phone"></i>‭+44 7973 123482‬</p>
     </li>
   </ul>
 
