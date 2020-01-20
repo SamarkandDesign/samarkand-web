@@ -126,15 +126,9 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - checkout
-      - attach_workspace:
-          at: public
-      - run: git config user.email commiter@circleci.com && git config user.name $CIRCLE_USERNAME
-      - run: git checkout -b dist
-      - run: git add --force public && git commit -m "Add built assets"
-      - run: git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_PRODUCTION_APP_NAME.git
-      - run: git push heroku dist:master -f
-      - run: ./.circleci/notify-deploy.sh
+      - run:
+          name: Deploy to Forge
+          command: curl -X POST "https://forge.laravel.com/servers/$FORGE_SERVER/sites/$FORGE_SITE/deploy/http?token=$FORGE_TOKEN"
 
 workflows:
   version: 2
