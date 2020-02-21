@@ -40,7 +40,7 @@
     "prettier": "prettier '{app,tests,routes,config,database}/**/*.php' --write"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "flickity": "^2.0.10",
     "flickity-imagesloaded": "^2.0.0",
     "postcss-import": "^12.0.1"
