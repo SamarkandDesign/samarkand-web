@@ -8,7 +8,7 @@
     "@prettier/plugin-php": "^0.9.0",
     "admin-lte": "^2.3.6",
     "algoliasearch": "^3.17.0",
-    "bootstrap-sass": "^3.0.0",
+    "bootstrap-sass": "^3.4.1",
     "chai": "^3.5.0",
     "chart.js": "^2.2",
     "dropzone": "^4.3.0",
