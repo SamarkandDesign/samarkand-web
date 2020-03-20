@@ -4,11 +4,11 @@
     @endif
     <span itemprop="streetAddress">{{ $address->line_1 }}</span><br>
 
-    @if($address->line2)
+    @if($address->line_2)
     <span itemprop="addressLocality">{{ $address->line_2 }}</span><br>
     @endif
 
-    @if($address->line3)
+    @if($address->line_3)
     <span>{{ $address->line_3 }}</span><br>
     @endif
 
