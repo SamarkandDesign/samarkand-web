@@ -24,7 +24,16 @@ class ShippingMethodsController extends Controller
   public function show(Request $request, ShippingMethodRepository $shipping_methods)
   {
     $order = Order::find($request->session()->get('order_id'));
-    $shipping_methods = $shipping_methods->forCountry($order->shipping_address->country);
+    $total_product_amount = $order->product_items
+      ->map(function ($item) {
+        return $item->total_paid->value();
+      })
+      ->sum();
+
+    $shipping_methods = $shipping_methods->forOrder(
+      $order->shipping_address->country,
+      $total_product_amount
+    );
 
     if ($shipping_methods->isEmpty()) {
       return redirect()

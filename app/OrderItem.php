@@ -5,6 +5,9 @@ namespace App;
 use App\Values\Price;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * An item belonging to an order. Can relate to a product or a shipping item.
+ */
 class OrderItem extends Model
 {
   /**

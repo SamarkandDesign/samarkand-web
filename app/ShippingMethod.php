@@ -22,6 +22,7 @@ class ShippingMethod extends Model
   public static $rules = [
     'description' => 'required',
     'base_rate' => 'required|numeric',
+    'min_order_amount' => 'numeric',
   ];
 
   /**
@@ -29,7 +30,7 @@ class ShippingMethod extends Model
    *
    * @var array
    */
-  public $fillable = ['description', 'base_rate'];
+  public $fillable = ['description', 'base_rate', 'min_order_amount'];
 
   /**
    * Limit shipping methods to a certain country.
