@@ -38,4 +38,9 @@ class CacheShippingMethodRepository extends CacheRepository implements ShippingM
       }
     );
   }
+
+  public function forOrder($country, $order_amount)
+  {
+    return $this->repository->forOrder($country, $order_amount);
+  }
 }

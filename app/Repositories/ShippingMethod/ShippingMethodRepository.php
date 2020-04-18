@@ -22,4 +22,14 @@ interface ShippingMethodRepository
    * @return \Illuminate\Database\Eloquent\Collection
    */
   public function forCountry($country_id);
+
+  /**
+   * Get all shipping methods for given order parameters
+   *
+   * @param string $country_id
+   * @param int $order_amount
+   *
+   * @return \Illuminate\Database\Eloquent\Collection
+   */
+  public function forOrder($country_id, $order_amount);
 }

@@ -26,4 +26,12 @@ class DbShippingMethodRepository extends DbRepository implements ShippingMethodR
   {
     return $this->model->forCountry($country_id)->get();
   }
+
+  public function forOrder($country, $order_amount)
+  {
+    return $this->model
+      ->forCountry($country)
+      ->where('min_order_amount', '<', $order_amount)
+      ->get();
+  }
 }
