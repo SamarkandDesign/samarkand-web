@@ -70,6 +70,16 @@ class ShippingMethod extends Model
   }
 
   /**
+   * Store the base rate as an integer.
+   *
+   * @param float $rate
+   */
+  public function setMinOrderAmountAttribute($value)
+  {
+    $this->attributes['min_order_amount'] = (int) ($value * 100);
+  }
+
+  /**
    * Convert the integer base rate to a float.
    *
    * @param int $rate
@@ -79,6 +89,18 @@ class ShippingMethod extends Model
   public function getBaseRateAttribute($rate)
   {
     return new Price($rate);
+  }
+
+  /**
+   * Convert the integer base rate to a float.
+   *
+   * @param int $rate
+   *
+   * @return float
+   */
+  public function getMinOrderAmountAttribute($value)
+  {
+    return new Price($value);
   }
 
   /**
