@@ -20,8 +20,9 @@ Shipping Methods
 		<table class="table">
 			<thead>
 				<th>Description</th>
-				<th>Base Rate</th>
-				<th>Countries Allowed</th>
+				<th>Base rate</th>
+				<th>Minimum order amount</th>
+				<th>Countries allowed</th>
 				<th></th>
 			</thead>
 			<tbody>
@@ -29,6 +30,7 @@ Shipping Methods
 				<tr>
 					<td>{{ $method->description }}</td>
 					<td>{{ $method->getPrice() }}</td>
+					<td>{{ $method->min_order_amount }}</td>
 					<td>{{ $method->shipping_countries->implode('country_id', ', ') }}</td>
 					<td>
 						<a href="{{ route('admin.shipping_methods.edit', $method) }}" class="btn btn-link">Edit</a>
